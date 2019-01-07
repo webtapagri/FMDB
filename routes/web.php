@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MaterialController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,3 +16,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('groupmaterials', 'GroupMaterialController');
+Route::get('get-data-group-material', ['as' => 'get.group_material', 'uses' => 'GroupMaterialController@getData']);
+
+Route::resource('materials', 'MaterialController');
