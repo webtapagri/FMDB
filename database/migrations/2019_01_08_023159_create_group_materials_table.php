@@ -31,3 +31,4 @@ class CreateGroupMaterialsTable extends Migration
         Schema::dropIfExists('group_materials');
     }
 }
+
