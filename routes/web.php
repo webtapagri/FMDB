@@ -23,7 +23,13 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('groupmaterials', 'GroupMaterialController');
+Route::resource('/groupmaterials', 'GroupMaterialController');
+Route::post('/groupmaterials/post', 'GroupMaterialController@store');
+Route::get('/groupmaterials/edit/', 'GroupMaterialController@show');
+Route::post('/groupmaterials/inactive', 'GroupMaterialController@inactive');
+Route::post('/groupmaterials/active', 'GroupMaterialController@active');
 Route::get('get-data-group-material', ['as' => 'get.group_material', 'uses' => 'GroupMaterialController@getData']);
 
+
 Route::resource('materials', 'MaterialController');
+Route::get('data-table-group-material', ['as' => 'get.data_table_group_material', 'uses' => 'MaterialController@groupMaterialGroup']);

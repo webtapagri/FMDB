@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use App\GroupMaterial;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller
@@ -25,6 +27,35 @@ class MaterialController extends Controller
     {
         //
     }
+
+    public function groupMaterialGroup()
+    {
+        $data = DB::table('group_materials')->select('id', 'name', 'description', 'status')->where('status',0)->get();
+        $json = '{"data":[';
+        $no = 1;
+        foreach ($data as $row) {
+            if ($no > 1) {
+                $json .= ",";
+            }
+
+
+            $arr = array(
+                "no" => $no,
+                "id" => $row->id,
+                "name" => $row->name,
+                "description" => $row->description,
+                "action" => '
+                    <button class="btn btn-xs btn-success btn-action" select="select data ' . $row->name . '" onClick="SelectGroup(\'' . $row->name . '\',\'' . $row->description . '\')">select</button>
+                '
+            );
+
+            $json .= json_encode($arr);
+            $no++;
+        }
+        $json .= ']}';
+        echo $json;
+    }
+
 
     /**
      * Store a newly created resource in storage.

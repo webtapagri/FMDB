@@ -108,7 +108,7 @@ return [
      */
 
     'menu' => [
-        'MAIN NAVIGATION',
+       /*  'MAIN NAVIGATION', */
         [
             'text' => 'Blog',
             'url' => 'admin/blog',
@@ -138,7 +138,7 @@ return [
                 ],
             ],
         ],
-        'ACCOUNT SETTINGS',
+        /* 'ACCOUNT SETTINGS', */
         [
             'text' => 'User',
             'url' => 'admin/settings',
@@ -198,6 +198,6 @@ return [
     'plugins' => [
         'datatables' => true,
         'select2' => true,
-        'chartjs' => true,
+        'chartjs' => true
     ],
 ];

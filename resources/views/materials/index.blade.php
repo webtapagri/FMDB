@@ -99,7 +99,7 @@
                    <div class="row">
                         <div class="form-group">
                          <label for="group_material"  class="col-sm-3 col-form-label">Group Material</label>
-                          <div class="input-group col-sm-6">
+                          <div class="input-group col-sm-6" style="padding-left:16px">
                             <input type="text" class="form-control" id="group_material" name="group_material" disabled="disabled">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default btn-flat btn-group-material"><i class="fa fa-search"></i></button>
@@ -107,31 +107,31 @@
                         </div>
                     </div>
                    </div>
-                    <div class="form-group row">
+                    <div class="form-group row material-group-input" id="input-description">
                         <label for="part_no" class="col-sm-3 col-form-label">Deskripsi Material</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="description" id="description" value="">
                         </div>
                     </div> 
-                    <div class="form-group row">
+                    <div class="form-group row material-group-input" id="input-part-no">
                         <label for="part_no" class="col-sm-3 col-form-label">Part Number</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="part_no" value="">
+                            <input type="text" class="form-control" name="part_no" id="part_no" value="">
                         </div>
                     </div> 
-                    <div class="form-group row">
+                    <div class="form-group row material-group-input" id="input-specification">
                         <label for="part_no" class="col-sm-3 col-md-3 col-form-label">Spesifikasi</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="part_no" value="">
+                            <input type="text" class="form-control" name="specification"  id="specification" value="">
                         </div>
                     </div> 
-                    <div class="form-group row">
+                    <div class="form-group row material-group-input" id="input-brand">
                         <label for="brand" class="col-sm-3 col-form-label">Merk</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="brand" value="">
+                            <input type="text" class="form-control" name="brand"  id="brand"  value="">
                         </div>
                     </div> 
-                    <div class="form-group row">
+                    <div class="form-group row ">
                         <label for="material_sap" class="col-sm-3 col-form-label">Material pada SAP</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="material_sap" value="">
@@ -160,32 +160,15 @@
 			</div>
 			<div class="modal-body">	
 				<div class="box-body">
-                    <table class="table table-condensed">
+                    <table class="table table-bordered table-condensed" id="group-material-table" width="100%">
                         <thead>
                             <tr>
-                                <th class="text-center;" width="width:5%">No</th>
+                                <th class="text-center;" width="width:2%">No</th>
                                 <th>Name</th>
-                                <th>Detail</th>
-                                <th width="15%" class="text-center">Action</th>
+                                <th>Attribute</th>
+                                <th width="5%" class="text-center">Action</th>
                             </tr>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Group X</td>
-                                    <td>partno, spesifikasi, Merk</td>
-                                    <td>
-                                        <button  data-id="Group X" class="btn btn-sm btn-success btn-action btn-select-group-material">Select</button>
-                                    </td>
-                                </tr>    
-                                <tr>
-                                    <td>1</td>
-                                    <td>Group Y</td>
-                                    <td>partno, spesifikasi, Merk</td>
-                                    <td>
-                                        <button data-id="Group Y" class="btn btn-sm btn-success btn-action btn-select-group-material">Select</button>
-                                    </td>
-                                </tr>    
-                            </tbody>
+                            <tbody></tbody>
                         </thead>
                     </table>
 				</div>	 
@@ -217,6 +200,23 @@
                 { data: 'id', name: '0' }
             ]
         }); */
+
+        jQuery('#group-material-table').DataTable({
+            ajax: '{!! route('get.data_table_group_material') !!}',
+            columns: [
+                { data: 'no', name: 'no' },
+                { data: 'name', name: 'name' },
+                { data: 'description', name: 'description' },
+                { data: 'action', name: 'action' }
+            ],
+              columnDefs: [
+                { targets: [3], className: 'text-center', orderable: false},
+                { targets: [0], className: 'text-center'}
+            ],
+            info: false,
+            searching: false,
+            paging: false
+        }); 
 
         jQuery('#uom').select2({
             data: [
@@ -256,10 +256,6 @@
 
         });
 
-        jQuery(".btn-select-group-material").on('click', function() {
-            jQuery('#group_material').val(jQuery(this).data('id'));
-            closeGroupMaterialModal();
-        })
     });
 
     function closeGroupMaterialModal() {
@@ -267,6 +263,27 @@
 
            jQuery("#add-data-modal .modal-title").html("<i class='fa fa-pencil'></i> Edit data");		
            jQuery("#add-data-modal").modal("show");
+    }
+
+    function SelectGroup(name, attr) {
+        jQuery(".material-group-input").addClass('hide');
+        var data = attr.split(',');
+        jQuery.each(data, function(key, val) {
+            if(val == 'part-number') {
+                jQuery("#input-part-no").removeClass("hide");
+            }else if(val == 'deskripsi-material'){
+                jQuery("#input-description").removeClass("hide");
+            }else if(val == 'spesifikasi'){
+                jQuery("#input-specification").removeClass("hide");
+            }else if(val == 'spesifikasi'){
+                jQuery("#input-specification").removeClass("hide");
+            }else if(val == 'merk'){
+                jQuery("#input-brand").removeClass("hide");
+            }
+        });
+        
+        jQuery('#group_material').val(name);
+        closeGroupMaterialModal();
     }
 </script>            
 @stop
