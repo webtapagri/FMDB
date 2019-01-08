@@ -59,23 +59,25 @@
 			<div class="modal-header">	
 				<h4 class="modal-title"></h4>
 			</div>
-			<div class="modal-body">	
-				<div class="box-body">
-					<div class="col-xs-12 name" id="form-bus-type-name">
-						<label class="control-label" for="name">Name</label> 
-						<input type="text" class="form-control" name='name' id="name">
-						<input type="hidden" name='edit-id' id="edit-id">
-					</div>
-					 <div class="col-xs-12">
-						  <label>Desc</label>
-						  <textarea class="form-control" rows="2" name="description" id="description" placeholder="Desc ..."></textarea>
-					 </div>
-				</div>	 
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="saveData()" style="margin-right: 5px;">Save</button>
-			</div>
+			<form id="data-form">
+                <div class="modal-body">	
+                    <div class="box-body">
+                        <div class="col-xs-12 name" id="form-bus-type-name">
+                            <label class="control-label" for="name">Name</label> 
+                            <input type="text" class="form-control" name='name' id="name">
+                            <input type="hidden" name='edit-id' id="edit-id">
+                        </div>
+                        <div class="col-xs-12">
+                            <label>Attribute</label>
+                            <select class="form-control" name="description" id="description"  multiple="multiple" data-placeholder="Select a State"></select>
+                        </div>
+                    </div>	 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" style="margin-right: 5px;">Submit</button>
+                </div>
+            </form>
 		</div>
     </div>
 </div>
@@ -112,6 +114,24 @@
             jQuery("#add-data-modal .modal-title").html("<i class='fa fa-pencil'></i> Edit data");		
             jQuery("#add-data-modal").modal("show");		
         });
+
+        jQuery("#description").select2({
+            data:[
+                {id:'part-number', text: 'Part Number'},
+                {id:'spesifikasi', text: 'Spesifikasi'},
+                {id:'merk', text: 'Merk'},
+                {id:'deskripsi-material', text: 'Deskripsi Material'}
+            ],
+            width: '100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+
+        jQuery('#data-form').on('submit', function(e) {
+            e.preventDefault();
+            var param = jQuery(this).serialize();
+            alert(param);
+        })
     });
 </script>            
 @stop

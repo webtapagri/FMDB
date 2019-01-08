@@ -108,6 +108,12 @@
                     </div>
                    </div>
                     <div class="form-group row">
+                        <label for="part_no" class="col-sm-3 col-form-label">Deskripsi Material</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="description" id="description" value="">
+                        </div>
+                    </div> 
+                    <div class="form-group row">
                         <label for="part_no" class="col-sm-3 col-form-label">Part Number</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="part_no" value="">
@@ -222,7 +228,7 @@
             ],
             width:'100%',
             placeholder: ' ',
-            clearAll: true
+            allowClear: true
         });
 
         jQuery('.btn-add').on('click', function() {
