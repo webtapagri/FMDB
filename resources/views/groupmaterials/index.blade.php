@@ -17,7 +17,7 @@
         <div class="col-xs-12">
           <div class="box">
              <div class="box-body">
-                <table id="data-table" class="table table-bordered table-hover table-condensed">
+                <table id="data-table" class="table table-bordered table-hover table-condensed" width="100%">
                     <thead>
                         <tr>
                             <th width="5%">No</th>
@@ -165,8 +165,7 @@
         jQuery("#name").val(result[0].name);
         jQuery("#description").val(attribute).trigger('change');
 
-        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data");		
-        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-plus'></i> Create new data");		
+        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data");			
         jQuery("#add-data-modal").modal("show");
     }
 

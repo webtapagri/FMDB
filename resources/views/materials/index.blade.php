@@ -16,10 +16,10 @@
         <div class="col-xs-12">
           <div class="box">
              <div class="box-body">
-                <table id="data-table" class="table table-bordered table-condensed">
+                <table id="data-table" class="table table-bordered table-condensed" width="100%">
                     <thead>
                         <tr>
-                            <th class="text-center;" width="width:5%">No</th>
+                            <th class="text-center;" width="width:3%">No</th>
                             <th>Material No</th>
                             <th>sector</th>
                             <th>Group</th>
@@ -29,43 +29,11 @@
                             <th>Merek</th>
                             <th>SAP</th>
                             <th>Satuan</th>
-                            <th width="15%" class="text-center">Action</th>
+                            <th>Status</th>
+                            <th width="8%" class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>212040000000000</td>
-                            <td>Agro Business</td>
-                            <td>X</td>
-                            <td>AUTOMATIC MATERIAL</td>
-                            <td>20204A000</td>
-                            <td>Core i7</td>
-                            <td>Lenovo</td>
-                            <td>SAP-898332903920932093923920</td>
-                            <td>Unit</td>
-                            <td>
-                                <button href="#" class="btn btn-sm btn-success btn-action btn-edit">&nbsp;<i class="fa fa-pencil" title="Edit data"></i>&nbsp;</button>
-					            <button href="#" class="btn btn-sm btn-danger btn-action btn-activated"><i class="fa fa-trash"></i></Button>
-                            </td>
-                        </tr>    
-                        <tr>
-                            <td>1</td>
-                            <td>212040000000000</td>
-                            <td>Agro Business</td>
-                            <td>X</td>
-                            <td>AUTOMATIC MATERIAL</td>
-                            <td>20204A000</td>
-                            <td>Core i7</td>
-                            <td>Sony</td>
-                            <td>SAP-898332903920932093923920</td>
-                            <td>Unit</td>
-                            <td>
-                                <button href="#" class="btn btn-sm btn-success btn-action btn-edit">&nbsp;<i class="fa fa-pencil" title="Edit data"></i>&nbsp;</button>
-					            <button href="#" class="btn btn-sm btn-danger btn-action btn-activated"><i class="fa fa-trash"></i></Button>
-                            </td>
-                        </tr>    
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
             <!-- /.box-body -->
@@ -80,75 +48,80 @@
 			<div class="modal-header">	
 				<h4 class="modal-title"></h4>
 			</div>
-			<div class="modal-body">	
-				<div class="box-body">
-                    <div class="form-group row">
-                        <label for="material_no" class="col-sm-3 col-form-label">Material number</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="material_no" value="">
+            <form id="data-form">
+                	<div class="modal-body">	
+                        <div class="box-body">
+                            <div class="form-group row">
+                                <label for="material_no" class="col-sm-3 col-form-label">Material number</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="material_no" id="material_no">
+                                    <input type="hidden" name="edit_id" id="edit_id">
+                                </div>
+                            </div> 
+                            <div class="form-group row">
+                                <label for="sector_industry" class="col-sm-3 col-form-label">Industri sector</label>
+                                <div class="col-sm-6">
+                                    <select type="text" class="form-control" name="sector_industry" id="sector_industry"  ></select>
+                                </div>
+                            </div> 
+                            <br>
+                            <h5>MATERIAL INFORMATION</h5>
+                        <div class="row">
+                                <div class="form-group">
+                                <label for="group_material"  class="col-sm-3 col-form-label">Group Material</label>
+                                <div class="input-group col-sm-6" style="padding-left:16px">
+                                    <input type="text" class="form-control" name="group_material" id="group_material" readonly>
+                                    <input type="hidden" name="group_material_id" id="group_material_id" readonly>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-flat btn-group-material"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                    </div> 
-                    <div class="form-group row">
-                        <label for="sector_industry" class="col-sm-3 col-form-label">Industri sector</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="sector_industry" value="">
-                        </div>
-                    </div> 
-                    <br>
-                    <h5>MATERIAL INFORMATION</h5>
-                   <div class="row">
-                        <div class="form-group">
-                         <label for="group_material"  class="col-sm-3 col-form-label">Group Material</label>
-                          <div class="input-group col-sm-6" style="padding-left:16px">
-                            <input type="text" class="form-control" id="group_material" name="group_material" disabled="disabled">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default btn-flat btn-group-material"><i class="fa fa-search"></i></button>
-                             </span>
-                        </div>
+                            <div class="form-group row material-group-input" id="input-description">
+                                <label for="part_no" class="col-sm-3 col-form-label">Deskripsi Material</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control attr-material-group" name="description" id="description" autocomplete="off">
+                                </div>
+                            </div> 
+                            <div class="form-group row material-group-input" id="input-part-no">
+                                <label for="part_no" class="col-sm-3 col-form-label">Part Number</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control attr-material-group" name="part_no" id="part_no"  autocomplete="off">
+                                </div>
+                            </div> 
+                            <div class="form-group row material-group-input" id="input-specification">
+                                <label for="part_no" class="col-sm-3 col-md-3 col-form-label">Spesifikasi</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control attr-material-group" name="specification"  id="specification" >
+                                </div>
+                            </div> 
+                            <div class="form-group row material-group-input" id="input-brand">
+                                <label for="brand" class="col-sm-3 col-form-label">Merk</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control attr-material-group" name="brand"  id="brand"  >
+                                </div>
+                            </div> 
+                            <div class="form-group row ">
+                                <label for="material_sap" class="col-sm-3 col-form-label">Material pada SAP</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="material_sap"  id="material_sap"  readonly>
+                                    <span class="help-block" id="help_material_sap"></span>
+                                </div>
+                            </div> 
+                            <div class="form-group row">
+                                <label for="uom" class="col-sm-3 col-form-label">Satuan</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="uom" id="uom" ></select>
+                                </div>
+                            </div> 
+                        </div>	 
                     </div>
-                   </div>
-                    <div class="form-group row material-group-input" id="input-description">
-                        <label for="part_no" class="col-sm-3 col-form-label">Deskripsi Material</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="description" id="description" value="">
-                        </div>
-                    </div> 
-                    <div class="form-group row material-group-input" id="input-part-no">
-                        <label for="part_no" class="col-sm-3 col-form-label">Part Number</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="part_no" id="part_no" value="">
-                        </div>
-                    </div> 
-                    <div class="form-group row material-group-input" id="input-specification">
-                        <label for="part_no" class="col-sm-3 col-md-3 col-form-label">Spesifikasi</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" name="specification"  id="specification" value="">
-                        </div>
-                    </div> 
-                    <div class="form-group row material-group-input" id="input-brand">
-                        <label for="brand" class="col-sm-3 col-form-label">Merk</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="brand"  id="brand"  value="">
-                        </div>
-                    </div> 
-                    <div class="form-group row ">
-                        <label for="material_sap" class="col-sm-3 col-form-label">Material pada SAP</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="material_sap" value="">
-                        </div>
-                    </div> 
-                    <div class="form-group row">
-                        <label for="uom" class="col-sm-3 col-form-label">Satuan</label>
-                        <div class="col-sm-4">
-                            <select class="form-control" name="uom" id="uom" value=""></select>
-                        </div>
-                    </div> 
-				</div>	 
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-success" onclick="saveData()" style="margin-right: 5px;">Save</button>
-			</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" style="margin-right: 5px;">Save</button>
+                    </div>
+            </form>
 		</div>
     </div>
 </div>
@@ -182,24 +155,29 @@
 @stop
 @section('js')
 <script>
+    var selected_material_group = "";
     jQuery(document).ready(function() {
-         jQuery("#data-table").DataTable({
-            columnDefs: [
-                { targets: [10], className: 'text-center', orderable: false},
-                { target: [0], className: 'text-center'}
-            ]
-         });     
-        /* jQuery('#data-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('get.group_material') !!}',
+        jQuery('#data-table').DataTable({
+            ajax: '{!! route('get.material') !!}',
             columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
+                { data: 'no', name: 'no' },
+                { data: 'material_no', name: 'material_no' },
+                { data: 'sector_industry', name: 'sector_industry' },
+                { data: 'group_material', name: 'group_material' },
                 { data: 'description', name: 'description' },
-                { data: 'id', name: '0' }
+                { data: 'part_no', name: 'part_no' },
+                { data: 'specification', name: 'specification' },
+                { data: 'brand', name: 'brand' },
+                { data: 'material_sap', name: 'material_sap' },
+                { data: 'uom', name: 'uom' },
+                { data: 'status', name: 'status' },
+                { data: 'action', name: 'action' }
+            ],
+              columnDefs: [
+                { targets: [11], className: 'text-center', orderable: false},
+                { targets: [0,10], className: 'text-center'}
             ]
-        }); */
+        });
 
         jQuery('#group-material-table').DataTable({
             ajax: '{!! route('get.data_table_group_material') !!}',
@@ -214,7 +192,6 @@
                 { targets: [0], className: 'text-center'}
             ],
             info: false,
-            searching: false,
             paging: false
         }); 
 
@@ -230,8 +207,24 @@
             placeholder: ' ',
             allowClear: true
         });
+       
+        jQuery('#sector_industry').select2({
+            data: [
+                {id:'Agro Business', text:'Agro Business'},
+                {id:'Agro Wisata', text:'Agro Wisata'},
+            ],
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+
+        jQuery(".attr-material-group").on("keyup", function(){
+            genMaterialNo();
+        });    
 
         jQuery('.btn-add').on('click', function() {
+            document.getElementById("data-form").reset();
+            jQuery("#edit_id").val("");
             jQuery("#add-data-modal").modal({backdrop:'static', keyboard:false});		
             jQuery("#add-data-modal .modal-title").html("<i class='fa fa-plus'></i> Create new data");		
             jQuery("#add-data-modal").modal("show");		
@@ -256,34 +249,191 @@
 
         });
 
+          jQuery('#data-form').on('submit', function(e) {
+            e.preventDefault();
+           var param = jQuery(this).serialize();
+
+           jQuery.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            jQuery.ajax({
+				url:"{{ url('materials/post') }}",
+				method:"POST",
+				data: param,
+				beforeSend:function(){},
+				success:function(result){
+                    if(result.status){
+                        jQuery("#add-data-modal").modal("hide");
+                        jQuery("#data-table").DataTable().ajax.reload();
+                        notify({
+                            type:'success',
+                            message:result.message
+                        });
+                    }else{
+                        notify({
+                            type:'warning',
+                            message:result.message
+                        });
+                    } 
+				},
+				complete:function(){}
+			 });  
+        });
+
     });
 
     function closeGroupMaterialModal() {
-         jQuery('#group-material-modal').modal('hide');
-
-           jQuery("#add-data-modal .modal-title").html("<i class='fa fa-pencil'></i> Edit data");		
-           jQuery("#add-data-modal").modal("show");
+        jQuery('#group-material-modal').modal('hide');
+        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-pencil'></i> Edit data");		
+        jQuery("#add-data-modal").modal("show");
     }
 
-    function SelectGroup(name, attr) {
-        jQuery(".material-group-input").addClass('hide');
+    function SelectGroup(id, name, attr) {
+        jQuery(".material-group-input").removeClass('has-success');
+        jQuery(".attr-material-group").prop("required", false);
         var data = attr.split(',');
+        var help_material_sap = "";
+        selected_material_group = attr;
+        var no = 1;
         jQuery.each(data, function(key, val) {
-            if(val == 'part-number') {
-                jQuery("#input-part-no").removeClass("hide");
-            }else if(val == 'deskripsi-material'){
-                jQuery("#input-description").removeClass("hide");
-            }else if(val == 'spesifikasi'){
-                jQuery("#input-specification").removeClass("hide");
-            }else if(val == 'spesifikasi'){
-                jQuery("#input-specification").removeClass("hide");
-            }else if(val == 'merk'){
-                jQuery("#input-brand").removeClass("hide");
+            if(no > 1 ) {
+               help_material_sap += "-";
             }
+            help_material_sap += val.replace("-", " ");
+            if(val == 'part-number') {
+                jQuery("#input-part-no").addClass("has-success");
+                jQuery("#part_no").prop("required",true);
+
+            }else if(val == 'deskripsi-material'){
+                jQuery("#input-description").addClass("has-success");
+                jQuery("#description").prop("required",true);
+
+            }else if(val == 'spesifikasi'){
+                jQuery("#input-specification").addClass("has-success");
+                jQuery("#specification").prop("required",true);
+
+            }else if(val == 'merk'){
+                jQuery("#input-brand").addClass("has-success");
+                 jQuery("#brand").prop("required",true);
+
+            }
+            no++;
         });
         
         jQuery('#group_material').val(name);
+        jQuery('#group_material_id').val(id);
+        jQuery("#help_material_sap").text('Pattern: ' + help_material_sap);
         closeGroupMaterialModal();
     }
+
+    function genMaterialNo(){
+         var data = selected_material_group.split(',');
+         var material_no = "";
+        var no = 1;
+        jQuery.each(data, function(key, val) {
+             if(no > 1 ) {
+               material_no += "-";
+            }
+            if(val == 'part-number') {
+                material_no += jQuery("#part_no").val();
+            }else if(val == 'deskripsi-material'){
+                material_no += jQuery("#description").val();
+            }else if(val == 'spesifikasi'){
+                material_no += jQuery("#specification").val();
+            }else if(val == 'merk'){
+                material_no += jQuery("#brand").val();
+            }
+            no++;
+        });
+
+        jQuery("#material_sap").val(material_no);
+    }
+
+    function edit(id) {
+        document.getElementById("data-form").reset();
+
+        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('materials/edit/?id=') }}"+id)));
+        jQuery.each(result, function(key, val) {
+            jQuery("#edit_id").val(val.id);
+            jQuery("#material_no").val(val.material_no);
+            jQuery("#sector_industry").select2('val',val.sector_industry);
+            jQuery("#group_material_id").val(val.group_material_id);
+            jQuery("#description").val(val.description);
+            jQuery("#part_no").val(val.part_no);
+            jQuery("#specification").val(val.specification);
+            jQuery("#brand").val(val.brand);
+            jQuery("#material_sap").val(val.material_sap);
+            jQuery("#unit").select2('val',val.unit);
+        });
+
+        var group_material = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('groupmaterials/edit/?id=') }}" + result[0].group_material_id)));
+        SelectGroup(group_material[0].id, group_material[0].name, group_material[0].description);
+        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data");			
+        jQuery("#add-data-modal").modal("show");
+    }
+
+      function inactive(id) {
+        jQuery.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        jQuery.ajax({
+            url:"{{ url('materials/inactive') }}",
+            method:"POST",
+            data: {id:id},
+            beforeSend:function(){},
+            success:function(result){
+                if(result.status){
+                    jQuery("#data-table").DataTable().ajax.reload();
+                    notify({
+                        type:'success',
+                        message:result.message
+                    });
+                }else{
+                    notify({
+                        type:'warning',
+                        message:result.message
+                    });
+                } 
+            },
+            complete:function(){}
+        }); 
+    }
+    
+    function active(id) {
+        jQuery.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        jQuery.ajax({
+            url:"{{ url('materials/active') }}",
+            method:"POST",
+            data: {id:id},
+            beforeSend:function(){},
+            success:function(result){
+                if(result.status){
+                    jQuery("#data-table").DataTable().ajax.reload();
+                    notify({
+                        type:'success',
+                        message:result.message
+                    });
+                }else{
+                    notify({
+                        type:'warning',
+                        message:result.message
+                    });
+                } 
+            },
+            complete:function(){}
+        }); 
+    }
+
 </script>            
 @stop

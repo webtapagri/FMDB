@@ -32,4 +32,9 @@ Route::get('get-data-group-material', ['as' => 'get.group_material', 'uses' => '
 
 
 Route::resource('materials', 'MaterialController');
+Route::post('/materials/post', 'MaterialController@store');
+Route::get('/materials/edit/', 'MaterialController@show');
+Route::post('/materials/inactive', 'MaterialController@inactive');
+Route::post('/materials/active', 'MaterialController@active');
+Route::get('data-table-material', ['as' => 'get.material', 'uses' => 'MaterialController@getData']);
 Route::get('data-table-group-material', ['as' => 'get.data_table_group_material', 'uses' => 'MaterialController@groupMaterialGroup']);
