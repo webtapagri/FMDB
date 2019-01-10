@@ -223,10 +223,12 @@
         });    
 
         jQuery('.btn-add').on('click', function() {
+            jQuery(".material-group-input").removeClass('has-success');
+            jQuery(".attr-material-group").prop("required", false);
             document.getElementById("data-form").reset();
             jQuery("#edit_id").val("");
-            jQuery("#add-data-modal").modal({backdrop:'static', keyboard:false});		
-            jQuery("#add-data-modal .modal-title").html("<i class='fa fa-plus'></i> Create new data");		
+             jQuery("#add-data-modal .modal-title").html("<i class='fa fa-plus'></i> Create new data");	
+            jQuery("#add-data-modal").modal({backdrop:'static', keyboard:false});			
             jQuery("#add-data-modal").modal("show");		
         });
         
@@ -237,11 +239,18 @@
         });
 
         jQuery('.btn-group-material').on('click', function() {
-            jQuery('#add-data-modal').modal('hide');
+            //jQuery('#add-data-modal').modal('hide');
 
-            jQuery('#group-material-modal').modal({backdrop: 'static', keyboard: false});
-            jQuery('#group-material-modal').modal('show');
+               $('#add-data-modal').on('hidden.bs.modal', function(event) {
+                    // Open your second one in here
+                    $('#group-material-modal').off('hidden.bs.modal');
+                    jQuery('#group-material-modal').modal({backdrop: 'static', keyboard: false});
+                    jQuery('#group-material-modal').modal('show');
+                    // This will remove ANY event attached to 'hidden.bs.modal' label
+                }).modal('hide');
 
+            // jQuery('#group-material-modal').modal({backdrop: 'static', keyboard: false});
+            // jQuery('#group-material-modal').modal('show');
         });
         
         jQuery('.btn-close-group-material-modal').on('click', function() {
@@ -286,9 +295,17 @@
     });
 
     function closeGroupMaterialModal() {
-        jQuery('#group-material-modal').modal('hide');
-        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-pencil'></i> Edit data");		
-        jQuery("#add-data-modal").modal("show");
+        // jQuery('#group-material-modal').modal('hide');
+         $('#group-material-modal').on('hidden.bs.modal', function(event) {
+            // Open your second one in here
+            $('#add-data-modal').off('hidden.bs.modal');
+            jQuery('#add-data-modal').modal({backdrop: 'static', keyboard: false});
+            jQuery('#add-data-modal').modal('show');
+            // This will remove ANY event attached to 'hidden.bs.modal' label
+        }).modal('hide');
+
+        	
+        //jQuery("#add-data-modal").modal("show");
     }
 
     function SelectGroup(id, name, attr) {
