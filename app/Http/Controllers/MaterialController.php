@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\GroupMaterial;
 use App\Material;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\MockObject\Stub\Exception;
 
 class MaterialController extends Controller
 {
@@ -75,7 +76,7 @@ class MaterialController extends Controller
             if ($row->status == 1) {
                 $status = '<span class="label label-danger status" data-status="'.$row->status.'">inactive</span>';
             } else {
-                $status = '<span class="label label-primary status" data-status="'.$row->status.'">active</span>';
+                $status = '<span class="label label-success status" data-status="'.$row->status.'">active</span>';
             }
 
             $arr = array(
@@ -114,26 +115,30 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->edit_id) {
-            $material = Material::find($request->edit_id);
-        } else {
-            $material = new Material();
+        try {
+            if ($request->edit_id) {
+                $material = Material::find($request->edit_id);
+            } else {
+                $material = new Material();
+            }
+
+            $material->material_no = $request->material_no;
+            $material->sector_industry = $request->sector_industry;
+            $material->group_material_id = $request->group_material_id;
+            $material->description = $request->description;
+            $material->part_no = $request->part_no;
+            $material->specification = $request->specification;
+            $material->brand = $request->brand;
+            $material->material_sap = $request->material_sap;
+            $material->uom = $request->uom;
+            $material->status = 0;
+
+            $material->save();
+
+            return response()->json(['status' => true, "message" => 'Data is successfully ' . ($request->edit_id ? 'updated' : 'added')]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, "message" => $e->getMessage()]);
         }
-
-        $material->material_no = $request->material_no;
-        $material->sector_industry = $request->sector_industry;
-        $material->group_material_id = $request->group_material_id;
-        $material->description = $request->description;
-        $material->part_no = $request->part_no;
-        $material->specification = $request->specification;
-        $material->brand = $request->brand;
-        $material->material_sap = $request->material_sap;
-        $material->uom = $request->uom;
-        $material->status = 0;
-
-        $material->save();
-
-        return response()->json(['status' => true, "message" => 'Data is successfully '.($request->edit_id ? 'updated' : 'added')]);
     }
 
     /**

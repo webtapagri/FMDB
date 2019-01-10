@@ -54,7 +54,7 @@
                             <div class="form-group row">
                                 <label for="material_no" class="col-sm-3 col-form-label">Material number</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="material_no" id="material_no">
+                                    <input type="text" class="form-control" name="material_no" id="material_no" required>
                                     <input type="hidden" name="edit_id" id="edit_id">
                                 </div>
                             </div> 
@@ -297,11 +297,10 @@
     function closeGroupMaterialModal() {
         // jQuery('#group-material-modal').modal('hide');
          $('#group-material-modal').on('hidden.bs.modal', function(event) {
-            // Open your second one in here
+
             $('#add-data-modal').off('hidden.bs.modal');
             jQuery('#add-data-modal').modal({backdrop: 'static', keyboard: false});
             jQuery('#add-data-modal').modal('show');
-            // This will remove ANY event attached to 'hidden.bs.modal' label
         }).modal('hide');
 
         	

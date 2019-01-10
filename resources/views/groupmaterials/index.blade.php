@@ -21,8 +21,8 @@
                     <thead>
                         <tr>
                             <th width="5%">No</th>
-                            <th>Name</th>
-                            <th>Detail</th>
+                            <th>Description</th>
+                            <th>Attribute</th>
                             <th width="10%">Status</th>
                             <th width="8%">Action</th>
                         </tr>
@@ -46,7 +46,7 @@
                 <div class="modal-body">	
                     <div class="box-body">
                         <div class="col-xs-12 name" id="form-bus-type-name">
-                            <label class="control-label" for="name">Name</label> 
+                            <label class="control-label" for="name">Description</label> 
                             <input type="text" class="form-control" name='name' id="name">
                             <input type="hidden" name='edit_id' id="edit_id">
                         </div>

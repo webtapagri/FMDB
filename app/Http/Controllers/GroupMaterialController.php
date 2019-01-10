@@ -38,7 +38,7 @@ class GroupMaterialController extends Controller
             if ($row->status == 1) {
                 $status = '<span class="label label-danger status" data-status="' . $row->status . '">inactive</span>';
             } else {
-                $status = '<span class="label label-primary status" data-status="' . $row->status . '">active</span>';
+                $status = '<span class="label label-success status" data-status="' . $row->status . '">active</span>';
             }
  
             $arr = array(
@@ -75,20 +75,24 @@ class GroupMaterialController extends Controller
     public function store(Request $request)
     {
         
-        if($request->edit_id) {
-            $group_material = GroupMaterial::find($request->edit_id);
-        }else{
-            $group_material = new GroupMaterial();
-        }
+       try {
+            if ($request->edit_id) {
+                $group_material = GroupMaterial::find($request->edit_id);
+            } else {
+                $group_material = new GroupMaterial();
+            }
 
-        $group_material->name = $request->name;
-        $group_material->description = $request->description;
-        $group_material->status = 0;
-       
-       
-        $group_material->save();
+            $group_material->name = $request->name;
+            $group_material->description = $request->description;
+            $group_material->status = 0;
 
-        return response()->json(['status' => true, "message"=> 'Data is successfully '. ($request->edit_id ? 'updated':'added')]);
+
+            $group_material->save();
+
+            return response()->json(['status' => true, "message" => 'Data is successfully ' . ($request->edit_id ? 'updated' : 'added')]);
+       } catch (\Exception $e) {
+            return response()->json(['status' => false, "message" => $e->getMessage()]);
+       }
     }
 
     /**

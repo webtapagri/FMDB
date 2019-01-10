@@ -17,6 +17,7 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\GroupMaterialController' => $baseDir . '/app/Http/Controllers/GroupMaterialController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
+    'App\\Http\\Controllers\\LDAPController' => $baseDir . '/app/Http/Controllers/LDAPController.php',
     'App\\Http\\Controllers\\MaterialController' => $baseDir . '/app/Http/Controllers/MaterialController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
