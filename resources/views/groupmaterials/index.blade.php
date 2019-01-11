@@ -8,9 +8,6 @@
         </div>
         <div class="col-xs-8" align="right">
             <span href="#" class="btn btn-sm btn-success btn-add">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
-            <span href="#" class="btn btn-sm btn-primary btn-action btn-edit" style="display:none">&nbsp;<i class="glyphicon glyphicon-edit" title="Edit data"></i>&nbsp;</span>
-            <span href="#" class="btn btn-sm btn-success btn-action btn-activated" style="display:none">Activated</span>
-            <span href="#" class="btn btn-sm btn-danger btn-action btn-inactivated" style="display:none" >Inactivated</span>
         </div>
     </div>
       <div class="row">
@@ -21,8 +18,10 @@
                     <thead>
                         <tr>
                             <th width="5%">No</th>
-                            <th>Description</th>
+                            <th>Code</th>
                             <th>Attribute</th>
+                            <th>Description</th>
+                            <th>Latest</th>
                             <th width="10%">Status</th>
                             <th width="8%">Action</th>
                         </tr>
@@ -45,20 +44,29 @@
 			<form id="data-form">
                 <div class="modal-body">	
                     <div class="box-body">
-                        <div class="col-xs-12 name" id="form-bus-type-name">
-                            <label class="control-label" for="name">Description</label> 
-                            <input type="text" class="form-control" name='name' id="name">
+                        <div class="col-xs-12">
+                            <label class="control-label" for="name">Code</label> 
+                            <select class="form-control" name="code" id="code"></select>
                             <input type="hidden" name='edit_id' id="edit_id">
                         </div>
                         <div class="col-xs-12">
                             <label>Attribute</label>
                             <select class="form-control" name="description" id="description"  multiple="multiple" data-placeholder="Select a attribute"></select>
                         </div>
+                        <div class="col-xs-12">
+                            <label class="control-label" for="name">Description</label> 
+                            <textarea class="form-control" name='name' id="name"></textarea>
+                            <input type="hidden" name='edit_id' id="edit_id">
+                        </div>
+                        <div class="col-xs-12">
+                            <label class="control-label" for="name">Latest Number</label> 
+                            <input type="text" class="form-control"  name='latest_code' id="latest_code">
+                        </div>
                     </div>	 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" style="margin-right: 5px;">Submit</button>
+                    <button type="submit" class="btn btn-success" style="margin-right: 5px;">Submit</button>
                 </div>
             </form>
 		</div>
@@ -72,14 +80,16 @@
             ajax: '{!! route('get.group_material') !!}',
             columns: [
                 { data: 'no', name: 'no' },
-                { data: 'name', name: 'name' },
+                { data: 'code', name: 'code' },
                 { data: 'description', name: 'description' },
+                { data: 'name', name: 'name' },
+                { data: 'latest_code', name: 'latest_code' },
                 { data: 'status', name: 'status' },
                 { data: 'action', name: 'action' }
             ],
              columnDefs: [
-                { targets: [4], className: 'text-center', orderable: false},
-                { targets: [0,3], className: 'text-center'}
+                { targets: [6], className: 'text-center', orderable: false},
+                { targets: [0,5], className: 'text-center'}
             ]
         }); 
 
@@ -109,15 +119,30 @@
             allowClear: true
         });
 
+        jQuery("#code").select2({
+            data:[
+                {id:'1010', text: '1010'},
+                {id:'2010', text: '2010'},
+                {id:'3010', text: '3010'}
+            ],
+            width: '100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+
         jQuery('#data-form').on('submit', function(e) {
             e.preventDefault();
             var edit_id = jQuery('#edit_id').val();
             var name = jQuery('#name').val();
             var attribute = jQuery("#description").val();
+            var code = jQuery("#code").val();
+            var latest_code = jQuery("#latest_code").val();
             var param = {
                 edit_id: edit_id,
                 name: name,
-                description: attribute.join(',')
+                description: attribute.join(','),
+                code: code,
+                latest_code: latest_code
             }
 
            jQuery.ajaxSetup({
@@ -163,6 +188,9 @@
 
         jQuery("#edit_id").val(result[0].id);
         jQuery("#name").val(result[0].name);
+        jQuery("#code").val(result[0].code);
+        jQuery("#code").trigger('change');
+        jQuery("#latest_code").val(result[0].latest_code);
         jQuery("#description").val(attribute).trigger('change');
 
         jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data");			

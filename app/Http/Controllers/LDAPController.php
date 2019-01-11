@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use function GuzzleHttp\json_encode;
 
 class LDAPController extends Controller
 {
@@ -11,7 +12,39 @@ class LDAPController extends Controller
         $password = $request->password;
         
         $auth = $this->ldapAuth($username, $password);
-        var_dump($auth);
+        $result = json_decode(
+            '{
+                    "count": 1,
+                    "0": {
+                        "cn": {
+                            "count": 1,
+                            "0": "Dadang Kurniawan"
+                        },
+                        "0": "cn",
+                        "givenname": {
+                            "count": 1,
+                            "0": "Dadang"
+                        },
+                        "1": "givenname",
+                        "samaccountname": {
+                            "count": 1,
+                            "0": "dadang.kurniawan"
+                        },
+                        "2": "samaccountname",
+                        "mail": {
+                            "count": 1,
+                            "0": "dadang.kurniawan@tap-agri.co.id"
+                        },
+                        "3": "mail",
+                        "count": 4,
+                        "dn": "CN=Dadang Kurniawan,OU=Information Technology Division,OU=HO TAP,OU=B.Triputra Agro Persada,DC=tap,DC=corp"
+                    }
+                }'
+        );
+
+ 
+        
+        //set session        
         
     }
 

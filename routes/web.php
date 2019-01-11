@@ -37,6 +37,7 @@ Route::get('/materials/edit/', 'MaterialController@show');
 Route::post('/materials/inactive', 'MaterialController@inactive');
 Route::post('/materials/active', 'MaterialController@active');
 Route::get('data-table-material', ['as' => 'get.material', 'uses' => 'MaterialController@getData']);
+Route::get('sap_group_material', ['as' => 'get.sap_group_material', 'uses' => 'MaterialController@sap_group_material']);
 Route::get('data-table-group-material', ['as' => 'get.data_table_group_material', 'uses' => 'MaterialController@groupMaterialGroup']);
 
 Route::post('/ldaplogin', 'LDAPController@login');

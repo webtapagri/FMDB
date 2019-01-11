@@ -7,6 +7,8 @@ use App\GroupMaterial;
 use App\Material;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\MockObject\Stub\Exception;
+use function GuzzleHttp\json_encode;
+use Vyuldashev\XmlToArray\XmlToArray;
 
 class MaterialController extends Controller
 {
@@ -173,6 +175,17 @@ class MaterialController extends Controller
         $group_material->status = 0;
         $group_material->save();
         return response()->json(['status' => true, "message" => 'Data is successfully actived']);
+    }
+
+    public function sap_group_material()
+    {
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'http://10.20.1.140:8000/sap/bc/soap/wsdl11?services=ZFMDB_GROUPMATERIAL&sap-client=700');
+        $data = simplexml_load_string($res->getBody(), 'SimpleXMLElement', LIBXML_NOCDATA);
+
+        $xml = XmlToArray::convert($res->getBody());
+        echo '<pre>'; print_r($xml);
+        exit();
     }
 
     /**

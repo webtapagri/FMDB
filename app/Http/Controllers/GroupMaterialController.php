@@ -27,7 +27,7 @@ class GroupMaterialController extends Controller
 
     public function getData() {
         //return Datatables::of(GroupMaterial::query())->make(true);
-        $data = DB::table('group_materials')->select('id', 'name', 'description', 'status')->get();
+        $data = DB::table('group_materials')->select('id','code', 'latest_code', 'name', 'description', 'status')->get();
         $json = '{"data":[';
         $no = 1;
         foreach ($data as $row) {
@@ -44,8 +44,10 @@ class GroupMaterialController extends Controller
             $arr = array(
                 "id" => $row->id,
                 "no" => $no,
-                "name" => $row->name,
+                "code" => $row->code,
                 "description" => $row->description,
+                "name" => $row->name,
+                "latest_code" => $row->latest_code,
                 "status" => $status,
                 "action" => '
                     <button class="btn btn-xs btn-success btn-action btn-edit" title="edit data '.$row->name. '" onClick="edit(' . $row->id . ')"><i class="fa fa-pencil"></i></button>
@@ -82,6 +84,8 @@ class GroupMaterialController extends Controller
                 $group_material = new GroupMaterial();
             }
 
+            $group_material->code = $request->code;
+            $group_material->latest_code = $request->latest_code;
             $group_material->name = $request->name;
             $group_material->description = $request->description;
             $group_material->status = 0;
@@ -105,7 +109,7 @@ class GroupMaterialController extends Controller
     {
         $param = $_REQUEST;
         $json = '{"data":[';
-        $data = DB::table('group_materials')->select('id', 'name', 'description', 'status')->where('id', $param["id"] )->get();
+        $data = DB::table('group_materials')->where('id', $param["id"] )->get();
         foreach($data as $row) {
             $json .= json_encode($row);
         }    
