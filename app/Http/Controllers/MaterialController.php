@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use PHPUnit\Framework\MockObject\Stub\Exception;
 use function GuzzleHttp\json_encode;
 use Vyuldashev\XmlToArray\XmlToArray;
+use Artisaninweb\SoapWrapper\SoapWrapper;
 
 class MaterialController extends Controller
 {
@@ -17,6 +18,13 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $soapWrapper;
+    
+    public function __construct(SoapWrapper $soapWrapper)
+    {
+        $this->soapWrapper = $soapWrapper;
+    }
+
     public function index()
     {
         return view('materials.index');
@@ -177,15 +185,31 @@ class MaterialController extends Controller
         return response()->json(['status' => true, "message" => 'Data is successfully actived']);
     }
 
-    public function sap_group_material()
+    public function sap_group_material(Request $request)
     {
-        $client = new \GuzzleHttp\Client();
+        $data = $request->session()->all();
+        var_dump($data);
+        exit();
+    // Without classmap
+        $response = $this->soapWrapper->call('ZFMDB_GROUPMATERIAL', [
+            'it_group' => 'it_group',
+        ]);
+
+        var_dump($response);
+
+    // With classmap
+        $response = $this->soapWrapper->call('Currency.GetConversionAmount', [
+            new GetConversionAmount('USD', 'EUR', '2014-06-05', '1000')
+        ]);
+
+        var_dump($response);
+        exit;
+
+       /*  $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', 'http://10.20.1.140:8000/sap/bc/soap/wsdl11?services=ZFMDB_GROUPMATERIAL&sap-client=700');
         $data = simplexml_load_string($res->getBody(), 'SimpleXMLElement', LIBXML_NOCDATA);
-
-        $xml = XmlToArray::convert($res->getBody());
-        echo '<pre>'; print_r($xml);
-        exit();
+        echo '<pre>'; print_r($data);
+        exit(); */
     }
 
     /**

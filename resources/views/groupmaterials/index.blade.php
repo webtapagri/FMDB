@@ -51,7 +51,9 @@
                         </div>
                         <div class="col-xs-12">
                             <label>Attribute</label>
-                            <select class="form-control" name="description" id="description"  multiple="multiple" data-placeholder="Select a attribute"></select>
+                            <select class="form-control" name="description" id="description" data-placeholder="Select a attribute"></select>
+                           <br>
+                            <div id="content-table-attribute"></div>
                         </div>
                         <div class="col-xs-12">
                             <label class="control-label" for="name">Description</label> 
@@ -75,6 +77,7 @@
 @stop
 @section('js')
 <script>
+    var attribute = [];
     jQuery(document).ready(function() {
          jQuery('#data-table').DataTable({
             ajax: '{!! route('get.group_material') !!}',
@@ -117,6 +120,8 @@
             width: '100%',
             placeholder: ' ',
             allowClear: true
+        }).on('change', function() {
+            selectedAttribute(jQuery(this).val());
         });
 
         jQuery("#code").select2({
@@ -132,9 +137,10 @@
 
         jQuery('#data-form').on('submit', function(e) {
             e.preventDefault();
+
+
             var edit_id = jQuery('#edit_id').val();
             var name = jQuery('#name').val();
-            var attribute = jQuery("#description").val();
             var code = jQuery("#code").val();
             var latest_code = jQuery("#latest_code").val();
             var param = {
@@ -150,7 +156,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
+            
             jQuery.ajax({
 				url:"{{ url('groupmaterials/post') }}",
 				method:"POST",
@@ -255,6 +261,36 @@
             },
             complete:function(){}
         }); 
+    }
+
+    function selectedAttribute(item) {
+        attribute.push(item);
+        createTableAttribute();
+    }
+
+    function createTableAttribute() {
+        var item = "<table class='table table-condensed'>";
+        jQuery.each(attribute, function(key, val) {
+            item += "<tr class='success'>";
+            item += "<td>" + val + "</td>";
+            item += '<td width="30px"><button type="button" class="btn btn-xs btn-danger" onClick="deleteAttribute(\'' + key + '\')"><i class="fa fa-trash"></i></button></td>';
+            item += "</tr>";
+        });
+         item += "</table>";
+        jQuery("#content-table-attribute").html(item);
+    }
+
+    function deleteAttribute(key) {
+      /*   var conf = confirm("anda yakin mau menghapus data ini?");
+		if (conf == true) { 
+            
+        } */
+
+        var index = attribute.indexOf(attribute[key]);;
+        if (index > -1) {
+            attribute.splice(key, 1);
+        }
+        createTableAttribute();
     }
 </script>            
 @stop

@@ -462,6 +462,13 @@ class ComposerStaticInit4e2bc4c160c3a0d73d170af88a022287
                 0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
         ),
+        'A' => 
+        array (
+            'Artisaninweb\\SoapWrapper' => 
+            array (
+                0 => __DIR__ . '/..' . '/artisaninweb/laravel-soap/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
@@ -605,6 +612,14 @@ class ComposerStaticInit4e2bc4c160c3a0d73d170af88a022287
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'Artisaninweb\\SoapWrapper\\Client' => __DIR__ . '/..' . '/artisaninweb/laravel-soap/src/Artisaninweb/SoapWrapper/Client.php',
+        'Artisaninweb\\SoapWrapper\\Exceptions\\ServiceAlreadyExists' => __DIR__ . '/..' . '/artisaninweb/laravel-soap/src/Artisaninweb/SoapWrapper/Exceptions/ServiceAlreadyExists.php',
+        'Artisaninweb\\SoapWrapper\\Exceptions\\ServiceMethodNotExists' => __DIR__ . '/..' . '/artisaninweb/laravel-soap/src/Artisaninweb/SoapWrapper/Exceptions/ServiceMethodNotExists.php',
+        'Artisaninweb\\SoapWrapper\\Exceptions\\ServiceNotFound' => __DIR__ . '/..' . '/artisaninweb/laravel-soap/src/Artisaninweb/SoapWrapper/Exceptions/ServiceNotFound.php',
+        'Artisaninweb\\SoapWrapper\\Facade' => __DIR__ . '/..' . '/artisaninweb/laravel-soap/src/Artisaninweb/SoapWrapper/Facade.php',
+        'Artisaninweb\\SoapWrapper\\Service' => __DIR__ . '/..' . '/artisaninweb/laravel-soap/src/Artisaninweb/SoapWrapper/Service.php',
+        'Artisaninweb\\SoapWrapper\\ServiceProvider' => __DIR__ . '/..' . '/artisaninweb/laravel-soap/src/Artisaninweb/SoapWrapper/ServiceProvider.php',
+        'Artisaninweb\\SoapWrapper\\SoapWrapper' => __DIR__ . '/..' . '/artisaninweb/laravel-soap/src/Artisaninweb/SoapWrapper/SoapWrapper.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
         'BeyondCode\\DumpServer\\DumpServerServiceProvider' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
         'BeyondCode\\DumpServer\\Dumper' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/Dumper.php',
