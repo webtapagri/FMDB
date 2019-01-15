@@ -5642,5 +5642,51 @@
             "soap",
             "wrapper"
         ]
+    },
+    {
+        "name": "lawiet/nusoap",
+        "version": "0.1",
+        "version_normalized": "0.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Lawiet/nusoap.git",
+            "reference": "4777ad5ee24a7694ba5358995e24253d9193c847"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Lawiet/nusoap/zipball/4777ad5ee24a7694ba5358995e24253d9193c847",
+            "reference": "4777ad5ee24a7694ba5358995e24253d9193c847",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2017-09-06T19:36:18+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "lawiet\\": "",
+                "lawiet\\src\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPLv2"
+        ],
+        "authors": [
+            {
+                "name": "Jorge Gonzalez"
+            }
+        ],
+        "description": "NuSOAP PHP library",
+        "keywords": [
+            "nusoap",
+            "soap",
+            "web services",
+            "webservices",
+            "ws",
+            "wsdl"
+        ]
     }
 ]

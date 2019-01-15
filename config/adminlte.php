@@ -116,25 +116,20 @@ return [
         ],
         [
             'text' => 'Material',
-            'url' => 'materials',
+            'url' => 'material_user',
             'icon' => 'cube',
-        ],
-        [
-            'text' => 'Group Material',
-            'url' => 'groupmaterials',
-            'icon' => 'cubes',
         ],
         [
             'text' => 'Master Data',
             'icon' => 'folder',
             'submenu' => [
                 [
-                    'text' => 'Data 1',
-                    'url' => '#',
+                    'text' => 'Material',
+                    'url' => 'materials',
                 ],
                 [
-                    'text' => 'Data 2',
-                    'url' => '#',
+                    'text' => 'groupmaterials',
+                    'url' => 'groupmaterials',
                 ],
             ],
         ],

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d051c6b14c1703353b22f6567d56da48",
+    "content-hash": "12e4206ef7333972b92b9c8bceddfe08",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -1402,6 +1402,50 @@
                 "psysh"
             ],
             "time": "2018-10-12T19:39:35+00:00"
+        },
+        {
+            "name": "lawiet/nusoap",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Lawiet/nusoap.git",
+                "reference": "4777ad5ee24a7694ba5358995e24253d9193c847"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Lawiet/nusoap/zipball/4777ad5ee24a7694ba5358995e24253d9193c847",
+                "reference": "4777ad5ee24a7694ba5358995e24253d9193c847",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "lawiet\\": "",
+                    "lawiet\\src\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Jorge Gonzalez"
+                }
+            ],
+            "description": "NuSOAP PHP library",
+            "keywords": [
+                "nusoap",
+                "soap",
+                "web services",
+                "webservices",
+                "ws",
+                "wsdl"
+            ],
+            "time": "2017-09-06T19:36:18+00:00"
         },
         {
             "name": "lcobucci/jwt",

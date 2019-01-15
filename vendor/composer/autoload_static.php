@@ -39,6 +39,11 @@ class ComposerStaticInit4e2bc4c160c3a0d73d170af88a022287
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'l' => 
+        array (
+            'lawiet\\src\\' => 11,
+            'lawiet\\' => 7,
+        ),
         'Z' => 
         array (
             'Zend\\Diactoros\\' => 15,
@@ -176,6 +181,14 @@ class ComposerStaticInit4e2bc4c160c3a0d73d170af88a022287
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+        ),
+        'lawiet\\src\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lawiet/nusoap/src',
+        ),
+        'lawiet\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lawiet/nusoap',
         ),
         'Zend\\Diactoros\\' => 
         array (
@@ -597,6 +610,7 @@ class ComposerStaticInit4e2bc4c160c3a0d73d170af88a022287
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\LDAPController' => __DIR__ . '/../..' . '/app/Http/Controllers/LDAPController.php',
         'App\\Http\\Controllers\\MaterialController' => __DIR__ . '/../..' . '/app/Http/Controllers/MaterialController.php',
+        'App\\Http\\Controllers\\WsdlController' => __DIR__ . '/../..' . '/app/Http/Controllers/WsdlController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -4570,6 +4584,15 @@ class ComposerStaticInit4e2bc4c160c3a0d73d170af88a022287
         'Zend\\Diactoros\\Stream' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/Stream.php',
         'Zend\\Diactoros\\UploadedFile' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/UploadedFile.php',
         'Zend\\Diactoros\\Uri' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/Uri.php',
+        'lawiet\\src\\NuSoapBase' => __DIR__ . '/..' . '/lawiet/nusoap/src/NuSoapBase.php',
+        'lawiet\\src\\NuSoapClient' => __DIR__ . '/..' . '/lawiet/nusoap/src/NuSoapClient.php',
+        'lawiet\\src\\NuSoapFault' => __DIR__ . '/..' . '/lawiet/nusoap/src/NuSoapFault.php',
+        'lawiet\\src\\NuSoapParser' => __DIR__ . '/..' . '/lawiet/nusoap/src/NuSoapParser.php',
+        'lawiet\\src\\NuSoapServer' => __DIR__ . '/..' . '/lawiet/nusoap/src/NuSoapServer.php',
+        'lawiet\\src\\NuSoapTransportHTTP' => __DIR__ . '/..' . '/lawiet/nusoap/src/NuSoapTransportHTTP.php',
+        'lawiet\\src\\NuSoapVal' => __DIR__ . '/..' . '/lawiet/nusoap/src/NuSoapVal.php',
+        'lawiet\\src\\NuSoapWSDL' => __DIR__ . '/..' . '/lawiet/nusoap/src/NuSoapWSDL.php',
+        'lawiet\\src\\NuSoapXMLSchema' => __DIR__ . '/..' . '/lawiet/nusoap/src/NuSoapXMLSchema.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',
