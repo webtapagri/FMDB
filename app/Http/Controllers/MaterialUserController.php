@@ -30,7 +30,7 @@ class MaterialUserController extends Controller
             $material->material_name = $request->material_sap;
             $material->description = $request->description;
             $material->uom = $request->uom;
-            $material->div = $request->division;
+            $material->division = $request->division;
             $material->item_cat_group = $request->item_category_group;
             $material->gross_weight = $request->gross_weight;
             $material->net_weight = $request->net_weight;
@@ -62,7 +62,6 @@ class MaterialUserController extends Controller
             return response()->json(['status' => false, "message" => $e->getMessage()]);
         }
     }
-
 
     public function get_uom()
     {
