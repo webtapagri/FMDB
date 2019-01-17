@@ -14,7 +14,7 @@
               </div>
         </div>
         <div class="col-xs-2" align="right">
-            <span href="#" class="btn btn-flat btn-sm btn-success btn-add hide">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
+            <span href="#" class="btn btn-flat btn-sm btn-success btn-add">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
         </div>
     </div>
     <br>
@@ -183,85 +183,318 @@
       </div>
 </section>
 <div id="add-data-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog" width="900px">
+    <div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">	
 				<h4 class="modal-title"></h4>
 			</div>
-            <form id="data-form">
+
                 	<div class="modal-body">	
-                        <div class="box-body">
-                            <div class="form-group row">
-                                <label for="material_no" class="col-sm-3 col-form-label">Material number</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="material_no" id="material_no" required>
-                                    <input type="hidden" name="edit_id" id="edit_id">
-                                </div>
-                            </div> 
-                            <div class="form-group row">
-                                <label for="sector_industry" class="col-sm-3 col-form-label">Industri sector</label>
-                                <div class="col-sm-6">
-                                    <select type="text" class="form-control" name="sector_industry" id="sector_industry"  ></select>
-                                </div>
-                            </div> 
-                            <br>
-                            <h5>MATERIAL INFORMATION</h5>
                         <div class="row">
-                                <div class="form-group">
-                                <label for="group_material"  class="col-sm-3 col-form-label">Group Material</label>
-                                <div class="input-group col-sm-6" style="padding-left:16px">
-                                    <input type="text" class="form-control" name="group_material" id="group_material" readonly>
-                                    <input type="hidden" name="group_material_id" id="group_material_id" readonly>
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default btn-flat btn-group-material"><i class="fa fa-search"></i></button>
-                                    </span>
+                                <div class="col-xs-12">
+                                <div class="">
+                                    <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#panel-initial" data-toggle="tab" class="panel-initial">INITIAL</a></li>
+                                    <li><a href="#panel-basic-data"  data-toggle="tab"  class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                    <!-- Font Awesome Icons -->
+                                        <div class="tab-pane active" id="panel-initial">
+                                            <form id="form-initial">
+                                               <div class="box-body">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="material_group">Material Group</label>
+                                                                <input type="text" class="form-control" name="material_group" id="material_group" required>
+                                                            </div>
+                                                        </div>  
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="plant">Plant</label>
+                                                                <input type="text" class="form-control" name="plant" id="plant" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">  
+                                                            <div class="form-group">
+                                                                <label for="location">Location</label>
+                                                                <input type="text" class="form-control" name="location" id="slocation" required>
+                                                            </div>
+                                                        </div>  
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="mrp_controller">MRP Controller</label>
+                                                                <input type="text" class="form-control" name="mrp_controller" id="mrp_controller" required>
+                                                            </div>
+                                                        </div>  
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="valuation_class">Valuation Class</label>
+                                                                <input type="text" class="form-control" name="valuation_class" id="valuation_class" required>
+                                                            </div>
+                                                        </div>  
+                                                         <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="sector_industry">Industri sector</label>
+                                                                <select type="text" class="form-control" name="sector_industry" id="sector_industry" required ></select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  <div class="row">
+                                                         <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="material_type">Material Type</label>
+                                                                <input type="text" class="form-control" name="material_type" id="material_type" required>
+                                                            </div>
+                                                        </div> 
+                                                         <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="store_location">Store Location</label>
+                                                                <input type="text" class="form-control" name="store_location" id="store_location" required>
+                                                            </div>
+                                                        </div>  
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="sales_org">Sales Org</label>
+                                                                <input type="text" class="form-control" name="sales_org" id="sales_org" required>
+                                                            </div>
+                                                        </div>  
+                                                  </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="dist_channel">Distribution Channel</label>
+                                                                <input type="text" class="form-control" name="dist_channel" id="dist_channel" required>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="division">Division</label>
+                                                                <input type="text" class="form-control" name="division" id="division" required>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="general_item_category_group">General Item Category Group</label>
+                                                                <input type="text" class="form-control" name="general_item_category_group" id="general_item_category_group" required>
+                                                            </div>
+                                                        </div>    
+                                                    </div>  
+                                                    <div class="row">
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="cash_discount">Cash Discount</label>
+                                                                <input type="text" class="form-control" name="cash_discount" id="cash_discount" required>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="tax_classification">Tax Classification</label>
+                                                                <input type="text" class="form-control" name="tax_classification" id="tax_classification" required>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="account_assignment_group">Account Assignment Group</label>
+                                                                <input type="text" class="form-control" name="account_assignment_group" id="account_assignment_group" required>
+                                                            </div>
+                                                        </div>    
+                                                     </div>  
+                                                    <div class="row">
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="item_category_group">Item Category Group</label>
+                                                                <input type="text" class="form-control" name="item_category_group" id="item_category_group" required>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="availability_check">Availability Check</label>
+                                                                <input type="text" class="form-control" name="availability_check" id="availability_check" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="transportation_group">Transportation Group</label>
+                                                                <input type="text" class="form-control" name="transportation_group" id="transportation_group" required>
+                                                            </div>
+                                                        </div>    
+                                                    </div> 
+                                                    <div class="row">
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="loading_group">Loading Group</label>
+                                                                <input type="text" class="form-control" name="loading_group" id="loading_group" required>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="profit_center">Profit Center</label>
+                                                                <input type="text" class="form-control" name="profit_center" id="profit_center" required>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="mrp_type">MRP Type</label>
+                                                                <input type="text" class="form-control" name="mrp_type" id="mrp_type" required>
+                                                            </div>
+                                                        </div>    
+                                                    </div> 
+                                                    <div class="row">
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="period_ind_for_sle">Period Ind. for SLE</label>
+                                                                <input type="text" class="form-control" name="period_ind_for_sle" id="period_ind_for_sle" required>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group">
+                                                                <label for="price_unit">Price Unit</label>
+                                                                <input type="text" class="form-control" name="price_unit" id="price_unit" required>
+                                                            </div>
+                                                        </div>    
+                                                    </div> 
+
+                                               </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success btn-flat" style="margin-right: 5px;">Next</button>
+                                                </div> 
+                                            </form>
+                                         
+                                        </div>
+                                        <!-- /#fa-icons -->
+
+                                        <!-- glyphicons-->
+                                        <div class="tab-pane" id="panel-basic-data">
+                                              <form id="form-basic-data">
+                                                  <div class="box-body">
+                                                      <div class="row">
+                                                        <div class="col-md-4">
+                                                                <label for="group_material" >Group Material</label>
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" name="group_material" id="group_material" readonly>
+                                                                    <input type="hidden" name="group_material_id" id="group_material_id" readonly>
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default btn-flat btn-group-material"><i class="fa fa-search"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>     
+                                                        <div class="col-md-4">
+                                                            <div class="form-group material-group-input" id="input-description">    
+                                                                <label for="part_no">Deskripsi Material</label>
+                                                                <input type="text" class="form-control attr-material-group" name="description" id="description" autocomplete="off">
+                                                            </div>
+                                                        </div>   
+                                                        <div class="col-md-4"> 
+                                                            <div class="form-group material-group-input" id="input-part-no">
+                                                                <label for="part_no">Part Number</label>
+                                                                <input type="text" class="form-control attr-material-group" name="part_no" id="part_no"  autocomplete="off">
+                                                            </div>
+                                                        </div> 
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4">  
+                                                         <div class="form-group material-group-input" id="input-specification">
+                                                            <label for="part_no" class="col-md-3 col-form-label">Spesifikasi</label>
+                                                                <input type="text" class="form-control attr-material-group" name="specification"  id="specification" >
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group material-group-input" id="input-brand">
+                                                                 <label for="brand">Merk</label>
+                                                                <input type="text" class="form-control attr-material-group" name="brand"  id="brand"  >
+                                                            </div>
+                                                        </div> 
+                                                        <div class="form-group ">
+                                                            <div class="col-md-4">
+                                                                <label for="material_sap">Material pada SAP</label>
+                                                                <input type="text" class="form-control" name="material_sap"  id="material_sap"  readonly>
+                                                                <span class="help-block" id="help_material_sap"></span>
+                                                            </div>
+                                                        </div> 
+                                                      </div>
+                                                       <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">    
+                                                                    <label for="uom">Base Unit of Measure</label>
+                                                                    <select class="form-control" name="uom" id="uom" ></select>
+                                                                </div>
+                                                            </div> 
+                                                      </div>
+                                                      <h5>DIMENSI</h5>
+                                                       <div class="row">
+                                                         <div class="col-md-4">   
+                                                            <div class="form-group">
+                                                                <label for="gross_weight">Gross Weight</label>
+                                                                <input type="text" class="form-control" name="gross_weight" id="gross_weight" >
+                                                            </div>
+                                                        </div> 
+                                                         <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="net_weight">Net Weight</label>
+                                                                <input type="text" class="form-control" name="net_weight" id="net_weight" >
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                            <label for="volume">Volume</label>
+                                                                <input type="text" class="form-control" name="volume" id="volume" >
+                                                            </div>
+                                                        </div> 
+                                                      </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="size">Size/Dimension</label>
+                                                                   <input type="text" class="form-control" name="size" id="size" >
+                                                                </div>
+                                                            </div> 
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="weight_unit">Weight Unit</label>
+                                                                    <input type="text" class="form-control" name="weight_unit" id="weight_unit" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                 <label for="volume_unit">Volume Unit</label>
+                                                                    <input type="text" class="form-control" name="volume_unit" id="volume_unit" >
+                                                                </div>
+                                                            </div> 
+                                                      </div>
+                                                       <h5>IMAGE</h5>
+                                                       <div class="row">
+                                                            <div class="col-md-4">
+                                                                 <div class="form-group">
+                                                                <label for="exampleInputFile">File input</label>
+                                                                <input type="file" id="exampleInputFile" ultiple accept='image/*'>
+
+                                                                <p class="help-block">*jpg, png</p>
+                                                                </div>
+                                                            </div> 
+                                                      </div> 
+                                                  </div>
+                                                   <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default btn-flat" onClick="initialPanel()">Back</button>
+                                                                <button type="submit" class="btn btn-success btn-flat" style="margin-right: 5px;">Submit</button>
+                                                            </div> 
+                                              </form>
+                                        </div>
+                        
+                                    <!-- /#ion-icons -->
+
+                                    </div>
+                                    <!-- /.tab-content -->
                                 </div>
-                            </div>
-                        </div>
-                            <div class="form-group row material-group-input" id="input-description">
-                                <label for="part_no" class="col-sm-3 col-form-label">Deskripsi Material</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control attr-material-group" name="description" id="description" autocomplete="off">
+                                <!-- /.nav-tabs-custom -->
                                 </div>
-                            </div> 
-                            <div class="form-group row material-group-input" id="input-part-no">
-                                <label for="part_no" class="col-sm-3 col-form-label">Part Number</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control attr-material-group" name="part_no" id="part_no"  autocomplete="off">
-                                </div>
-                            </div> 
-                            <div class="form-group row material-group-input" id="input-specification">
-                                <label for="part_no" class="col-sm-3 col-md-3 col-form-label">Spesifikasi</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control attr-material-group" name="specification"  id="specification" >
-                                </div>
-                            </div> 
-                            <div class="form-group row material-group-input" id="input-brand">
-                                <label for="brand" class="col-sm-3 col-form-label">Merk</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control attr-material-group" name="brand"  id="brand"  >
-                                </div>
-                            </div> 
-                            <div class="form-group row ">
-                                <label for="material_sap" class="col-sm-3 col-form-label">Material pada SAP</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="material_sap"  id="material_sap"  readonly>
-                                    <span class="help-block" id="help_material_sap"></span>
-                                </div>
-                            </div> 
-                            <div class="form-group row">
-                                <label for="uom" class="col-sm-3 col-form-label">Satuan</label>
-                                <div class="col-sm-4">
-                                    <select class="form-control" name="uom" id="uom" ></select>
-                                </div>
-                            </div> 
-                        </div>	 
+                                <!-- /.col -->
+                            </div>     
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" style="margin-right: 5px;">Save</button>
-                    </div>
-            </form>
 		</div>
     </div>
 </div>
@@ -351,18 +584,30 @@
             allowClear: true
         });
 
+        var uom = jQuery.parseJSON(JSON.stringify(dataJson("'{!! url('materials/uom') !!}'")));
+        console.log(uom);
         jQuery(".attr-material-group").on("keyup", function(){
             genMaterialNo();
         });    
 
     jQuery('.btn-add').on('click', function() {
-        jQuery(".material-group-input").removeClass('has-success');
+        //jQuery(".material-group-input").removeClass('has-success');
         jQuery(".attr-material-group").prop("required", false);
-        document.getElementById("data-form").reset();
+        //document.getElementById("data-form").reset();
         jQuery("#edit_id").val("");
             jQuery("#add-data-modal .modal-title").html("<i class='fa fa-plus'></i> Create Request");	
         jQuery("#add-data-modal").modal({backdrop:'static', keyboard:false});			
         jQuery("#add-data-modal").modal("show");		
+    });
+
+    jQuery('#form-initial').on('submit', function(e){
+        e.preventDefault();
+        basicDataPanel();
+    });
+    
+    jQuery('#form-basic-data').on('submit', function(e){
+        e.preventDefault();
+        imagePanel();
     });
 
     jQuery("#search_material").on("change", function(){
@@ -464,6 +709,31 @@
         });
 
         jQuery("#material_sap").val(material_no);
+    }
+
+    function initialPanel() {
+        jQuery('.panel-initial').attr("data-toggle","tab");
+        jQuery('.panel-initial').click();
+
+
+        jQuery('.panel-basic-data').removeAttr("data-toggle");
+        jQuery('.panel-image').removeAttr("data-toggle");
+    }
+  
+    function basicDataPanel() {
+        jQuery('.panel-basic-data').attr("data-toggle","tab");
+        jQuery('.panel-basic-data').click();
+
+        jQuery('.panel-initial').removeAttr("data-toggle");
+        jQuery('.panel-image').removeAttr("data-toggle");
+    }
+  
+    function imagePanel() {
+        jQuery('.panel-image').attr("data-toggle","tab");
+        jQuery('.panel-image').click();
+
+        jQuery('.panel-initial').removeAttr("data-toggle");
+        jQuery('.panel-basic-data').removeAttr("data-toggle");
     }
 </script>            
 @stop

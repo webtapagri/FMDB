@@ -10,6 +10,7 @@ use PHPUnit\Framework\MockObject\Stub\Exception;
 use function GuzzleHttp\json_encode;
 use Vyuldashev\XmlToArray\XmlToArray;
 use Artisaninweb\SoapWrapper\SoapWrapper;
+use nusoap_client;
 
 class MaterialController extends Controller
 {
@@ -114,6 +115,33 @@ class MaterialController extends Controller
         }
         $json .= ']}';
         echo $json;
+    }
+
+    public function getUOM(){
+        $url = "http://tap-ldapdev.tap-agri.com/data-sap/uom";
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', $url);
+
+        $json = '{"data":[';
+        $data = $response->getBody();
+       echo $data;
+      /*   exit();    
+        $no = 1;
+        foreach (json_decode($data) as $row) {
+            if($row["MSEHI"]) {
+                if ($no > 1) {
+                    $json .= ",";
+                }
+                $arr = array(
+                    "id" => $row["MSEHI"],
+                    "text" => $row["MSEHL"]
+                );
+                $json .= json_encode($arr);
+            }
+            $no++;
+        }
+        $json .= ']}';
+        echo $json; */
     }
 
 
