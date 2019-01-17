@@ -205,20 +205,26 @@
                                                     <div class="row">
                                                         <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label for="material_group">Material Group</label>
-                                                                <input type="text" class="form-control" name="material_group" id="material_group" required>
+                                                                <label for="sap_material_group">Material Group</label>
+                                                                <select type="text" class="form-control" name="sap_material_group" id="sap_material_group" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>  
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="plant">Plant</label>
-                                                                <input type="text" class="form-control" name="plant" id="plant" required>
+                                                                <select type="text" class="form-control" name="plant" id="plant" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">  
                                                             <div class="form-group">
                                                                 <label for="location">Location</label>
-                                                                <input type="text" class="form-control" name="location" id="slocation" required>
+                                                                <select type="text" class="form-control" name="location" id="location" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>  
                                                     </div>
@@ -226,19 +232,25 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="mrp_controller">MRP Controller</label>
-                                                                <input type="text" class="form-control" name="mrp_controller" id="mrp_controller" required>
+                                                                <select type="text" class="form-control" name="mrp_controller" id="mrp_controller" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>  
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="valuation_class">Valuation Class</label>
-                                                                <input type="text" class="form-control" name="valuation_class" id="valuation_class" required>
+                                                                <select type="text" class="form-control" name="valuation_class" id="valuation_class" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>  
                                                          <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="sector_industry">Industri sector</label>
-                                                                <select type="text" class="form-control" name="sector_industry" id="sector_industry" required ></select>
+                                                                <select type="text" class="form-control" name="industry_sector" id="industry_sector" required >
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -246,19 +258,25 @@
                                                          <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="material_type">Material Type</label>
-                                                                <input type="text" class="form-control" name="material_type" id="material_type" required>
+                                                                <select type="text" class="form-control" name="material_type" id="material_type" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div> 
                                                          <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="store_location">Store Location</label>
-                                                                <input type="text" class="form-control" name="store_location" id="store_location" required>
+                                                                <select type="text" class="form-control" name="store_location" id="store_location" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>  
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="sales_org">Sales Org</label>
-                                                                <input type="text" class="form-control" name="sales_org" id="sales_org" required>
+                                                                <select type="text" class="form-control" name="sales_org" id="sales_org" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>  
                                                   </div>
@@ -266,19 +284,25 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="dist_channel">Distribution Channel</label>
-                                                                <input type="text" class="form-control" name="dist_channel" id="dist_channel" required>
+                                                                <select type="text" class="form-control" name="dist_channel" id="dist_channel" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="division">Division</label>
-                                                                <input type="text" class="form-control" name="division" id="division" required>
+                                                                <select type="text" class="form-control" name="division" id="division" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="general_item_category_group">General Item Category Group</label>
-                                                                <input type="text" class="form-control" name="general_item_category_group" id="general_item_category_group" required>
+                                                                <select type="text" class="form-control" name="general_item_category_group" id="general_item_category_group" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                     </div>  
@@ -286,19 +310,23 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="cash_discount">Cash Discount</label>
-                                                                <input type="text" class="form-control" name="cash_discount" id="cash_discount" required>
+                                                                <select type="text" class="form-control" name="cash_discount" id="cash_discount" required></select>
                                                             </div>
                                                         </div>    
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="tax_classification">Tax Classification</label>
-                                                                <input type="text" class="form-control" name="tax_classification" id="tax_classification" required>
+                                                                <select type="text" class="form-control" name="tax_classification" id="tax_classification" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
-                                                                <label for="account_assignment_group">Account Assignment Group</label>
-                                                                <input type="text" class="form-control" name="account_assignment_group" id="account_assignment_group" required>
+                                                                <label for="account_assign">Account Assignment Group</label>
+                                                                <select type="text" class="form-control" name="account_assign" id="account_assign" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                      </div>  
@@ -306,20 +334,26 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="item_category_group">Item Category Group</label>
-                                                                <input type="text" class="form-control" name="item_category_group" id="item_category_group" required>
+                                                                <select type="text" class="form-control" name="item_category_group" id="item_category_group" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="availability_check">Availability Check</label>
-                                                                <input type="text" class="form-control" name="availability_check" id="availability_check" required>
+                                                                <select type="text" class="form-control" name="availability_check" id="availability_check" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="transportation_group">Transportation Group</label>
-                                                                <input type="text" class="form-control" name="transportation_group" id="transportation_group" required>
+                                                                <select type="text" class="form-control" name="transportation_group" id="transportation_group" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                     </div> 
@@ -327,19 +361,25 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="loading_group">Loading Group</label>
-                                                                <input type="text" class="form-control" name="loading_group" id="loading_group" required>
+                                                                <select type="text" class="form-control" name="loading_group" id="loading_group" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="profit_center">Profit Center</label>
-                                                                <input type="text" class="form-control" name="profit_center" id="profit_center" required>
+                                                                <select type="text" class="form-control" name="profit_center" id="profit_center" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="mrp_type">MRP Type</label>
-                                                                <input type="text" class="form-control" name="mrp_type" id="mrp_type" required>
+                                                                <select type="text" class="form-control" name="mrp_type" id="mrp_type" required>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                     </div> 
@@ -347,13 +387,15 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="period_ind_for_sle">Period Ind. for SLE</label>
-                                                                <input type="text" class="form-control" name="period_ind_for_sle" id="period_ind_for_sle" required>
+                                                                <select type="text" class="form-control" name="period_ind_for_sle" id="period_ind_for_sle" required>
+                                                                    <option value="dskld kslkdls">dlsk ldkslk dls</option>
+                                                                </select>
                                                             </div>
                                                         </div>    
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="price_unit">Price Unit</label>
-                                                                <input type="text" class="form-control" name="price_unit" id="price_unit" required>
+                                                                <input type="number" class="form-control" name="price_unit" id="price_unit" value="1" required>
                                                             </div>
                                                         </div>    
                                                     </div> 
@@ -385,7 +427,7 @@
                                                             </div>     
                                                         <div class="col-md-4">
                                                             <div class="form-group material-group-input" id="input-description">    
-                                                                <label for="part_no">Deskripsi Material</label>
+                                                                <label for="part_no">Material name</label>
                                                                 <input type="text" class="form-control attr-material-group" name="description" id="description" autocomplete="off">
                                                             </div>
                                                         </div>   
@@ -510,7 +552,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center;" width="width:2%">No</th>
-                                <th>Name</th>
+                                <th>Code</th>
                                 <th>Attribute</th>
                                 <th width="5%" class="text-center">Action</th>
                             </tr>
@@ -561,31 +603,235 @@
             paging: false
         }); 
 
+         jQuery('#form-basic-data').on('submit', function(e) {
+            e.preventDefault();
+           jQuery.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            //var form = jQuery('#form-initial').not(':submit').clone().hide().appendTo('#form-basic-data');
+            var param = jQuery("#form-initial, #form-basic-data").serialize();
+            console.log(param);
+            
+            jQuery.ajax({
+				url:"{{ url('material_user/post') }}",
+				method:"POST",
+				data: param,
+				beforeSend:function(){},
+				success:function(result){
+                    if(result.status){
+                        jQuery("#add-data-modal").modal("hide");
+                        jQuery("#data-table").DataTable().ajax.reload();
+                        notify({
+                            type:'success',
+                            message:result.message
+                        });
+                    }else{
+                        notify({
+                            type:'warning',
+                            message:result.message
+                        });
+                    } 
+				},
+				complete:function(){}
+			 }); 
+            
+            
+        })
+
+
+        var material_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_group_material') !!}')));
+       jQuery('#sap_material_group').select2({
+            data: material_group,
+            width:'100%',
+            placeholder: "",
+            allowClear: true
+        });
+
+        var uom = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.uom') !!}')));
         jQuery('#uom').select2({
+            data: uom,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+      
+        var plant = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.plant') !!}')));
+        jQuery('#plant').select2({
+            data: plant,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        }).on("change", function() {
+            var store_location = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('material_user/store_location/?id=') }}"+jQuery(this).val())));
+            jQuery('#store_location').select2({
+                data: store_location,
+                width:'100%',
+                placeholder: "",
+                allowClear: true
+            });
+        });
+
+         jQuery('#store_location').select2({
+                width:'100%',
+                placeholder: "",
+                allowClear: true
+            });
+      
+        var location = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.location') !!}')));
+        jQuery('#location').select2({
+            data: location,
+            width:'100%',
+            placeholder: "",
+            allowClear: true
+        });
+      
+        var mrp_controller = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.mrp_controller') !!}')));
+        jQuery('#mrp_controller').select2({
+            data: mrp_controller,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+       
+        var valuation_class = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.valuation_class') !!}')));
+        jQuery('#valuation_class').select2({
+            data: valuation_class,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+
+        var industry_sector = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.industry_sector') !!}')));
+        jQuery('#industry_sector').select2({
+            data:industry_sector,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+     
+        var material_type = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.material_type') !!}')));
+        jQuery('#material_type').select2({
+            data:material_type,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+
+        var division = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.div') !!}')));
+        jQuery('#division').select2({
+            data: division,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+       
+        var sales_org = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.sales_org') !!}')));
+        jQuery('#sales_org').select2({
+            data: sales_org,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+       
+        var dist_channel = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.dist_channel') !!}')));
+        jQuery('#dist_channel').select2({
+            data: dist_channel,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+        
+        var item_cat = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.item_cat') !!}')));
+        jQuery('#general_item_category_group, #item_category_group').select2({
+            data: item_cat,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+      
+      
+        var tax_classification = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tax_classification') !!}')));
+        jQuery('#tax_classification').select2({
+            data: tax_classification,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+      
+
+        var account_assign = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.account_assign') !!}')));
+        jQuery('#account_assign').select2({
+            data: account_assign,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+       
+        var availability_check = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.availability_check') !!}')));
+        jQuery('#availability_check').select2({
+            data: availability_check,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+       
+        var transportation_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.transportation_group') !!}')));
+        jQuery('#transportation_group').select2({
+            data: transportation_group,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+        
+        var loading_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.loading_group') !!}')));
+        jQuery('#loading_group').select2({
+            data: loading_group,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+      
+        var profit_center = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.profit_center') !!}')));
+        jQuery('#profit_center').select2({
+            data: profit_center,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+       
+        var mrp_type = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.mrp_type') !!}')));
+        jQuery('#mrp_type').select2({
+            data: mrp_type,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+      
+        jQuery('#cash_discount').select2({
             data: [
-                {id:'unt', text:'unit'},
-                {id:'bx', text:'Box'},
-                {id:'bnd', text:'Bundle'},
-                {id:'dz', text:'Dozen'},
-                {id:'ctn', text:'Carton'}
+                {"id": 0, "text": "No"},
+                {"id": 1, "text": "Yes"}
             ],
             width:'100%',
             placeholder: ' ',
             allowClear: true
         });
        
-        jQuery('#sector_industry').select2({
+        jQuery('store_location').select2({
             data: [
-                {id:'Agro Business', text:'Agro Business'},
-                {id:'Agro Wisata', text:'Agro Wisata'},
+                {"id": 0, "text": "No"},
+                {"id": 1, "text": "Yes"}
             ],
             width:'100%',
             placeholder: ' ',
             allowClear: true
         });
 
-        var uom = jQuery.parseJSON(JSON.stringify(dataJson("'{!! url('materials/uom') !!}'")));
-        console.log(uom);
+  
+        
         jQuery(".attr-material-group").on("keyup", function(){
             genMaterialNo();
         });    
@@ -613,7 +859,6 @@
     jQuery("#search_material").on("change", function(){
         jQuery(".btn-add").removeClass("hide");
     });
-
     
         jQuery('.btn-group-material').on('click', function() {
             //jQuery('#add-data-modal').modal('hide');
@@ -645,8 +890,6 @@
             jQuery('#add-data-modal').modal({backdrop: 'static', keyboard: false});
             jQuery('#add-data-modal').modal('show');
         }).modal('hide');
-
-        	
         //jQuery("#add-data-modal").modal("show");
     }
 
@@ -714,8 +957,6 @@
     function initialPanel() {
         jQuery('.panel-initial').attr("data-toggle","tab");
         jQuery('.panel-initial').click();
-
-
         jQuery('.panel-basic-data').removeAttr("data-toggle");
         jQuery('.panel-image').removeAttr("data-toggle");
     }

@@ -34,7 +34,7 @@ class MaterialController extends Controller
 
     public function groupMaterialGroup()
     {
-        $data = DB::table('group_materials')->select('id', 'name', 'description', 'status')->where('status',0)->get();
+        $data = DB::table('group_materials')->select('id', 'name','code', 'description', 'status')->where('status',0)->get();
         $json = '{"data":[';
         $no = 1;
         foreach ($data as $row) {
@@ -45,7 +45,7 @@ class MaterialController extends Controller
             $arr = array(
                 "no" => $no,
                 "id" => $row->id,
-                "name" => $row->name,
+                "name" => $row->code,
                 "description" => str_replace(",", "<br>", ucwords(str_replace("-"," ",$row->description))),
                 "action" => '
                     <button class="btn btn-xs btn-success btn-action" select="select data '.$row->name.'" onClick="SelectGroup(\''.$row->id.'\',\''.$row->name.'\',\''.$row->description.'\')">select</button>
@@ -115,33 +115,6 @@ class MaterialController extends Controller
         }
         $json .= ']}';
         echo $json;
-    }
-
-    public function getUOM(){
-        $url = "http://tap-ldapdev.tap-agri.com/data-sap/uom";
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url);
-
-        $json = '{"data":[';
-        $data = $response->getBody();
-       echo $data;
-      /*   exit();    
-        $no = 1;
-        foreach (json_decode($data) as $row) {
-            if($row["MSEHI"]) {
-                if ($no > 1) {
-                    $json .= ",";
-                }
-                $arr = array(
-                    "id" => $row["MSEHI"],
-                    "text" => $row["MSEHL"]
-                );
-                $json .= json_encode($arr);
-            }
-            $no++;
-        }
-        $json .= ']}';
-        echo $json; */
     }
 
 

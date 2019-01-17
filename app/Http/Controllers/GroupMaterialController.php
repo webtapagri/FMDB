@@ -131,6 +131,35 @@ class GroupMaterialController extends Controller
         return response()->json(['status' => true, "message" => 'Data is successfully actived']);
     }
 
+    public function get_material_group()
+    {
+        $url = "http://tap-ldapdev.tap-agri.com/data-sap/material_group";
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', $url);
+
+        $result = $response->getBody()->getContents();
+        $data = json_decode($result);
+        $json = '{"data":[';
+            
+        
+        for ($i=0; $i < count($data->data[0]); $i++) { 
+
+            if($i>0) {
+                $json .= ",";
+            }
+            $arr = array(
+                "id"=> $data->data[0][$i]->MATKL,
+                "text"=> $data->data[0][$i]->MATKL." - ". str_replace("_"," ", $data->data[0][$i]->WGBEZ)
+            );
+            $json .= json_encode($arr); 
+        }    
+
+        $json .="]}";
+        echo $json;
+    }
+
+
+
     /**
      * Show the form for editing the specified resource.
      *

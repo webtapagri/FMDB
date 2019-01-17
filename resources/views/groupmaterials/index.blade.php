@@ -124,12 +124,9 @@
             selectedAttribute(jQuery(this).val());
         });
 
+        var code = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_group_material') !!}')));
         jQuery("#code").select2({
-            data:[
-                {id:'1010', text: '1010'},
-                {id:'2010', text: '2010'},
-                {id:'3010', text: '3010'}
-            ],
+            data:code,
             width: '100%',
             placeholder: ' ',
             allowClear: true
