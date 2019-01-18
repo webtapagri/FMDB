@@ -27,156 +27,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                    <tbody>
-                        <tr>
-                            <td width="15%">
-                                <img src="{{ asset('img/genset.jpeg') }}" class="img-responsive"></td>
-                            </td>
-                            <td>
-                                <table class="table" sty>
-                                    <tr style="height:20px !important">
-                                        <td><b>Material Number</b></td>
-                                        <td>404030046</td>
-                                        <td rowspan="3" style="width:10%">
-                                            <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</span>
-                                            <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Reado to PO</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Nama Material</b></td>
-                                        <td>GENSET RG 7800 RYU</td>
-                                    </tr>
-                                      <tr>
-                                        <td><b>Merk</b></td>
-                                        <td>Ryu</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Satuan</b></td>
-                                        <td>Unit</td>
-                                    </tr>
-                                    <tr>
-                                       <td colspan="2"><b>Keterangan</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="15%">
-                                <img src="{{ asset('img/image2.jpg') }}" class="img-responsive"></td>
-                            </td>
-                            <td>
-                                <table class="table" sty>
-                                    <tr style="height:20px !important">
-                                        <td><b>Material Number</b></td>
-                                        <td>404100043</td>
-                                        <td rowspan="3" style="width:10%">
-                                            <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</span>
-                                            <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Reado to PO</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Nama Material</b></td>
-                                        <td>MESIN LAS 160 A RHINO</td>
-                                    </tr>
-                                      <tr>
-                                        <td><b>Merk</b></td>
-                                        <td>RHINO</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Satuan</b></td>
-                                        <td>Unit</td>
-                                    </tr>
-                                    <tr>
-                                       <td colspan="2"><b>Keterangan</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="15%">
-                                <img src="{{ asset('img/image4.jpg') }}" class="img-responsive"></td>
-                            </td>
-                            <td>
-                                <table class="table" sty>
-                                    <tr style="height:20px !important">
-                                        <td><b>Material Number</b></td>
-                                        <td>312010035</td>
-                                        <td rowspan="3" style="width:10%">
-                                            <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</span>
-                                            <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Reado to PO</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Nama Material</b></td>
-                                        <td>CONE HYDROCYCLONE DIA 75 MM</td>
-                                    </tr>
-                                      <tr>
-                                        <td><b>Merk</b></td>
-                                        <td>MM</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Satuan</b></td>
-                                        <td>Unit</td>
-                                    </tr>
-                                    <tr>
-                                       <td colspan="2"><b>Keterangan</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="15%">
-                                <img src="{{ asset('img/image3.jpeg') }}" class="img-responsive"></td>
-                            </td>
-                            <td>
-                                <table class="table" sty>
-                                    <tr style="height:20px !important">
-                                        <td><b>Material Number</b></td>
-                                        <td>216070033</td>
-                                        <td rowspan="3" style="width:10%">
-                                            <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</span>
-                                            <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Reado to PO</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Nama Material</b></td>
-                                        <td>SAFETY LINE WARNA KUNING HITAM</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Satuan</b></td>
-                                        <td>Unit</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Merk</b></td>
-                                        <td>MM</td>
-                                    </tr>
-                                    <tr>
-                                       <td colspan="2"><b>Keterangan</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
           </div>
         </div>
@@ -194,8 +45,8 @@
                                 <div class="col-xs-12">
                                 <div class="">
                                     <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#panel-initial" data-toggle="tab" class="panel-initial">INITIAL</a></li>
-                                    <li><a href="#panel-basic-data"  data-toggle="tab"  class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
+                                    <li class="active"><a href="#panel-initial" class="panel-initial">INITIAL</a></li>
+                                    <li><a href="#panel-basic-data"  class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
                                     </ul>
                                     <div class="tab-content">
                                     <!-- Font Awesome Icons -->
@@ -214,7 +65,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="plant">Plant</label>
-                                                                <select type="text" class="form-control" name="plant" id="plant" required>
+                                                                <select type="text" class="form-control" name="plant" id="plant" maxlength="4" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -222,7 +73,7 @@
                                                         <div class="col-md-4">  
                                                             <div class="form-group">
                                                                 <label for="location">Location</label>
-                                                                <select type="text" class="form-control" name="location" id="location" required>
+                                                                <select type="text" class="form-control" name="location" id="location"  maxlength="10" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -232,7 +83,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="mrp_controller">MRP Controller</label>
-                                                                <select type="text" class="form-control" name="mrp_controller" id="mrp_controller" required>
+                                                                <select type="text" class="form-control" name="mrp_controller" id="mrp_controller"  maxlength="3"  required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -240,7 +91,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="valuation_class">Valuation Class</label>
-                                                                <select type="text" class="form-control" name="valuation_class" id="valuation_class" required>
+                                                                <select type="text" class="form-control" name="valuation_class"  maxlength="10"  id="valuation_class" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -248,7 +99,7 @@
                                                          <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="sector_industry">Industri sector</label>
-                                                                <select type="text" class="form-control" name="industry_sector" id="industry_sector" required >
+                                                                <select type="text" class="form-control" name="industry_sector" id="industry_sector" maxlength="20" required >
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -258,7 +109,7 @@
                                                          <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="material_type">Material Type</label>
-                                                                <select type="text" class="form-control" name="material_type" id="material_type" required>
+                                                                <select type="text" class="form-control" name="material_type" id="material_type"  maxlength="10"  required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -266,7 +117,7 @@
                                                          <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="store_location">Store Location</label>
-                                                                <select type="text" class="form-control" name="store_location" id="store_location" required>
+                                                                <select type="text" class="form-control" name="store_location" id="store_location"  maxlength="4" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -274,7 +125,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="sales_org">Sales Org</label>
-                                                                <select type="text" class="form-control" name="sales_org" id="sales_org" required>
+                                                                <select type="text" class="form-control" name="sales_org" id="sales_org"  maxlength="4" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -284,7 +135,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="dist_channel">Distribution Channel</label>
-                                                                <select type="text" class="form-control" name="dist_channel" id="dist_channel" required>
+                                                                <select type="text" class="form-control" name="dist_channel" id="dist_channel"  maxlength="4" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -292,7 +143,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="division">Division</label>
-                                                                <select type="text" class="form-control" name="division" id="division" required>
+                                                                <select type="text" class="form-control" name="division" id="division"  maxlength="30" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -300,7 +151,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="general_item_category_group">General Item Category Group</label>
-                                                                <select type="text" class="form-control" name="general_item_category_group" id="general_item_category_group" required>
+                                                                <select type="text" class="form-control" name="general_item_category_group" id="general_item_category_group" maxlength="4" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -310,13 +161,13 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="cash_discount">Cash Discount</label>
-                                                                <select type="text" class="form-control" name="cash_discount" id="cash_discount" required></select>
+                                                                <select type="text" class="form-control" name="cash_discount" id="cash_discount"  maxlength="1"  required></select>
                                                             </div>
                                                         </div>    
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="tax_classification">Tax Classification</label>
-                                                                <select type="text" class="form-control" name="tax_classification" id="tax_classification" required>
+                                                                <select type="text" class="form-control" name="tax_classification" id="tax_classification" maxlength="1" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -324,7 +175,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="account_assign">Account Assignment Group</label>
-                                                                <select type="text" class="form-control" name="account_assign" id="account_assign" required>
+                                                                <select type="text" class="form-control" name="account_assign" id="account_assign" maxlength="2" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -334,7 +185,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="item_category_group">Item Category Group</label>
-                                                                <select type="text" class="form-control" name="item_category_group" id="item_category_group" required>
+                                                                <select type="text" class="form-control" name="item_category_group" id="item_category_group" maxlength="30" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -342,7 +193,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="availability_check">Availability Check</label>
-                                                                <select type="text" class="form-control" name="availability_check" id="availability_check" required>
+                                                                <select type="text" class="form-control" name="availability_check" id="availability_check" maxlength="2" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -351,7 +202,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="transportation_group">Transportation Group</label>
-                                                                <select type="text" class="form-control" name="transportation_group" id="transportation_group" required>
+                                                                <select type="text" class="form-control" name="transportation_group" maxlength="4" id="transportation_group" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -361,7 +212,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="loading_group">Loading Group</label>
-                                                                <select type="text" class="form-control" name="loading_group" id="loading_group" required>
+                                                                <select type="text" class="form-control" name="loading_group" id="loading_group" maxlength="4" required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -369,7 +220,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="profit_center">Profit Center</label>
-                                                                <select type="text" class="form-control" name="profit_center" id="profit_center" required>
+                                                                <select type="text" class="form-control" name="profit_center" id="profit_center" maxlength="4"  required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -377,7 +228,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="mrp_type">MRP Type</label>
-                                                                <select type="text" class="form-control" name="mrp_type" id="mrp_type" required>
+                                                                <select type="text" class="form-control" name="mrp_type" id="mrp_type" maxlength="4"  required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -387,7 +238,7 @@
                                                         <div class="col-md-4"> 
                                                             <div class="form-group">
                                                                 <label for="period_ind_for_sle">Period Ind. for SLE</label>
-                                                                <select type="text" class="form-control" name="period_ind_for_sle" id="period_ind_for_sle" required>
+                                                                <select type="text" class="form-control" name="period_ind_for_sle" maxlength="10" id="period_ind_for_sle" required>
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -426,7 +277,7 @@
                                                             </div>     
                                                         <div class="col-md-4">
                                                             <div class="form-group material-group-input" id="input-description">    
-                                                                <label for="part_no">Material name</label>
+                                                                <label for="part_no">Description</label>
                                                                 <input type="text" class="form-control attr-material-group" name="description" id="description" autocomplete="off">
                                                             </div>
                                                         </div>   
@@ -453,7 +304,7 @@
                                                         <div class="form-group ">
                                                             <div class="col-md-4">
                                                                 <label for="material_sap">Material pada SAP</label>
-                                                                <input type="text" class="form-control" name="material_sap"  id="material_sap"  readonly>
+                                                                <input type="text" class="form-control" name="material_sap"  id="material_sap" maxlength="30"  readonly>
                                                                 <span class="help-block" id="help_material_sap"></span>
                                                             </div>
                                                         </div> 
@@ -491,19 +342,19 @@
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="size">Size/Dimension</label>
-                                                                   <input type="text" class="form-control" name="size" id="size" >
+                                                                   <input type="text" class="form-control" name="size" id="size" maxlength="30">
                                                                 </div>
                                                             </div> 
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="weight_unit">Weight Unit</label>
-                                                                    <input type="text" class="form-control" name="weight_unit" id="weight_unit" >
+                                                                    <input type="text" class="form-control" name="weight_unit" id="weight_unit" maxlength="10">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                  <label for="volume_unit">Volume Unit</label>
-                                                                    <input type="text" class="form-control" name="volume_unit" id="volume_unit" >
+                                                                    <input type="text" class="form-control" name="volume_unit" id="volume_unit" maxlength="10">
                                                                 </div>
                                                             </div> 
                                                       </div>
@@ -570,20 +421,20 @@
 @section('js')
 <script>
     jQuery(document).ready(function() {
-      jQuery('#data-table').DataTable({
-           "searching": false,
-           "sort": false,
-            "lengthChange": false,
+    var table =   jQuery('#data-table').DataTable({
+        ajax: '{!! route('get.tm_material') !!}',
+        columns: [
+            { data: 'img', name: 'img' },
+            { data: 'detail', name: 'detail' }
+        ],
+        "searching": false,
+        "sort": false,
+        "lengthChange": false,
       });
 
-      var materials = [
-        "GENSET RG 7800 RYU",
-        "MESIN LAS 160 A RHINO",
-        "CONE HYDROCYCLONE DIA 75 MM",
-        "SAFETY LINE WARNA KUNING HITAM"
-      ];
+      var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.auto_sugest') !!}')));
       jQuery("#search_material").autocomplete({
-        source: materials
+        source: search
       });
 
        jQuery('#group-material-table').DataTable({

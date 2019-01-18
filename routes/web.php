@@ -68,6 +68,7 @@ Route::get('get-profit_center', ['as' => 'get.profit_center', 'uses' => 'Materia
 Route::get('get-mrp_type', ['as' => 'get.mrp_type', 'uses' => 'MaterialUserController@get_mrp_type']);
 Route::get('get-tm_material', ['as' => 'get.tm_material', 'uses' => 'MaterialUserController@get_tm_material']);
 Route::get('get-sle', ['as' => 'get.sle', 'uses' => 'MaterialUserController@get_sle']);
+Route::get('get-auto_sugest', ['as' => 'get.auto_sugest', 'uses' => 'MaterialUserController@get_auto_sugest']);
 
 Route::post('/ldaplogin', 'LDAPController@login');
 Route::resource('/wsdl', 'WsdlController');
