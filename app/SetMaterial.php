@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class SetMaterial extends Model
 {
     protected $table = 'tr_material';
+    protected $guarded = ['id'];
+    protected $hidden = array('id');
+    protected $primaryKey = null;
+    public $incrementing = false;
 
     protected $fillable = [
         'no_document',

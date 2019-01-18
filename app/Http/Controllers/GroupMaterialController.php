@@ -140,8 +140,6 @@ class GroupMaterialController extends Controller
         $result = $response->getBody()->getContents();
         $data = json_decode($result);
         $json = '{"data":[';
-            
-        
         for ($i=0; $i < count($data->data[0]); $i++) { 
 
             if($i>0) {

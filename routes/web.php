@@ -66,6 +66,8 @@ Route::get('get-transportation_group', ['as' => 'get.transportation_group', 'use
 Route::get('get-loading_group', ['as' => 'get.loading_group', 'uses' => 'MaterialUserController@get_loading_group']);
 Route::get('get-profit_center', ['as' => 'get.profit_center', 'uses' => 'MaterialUserController@get_profit_center']);
 Route::get('get-mrp_type', ['as' => 'get.mrp_type', 'uses' => 'MaterialUserController@get_mrp_type']);
+Route::get('get-tm_material', ['as' => 'get.tm_material', 'uses' => 'MaterialUserController@get_tm_material']);
+Route::get('get-sle', ['as' => 'get.sle', 'uses' => 'MaterialUserController@get_sle']);
 
 Route::post('/ldaplogin', 'LDAPController@login');
 Route::resource('/wsdl', 'WsdlController');

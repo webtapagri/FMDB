@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use function GuzzleHttp\json_decode;
+use GuzzleHttp\Client;
+
 use App\SetMaterial;
+use App\Guz;
 
 class MaterialUserController extends Controller
 {
@@ -13,54 +16,64 @@ class MaterialUserController extends Controller
         return view('material');
     }
 
+    public function get_tm_material() {
+        $url = "http://149.129.224.117:8080/api/tm_materials";
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', $url);
+
+        $result = $response->getBody()->getContents();
+        $data = json_decode($result);
+        var_dump($data);
+    }
+
     public function store(Request $request)
     {
-        try {
-            $material = new SetMaterial();
-            $material->no_document = rand();
-            $material->industri_sector = $request->industri_sector;
-            $material->plant = $request->plant;
-            $material->store_loc = $request->store_location;
-            $material->sales_org = $request->sales_org;
-            $material->dist_channel = $request->dist_channel;
-            $material->mat_group = $request->group_material;
-            $material->part_number = $request->part_no;
-            $material->spec = $request->specification;
-            $material->merk = $request->brand;
-            $material->material_name = $request->material_sap;
-            $material->description = $request->description;
-            $material->uom = $request->uom;
-            $material->division = $request->division;
-            $material->item_cat_group = $request->item_category_group;
-            $material->gross_weight = $request->gross_weight;
-            $material->net_weight = $request->net_weight;
-            $material->volume = $request->volume;
-            $material->size_dimension = $request->size;
-            $material->weight_unit = $request->weight_unit;
-            $material->volume_unit = $request->volume_unit;
-            $material->no_material = $request->material_no;
-            $material->mrp_controller = $request->mrp_controller;
-            $material->valuation_class = $request->valuation_class;
-            $material->tax_classification = $request->tax_classification;
-            $material->tax_classification = 1;
-            $material->account_assign = $request->account_assign;
-            $material->general_item = $request->general_item_category_group;
-            $material->avail_check = $request->availability_check;
-            $material->transportation_group = $request->transportation_group;
-            $material->loading_group = $request->loading_group;
-            $material->profit_center = $request->profit_center;
-            $material->mrp_type = $request->mrp_type;
-            //$material->period_sle = $request->period_ind_for_sle;
-            $material->period_sle = "909";
-            $material->cash_discount = $request->cash_discount;
-            $material->price_unit = $request->price_unit;
-            $material->locat = $request->location;
-            $material->save();
 
-            return response()->json(['status' => true, "message" => 'Data is successfully added']);
-        } catch (\Exception $e) {
-            return response()->json(['status' => false, "message" => $e->getMessage()]);
-        }
+        $data = array(
+            "no_document" => rand(1, 1000000),
+            "industri_sector" => $request->industry_sector,
+            "plant" => $request->plant,
+            "store_loc" => $request->store_location,
+            "sales_org" => $request->sales_org,
+            "dist_channel" => $request->dist_channel,
+            "mat_group" => $request->group_material,
+            "part_number" => $request->part_no,
+            "spec" => $request->specification,
+            "merk" => $request->brand,
+            "material_name" => $request->material_sap,
+            "description" => $request->description,
+            "uom" => $request->uom,
+            "division" => $request->division,
+            "item_cat_group" => $request->item_category_group,
+            "gross_weight" => $request->gross_weight,
+            "net_weight" => $request->net_weight,
+            "volume" => $request->volume,
+            "size_dimension" => $request->size,
+            "weight_unit" => $request->weight_unit,
+            "volume_unit" => $request->volume_unit,
+            "no_material" => $request->material_no,
+            "mrp_controller" => $request->mrp_controller,
+            "valuation_class" => $request->valuation_class,
+            "tax_classification" => $request->tax_classification,
+            "tax_classification" => 1,
+            "account_assign" => $request->account_assign,
+            "general_item" => $request->general_item_category_group,
+            "avail_check" => $request->availability_check,
+            "transportation_group" => $request->transportation_group,
+            "loading_group" => $request->loading_group,
+            "profit_center" => $request->profit_center,
+            "mrp_type" => $request->mrp_type,
+            "period_sle" => $request->period_ind_for_sle,
+            "cash_discount" => $request->cash_discount,
+            "price_unit" => $request->price_unit,
+            "locat" => $request->location
+        );
+
+
+        $url = "http://149.129.224.117:8080/api/tr_materials";
+        $client = new Client();
+        $res = $client->request('POST', $url, array('form_params' => $data));
+        echo $res->getBody();
     }
 
     public function get_uom()
@@ -450,6 +463,28 @@ class MaterialUserController extends Controller
     public function get_mrp_type() {
         $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "mrp_type")->get();
+
+        $no = 1;
+          foreach ($data as $row) {
+            if ($no > 1) {
+                $json .= ",";
+            }
+            $arr = array(
+                "id"=> $row->description_code,
+                "text"=> $row->description_code ." - ". $row->description
+            );
+            
+            $json .= json_encode($arr);
+            $no++;
+        }
+        $no++;
+        $json .= ']}';
+        echo $json;  
+    }
+   
+    public function get_sle() {
+        $json = '{"data":[';
+        $data = DB::table('tm_general_data')->where("general_code", "sle")->get();
 
         $no = 1;
           foreach ($data as $row) {

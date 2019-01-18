@@ -388,7 +388,6 @@
                                                             <div class="form-group">
                                                                 <label for="period_ind_for_sle">Period Ind. for SLE</label>
                                                                 <select type="text" class="form-control" name="period_ind_for_sle" id="period_ind_for_sle" required>
-                                                                    <option value="dskld kslkdls">dlsk ldkslk dls</option>
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -613,7 +612,6 @@
 
             //var form = jQuery('#form-initial').not(':submit').clone().hide().appendTo('#form-basic-data');
             var param = jQuery("#form-initial, #form-basic-data").serialize();
-            console.log(param);
             
             jQuery.ajax({
 				url:"{{ url('material_user/post') }}",
@@ -621,17 +619,18 @@
 				data: param,
 				beforeSend:function(){},
 				success:function(result){
-                    if(result.status){
+                    var data = jQuery.parseJSON(result);
+                    if(data.code == '201'){
                         jQuery("#add-data-modal").modal("hide");
-                        jQuery("#data-table").DataTable().ajax.reload();
+                        //jQuery("#data-table").DataTable().ajax.reload();
                         notify({
                             type:'success',
-                            message:result.message
+                            message:data.message
                         });
                     }else{
                         notify({
                             type:'warning',
-                            message:result.message
+                            message:data.message
                         });
                     } 
 				},
@@ -805,6 +804,14 @@
         var mrp_type = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.mrp_type') !!}')));
         jQuery('#mrp_type').select2({
             data: mrp_type,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+       
+        var sle = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.sle') !!}')));
+        jQuery('#period_ind_for_sle').select2({
+            data: sle,
             width:'100%',
             placeholder: ' ',
             allowClear: true
