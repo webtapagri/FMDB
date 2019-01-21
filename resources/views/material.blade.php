@@ -7,7 +7,7 @@
        <div class="row">
         <div class="col-xs-10">
             <div class="input-group">
-                <input type="text" class="form-control" id="search_material" placeholder="serach material">
+                <input type="text" class="form-control" onkeyup="searchData()"  id="search_material" placeholder="search material">
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-flat btn-success btn-flat"><i class="fa fa-search"></i></button>
                     </span>
@@ -20,10 +20,11 @@
     <br>
     <div class="row">
         <div class="col-xs-12">
-             <table id="data-table" class="table" style="background-color:white" width="100%">
+             <table id="data-table" class="table table-condensed" style="background-color:white" width="100%">
                 <thead>
                     <tr>
-                        <th>Material list</th>
+                        <th width="15%">Material list</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -45,8 +46,8 @@
                                 <div class="col-xs-12">
                                 <div class="">
                                     <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#panel-initial" class="panel-initial">INITIAL</a></li>
-                                    <li><a href="#panel-basic-data"  class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
+                                    <li class="active"><a href="#panel-initial" data-toggle="tab" class="panel-initial">INITIAL</a></li>
+                                    <li><a href="#panel-basic-data" data-toggle="tab" class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
                                     </ul>
                                     <div class="tab-content">
                                     <!-- Font Awesome Icons -->
@@ -109,7 +110,7 @@
                                                          <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="material_type">Material Type</label>
-                                                                <select type="text" class="form-control" name="material_type" id="material_type"  maxlength="10"  required>
+                                                                <select type="text" class="c" name="material_type" id="material_type"  maxlength="10"  required>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
@@ -322,19 +323,19 @@
                                                          <div class="col-md-4">   
                                                             <div class="form-group">
                                                                 <label for="gross_weight">Gross Weight</label>
-                                                                <input type="text" class="form-control" name="gross_weight" id="gross_weight" >
+                                                                <input type="text" class="form-control" name="gross_weight" id="gross_weight" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                                             </div>
                                                         </div> 
                                                          <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="net_weight">Net Weight</label>
-                                                                <input type="text" class="form-control" name="net_weight" id="net_weight" >
+                                                                <input type="text" class="form-control" name="net_weight" id="net_weight" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                                             </div>
                                                         </div> 
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                             <label for="volume">Volume</label>
-                                                                <input type="text" class="form-control" name="volume" id="volume" >
+                                                                <input type="text" class="form-control" name="volume" id="volume" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                                             </div>
                                                         </div> 
                                                       </div>
@@ -342,19 +343,19 @@
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="size">Size/Dimension</label>
-                                                                   <input type="text" class="form-control" name="size" id="size" maxlength="30">
+                                                                   <input type="text" class="form-control" name="size" id="size" maxlength="30" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                                                 </div>
                                                             </div> 
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="weight_unit">Weight Unit</label>
-                                                                    <input type="text" class="form-control" name="weight_unit" id="weight_unit" maxlength="10">
+                                                                    <input type="text" class="form-control" name="weight_unit" id="weight_unit" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                  <label for="volume_unit">Volume Unit</label>
-                                                                    <input type="text" class="form-control" name="volume_unit" id="volume_unit" maxlength="10">
+                                                                    <input type="text" class="form-control" name="volume_unit" id="volume_unit" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                                                 </div>
                                                             </div> 
                                                       </div>
@@ -363,10 +364,21 @@
                                                             <div class="col-md-4">
                                                                  <div class="form-group">
                                                                 <label for="exampleInputFile">File input</label>
-                                                                <input type="file" id="exampleInputFile" ultiple accept='image/*'>
-
+                                                                <input type="file" id="img-files" name="images" ultiple accept='image/*' >
+                                                                <input type="hidden" name="img_list" id="img_list">
                                                                 <p class="help-block">*jpg, png</p>
                                                                 </div>
+                                                            </div> 
+                                                      </div> 
+                                                       <div class="row">
+                                                            <div class="col-md-3">
+                                                                <img id="material-images-1" class="img-responsive">
+                                                            </div> 
+                                                            <div class="col-md-3">
+                                                                <img id="material-images-2" class="img-responsive">
+                                                            </div> 
+                                                            <div class="col-md-3">
+                                                                <img id="material-images-3" class="img-responsive">
                                                             </div> 
                                                       </div> 
                                                   </div>
@@ -420,12 +432,14 @@
 @stop
 @section('js')
 <script>
+    var imgFiles = [];    
     jQuery(document).ready(function() {
     var table =   jQuery('#data-table').DataTable({
         ajax: '{!! route('get.tm_material') !!}',
         columns: [
             { data: 'img', name: 'img' },
-            { data: 'detail', name: 'detail' }
+            { data: 'detail', name: 'detail' },
+            { data: 'action', name: 'action' }
         ],
         "searching": false,
         "sort": false,
@@ -462,8 +476,8 @@
             });
 
             //var form = jQuery('#form-initial').not(':submit').clone().hide().appendTo('#form-basic-data');
-            var param = jQuery("#form-initial, #form-basic-data").serialize();
-            
+            var param = jQuery("#form-initial, #form-basic-data").serializeArray();
+
             jQuery.ajax({
 				url:"{{ url('material_user/post') }}",
 				method:"POST",
@@ -473,7 +487,7 @@
                     var data = jQuery.parseJSON(result);
                     if(data.code == '201'){
                         jQuery("#add-data-modal").modal("hide");
-                        //jQuery("#data-table").DataTable().ajax.reload();
+                        jQuery("#data-table").DataTable().ajax.reload();
                         notify({
                             type:'success',
                             message:data.message
@@ -486,14 +500,11 @@
                     } 
 				},
 				complete:function(){}
-			 }); 
-            
-            
-        })
-
+			 });
+        });
 
         var material_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_group_material') !!}')));
-       jQuery('#sap_material_group').select2({
+        jQuery('#sap_material_group').select2({
             data: material_group,
             width:'100%',
             placeholder: "",
@@ -522,6 +533,28 @@
                 placeholder: "",
                 allowClear: true
             });
+        });
+
+        jQuery("#img-files").on('change', function() {
+            var src = document.getElementById("img-files");
+
+            if (jQuery('#material-images-1').prop('src') === '') {
+                 var target = document.getElementById("material-images-1");
+            } else if (jQuery('#material-images-2').prop('src') === '') {
+                 var target = document.getElementById("material-images-2");
+            } else if (jQuery('#material-images-3').prop('src') === '') {
+                 var target = document.getElementById("material-images-3");
+            } else {
+                  notify({
+                        type:'warning',
+                        message: 'hanya bisa 3 kali upload gambar'
+                    });
+                return false;
+            }
+
+            showImage(src,target);
+            jQuery(this).val("");
+
         });
 
          jQuery('#store_location').select2({
@@ -635,7 +668,7 @@
             placeholder: ' ',
             allowClear: true
         });
-        
+    
         var loading_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.loading_group') !!}')));
         jQuery('#loading_group').select2({
             data: loading_group,
@@ -688,8 +721,6 @@
             allowClear: true
         });
 
-  
-        
         jQuery(".attr-material-group").on("keyup", function(){
             genMaterialNo();
         });    
@@ -834,5 +865,72 @@
         jQuery('.panel-initial').removeAttr("data-toggle");
         jQuery('.panel-basic-data').removeAttr("data-toggle");
     }
+
+    function searchData() {
+        // Declare variables 
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search_material");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("data-table");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            } 
+        }
+    } 
+
+    function showImage(src,target) {
+        var fr=new FileReader();
+        // when image is loaded, set the src of the image where you want to display it
+        fr.onload = function(e) { target.src = this.result; };
+        fr.readAsDataURL(src.files[0]);
+        imgFiles.push(src.files[0]);
+        jQuery.each(imgFiles, function(key, val){
+            console.log(val.name);
+            console.log(val.size);
+            console.log(val.type);
+        });
+    }
+
+    function binEncode(data) {
+        var binArray = []
+        var datEncode = "";
+
+        for (i=0; i < data.length; i++) {
+            binArray.push(data[i].charCodeAt(0).toString(2)); 
+        } 
+        for (j=0; j < binArray.length; j++) {
+            var pad = padding_left(binArray[j], '0', 8);
+            datEncode += pad + ' '; 
+        }
+        function padding_left(s, c, n) { if (! s || ! c || s.length >= n) {
+            return s;
+        }
+
+        var max = (n - s.length)/c.length;
+        for (var i = 0; i < max; i++) {
+            s = c + s; } return s;
+        }
+        return binArray;
+    }
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+        }
+        return true;
+    }
+
 </script>            
 @stop

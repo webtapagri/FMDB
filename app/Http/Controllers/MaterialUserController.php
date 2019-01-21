@@ -32,38 +32,35 @@ class MaterialUserController extends Controller
             }
             $arr = array(
                 "img" => ' <img src="'. asset('img/genset.jpeg ') .'" class="img-responsive text-center" ></td>',
+                'name'=> $row->material_name,
                 "detail" => '
-                    <table class="table">
-                        <tr style="height:20px !important">
-                            <td><b>Material Number</b></td>
-                            <td>'.$row->no_material .'</td>
-                            <td rowspan="3" style="width:10%">
-                                <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</span>
-                                <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Reado to PO</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Nama Material</b></td>
-                            <td>'.$row->material_name .'</td>
-                        </tr>
-                            <tr>
-                            <td><b>Merk</b></td>
-                            <td>'.$row->merk .'</td>
-                        </tr>
-                        <tr>
-                            <td><b>Satuan</b></td>
-                            <td>'.$row->weight_unit .'</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><b>Keterangan</b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg
-                            </td>
-                        </tr>
-                    </table>
+                   <div class="row" style="padding-left:30px;padding-right:30px">
+                         <div class="row">
+                                <div class="col-md-4"><b>Material Number</b></div>
+                                <div class="col-md-8">' . $row->no_material . '</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><b>Nama Material</b></div>
+                                <div class="col-md-8">' . $row->material_name . '</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><b>Merk</b></div>
+                                <div class="col-md-8">' . $row->merk . '</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><b>Satuan</b></div>
+                                <div class="col-md-8">' . $row->weight_unit . '</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><b>Keterangan</b></div>
+                                <div class="col-md-12"> Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg</div>
+                            </div>
+                   </div>
                 ',
+                'action' => '
+                    <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</span>
+                    <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Read to PO</span>
+                '
             );
 
             $json .= json_encode($arr);

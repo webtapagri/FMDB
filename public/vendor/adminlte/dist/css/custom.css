@@ -6,3 +6,7 @@
 .nav-tabs>li>a {
     border-radius: 0 0 0 0;
 }
+
+.borderless td, .borderless th {
+    border: none !important;
+}

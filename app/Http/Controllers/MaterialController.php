@@ -48,7 +48,7 @@ class MaterialController extends Controller
                 "name" => $row->code,
                 "description" => str_replace(",", "<br>", ucwords(str_replace("-"," ",$row->description))),
                 "action" => '
-                    <button class="btn btn-xs btn-success btn-action" select="select data '.$row->name.'" onClick="SelectGroup(\''.$row->id.'\',\''.$row->name.'\',\''.$row->description.'\')">select</button>
+                    <button class="btn btn-xs btn-success btn-action" select="select data '.$row->name.'" onClick="SelectGroup(\''.$row->id.'\',\''.$row->code.'\',\''.$row->description.'\')">select</button>
                 '
             );
 
