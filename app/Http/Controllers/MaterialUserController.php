@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 
 use App\SetMaterial;
 use App\Guz;
+use function GuzzleHttp\json_encode;
 
 class MaterialUserController extends Controller
 {
@@ -31,10 +32,10 @@ class MaterialUserController extends Controller
                 $json .= ",";
             }
             $arr = array(
-                "img" => ' <img src="'. asset('img/genset.jpeg ') .'" class="img-responsive text-center" ></td>',
+                "img" => $this->getThumbnail('661393'),
                 'name'=> $row->material_name,
                 "detail" => '
-                   <div class="row" style="padding-left:30px;padding-right:30px">
+                   <div class="row" style="padding-left:30px;padding-right:30px;padding-bottom:30px">
                          <div class="row">
                                 <div class="col-md-4"><b>Material Number</b></div>
                                 <div class="col-md-8">' . $row->no_material . '</div>
@@ -53,7 +54,7 @@ class MaterialUserController extends Controller
                             </div>
                             <div class="row">
                                 <div class="col-md-4"><b>Keterangan</b></div>
-                                <div class="col-md-12"> Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg</div>
+                                <div class="col-md-12" style="font-size:11px"> Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg</div>
                             </div>
                    </div>
                 ',
@@ -68,6 +69,42 @@ class MaterialUserController extends Controller
         }
         $json .= ']}';
         echo $json;
+    }
+
+    public function getThumbnail($no_document)
+    {
+        $header = array(
+            'Content-Type' => 'application/json',
+            'AccessToken' => 'key',
+            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
+        );
+        $url = "http://149.129.224.117:8080/api/tr_files/". $no_document;
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', $url, array('headers'=>$header));
+
+        $result = $response->getBody()->getContents();
+        $data = json_decode($result);
+        return $data->file_image;
+    }
+ 
+    public function get_image()
+    {
+        $no_document = $_REQUEST['no_document'];
+        $url = "http://149.129.224.117:8080/api/tr_files/". $no_document;
+        $client = new \GuzzleHttp\Client();
+        $header = array(
+            'Content-Type' => 'application/json',
+            'AccessToken' => 'key',
+            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
+        );
+        
+
+        $response = $client->request('GET', $url, array('headers'=> $header));
+        $result = $response->getBody()->getContents();
+        $data = json_decode($result);
+        echo "<img src='". $data->file_image ."'>";
+        
+        
     }
 
     public function get_auto_sugest()
@@ -94,9 +131,9 @@ class MaterialUserController extends Controller
 
     public function store(Request $request)
     {
-
+        $no_document = rand(1, 1000000);
         $data = array(
-            "no_document" => rand(1, 1000000),
+            "no_document" => $no_document,
             "industri_sector" => $request->industry_sector,
             "plant" => $request->plant,
             "store_loc" => $request->store_location,
@@ -134,14 +171,57 @@ class MaterialUserController extends Controller
             "price_unit" => $request->price_unit,
             "locat" => $request->location
         );
-
+        $header = array(
+            'Content-Type' => 'application/json',
+            'AccessToken' => 'key',
+            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
+        );
 
         $url = "http://149.129.224.117:8080/api/tr_materials";
         $client = new Client();
         $res = $client->request('POST', $url, array('form_params' => $data));
-        echo $res->getBody();
-    }
 
+        $save_material =  json_decode($res->getBody());
+        if($save_material->code == '201'){
+            foreach ($_FILES as $row) {
+                $name = $row["name"];
+                $size = $row["size"];
+                $path = $row["tmp_name"];
+                $type = pathinfo($row["tmp_name"], PATHINFO_EXTENSION);
+                $data = file_get_contents($path);
+                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                $files = array(
+                    "material_no" => $request->group_material,
+                    "no_document" => $no_document,
+                    "file_name" => $name,
+                    "doc_size" => $size,
+                    "file_category" => $type,
+                    "file_image" => $base64
+                );
+
+
+                $url = "http://149.129.224.117:8080/api/tr_files";
+                $tr_files = new Client();
+                $res = $tr_files->request('POST', $url, array('form_params' => $files));
+                $save_tr_files = json_decode($res->getBody());
+                if ($save_material->code == '201') {
+                    $status = true;
+                }else{
+                    $status = false;
+                    echo json_encode(array(
+                            "code" => 201,
+                            "status" => "gagal upload",
+                            "message" => $files
+                        )
+                    );
+                    break;
+                }
+            }
+        }
+       
+        echo $res->getBody();
+    }  
+    
     public function get_uom()
     {
         $url = "http://tap-ldapdev.tap-agri.com/data-sap/uom";

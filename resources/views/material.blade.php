@@ -5,27 +5,27 @@
 @section('content')
 <section class="content">
        <div class="row">
-        <div class="col-xs-10">
-            <div class="input-group">
-                <input type="text" class="form-control" onkeyup="searchData()"  id="search_material" placeholder="search material">
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-flat btn-success btn-flat"><i class="fa fa-search"></i></button>
-                    </span>
-              </div>
-        </div>
-        <div class="col-xs-2" align="right">
-            <span href="#" class="btn btn-flat btn-sm btn-success btn-add">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
-        </div>
+              <div class="col-md-9 col-md-offset-1">
+                    <div class="input-group">
+                        <input type="text" class="form-control" onkeyup="searchData()"  id="search_material" placeholder="search material">
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-flat btn-success btn-flat"><i class="fa fa-search"></i></button>
+                            </span>
+                    </div>
+                </div>
+                <div class="col-md-1" align="left">
+                    <span href="#" class="btn btn-flat btn-sm btn-success btn-add">&nbsp;<i class="glyphicon glyphicon-plus" title="Request new material"></i>&nbsp;Add</span>
+                </div>
     </div>
     <br>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-10 col-md-offset-1">
              <table id="data-table" class="table table-condensed" style="background-color:white" width="100%">
                 <thead>
                     <tr>
-                        <th width="15%">Material list</th>
+                        <th width="18%">Material list</th>
                         <th></th>
-                        <th></th>
+                        <th width="10%"></th>
                     </tr>
                 </thead>
                     <tbody></tbody>
@@ -59,7 +59,7 @@
                                                             <div class="form-group">
                                                                 <label for="sap_material_group">Material Group</label>
                                                                 <select type="text" class="form-control" name="sap_material_group" id="sap_material_group" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>  
@@ -67,7 +67,7 @@
                                                             <div class="form-group">
                                                                 <label for="plant">Plant</label>
                                                                 <select type="text" class="form-control" name="plant" id="plant" maxlength="4" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -75,7 +75,7 @@
                                                             <div class="form-group">
                                                                 <label for="location">Location</label>
                                                                 <select type="text" class="form-control" name="location" id="location"  maxlength="10" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>  
@@ -85,7 +85,7 @@
                                                             <div class="form-group">
                                                                 <label for="mrp_controller">MRP Controller</label>
                                                                 <select type="text" class="form-control" name="mrp_controller" id="mrp_controller"  maxlength="3"  required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>  
@@ -93,7 +93,7 @@
                                                             <div class="form-group">
                                                                 <label for="valuation_class">Valuation Class</label>
                                                                 <select type="text" class="form-control" name="valuation_class"  maxlength="10"  id="valuation_class" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>  
@@ -101,7 +101,7 @@
                                                             <div class="form-group">
                                                                 <label for="sector_industry">Industri sector</label>
                                                                 <select type="text" class="form-control" name="industry_sector" id="industry_sector" maxlength="20" required >
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -111,7 +111,7 @@
                                                             <div class="form-group">
                                                                 <label for="material_type">Material Type</label>
                                                                 <select type="text" class="c" name="material_type" id="material_type"  maxlength="10"  required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div> 
@@ -119,7 +119,7 @@
                                                             <div class="form-group">
                                                                 <label for="store_location">Store Location</label>
                                                                 <select type="text" class="form-control" name="store_location" id="store_location"  maxlength="4" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>  
@@ -127,7 +127,7 @@
                                                             <div class="form-group">
                                                                 <label for="sales_org">Sales Org</label>
                                                                 <select type="text" class="form-control" name="sales_org" id="sales_org"  maxlength="4" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>  
@@ -137,7 +137,7 @@
                                                             <div class="form-group">
                                                                 <label for="dist_channel">Distribution Channel</label>
                                                                 <select type="text" class="form-control" name="dist_channel" id="dist_channel"  maxlength="4" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -145,7 +145,7 @@
                                                             <div class="form-group">
                                                                 <label for="division">Division</label>
                                                                 <select type="text" class="form-control" name="division" id="division"  maxlength="30" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -153,7 +153,7 @@
                                                             <div class="form-group">
                                                                 <label for="general_item_category_group">General Item Category Group</label>
                                                                 <select type="text" class="form-control" name="general_item_category_group" id="general_item_category_group" maxlength="4" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -169,7 +169,7 @@
                                                             <div class="form-group">
                                                                 <label for="tax_classification">Tax Classification</label>
                                                                 <select type="text" class="form-control" name="tax_classification" id="tax_classification" maxlength="1" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -177,7 +177,7 @@
                                                             <div class="form-group">
                                                                 <label for="account_assign">Account Assignment Group</label>
                                                                 <select type="text" class="form-control" name="account_assign" id="account_assign" maxlength="2" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -187,7 +187,7 @@
                                                             <div class="form-group">
                                                                 <label for="item_category_group">Item Category Group</label>
                                                                 <select type="text" class="form-control" name="item_category_group" id="item_category_group" maxlength="30" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -195,7 +195,7 @@
                                                             <div class="form-group">
                                                                 <label for="availability_check">Availability Check</label>
                                                                 <select type="text" class="form-control" name="availability_check" id="availability_check" maxlength="2" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -204,7 +204,7 @@
                                                             <div class="form-group">
                                                                 <label for="transportation_group">Transportation Group</label>
                                                                 <select type="text" class="form-control" name="transportation_group" maxlength="4" id="transportation_group" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -214,7 +214,7 @@
                                                             <div class="form-group">
                                                                 <label for="loading_group">Loading Group</label>
                                                                 <select type="text" class="form-control" name="loading_group" id="loading_group" maxlength="4" required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -222,7 +222,7 @@
                                                             <div class="form-group">
                                                                 <label for="profit_center">Profit Center</label>
                                                                 <select type="text" class="form-control" name="profit_center" id="profit_center" maxlength="4"  required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -230,7 +230,7 @@
                                                             <div class="form-group">
                                                                 <label for="mrp_type">MRP Type</label>
                                                                 <select type="text" class="form-control" name="mrp_type" id="mrp_type" maxlength="4"  required>
-                                                                    <option></option>
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>    
@@ -263,7 +263,7 @@
 
                                         <!-- glyphicons-->
                                         <div class="tab-pane" id="panel-basic-data">
-                                              <form id="form-basic-data">
+                                              <form id="form-basic-data" enctype="multipart/form-data">
                                                   <div class="box-body">
                                                       <div class="row">
                                                         <div class="col-md-4">
@@ -363,29 +363,44 @@
                                                        <div class="row">
                                                             <div class="col-md-4">
                                                                  <div class="form-group">
-                                                                <label for="exampleInputFile">File input</label>
-                                                                <input type="file" id="img-files" name="images" ultiple accept='image/*' >
-                                                                <input type="hidden" name="img_list" id="img_list">
+                                                                <label for="exampleInputFile">Image 1</label>
+                                                                <input type="file" id="img-files" name="files_1" accept='image/*' >
                                                                 <p class="help-block">*jpg, png</p>
                                                                 </div>
                                                             </div> 
-                                                      </div> 
-                                                       <div class="row">
-                                                            <div class="col-md-3">
+                                                             <div class="col-md-3">
                                                                 <img id="material-images-1" class="img-responsive">
                                                             </div> 
-                                                            <div class="col-md-3">
+                                                      </div> 
+                                                       <div class="row">
+                                                            <div class="col-md-4">
+                                                                 <div class="form-group">
+                                                                <label for="exampleInputFile">image 2</label>
+                                                                <input type="file" id="img-files" name="files_2" accept='image/*' >
+                                                                <p class="help-block">*jpg, png</p>
+                                                                </div>
+                                                            </div> 
+                                                             <div class="col-md-3">
                                                                 <img id="material-images-2" class="img-responsive">
                                                             </div> 
-                                                            <div class="col-md-3">
+                                                      </div> 
+                                                       <div class="row">
+                                                            <div class="col-md-4">
+                                                                 <div class="form-group">
+                                                                <label for="exampleInputFile">image 3</label>
+                                                                <input type="file" id="img-files-3" name="files_3"  accept='image/*' >
+                                                                <p class="help-block">*jpg, png</p>
+                                                                </div>
+                                                            </div> 
+                                                             <div class="col-md-3">
                                                                 <img id="material-images-3" class="img-responsive">
                                                             </div> 
                                                       </div> 
                                                   </div>
                                                    <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default btn-flat" onClick="initialPanel()">Back</button>
-                                                                <button type="submit" class="btn btn-success btn-flat" style="margin-right: 5px;">Submit</button>
-                                                            </div> 
+                                                        <button type="button" class="btn btn-default btn-flat" onClick="initialPanel()">Back</button>
+                                                        <button type="submit" class="btn btn-success btn-flat" style="margin-right: 5px;">Submit</button>
+                                                    </div> 
                                               </form>
                                         </div>
                         
@@ -436,10 +451,14 @@
     jQuery(document).ready(function() {
     var table =   jQuery('#data-table').DataTable({
         ajax: '{!! route('get.tm_material') !!}',
-        columns: [
-            { data: 'img', name: 'img' },
-            { data: 'detail', name: 'detail' },
-            { data: 'action', name: 'action' }
+        columnDefs: [
+            { 
+                targets: [0], 
+                className: 'text-center', 
+                "defaultContent": "<button>Click!</button>"
+            },
+             { targets: [1], data: 'detail'},
+             { targets: [2], data: 'action'},
         ],
         "searching": false,
         "sort": false,
@@ -476,12 +495,16 @@
             });
 
             //var form = jQuery('#form-initial').not(':submit').clone().hide().appendTo('#form-basic-data');
-            var param = jQuery("#form-initial, #form-basic-data").serializeArray();
 
+            var form = jQuery('#form-initial').find('input, select, textarea').appendTo('#form-basic-data');
+            var param = new FormData(this);
             jQuery.ajax({
 				url:"{{ url('material_user/post') }}",
-				method:"POST",
+			    type:"POST",
 				data: param,
+				contentType:false,
+				processData:false,
+				cache:false,
 				beforeSend:function(){},
 				success:function(result){
                     var data = jQuery.parseJSON(result);
@@ -553,7 +576,6 @@
             }
 
             showImage(src,target);
-            jQuery(this).val("");
 
         });
 
@@ -894,11 +916,6 @@
         fr.onload = function(e) { target.src = this.result; };
         fr.readAsDataURL(src.files[0]);
         imgFiles.push(src.files[0]);
-        jQuery.each(imgFiles, function(key, val){
-            console.log(val.name);
-            console.log(val.size);
-            console.log(val.type);
-        });
     }
 
     function binEncode(data) {

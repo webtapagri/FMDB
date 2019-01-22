@@ -47,6 +47,8 @@ Route::resource('material_user', 'MaterialUserController');
 Route::get('/material_user/show', 'MaterialController@show');
 Route::post('/material_user/post', 'MaterialUserController@store');
 Route::put('/material_user/store_location/{id}', 'MaterialUserController@store_location');
+Route::get('/material_user/getimage/', 'MaterialUserController@get_image');
+Route::get('get-image-detail', ['as' => 'get.get_image_detail', 'uses' => 'MaterialUserController@get_image']);
 
 Route::get('get-uom', ['as' => 'get.uom', 'uses' => 'MaterialUserController@get_uom']);
 Route::get('get-plant', ['as' => 'get.plant', 'uses' => 'MaterialUserController@get_plant']);
