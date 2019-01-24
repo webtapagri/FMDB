@@ -763,7 +763,7 @@
         }
 
         var table =   jQuery('#data-table').DataTable({
-        ajax: '{!! route('get.tm_material') !!}' + (param ? '?search='+param:''),
+        ajax: '{!! route('get.tm_material') !!}' + '?search='+ (param ? param:''),
         columns: [
             {  
                 "render": function (data, type, row) {

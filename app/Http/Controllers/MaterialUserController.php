@@ -24,7 +24,7 @@ class MaterialUserController extends Controller
             'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
         );    
 
-        $url = "http://149.129.224.117:8080/api/tr_materials/union/";
+        $url = "http://149.129.224.117:8080/api/tr_materials/union/" . ($_REQUEST['search'] ? $_REQUEST['search']:'');
         $client = new \GuzzleHttp\Client();
         $response = $client->request('GET', $url, array('headers'=>$header));
 
