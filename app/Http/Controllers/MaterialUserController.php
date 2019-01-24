@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use function GuzzleHttp\json_decode;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientErrorResponseException;
 
 use App\SetMaterial;
 use App\Guz;
@@ -18,80 +19,86 @@ class MaterialUserController extends Controller
     }
 
     public function get_tm_material() {
-        $header = array(
-            'Content-Type' => 'application/json',
-            'AccessToken' => 'key',
-            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
-        );    
-
-        $url = "http://149.129.224.117:8080/api/tr_materials/union/" . ($_REQUEST['search'] ? $_REQUEST['search']:'');
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url, array('headers'=>$header));
-
-        $result = $response->getBody()->getContents();
-        $data = json_decode($result);
-
         $no = 1;
         $json = '{"data":[';
-        foreach($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-
-            if(!empty($row->no_document)) {
-                //$img = $this->getThumbnail($row->no_document);
-                $img = $this->getThumbnail('661393');
-            }else{
-                $img = '';
-            }
-            $detail = '';
-            $arr =array(
-                "img"=> $img,
-                "no_material" => $row->no_material,
-                "industri_sector" => $row->industri_sector,
-                "plant" => $row->plant,
-                "store_loc" => $row->store_loc,
-                "sales_org" => $row->sales_org,
-                "dist_channel" => $row->dist_channel,
-                "mat_group" => $row->mat_group,
-                "part_number" => $row->part_number,
-                "spec" => $row->spec,
-                "merk" => $row->merk,
-                "material_name" => $row->material_name,
-                "uom" => $row->uom,
-                "division" => $row->division,
-                "item_cat_group" => $row->item_cat_group,
-                "gross_weight" => $row->gross_weight,
-                "net_weight" => $row->net_weight,
-                "volume" => $row->volume,
-                "size_dimension" => $row->size_dimension,
-                "weight_unit" => $row->weight_unit,
-                "volume_unit" => $row->volume_unit,
-                "locat" => $row->locat,
-                "mrp_controller" => $row->mrp_controller,
-                "valuation_class" => $row->valuation_class,
-                "tax_classification" => $row->tax_classification,
-                "account_assign" => $row->account_assign,
-                "general_item" => $row->general_item,
-                "avail_check" => $row->avail_check,
-                "transportation_group" => $row->transportation_group,
-                "loading_group" => $row->loading_group,
-                "profit_center" => $row->profit_center,
-                "mrp_type" => $row->mrp_type,
-                //"period_sle" => $row->period_sle,
-                "cash_discount" => $row->cash_discount,
-                "price_unit" => $row->price_unit,
-                "description" => $row->description,
-                "material_type" => $row->material_type,
-                "src" => $row->src
+        try {
+            $header = array(
+                'Content-Type' => 'application/json',
+                'AccessToken' => 'key',
+                'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
             );
 
-            $json .= json_encode($arr);
-            $no++;
-            if($no == 5) {
-                break;
+            $url = "http://149.129.224.117:8080/api/tr_materials/union/" . ($_REQUEST['search'] ? $_REQUEST['search'] : '');
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('GET', $url, array('headers' => $header));
+
+            $result = $response->getBody()->getContents();
+            $data = json_decode($result);
+
+            if($data->status === "success") {
+                foreach ($data->data as $row) {
+                    if ($no > 1) {
+                        $json .= ",";
+                    }
+                   
+                    if (!empty($row->no_document)) {
+                        $img = $this->getThumbnail($row->no_document);
+                    } else {
+                        $img = '';
+                    }
+
+                    $arr = array(
+                        "img" => $img,
+                        "no_material" => $row->no_material,
+                        "industri_sector" => $row->industri_sector,
+                        "plant" => $row->plant,
+                        "store_loc" => $row->store_loc,
+                        "sales_org" => $row->sales_org,
+                        "dist_channel" => $row->dist_channel,
+                        "mat_group" => $row->mat_group,
+                        "part_number" => $row->part_number,
+                        "spec" => $row->spec,
+                        "merk" => $row->merk,
+                        "material_name" => $row->material_name,
+                        "uom" => $row->uom,
+                        "division" => $row->division,
+                        "item_cat_group" => $row->item_cat_group,
+                        "gross_weight" => $row->gross_weight,
+                        "net_weight" => $row->net_weight,
+                        "volume" => $row->volume,
+                        "size_dimension" => $row->size_dimension,
+                        "weight_unit" => $row->weight_unit,
+                        "volume_unit" => $row->volume_unit,
+                        "locat" => $row->locat,
+                        "mrp_controller" => $row->mrp_controller,
+                        "valuation_class" => $row->valuation_class,
+                        "tax_classification" => $row->tax_classification,
+                        "account_assign" => $row->account_assign,
+                        "general_item" => $row->general_item,
+                        "avail_check" => $row->avail_check,
+                        "transportation_group" => $row->transportation_group,
+                        "loading_group" => $row->loading_group,
+                        "profit_center" => $row->profit_center,
+                        "mrp_type" => $row->mrp_type,
+                        //"period_sle" => $row->period_sle,
+                        "cash_discount" => $row->cash_discount,
+                        "price_unit" => $row->price_unit,
+                        "description" => $row->description,
+                        "material_type" => $row->material_type,
+                        "src" => $row->src
+                    );
+
+                    $json .= json_encode($arr);
+                    $no++;
+                    if($no == 9) {
+                        break;
+                    }
+                }
             }
+        } catch (ClientErrorResponseException $exception) {
+            $responseBody = $exception->getResponse()->getBody(true);
         }
+       
         $json .= ']}';
        echo $json;
     }
@@ -109,8 +116,13 @@ class MaterialUserController extends Controller
 
         $result = $response->getBody()->getContents();
         $data = json_decode($result);
-
-        return $data->file_image; 
+        if ($data->status === "failed") {
+          return '';
+        }else{
+           
+            return $data->data->file_image;
+        }
+       
     }
  
     public function get_image()
@@ -149,7 +161,7 @@ class MaterialUserController extends Controller
         $no = 1;
         $json = '{"data":';
         $result = array();
-        foreach ($data as $key => $value) {
+        foreach ($data->data as $key => $value) {
             $result = array_merge($result, array($value->no_material, $value->material_name));
         } 
 
@@ -229,7 +241,6 @@ class MaterialUserController extends Controller
                 $data = file_get_contents($path);
                 $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
                 $files = array(
-                    "material_no" => $request->group_material,
                     "no_document" => $no_document,
                     "file_name" => $name,
                     "doc_size" => $size,

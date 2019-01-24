@@ -447,21 +447,7 @@
         source: search
       });
 
-       /* jQuery('#group-material-table').DataTable({
-            ajax: '{!! route('get.data_table_group_material') !!}',
-            columns: [
-                { data: 'no', name: 'no' },
-                { data: 'name', name: 'name' },
-                { data: 'description', name: 'description' },
-                { data: 'action', name: 'action' }
-            ],
-              columnDefs: [
-                { targets: [3], className: 'text-center', orderable: false},
-                { targets: [0], className: 'text-center'}
-            ],
-            info: false,
-            paging: false
-        });  */
+
         SelectGroup();
          jQuery('#form-basic-data').on('submit', function(e) {
             e.preventDefault();
@@ -796,7 +782,8 @@
                         content += '</div>';
                         content += '<div class="row">';
                         content += '    <div class="col-md-4"><b>Keterangan:</b></div>';
-                        content += '    <div class="col-md-12" style="font-size:11px;"> Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg</div>';
+                        //content += '    <div class="col-md-12" style="font-size:11px;"> Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg</div>';
+                        content += '    <div class="col-md-12" style="font-size:11px;">' + (row.description ? row.description:'') + '</div>';
                         content += '</div>';
                         content += '</div>';
 
@@ -817,7 +804,7 @@
         columnDefs: [
             { targets: [1]},
         ],
-        "pageLength": 6,
+        "pageLength": 8,
         "searching": false,
         "sort": false,
         "lengthChange": false,
