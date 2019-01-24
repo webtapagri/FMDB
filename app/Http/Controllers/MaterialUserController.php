@@ -18,9 +18,15 @@ class MaterialUserController extends Controller
     }
 
     public function get_tm_material() {
-        $url = "http://149.129.224.117:8080/api/tm_materials";
+        $header = array(
+            'Content-Type' => 'application/json',
+            'AccessToken' => 'key',
+            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
+        );    
+
+        $url = "http://149.129.224.117:8080/api/tr_materials/union/";
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url);
+        $response = $client->request('GET', $url, array('headers'=>$header));
 
         $result = $response->getBody()->getContents();
         $data = json_decode($result);
@@ -31,44 +37,63 @@ class MaterialUserController extends Controller
             if ($no > 1) {
                 $json .= ",";
             }
-            $arr = array(
-                "img" => $this->getThumbnail('661393'),
-                'name'=> $row->material_name,
-                "detail" => '
-                   <div class="row" style="padding-left:30px;padding-right:30px;padding-bottom:30px">
-                         <div class="row">
-                                <div class="col-md-4"><b>Material Number</b></div>
-                                <div class="col-md-8">' . $row->no_material . '</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4"><b>Nama Material</b></div>
-                                <div class="col-md-8">' . $row->material_name . '</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4"><b>Merk</b></div>
-                                <div class="col-md-8">' . $row->merk . '</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4"><b>Satuan</b></div>
-                                <div class="col-md-8">' . $row->weight_unit . '</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4"><b>Keterangan</b></div>
-                                <div class="col-md-12" style="font-size:11px"> Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg</div>
-                            </div>
-                   </div>
-                ',
-                'action' => '
-                    <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</span>
-                    <span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Read to PO</span>
-                '
+
+            if(!empty($row->no_document)) {
+                //$img = $this->getThumbnail($row->no_document);
+                $img = $this->getThumbnail('661393');
+            }else{
+                $img = '';
+            }
+            $detail = '';
+            $arr =array(
+                "img"=> $img,
+                "no_material" => $row->no_material,
+                "industri_sector" => $row->industri_sector,
+                "plant" => $row->plant,
+                "store_loc" => $row->store_loc,
+                "sales_org" => $row->sales_org,
+                "dist_channel" => $row->dist_channel,
+                "mat_group" => $row->mat_group,
+                "part_number" => $row->part_number,
+                "spec" => $row->spec,
+                "merk" => $row->merk,
+                "material_name" => $row->material_name,
+                "uom" => $row->uom,
+                "division" => $row->division,
+                "item_cat_group" => $row->item_cat_group,
+                "gross_weight" => $row->gross_weight,
+                "net_weight" => $row->net_weight,
+                "volume" => $row->volume,
+                "size_dimension" => $row->size_dimension,
+                "weight_unit" => $row->weight_unit,
+                "volume_unit" => $row->volume_unit,
+                "locat" => $row->locat,
+                "mrp_controller" => $row->mrp_controller,
+                "valuation_class" => $row->valuation_class,
+                "tax_classification" => $row->tax_classification,
+                "account_assign" => $row->account_assign,
+                "general_item" => $row->general_item,
+                "avail_check" => $row->avail_check,
+                "transportation_group" => $row->transportation_group,
+                "loading_group" => $row->loading_group,
+                "profit_center" => $row->profit_center,
+                "mrp_type" => $row->mrp_type,
+                //"period_sle" => $row->period_sle,
+                "cash_discount" => $row->cash_discount,
+                "price_unit" => $row->price_unit,
+                "description" => $row->description,
+                "material_type" => $row->material_type,
+                "src" => $row->src
             );
 
             $json .= json_encode($arr);
             $no++;
+            if($no == 5) {
+                break;
+            }
         }
         $json .= ']}';
-        echo $json;
+       echo $json;
     }
 
     public function getThumbnail($no_document)
@@ -80,11 +105,12 @@ class MaterialUserController extends Controller
         );
         $url = "http://149.129.224.117:8080/api/tr_files/". $no_document;
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url, array('headers'=>$header));
+        $response = $client->request('GET', $url, array('headers'=> $header));
 
         $result = $response->getBody()->getContents();
         $data = json_decode($result);
-        return $data->file_image;
+
+        return $data->file_image; 
     }
  
     public function get_image()
@@ -104,14 +130,18 @@ class MaterialUserController extends Controller
         $data = json_decode($result);
         echo "<img src='". $data->file_image ."'>";
         
-        
     }
 
     public function get_auto_sugest()
     {
-        $url = "http://149.129.224.117:8080/api/tm_materials";
+        $header = array(
+            'Content-Type' => 'application/json',
+            'AccessToken' => 'key',
+            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
+        );    
+        $url = "http://149.129.224.117:8080/api/tr_materials/union/";
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url);
+        $response = $client->request('GET', $url, array('headers'=> $header));
 
         $result = $response->getBody()->getContents();
         $data = json_decode($result);
@@ -132,7 +162,7 @@ class MaterialUserController extends Controller
     public function store(Request $request)
     {
         $no_document = rand(1, 1000000);
-        $data = array(
+        $param = array(
             "no_document" => $no_document,
             "industri_sector" => $request->industry_sector,
             "plant" => $request->plant,
@@ -179,9 +209,17 @@ class MaterialUserController extends Controller
 
         $url = "http://149.129.224.117:8080/api/tr_materials";
         $client = new Client();
-        $res = $client->request('POST', $url, array('form_params' => $data));
+        $res = $client->request('POST', $url, [
+            'json' => $param,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'AccessToken' => 'key',
+                'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
+            ]
+        ]);
 
-        $save_material =  json_decode($res->getBody());
+
+        $save_material =  json_decode($res->getBody()->getContents());
         if($save_material->code == '201'){
             foreach ($_FILES as $row) {
                 $name = $row["name"];
@@ -199,11 +237,18 @@ class MaterialUserController extends Controller
                     "file_image" => $base64
                 );
 
-
                 $url = "http://149.129.224.117:8080/api/tr_files";
                 $tr_files = new Client();
-                $res = $tr_files->request('POST', $url, array('form_params' => $files));
-                $save_tr_files = json_decode($res->getBody());
+                $res = $tr_files->request('POST', $url, [
+                    'json' => $files,
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                        'AccessToken' => 'key',
+                        'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
+                    ]
+                ]);
+
+                $save_tr_files = json_decode($res->getBody()->getContents());
                 if ($save_material->code == '201') {
                     $status = true;
                 }else{
@@ -673,6 +718,30 @@ class MaterialUserController extends Controller
 
         $json .= "]}";
         echo $json; 
+    }
+
+    public function groupMaterialGroup()
+    { 
+        $data = DB::table('group_materials')->select('id', 'name', 'code', 'description', 'status')->where(array('status'=>0, 'code'=>$_REQUEST['code']))->get();
+        $json = '{"data":[';
+        $no = 1;
+        foreach ($data as $row) {
+            if ($no > 1) {
+                $json .= ",";
+            }
+
+            $arr = array(
+                "no" => $no,
+                "id" => $row->id,
+                "name" => $row->code,
+                "description" => $row->description,
+            );
+
+            $json .= json_encode($arr);
+            $no++;
+        }
+        $json .= ']}';
+        echo $json;
     }
 
 

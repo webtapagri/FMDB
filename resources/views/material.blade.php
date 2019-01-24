@@ -3,11 +3,16 @@
 @section('title', 'FMDB')
 
 @section('content')
+<style>
+    .select-img:hover {
+        opacity: 0.5
+    }
+</style>
 <section class="content">
        <div class="row">
               <div class="col-md-9 col-md-offset-1">
                     <div class="input-group">
-                        <input type="text" class="form-control" onkeyup="searchData()"  id="search_material" placeholder="search material">
+                        <input type="text" class="form-control" onChange="searchData()" id="search_material" placeholder="search material">
                             <span class="input-group-btn">
                             <button type="button" class="btn btn-flat btn-success btn-flat"><i class="fa fa-search"></i></button>
                             </span>
@@ -268,10 +273,10 @@
                                                       <div class="row">
                                                         <div class="col-md-4">
                                                                 <label for="group_material" >Group Material</label>
-                                                                <div class="input-group">
+                                                                <div class="form-group">
                                                                     <input type="text" class="form-control" name="group_material" id="group_material" readonly>
                                                                     <input type="hidden" name="group_material_id" id="group_material_id" readonly>
-                                                                    <span class="input-group-btn">
+                                                                    <span class="input-group-btn hide">
                                                                         <button type="button" class="btn btn-default btn-flat btn-group-material"><i class="fa fa-search"></i></button>
                                                                     </span>
                                                                 </div>
@@ -297,9 +302,9 @@
                                                             </div>
                                                         </div> 
                                                         <div class="col-sm-4">
-                                                            <div class="form-group material-group-input" id="input-brand">
+                                                            <div class="form-group material-group-input" id="input-merk">
                                                                  <label for="brand">Merk</label>
-                                                                <input type="text" class="form-control attr-material-group" name="brand"  id="brand"  >
+                                                                <input type="text" class="form-control attr-material-group" name="merk"  id="merk"  >
                                                             </div>
                                                         </div> 
                                                         <div class="form-group ">
@@ -361,39 +366,25 @@
                                                       </div>
                                                        <h5>IMAGE</h5>
                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                 <div class="form-group">
-                                                                <label for="exampleInputFile">Image 1</label>
-                                                                <input type="file" id="img-files" name="files_1" accept='image/*' >
+                                                            <div class="col-md-3">
+                                                                 <div class="form-group hide">
+                                                                <input type="file" id="files_1" name="files_1" accept='image/*'  OnChange="showImage(1)">
                                                                 <p class="help-block">*jpg, png</p>
                                                                 </div>
+                                                                <img id="material-images-1" style="cursor:pointer" OnClick="openFile(1)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
                                                             </div> 
-                                                             <div class="col-md-3">
-                                                                <img id="material-images-1" class="img-responsive">
-                                                            </div> 
-                                                      </div> 
-                                                       <div class="row">
-                                                            <div class="col-md-4">
-                                                                 <div class="form-group">
-                                                                <label for="exampleInputFile">image 2</label>
-                                                                <input type="file" id="img-files" name="files_2" accept='image/*' >
+                                                            <div class="col-md-3">
+                                                                 <div class="form-group hide">
+                                                                <input type="file" id="files_2" name="files_2" accept='image/*'  OnChange="showImage(2)">
                                                                 <p class="help-block">*jpg, png</p>
                                                                 </div>
+                                                                <img id="material-images-2" style="cursor:pointer" OnClick="openFile(2)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
                                                             </div> 
-                                                             <div class="col-md-3">
-                                                                <img id="material-images-2" class="img-responsive">
-                                                            </div> 
-                                                      </div> 
-                                                       <div class="row">
-                                                            <div class="col-md-4">
-                                                                 <div class="form-group">
-                                                                <label for="exampleInputFile">image 3</label>
-                                                                <input type="file" id="img-files-3" name="files_3"  accept='image/*' >
-                                                                <p class="help-block">*jpg, png</p>
+                                                            <div class="col-md-3">
+                                                                 <div class="form-group hide">
+                                                                <input type="file" id="files_3" name="files_3"  accept='image/*'  OnChange="showImage(3)">
                                                                 </div>
-                                                            </div> 
-                                                             <div class="col-md-3">
-                                                                <img id="material-images-3" class="img-responsive">
+                                                                <img id="material-images-3" style="cursor:pointer" OnClick="openFile(3)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
                                                             </div> 
                                                       </div> 
                                                   </div>
@@ -449,28 +440,14 @@
 <script>
     var imgFiles = [];    
     jQuery(document).ready(function() {
-    var table =   jQuery('#data-table').DataTable({
-        ajax: '{!! route('get.tm_material') !!}',
-        columnDefs: [
-            { 
-                targets: [0], 
-                className: 'text-center', 
-                "defaultContent": "<button>Click!</button>"
-            },
-             { targets: [1], data: 'detail'},
-             { targets: [2], data: 'action'},
-        ],
-        "searching": false,
-        "sort": false,
-        "lengthChange": false,
-      });
+      initData();  
 
       var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.auto_sugest') !!}')));
       jQuery("#search_material").autocomplete({
         source: search
       });
 
-       jQuery('#group-material-table').DataTable({
+       /* jQuery('#group-material-table').DataTable({
             ajax: '{!! route('get.data_table_group_material') !!}',
             columns: [
                 { data: 'no', name: 'no' },
@@ -484,8 +461,8 @@
             ],
             info: false,
             paging: false
-        }); 
-
+        });  */
+        SelectGroup();
          jQuery('#form-basic-data').on('submit', function(e) {
             e.preventDefault();
            jQuery.ajaxSetup({
@@ -532,7 +509,12 @@
             width:'100%',
             placeholder: "",
             allowClear: true
+        }).on('change', function() {
+            jQuery("#group_material").val(jQuery(this).val());
+            SelectGroup(jQuery(this).val());
         });
+
+        jQuery('#sap_material_group').trigger('click');
 
         var uom = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.uom') !!}')));
         jQuery('#uom').select2({
@@ -558,26 +540,6 @@
             });
         });
 
-        jQuery("#img-files").on('change', function() {
-            var src = document.getElementById("img-files");
-
-            if (jQuery('#material-images-1').prop('src') === '') {
-                 var target = document.getElementById("material-images-1");
-            } else if (jQuery('#material-images-2').prop('src') === '') {
-                 var target = document.getElementById("material-images-2");
-            } else if (jQuery('#material-images-3').prop('src') === '') {
-                 var target = document.getElementById("material-images-3");
-            } else {
-                  notify({
-                        type:'warning',
-                        message: 'hanya bisa 3 kali upload gambar'
-                    });
-                return false;
-            }
-
-            showImage(src,target);
-
-        });
 
          jQuery('#store_location').select2({
                 width:'100%',
@@ -743,9 +705,6 @@
             allowClear: true
         });
 
-        jQuery(".attr-material-group").on("keyup", function(){
-            genMaterialNo();
-        });    
 
     jQuery('.btn-add').on('click', function() {
         //jQuery(".material-group-input").removeClass('has-success');
@@ -761,6 +720,11 @@
         e.preventDefault();
         basicDataPanel();
     });
+
+    jQuery('.attr-material-group').on('change', function(){
+        genMaterialNo();
+    })
+
     
     jQuery('#form-basic-data').on('submit', function(e){
         e.preventDefault();
@@ -793,6 +757,83 @@
 
     });
 
+    function initData(param) {
+        if ( jQuery.fn.DataTable.isDataTable('#data-table') ) {
+            jQuery('#data-table').DataTable().destroy();
+        }
+
+        var table =   jQuery('#data-table').DataTable({
+        ajax: '{!! route('get.tm_material') !!}' + (param ? '?search='+param:''),
+        columns: [
+            {  
+                "render": function (data, type, row) {
+                    if(row.img) {
+                        var content = '<img src="' + row.img + '" class="img-responsive">';
+                    } else{
+                        var content = '';
+                    }    
+                    return content;
+                } 
+            },
+            { 
+                "render": function (data, type, row) {
+                    var content  = '<div class="row" style="padding-left:30px;padding-right:30px;padding-bottom:30px">';
+                        content += '<div class="row">';
+                        content += '    <div class="col-md-4"><b>Material Number</b></div>';
+                        content += '    <div class="col-md-8">' + row.no_material + '</div>'
+                        content += '</div>';
+                        content += '<div class="row">';
+                        content += '    <div class="col-md-4"><b>Nama Material</b></div>';
+                        content += '    <div class="col-md-8">' + row.material_name + '</div>';
+                        content += '</div>';
+                        content += '<div class="row">';
+                        content += '    <div class="col-md-4"><b>Merk</b></div>';
+                        content += '    <div class="col-md-8">' + (row.merk ? row.merk :'')+ '</div>';
+                        content += '</div>';
+                        content += '<div class="row">';
+                        content += '    <div class="col-md-4"><b>Satuan</b></div>';
+                        content += '    <div class="col-md-8">' + row.weight_unit + '</div>';
+                        content += '</div>';
+                        content += '<div class="row">';
+                        content += '    <div class="col-md-4"><b>Keterangan:</b></div>';
+                        content += '    <div class="col-md-12" style="font-size:11px;"> Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg</div>';
+                        content += '</div>';
+                        content += '</div>';
+
+                    return content;
+                } 
+            },
+            { 
+                 "render": function (data, type, row) {
+                     if(row.src == 1) {
+                        var content = '<span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</span><span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Read to PO</span>';
+                     }else{
+                        var content = '<span class="label label-warning">Requested</span>';
+                     }
+                    return content;
+                } 
+            }
+        ],
+        columnDefs: [
+            { targets: [1]},
+        ],
+        "pageLength": 6,
+        "searching": false,
+        "sort": false,
+        "lengthChange": false,
+      });
+
+    }
+
+    function searchData() {
+        var param = jQuery('#search_material').val();
+        initData(param);
+    }
+
+    function openFile(id) {
+        jQuery("#files_" + id).trigger('click');
+    }
+
        function closeGroupMaterialModal() {
         // jQuery('#group-material-modal').modal('hide');
          $('#group-material-modal').on('hidden.bs.modal', function(event) {
@@ -804,42 +845,49 @@
         //jQuery("#add-data-modal").modal("show");
     }
 
-     function SelectGroup(id, name, attr) {
+     function SelectGroup(mat_no) {
         jQuery(".material-group-input").removeClass('has-success');
         jQuery(".attr-material-group").prop("required", false);
-        var data = attr.split(',');
-        var help_material_sap = "";
-        selected_material_group = attr;
-        var no = 1;
-        jQuery.each(data, function(key, val) {
-            if(no > 1 ) {
-               help_material_sap += "-";
-            }
-            help_material_sap += val.replace("-", " ");
-            if(val == 'part-number') {
-                jQuery("#input-part-no").addClass("has-success");
-                jQuery("#part_no").prop("required",true);
-
-            }else if(val == 'deskripsi-material'){
-                jQuery("#input-description").addClass("has-success");
-                jQuery("#description").prop("required",true);
-
-            }else if(val == 'spesifikasi'){
-                jQuery("#input-specification").addClass("has-success");
-                jQuery("#specification").prop("required",true);
-
-            }else if(val == 'merk'){
-                jQuery("#input-brand").addClass("has-success");
-                 jQuery("#brand").prop("required",true);
-
-            }
-            no++;
-        });
+        var material_attr = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.group_material_list') !!}?code='+mat_no)));
         
-        jQuery('#group_material').val(name);
-        jQuery('#group_material_id').val(id);
+        if(material_attr.length > 0) {
+            var attr = material_attr[0].description;
+            var data = attr.split(',');
+            var help_material_sap = "";
+
+            selected_material_group = attr;
+            var no = 1;
+            jQuery.each(data, function(key, val) {
+                if(no > 1 ) {
+                help_material_sap += "-";
+                }
+                help_material_sap += val.replace("-", " ");
+                if(val == 'part-number') {
+                    jQuery("#input-part-no").addClass("has-success");
+                    jQuery("#part_no").prop("required",true);
+
+                }else if(val == 'deskripsi-material'){
+                    jQuery("#input-description").addClass("has-success");
+                    jQuery("#description").prop("required",true);
+
+                }else if(val == 'spesifikasi'){
+                    jQuery("#input-specification").addClass("has-success");
+                    jQuery("#specification").prop("required",true);
+
+                }else if(val == 'merk'){
+                    jQuery("#input-merk").addClass("has-success");
+                    jQuery("#merk").prop("required",true);
+
+                }
+                no++;
+            });
+        }else{
+            selected_material_group = 'deskripsi-material';
+            jQuery("#input-description").addClass("has-success");
+            jQuery("#description").prop("required",true);
+        }
+       
         jQuery("#help_material_sap").text('Pattern: ' + help_material_sap);
-        closeGroupMaterialModal();
     }
 
     function genMaterialNo(){
@@ -857,7 +905,7 @@
             }else if(val == 'spesifikasi'){
                 material_no += jQuery("#specification").val();
             }else if(val == 'merk'){
-                material_no += jQuery("#brand").val();
+                material_no += jQuery("#merk").val();
             }
             no++;
         });
@@ -888,7 +936,7 @@
         jQuery('.panel-basic-data').removeAttr("data-toggle");
     }
 
-    function searchData() {
+    function searchDataTable() {
         // Declare variables 
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("search_material");
@@ -910,7 +958,9 @@
         }
     } 
 
-    function showImage(src,target) {
+    function showImage(id) {
+         var src = document.getElementById("files_" + id);
+        var target = document.getElementById("material-images-" + id);
         var fr=new FileReader();
         // when image is loaded, set the src of the image where you want to display it
         fr.onload = function(e) { target.src = this.result; };
