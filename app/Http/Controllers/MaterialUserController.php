@@ -85,7 +85,8 @@ class MaterialUserController extends Controller
                         "price_unit" => $row->price_unit,
                         "description" => $row->description,
                         "material_type" => $row->material_type,
-                        "src" => $row->src
+                        "src" => $row->src,
+                        "remarks" => $row->remarks
                     );
 
                     $json .= json_encode($arr);
@@ -184,7 +185,7 @@ class MaterialUserController extends Controller
             "mat_group" => $request->group_material,
             "part_number" => $request->part_no,
             "spec" => $request->specification,
-            "merk" => $request->brand,
+            "merk" => $request->merk,
             "material_name" => $request->material_sap,
             "description" => $request->description,
             "uom" => $request->uom,
@@ -196,7 +197,7 @@ class MaterialUserController extends Controller
             "size_dimension" => $request->size,
             "weight_unit" => $request->weight_unit,
             "volume_unit" => $request->volume_unit,
-            "no_material" => $request->material_no,
+           //"no_material" => $request->material_no,
             "mrp_controller" => $request->mrp_controller,
             "valuation_class" => $request->valuation_class,
             "tax_classification" => $request->tax_classification,
@@ -211,7 +212,8 @@ class MaterialUserController extends Controller
             "period_sle" => $request->period_ind_for_sle,
             "cash_discount" => $request->cash_discount,
             "price_unit" => $request->price_unit,
-            "locat" => $request->location
+            "locat" => $request->location,
+            "remarks" => $request->remarks
         );
         $header = array(
             'Content-Type' => 'application/json',
@@ -234,43 +236,45 @@ class MaterialUserController extends Controller
         $save_material =  json_decode($res->getBody()->getContents());
         if($save_material->code == '201'){
             foreach ($_FILES as $row) {
-                $name = $row["name"];
-                $size = $row["size"];
-                $path = $row["tmp_name"];
-                $type = pathinfo($row["tmp_name"], PATHINFO_EXTENSION);
-                $data = file_get_contents($path);
-                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-                $files = array(
-                    "no_document" => $no_document,
-                    "file_name" => $name,
-                    "doc_size" => $size,
-                    "file_category" => $type,
-                    "file_image" => $base64
-                );
+                if($row["name"]) {
+                    $name = $row["name"];
+                    $size = $row["size"];
+                    $path = $row["tmp_name"];
+                    $type = pathinfo($row["tmp_name"], PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                    $files = array(
+                        "no_document" => $no_document,
+                        "file_name" => $name,
+                        'material_no' => '39320',
+                        "doc_size" => $size,
+                        "file_category" => $type,
+                        "file_image" => $base64
+                    );
 
-                $url = "http://149.129.224.117:8080/api/tr_files";
-                $tr_files = new Client();
-                $res = $tr_files->request('POST', $url, [
-                    'json' => $files,
-                    'headers' => [
-                        'Content-Type' => 'application/json',
-                        'AccessToken' => 'key',
-                        'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
-                    ]
-                ]);
+                    $url = "http://149.129.224.117:8080/api/tr_files";
+                    $tr_files = new Client();
+                    $res = $tr_files->request('POST', $url, [
+                        'json' => $files,
+                        'headers' => [
+                            'Content-Type' => 'application/json',
+                            'AccessToken' => 'key',
+                            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
+                        ]
+                    ]);
 
-                $save_tr_files = json_decode($res->getBody()->getContents());
-                if ($save_material->code == '201') {
-                    $status = true;
-                }else{
-                    $status = false;
-                    echo json_encode(array(
+                    $save_tr_files = json_decode($res->getBody()->getContents());
+                    if ($save_material->code == '201') {
+                        $status = true;
+                    } else {
+                        $status = false;
+                        echo json_encode(array(
                             "code" => 201,
                             "status" => "gagal upload",
                             "message" => $files
-                        )
-                    );
-                    break;
+                        ));
+                        break;
+                    }
                 }
             }
         }
@@ -294,7 +298,7 @@ class MaterialUserController extends Controller
                 $json .= ",";
             }
             $arr = array(
-                "id" => $data->data[$i]->MSEHL,
+                "id" => $data->data[$i]->MSEHI,
                 "text" => $data->data[$i]->MSEHI . " - " . str_replace("_", " ", $data->data[$i]->MSEHL)
             );
             $json .= json_encode($arr);

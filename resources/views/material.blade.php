@@ -51,8 +51,8 @@
                                 <div class="col-xs-12">
                                 <div class="">
                                     <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#panel-initial" data-toggle="tab" class="panel-initial">INITIAL</a></li>
-                                    <li><a href="#panel-basic-data" data-toggle="tab" class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
+                                    <li class="active"><a href="#panel-initial" class="panel-initial">INITIAL</a></li>
+                                    <li><a href="#panel-basic-data" class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
                                     </ul>
                                     <div class="tab-content">
                                     <!-- Font Awesome Icons -->
@@ -255,7 +255,6 @@
                                                             </div>
                                                         </div>    
                                                     </div> 
-
                                                </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
@@ -364,6 +363,14 @@
                                                                 </div>
                                                             </div> 
                                                       </div>
+                                                      <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                 <label for="volume_unit">Remarks</label>
+                                                                    <textarea type="text" class="form-control" name="remarks" id="remarks"></textarea>
+                                                                </div>
+                                                            </div> 
+                                                      </div>    
                                                        <h5>IMAGE</h5>
                                                        <div class="row">
                                                             <div class="col-md-3">
@@ -783,7 +790,7 @@
                         content += '<div class="row">';
                         content += '    <div class="col-md-4"><b>Keterangan:</b></div>';
                         //content += '    <div class="col-md-12" style="font-size:11px;"> Generator - Max Power: 5.500 watt - Rated Power: 5.000 watt - Rated Ampere: 22.7 A - Voltage: 220 Volt   Frekuensi: 50 Hz- DC Output: 12 Volt / 8.3 A - Phasa: Single </br> Engine - Type: 4 stroke, OHV, Air Cooled - Engine Model: GX 390 - Displacement: 389 CC - Max. Power Output: 13 HP / 3.600 RPM - Starting System: Electric + Recoil Starting / Engkol Tarik- Fuel: Gasoline- Fuel Tank Capacity: 28 Litre - Oil Engine Capacity: 1.100 ml - Noise Level: 72 dB - Dimension: 77 x 56 x 57 cm - Gross Weight: 97 kg</div>';
-                        content += '    <div class="col-md-12" style="font-size:11px;">' + (row.description ? row.description:'') + '</div>';
+                        content += '    <div class="col-md-12" style="font-size:11px;">' + (row.remarks ? row.remarks:'') + '</div>';
                         content += '</div>';
                         content += '</div>';
 
@@ -870,6 +877,7 @@
             });
         }else{
             selected_material_group = 'deskripsi-material';
+             jQuery("#material_sap").val('01');
             jQuery("#input-description").addClass("has-success");
             jQuery("#description").prop("required",true);
         }
