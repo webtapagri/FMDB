@@ -506,7 +506,7 @@
             SelectGroup(jQuery(this).val());
         });
 
-        jQuery('#sap_material_group').trigger('click');
+        jQuery('#sap_material_group').trigger('change');
 
         var uom = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.uom') !!}')));
         jQuery('#uom').select2({
@@ -531,6 +531,8 @@
                 allowClear: true
             });
         });
+
+        jQuery("#plant").trigger('change');
 
 
          jQuery('#store_location').select2({
