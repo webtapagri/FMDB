@@ -10,42 +10,41 @@ use Alert;
 
 class Guz extends Model
 {
-	// protected $public_key = 'B8C1FB623AA3CE4FCBAABC2CBCD18';
-	// protected $secret_key = 'B4B18358EEF2E9AEDE1FACE2E8A8A';
+	protected $public_key = 'B8C1FB623AA3CE4FCBAABC2CBCD18';
+	protected $secret_key = 'B4B18358EEF2E9AEDE1FACE2E8A8A';
+	protected $header = array(
+		'Content-Type' => 'application/json',
+		'AccessToken' => 'key',
+		'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
+	);
+	protected $url_base = "http://149.129.224.117:8080/api/";
 	public $result;
 
 	public function __construct($method, $url, $param=null)
 	{
-        $token = Session::get('token');
-
+		$url = $this->url_base . $url;;
 		$client = new Client();
 		switch ($method)
 		{
 			case 'GET':
-				$string = '?token=' . $token;
-				if($param)
-				{
-					foreach($param as $key => $value)
-					{
-						$string .= '&' . $key . '=' . $value;
-					}
-				}
-
-				// $string .= '&public_key=' . $this->public_key . '&secret_key=' . $this->secret_key;
-				$res = $client->request('GET', $url . $string);
+				$params = array(
+					'headers' => $this->header
+				);
+				
+				$client->request('GET', $url, $params);
 			break;
 
 			case 'POST':
 				$params = [
-					'form_params' => $param
+					'json' => $param,
+					'headers' => $this->header
 				];
                 // dd($params);
 
 				// $params['form_params']['public_key'] = $this->public_key;
 				// $params['form_params']['secret_key'] = $this->secret_key;
 
-                //$string = '?token=' . $token;
-
+				//$string = '?token=' . $token;
 				$res = $client->request('POST', $url, $params);
                 // $res = $client->request('POST', $url.$string);
                 // dd($url.$string);
@@ -70,8 +69,7 @@ class Guz extends Model
 			Session::flush();
 			Alert::error('Your session has expired');
 			return Redirect::to('');
-		}elseif(array_has($this->result, 'error') && $this->result->error == 'token_expired')
-		{
+		}elseif(array_has($this->result, 'error') && $this->result->error == 'token_expired'){
 			Session::flush();
 			Alert::error('Your session has expired');
 			return Redirect::to('');

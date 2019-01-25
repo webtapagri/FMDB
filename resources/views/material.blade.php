@@ -124,7 +124,6 @@
                                                             <div class="form-group">
                                                                 <label for="store_location">Store Location</label>
                                                                 <select type="text" class="form-control" name="store_location" id="store_location"  maxlength="4" required>
-                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>  
@@ -508,7 +507,7 @@
 
         jQuery('#sap_material_group').trigger('change');
 
-        var uom = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.uom') !!}')));
+        var uom = dataJson('{!! route('get.uom') !!}');
         jQuery('#uom').select2({
             data: uom,
             width:'100%',
@@ -523,7 +522,7 @@
             placeholder: ' ',
             allowClear: true
         }).on("change", function() {
-            var store_location = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('material_user/store_location/?id=') }}"+jQuery(this).val())));
+            var store_location = dataJson("{{ url('material_user/store_location/?id=') }}"+jQuery(this).val());
             jQuery('#store_location').select2({
                 data: store_location,
                 width:'100%',
@@ -680,16 +679,6 @@
         });
       
         jQuery('#cash_discount').select2({
-            data: [
-                {"id": 0, "text": "No"},
-                {"id": 1, "text": "Yes"}
-            ],
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-       
-        jQuery('store_location').select2({
             data: [
                 {"id": 0, "text": "No"},
                 {"id": 1, "text": "Yes"}

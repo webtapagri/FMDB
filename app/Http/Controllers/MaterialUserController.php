@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\ClientErrorResponseException;
 
 use App\SetMaterial;
 use App\Guz;
+use App\Services;
 use function GuzzleHttp\json_encode;
 
 class MaterialUserController extends Controller
@@ -19,157 +20,128 @@ class MaterialUserController extends Controller
     }
 
     public function get_tm_material() {
-        $no = 1;
-        $json = '{"data":[';
-        try {
-            $header = array(
-                'Content-Type' => 'application/json',
-                'AccessToken' => 'key',
-                'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
-            );
 
-            $url = "http://149.129.224.117:8080/api/tr_materials/union/" . ($_REQUEST['search'] ? $_REQUEST['search'] : '');
-            $client = new \GuzzleHttp\Client();
-            $response = $client->request('GET', $url, array('headers' => $header));
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => "tr_materials/union/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
+        ));
+        $data = $service->result;
 
-            $result = $response->getBody()->getContents();
-            $data = json_decode($result);
-
-            if($data->status === "success") {
-                foreach ($data->data as $row) {
-                    if ($no > 1) {
-                        $json .= ",";
-                    }
-                   
-                    if (!empty($row->no_document)) {
-                        $img = $this->getThumbnail($row->no_document);
-                    } else {
-                        $img = '';
-                    }
-
-                    $arr = array(
-                        "img" => $img,
-                        "no_material" => $row->no_material,
-                        "industri_sector" => $row->industri_sector,
-                        "plant" => $row->plant,
-                        "store_loc" => $row->store_loc,
-                        "sales_org" => $row->sales_org,
-                        "dist_channel" => $row->dist_channel,
-                        "mat_group" => $row->mat_group,
-                        "part_number" => $row->part_number,
-                        "spec" => $row->spec,
-                        "merk" => $row->merk,
-                        "material_name" => $row->material_name,
-                        "uom" => $row->uom,
-                        "division" => $row->division,
-                        "item_cat_group" => $row->item_cat_group,
-                        "gross_weight" => $row->gross_weight,
-                        "net_weight" => $row->net_weight,
-                        "volume" => $row->volume,
-                        "size_dimension" => $row->size_dimension,
-                        "weight_unit" => $row->weight_unit,
-                        "volume_unit" => $row->volume_unit,
-                        "locat" => $row->locat,
-                        "mrp_controller" => $row->mrp_controller,
-                        "valuation_class" => $row->valuation_class,
-                        "tax_classification" => $row->tax_classification,
-                        "account_assign" => $row->account_assign,
-                        "general_item" => $row->general_item,
-                        "avail_check" => $row->avail_check,
-                        "transportation_group" => $row->transportation_group,
-                        "loading_group" => $row->loading_group,
-                        "profit_center" => $row->profit_center,
-                        "mrp_type" => $row->mrp_type,
-                        //"period_sle" => $row->period_sle,
-                        "cash_discount" => $row->cash_discount,
-                        "price_unit" => $row->price_unit,
-                        "description" => $row->description,
-                        "material_type" => $row->material_type,
-                        "src" => $row->src,
-                        "remarks" => $row->remarks
-                    );
-
-                    $json .= json_encode($arr);
-                    $no++;
-                    if($no == 9) {
-                        break;
-                    }
+        return response()->json(array('data' => $data->data));
+         if ($data->status === "success") {
+           
+            //foreach ($data->data as $row) {
+                
+                /* 
+                if ($no > 1) {
+                    $json .= ",";
                 }
-            }
-        } catch (ClientErrorResponseException $exception) {
-            $responseBody = $exception->getResponse()->getBody(true);
+
+                if (!empty($row->no_document)) {
+                    $img = $this->getThumbnail($row->no_document);
+                } else {
+                    $img = '';
+                }
+
+                $arr = array(
+                    "img" => $img,
+                    "no_material" => $row->no_material,
+                    "industri_sector" => $row->industri_sector,
+                    "plant" => $row->plant,
+                    "store_loc" => $row->store_loc,
+                    "sales_org" => $row->sales_org,
+                    "dist_channel" => $row->dist_channel,
+                    "mat_group" => $row->mat_group,
+                    "part_number" => $row->part_number,
+                    "spec" => $row->spec,
+                    "merk" => $row->merk,
+                    "material_name" => $row->material_name,
+                    "uom" => $row->uom,
+                    "division" => $row->division,
+                    "item_cat_group" => $row->item_cat_group,
+                    "gross_weight" => $row->gross_weight,
+                    "net_weight" => $row->net_weight,
+                    "volume" => $row->volume,
+                    "size_dimension" => $row->size_dimension,
+                    "weight_unit" => $row->weight_unit,
+                    "volume_unit" => $row->volume_unit,
+                    "locat" => $row->locat,
+                    "mrp_controller" => $row->mrp_controller,
+                    "valuation_class" => $row->valuation_class,
+                    "tax_classification" => $row->tax_classification,
+                    "account_assign" => $row->account_assign,
+                    "general_item" => $row->general_item,
+                    "avail_check" => $row->avail_check,
+                    "transportation_group" => $row->transportation_group,
+                    "loading_group" => $row->loading_group,
+                    "profit_center" => $row->profit_center,
+                    "mrp_type" => $row->mrp_type,
+                    "cash_discount" => $row->cash_discount,
+                    "price_unit" => $row->price_unit,
+                    "description" => $row->description,
+                    "material_type" => $row->material_type,
+                    "src" => $row->src,
+                    "remarks" => $row->remarks
+                );
+
+                $json .= json_encode($arr);
+                $no++;
+                if ($no == 9) {
+                    break;
+                }*/
+           // } 
         }
-       
-        $json .= ']}';
-       echo $json;
+
     }
 
     public function getThumbnail($no_document)
     {
-        $header = array(
-            'Content-Type' => 'application/json',
-            'AccessToken' => 'key',
-            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
-        );
-        $url = "http://149.129.224.117:8080/api/tr_files/". $no_document;
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url, array('headers'=> $header));
-
-        $result = $response->getBody()->getContents();
-        $data = json_decode($result);
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => 'tr_files/' . $no_document
+        ));
+        $data = $service->result;
         if ($data->status === "failed") {
           return '';
         }else{
-           
             return $data->data->file_image;
         }
-       
     }
  
     public function get_image()
     {
         $no_document = $_REQUEST['no_document'];
-        $url = "http://149.129.224.117:8080/api/tr_files/". $no_document;
-        $client = new \GuzzleHttp\Client();
-        $header = array(
-            'Content-Type' => 'application/json',
-            'AccessToken' => 'key',
-            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
-        );
-        
-
-        $response = $client->request('GET', $url, array('headers'=> $header));
-        $result = $response->getBody()->getContents();
-        $data = json_decode($result);
-        echo "<img src='". $data->file_image ."'>";
-        
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => 'tr_files/' . $no_document
+        ));
+        $res = $service->result;
+        echo "<img src='". $res->data->file_image ."' style='width:50%;height:auto'>";   
     }
 
     public function get_auto_sugest()
     {
-        $header = array(
-            'Content-Type' => 'application/json',
-            'AccessToken' => 'key',
-            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
-        );    
-        $url = "http://149.129.224.117:8080/api/tr_materials/union/";
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url, array('headers'=> $header));
-
-        $result = $response->getBody()->getContents();
-        $data = json_decode($result);
-
-        $no = 1;
-        $json = '{"data":';
         $result = array();
-        foreach ($data->data as $key => $value) {
-            $result = array_merge($result, array($value->no_material, $value->material_name));
-        } 
+        $service = new Services(array(
+            'request'=> 'GET',
+            'method'=> 'tr_materials/union'
+        ));
 
-
-        $json .= json_encode($result);
-        $json .= '}';
-        echo $json;
+        $res = $service->result;
+        if($res->status === 'success') {
+            foreach ($res->data as $key => $value) {
+                if(!in_array($value->no_material, $result)){
+                    $result = array_merge($result, array($value->no_material));
+                }
+            } 
+            
+            foreach ($res->data as $key => $value) {
+                if(!in_array($value->material_name, $result)){
+                    $result = array_merge($result, array($value->material_name));
+                }
+            } 
+        }
+        return response()->json(array('data'=>$result));
     }
 
     public function store(Request $request)
@@ -197,7 +169,6 @@ class MaterialUserController extends Controller
             "size_dimension" => $request->size,
             "weight_unit" => $request->weight_unit,
             "volume_unit" => $request->volume_unit,
-           //"no_material" => $request->material_no,
             "mrp_controller" => $request->mrp_controller,
             "valuation_class" => $request->valuation_class,
             "tax_classification" => $request->tax_classification,
@@ -215,26 +186,14 @@ class MaterialUserController extends Controller
             "locat" => $request->location,
             "remarks" => $request->remarks
         );
-        $header = array(
-            'Content-Type' => 'application/json',
-            'AccessToken' => 'key',
-            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
-        );
 
-        $url = "http://149.129.224.117:8080/api/tr_materials";
-        $client = new Client();
-        $res = $client->request('POST', $url, [
-            'json' => $param,
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'AccessToken' => 'key',
-                'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
-            ]
-        ]);
-
-
-        $save_material =  json_decode($res->getBody()->getContents());
-        if($save_material->code == '201'){
+        $service = new Services(array(
+            'request' => 'POST',
+            'method' => 'tr_materials',
+            'data'=> $param
+        ));
+        $res = $service->result;        
+        if($res->code == '201'){
             foreach ($_FILES as $row) {
                 if($row["name"]) {
                     $name = $row["name"];
@@ -246,25 +205,19 @@ class MaterialUserController extends Controller
                     $files = array(
                         "no_document" => $no_document,
                         "file_name" => $name,
-                        'material_no' => '39320',
+                        'material_no' => '-',
                         "doc_size" => $size,
                         "file_category" => $type,
                         "file_image" => $base64
                     );
 
-                    $url = "http://149.129.224.117:8080/api/tr_files";
-                    $tr_files = new Client();
-                    $res = $tr_files->request('POST', $url, [
-                        'json' => $files,
-                        'headers' => [
-                            'Content-Type' => 'application/json',
-                            'AccessToken' => 'key',
-                            'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
-                        ]
-                    ]);
-
-                    $save_tr_files = json_decode($res->getBody()->getContents());
-                    if ($save_material->code == '201') {
+                    $service = new Services(array(
+                        'request' => 'POST',
+                        'method' => 'tr_files',
+                        'data' => $files
+                    ));
+                    $res = $service->result;          
+                    if ($res->code == '201') {
                         $status = true;
                     } else {
                         $status = false;
@@ -279,33 +232,28 @@ class MaterialUserController extends Controller
             }
         }
        
-        echo $res->getBody();
+        echo json_encode(array(
+            'code' => 201,
+            "message" => "berhasil"
+        ));
     }  
     
     public function get_uom()
     {
-        $url = "http://tap-ldapdev.tap-agri.com/data-sap/uom";
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url);
-
-        $result = $response->getBody()->getContents();
-        $data = json_decode($result);
-        $json = '{"data":[';
-
-        for ($i = 0; $i < count($data->data); $i++) {
-
-            if ($i > 0) {
-                $json .= ",";
-            }
-            $arr = array(
-                "id" => $data->data[$i]->MSEHI,
-                "text" => $data->data[$i]->MSEHI . " - " . str_replace("_", " ", $data->data[$i]->MSEHL)
+        $service = new Services(array(
+            'request' => 'GET',
+            'host'=> 'ldap',
+            'method' => "uom"
+        ));
+        $data = $service->result;
+        $arr = array();
+        foreach($data->data as $row) {
+            $arr[] = array(
+                'id'=> $row->MSEHI,
+                'text'=> $row->MSEHI .'-'. $row->MSEHL
             );
-            $json .= json_encode($arr);
         }
-
-        $json .= "]}";
-        echo $json; 
+        return response()->json(array('data'=> $arr));
     }
    
     public function get_store_location(Request $request)
@@ -315,448 +263,257 @@ class MaterialUserController extends Controller
     }
    
     public function get_div() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code","div")->get();
-
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
     
     public function get_plant() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code","plant")->get();
-
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();    
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
    
     public function get_location() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "location")->get();
 
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+        
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
    
     public function get_mrp_controller() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "mrp_controller")->get();
-
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
 
     public function get_valuation_class() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "valuation_class")->get();
-
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
     
     public function get_industry_sector() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "industry_sector")->get();
-
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
 
     public function get_material_type() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "material_type")->get();
 
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
     
     public function get_sales_org() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "sales_org")->get();
-
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr)); 
     }
 
     public function get_dist_channel() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "dist_channel")->get();
 
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
     
     public function get_item_cat() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "item_cat")->get();
-
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
    
     public function get_tax_classification() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "tax_class")->get();
-
-        $no = 1;
+        $arr = array();
           foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
   
     public function get_account_assign() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "account_assign")->get();
-
-        $no = 1;
+        $arr = array();
           foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));  
     }
 
     public function get_availability_check() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "avail_check")->get();
 
-        $no = 1;
+        $arr = array();
           foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
  
     public function get_transportation_group() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "trans_group")->get();
 
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
  
     public function get_loading_group() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "loading_group")->get();
-
-        $no = 1;
+        $arr = array();
           foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
 
     public function get_profit_center() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "profit_center")->get();
-
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        $arr = array();
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
    
     public function get_mrp_type() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "mrp_type")->get();
 
-        $no = 1;
+        $arr = array();
           foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
    
     public function get_sle() {
-        $json = '{"data":[';
         $data = DB::table('tm_general_data')->where("general_code", "sle")->get();
-
-        $no = 1;
-          foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-            $arr = array(
+        foreach ($data as $row) {
+            $arr[] = array(
                 "id"=> $row->description_code,
                 "text"=> $row->description_code ." - ". $row->description
             );
-            
-            $json .= json_encode($arr);
-            $no++;
         }
-        $no++;
-        $json .= ']}';
-        echo $json;  
+        return response()->json(array('data' => $arr));
     }
 
     public function show(Request $request) {
-        $url = "http://tap-ldapdev.tap-agri.com/data-sap/store_loc/2121" . $_REQUEST["id"];
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url);
-
-        $result = $response->getBody()->getContents();
-        $data = json_decode($result);
-        $json = '{"data":[';
-
-        for ($i = 0; $i < count($data->data); $i++) {
-
-            if ($i > 0) {
-                $json .= ",";
-            }
-            $arr = array(
-                "id" => $data->data[$i]->LGOR,
-                "text" => $data->data[$i]->LGOR . " - " . str_replace("_", " ", $data->data[$i]->LGOBE)
+        $service = new Services(array(
+            'request' => 'GET',
+            'host' => 'ldap',
+            'method' => "store_loc/" . $_REQUEST["id"]
+        ));
+        $data = $service->result;
+        foreach ($data->data as $row) {
+            $arr[] = array(
+                "id" => $row->LGOR,
+                "text" => $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE)
             );
-            $json .= json_encode($arr);
         }
+        return response()->json(array('data' => $arr));
 
-        $json .= "]}";
-        echo $json; 
     }
 
     public function groupMaterialGroup()
     { 
         $data = DB::table('group_materials')->select('id', 'name', 'code', 'description', 'status')->where(array('status'=>0, 'code'=>$_REQUEST['code']))->get();
-        $json = '{"data":[';
-        $no = 1;
+        $arr = array();
         foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
-
-            $arr = array(
+            $arr[] = array(
                 "no" => $no,
                 "id" => $row->id,
                 "name" => $row->code,
                 "description" => $row->description,
             );
-
-            $json .= json_encode($arr);
-            $no++;
         }
-        $json .= ']}';
-        echo $json;
+        return response()->json(array('data' => $arr));
     }
 
 
