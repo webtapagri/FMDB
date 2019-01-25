@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="col-md-1" align="left">
-                    <span href="#" class="btn btn-flat btn-sm btn-success btn-add">&nbsp;<i class="glyphicon glyphicon-plus" title="Request new material"></i>&nbsp;Add</span>
+                    <span href="#" class="btn btn-flat btn-sm btn-success btn-add" style="display:none">&nbsp;<i class="glyphicon glyphicon-plus" title="Request new material"></i>&nbsp;Add</span>
                 </div>
     </div>
     <br>
@@ -454,7 +454,6 @@
         source: search
       });
 
-
         SelectGroup();
          jQuery('#form-basic-data').on('submit', function(e) {
             e.preventDefault();
@@ -756,7 +755,23 @@
         }
 
         var table =   jQuery('#data-table').DataTable({
-        ajax: '{!! route('get.tm_material') !!}' + '?search='+ (param ? param:''),
+        ajax: {
+            url:'{!! route('get.tm_material') !!}' + '?search='+ (param ? param:''),
+            dataFilter: function(data){
+                var json = jQuery.parseJSON( data );
+                json.recordsTotal = json.recordsTotal;
+                json.recordsFiltered = json.recordsFiltered;
+                json.data = json.list;
+                totalData = jQuery.parseJSON(data);
+                if(totalData.data.length > 0) {
+                    jQuery('.btn-add').hide();
+                }else{
+                    jQuery('.btn-add').show();
+                }
+
+                return data;
+            },
+        },
         columns: [
             {  
                 "render": function (data, type, row) {
@@ -816,7 +831,6 @@
         "sort": false,
         "lengthChange": false,
       });
-
     }
 
     function searchData() {
