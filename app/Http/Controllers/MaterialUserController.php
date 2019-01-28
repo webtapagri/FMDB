@@ -124,6 +124,26 @@ class MaterialUserController extends Controller
                 }
             } 
         }
+
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => 'tm_materials'
+        ));
+
+        $res = $service->result;
+        if ($res->status === 'success') {
+            foreach ($res->data as $key => $value) {
+                if (!in_array($value->no_material, $result)) {
+                    $result = array_merge($result, array($value->no_material));
+                }
+            }
+
+            foreach ($res->data as $key => $value) {
+                if (!in_array($value->material_name, $result)) {
+                    $result = array_merge($result, array($value->material_name));
+                }
+            }
+        }
         
         return response()->json(array('data'=>$result));
     }

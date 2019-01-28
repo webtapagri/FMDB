@@ -123,10 +123,10 @@
     jQuery(document).ready(function() {
         initData();  
 
-      /*   var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.auto_sugest') !!}')));
+        var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.auto_sugest') !!}')));
         jQuery("#search_material").autocomplete({
             source: search
-        });  */
+        });
 
         jQuery('.btn-add').on('click', function() {
             window.location.href = "{{ url('material_user/create') }}";
