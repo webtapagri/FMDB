@@ -16,7 +16,11 @@ use function GuzzleHttp\json_encode;
 class MaterialUserController extends Controller
 {
     public function index() {
-        return view('material');
+        return view('material_user/index');
+    }
+
+    public function create() {
+        return view('material_user/add');
     }
 
     public function get_tm_material() {
