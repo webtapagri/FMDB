@@ -34,15 +34,37 @@ class MaterialUserController extends Controller
         if (count($res->data) > 0) {
             $arr = $res->data;
         }    
-        
-        return view::make('material_user/detail', $arr);
+  
+        return View('material_user/detail')->with('data', $arr);
     }
 
-    public function get_tm_material() {
+    public function get_material_user_grid() {
 
         $service = new Services(array(
             'request' => 'GET',
             'method' => "tr_materials_union/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
+        ));
+        $data = $service->result;
+
+        return response()->json(array('data' => $data->data));
+    }
+    
+    public function get_tr_materials() {
+
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => "tr_materials/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
+        ));
+        $data = $service->result;
+
+        return response()->json(array('data' => $data->data));
+    }
+
+    public function get_tm_materials() {
+
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => "tm_materials/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
         ));
         $data = $service->result;
 

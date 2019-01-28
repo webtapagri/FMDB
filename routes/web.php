@@ -49,7 +49,7 @@ Route::post('/material_user/post', 'MaterialUserController@store');
 Route::put('/material_user/store_location/{id}', 'MaterialUserController@store_location');
 Route::get('/material_user/getimage/', 'MaterialUserController@get_image');
 Route::get('get-image-detail', ['as' => 'get.get_image_detail', 'uses' => 'MaterialUserController@get_image']);
-Route::get('material-user_detail', ['as' => 'get.material_user_detail', 'uses' => 'MaterialUserController@detail']);
+Route::get('material-user-detail', ['as' => 'get.material_user_detail', 'uses' => 'MaterialUserController@detail']);
 
 Route::get('group-material-list', ['as' => 'get.group_material_list', 'uses' => 'MaterialUserController@groupMaterialGroup']);
 
@@ -71,7 +71,9 @@ Route::get('get-transportation_group', ['as' => 'get.transportation_group', 'use
 Route::get('get-loading_group', ['as' => 'get.loading_group', 'uses' => 'MaterialUserController@get_loading_group']);
 Route::get('get-profit_center', ['as' => 'get.profit_center', 'uses' => 'MaterialUserController@get_profit_center']);
 Route::get('get-mrp_type', ['as' => 'get.mrp_type', 'uses' => 'MaterialUserController@get_mrp_type']);
-Route::get('get-tm_material', ['as' => 'get.tm_material', 'uses' => 'MaterialUserController@get_tm_material']);
+Route::get('get-material_user_grid', ['as' => 'get.material_user_grid', 'uses' => 'MaterialUserController@get_material_user_grid']);
+Route::get('get-tr_material', ['as' => 'get.tr_material', 'uses' => 'MaterialUserController@get_tr_materials']);
+Route::get('get-tm_material', ['as' => 'get.tm_material', 'uses' => 'MaterialUserController@get_tm_materials']);
 Route::get('get-sle', ['as' => 'get.sle', 'uses' => 'MaterialUserController@get_sle']);
 Route::get('get-auto_sugest', ['as' => 'get.auto_sugest', 'uses' => 'MaterialUserController@get_auto_sugest']);
 

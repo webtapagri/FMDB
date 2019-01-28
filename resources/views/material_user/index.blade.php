@@ -59,6 +59,13 @@
     .sp-lightbox {
         z-index: 9999;
     }
+
+    .sp-wrap {
+        max-width: 100% !important;
+        background: none !important;
+        border:none !important;
+        float:none !important;
+    }
 </style>
 <section class="content">
        <div class="row">
@@ -71,7 +78,6 @@
                     </div>
                 </div>
                 <div class="col-md-1" align="left">
-                    <span href="#" onclick="showDetail('729896','1')" class="btn btn-flat btn-sm btn-success">Detail</span>
                     <span href="#" class="btn btn-flat btn-sm btn-success btn-add" style="display:none">&nbsp;<i class="glyphicon glyphicon-plus" title="Request new material"></i>&nbsp;Add</span>
                 </div>
     </div>
@@ -93,22 +99,15 @@
       </div>
 </section>
 <div id="detail-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog" width="900px">
+    <div class="modal-dialog modal-lg" >
 		<div class="modal-content">
 			<div class="modal-header">	
 				<h4 class="modal-title">Group Material</h4>
 			</div>
 			<div class="modal-body">	
-				<div class="box-body">
-                   <div class="col-md-6">
-                        <div class="sp-wrap text-center">
-                            <a href="{{ asset('vendor/smooth-products/images/')  }}/1.jpg"><img src="{{ asset('vendor/smooth-products/images/')  }}/1_tb.jpg" alt=""></a>
-                            <a href="{{ asset('vendor/smooth-products/images/')  }}/2.jpg"><img src="{{ asset('vendor/smooth-products/images/')  }}/2_tb.jpg" alt=""></a>
-                            <a href="{{ asset('vendor/smooth-products/images/')  }}/3.jpg"><img src="{{ asset('vendor/smooth-products/images/')  }}/3_tb.jpg" alt=""></a>
-                        </div>
-                   </div>
-                   <div class="col-md-6"></div>
-				</div>	 
+				<div class="row">
+                    <div id="show-aterial-detail"></div>
+                </div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default btn-close-group-material-modal" data-dismiss="modal">Close</button>
@@ -129,8 +128,6 @@
             source: search
         });  */
 
-        jQuery('.sp-wrap').smoothproducts();
-
         jQuery('.btn-add').on('click', function() {
             window.location.href = "{{ url('material_user/create') }}";
         });
@@ -143,7 +140,7 @@
 
         var table =   jQuery('#data-table').DataTable({
         ajax: {
-            url:'{!! route('get.tm_material') !!}' + '?search='+ (param ? param:''),
+            url:'{!! route('get.material_user_grid') !!}' + '?search='+ (param ? param:''),
             dataFilter: function(data){
                 var json = jQuery.parseJSON( data );
                 json.recordsTotal = json.recordsTotal;
@@ -280,9 +277,58 @@
     }
 
     function showDetail(no_document, status) {
-        console.log(no_document);
-        console.log(status);
-        jQuery("#detail-modal .modal-title").html("Machine Bla Bla");	
+        var content = '<div class="col-md-6">';
+            content += '<div class="sp-wrap text-center">';
+
+            var img_list = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_image_detail') !!}?no_document=' + no_document)));    
+            jQuery.each(img_list, function(key, val){
+                content += '<a href="' + val.file_image + '"><img src="' + val.file_image + '" alt=""></a>';
+            });
+            content +='</div></div>';
+            if(status === '1') {
+                var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material') !!}?search=' + no_document)));
+            } else {
+                 var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tm_material') !!}?search=' + no_document)));
+            }   
+
+            content +='<div class="col-md-6">';
+            content += '<table class="table table-condensed">';
+            content += '<tr>';
+            content += '    <td widh="180px"><b>Material Number</b></td>';
+            content += '    <td>' + detail[0].no_material + '</td>'
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td><b>Nama Material</b></td>';
+            content += '    <td>' + detail[0].material_name + '</td>';
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td><b>Merk</b></td>';
+            content += '    <td>' + (detail[0].merk ? detail[0].merk :'')+ '</td>';
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td><b>Satuan</b></td>';
+            content += '    <td>' + detail[0].weight_unit + '</td>';
+            content += '</td>';
+            content += '<tr>';
+            content += '    <td><b>Keterangan:</b></td>';
+            content += '    <td>' + (detail[0].remarks ? detail[0].remarks:'') + '</td>';
+            content += '</tr>';
+            if(status === '1') {
+                 content += '<tr>';
+                content += '    <td colspan="2"><span class="label label-warning">Requested</span></td>';
+                content += '</tr>';
+            } else {
+                content += '<tr>';
+                content += '    <td colspan="2"><span href="#" class="btn btn-flat btn-success btn-flat btn-block">Extend</span><span href="#" class="btn btn-flat btn-success btn-flat btn-block ">Read to PO</span></td>';
+                content += '</tr>';
+            }   
+
+            content += '</table>';
+            content +='</div>';
+        
+        jQuery('#show-aterial-detail').html(content);
+        jQuery('.sp-wrap').smoothproducts();
+        jQuery("#detail-modal .modal-title").html("Detail" + detail[0].material_name );	
         jQuery("#detail-modal").modal({backdrop:'static', keyboard:false});			
         jQuery("#detail-modal").modal("show");		
     }
