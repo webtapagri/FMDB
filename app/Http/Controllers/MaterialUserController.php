@@ -22,80 +22,31 @@ class MaterialUserController extends Controller
     public function create() {
         return view('material_user/add');
     }
+   
+    public function detail() {
+        $no_document = $_REQUEST['no_document'];
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => 'tr_files/' . $no_document
+        ));
+        $res = $service->result;
+        $arr = array();
+        if (count($res->data) > 0) {
+            $arr = $res->data;
+        }    
+        
+        return view::make('material_user/detail', $arr);
+    }
 
     public function get_tm_material() {
 
         $service = new Services(array(
             'request' => 'GET',
-            'method' => "tr_materials/union/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
+            'method' => "tr_materials_union/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
         ));
         $data = $service->result;
 
         return response()->json(array('data' => $data->data));
-         if ($data->status === "success") {
-           
-            //foreach ($data->data as $row) {
-                
-                /* 
-                if ($no > 1) {
-                    $json .= ",";
-                }
-
-                if (!empty($row->no_document)) {
-                    $img = $this->getThumbnail($row->no_document);
-                } else {
-                    $img = '';
-                }
-
-                $arr = array(
-                    "img" => $img,
-                    "no_material" => $row->no_material,
-                    "industri_sector" => $row->industri_sector,
-                    "plant" => $row->plant,
-                    "store_loc" => $row->store_loc,
-                    "sales_org" => $row->sales_org,
-                    "dist_channel" => $row->dist_channel,
-                    "mat_group" => $row->mat_group,
-                    "part_number" => $row->part_number,
-                    "spec" => $row->spec,
-                    "merk" => $row->merk,
-                    "material_name" => $row->material_name,
-                    "uom" => $row->uom,
-                    "division" => $row->division,
-                    "item_cat_group" => $row->item_cat_group,
-                    "gross_weight" => $row->gross_weight,
-                    "net_weight" => $row->net_weight,
-                    "volume" => $row->volume,
-                    "size_dimension" => $row->size_dimension,
-                    "weight_unit" => $row->weight_unit,
-                    "volume_unit" => $row->volume_unit,
-                    "locat" => $row->locat,
-                    "mrp_controller" => $row->mrp_controller,
-                    "valuation_class" => $row->valuation_class,
-                    "tax_classification" => $row->tax_classification,
-                    "account_assign" => $row->account_assign,
-                    "general_item" => $row->general_item,
-                    "avail_check" => $row->avail_check,
-                    "transportation_group" => $row->transportation_group,
-                    "loading_group" => $row->loading_group,
-                    "profit_center" => $row->profit_center,
-                    "mrp_type" => $row->mrp_type,
-                    "cash_discount" => $row->cash_discount,
-                    "price_unit" => $row->price_unit,
-                    "description" => $row->description,
-                    "material_type" => $row->material_type,
-                    "src" => $row->src,
-                    "remarks" => $row->remarks
-                );
-
-                $json .= json_encode($arr);
-                $no++;
-                if ($no == 9) {
-                    break;
-                }*/
-           // } 
-        }
-
     }
 
     public function getThumbnail($no_document)
@@ -120,7 +71,13 @@ class MaterialUserController extends Controller
             'method' => 'tr_files/' . $no_document
         ));
         $res = $service->result;
-        echo "<img src='". $res->data->file_image ."' style='width:50%;height:auto'>";   
+        $arr = array();
+
+        if(count($res->data)>0) {
+            $arr = $res->data;
+        }
+        
+        return response()->json(array('data'=>$arr));
     }
 
     public function get_auto_sugest()
@@ -128,7 +85,7 @@ class MaterialUserController extends Controller
         $result = array();
         $service = new Services(array(
             'request'=> 'GET',
-            'method'=> 'tr_materials/union'
+            'method'=> 'tr_materials'
         ));
 
         $res = $service->result;
@@ -145,8 +102,12 @@ class MaterialUserController extends Controller
                 }
             } 
         }
+        
         return response()->json(array('data'=>$result));
     }
+
+    
+
 
     public function store(Request $request)
     {
