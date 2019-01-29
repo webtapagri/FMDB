@@ -44,6 +44,8 @@ Route::get('data-table-group-material', ['as' => 'get.data_table_group_material'
 
 
 Route::resource('material_user', 'MaterialUserController');
+Route::get('/material_extend/{id}', 'MaterialUserController@extend')->name('extend');
+
 Route::get('/material_user/show', 'MaterialController@show');
 Route::post('/material_user/post', 'MaterialUserController@store');
 Route::put('/material_user/store_location/{id}', 'MaterialUserController@store_location');

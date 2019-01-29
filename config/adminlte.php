@@ -115,9 +115,19 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'Material',
+            'text' => 'Home',
             'url' => 'material_user',
-            'icon' => 'cube',
+            'icon' => 'home',
+        ],
+        [
+            'text' => 'Material Request',
+            'url' => 'material_user/create',
+            'icon' => 'pencil',
+        ],
+        [
+            'text' => 'Material Extend',
+            'url' => 'material_user/extend',
+            'icon' => 'plus',
         ],
         [
             'text' => 'Master Data',
@@ -133,16 +143,36 @@ return [
                 ],
             ],
         ],
-        /* 'ACCOUNT SETTINGS', */
         [
-            'text' => 'User',
+            'text' => 'Verifikasi',
+            'url' => 'verfiikasi',
+            'icon' => 'user',
+        ],
+        [
+            'text' => 'Reporting',
+            'url' => 'reporting',
+            'icon' => 'file',
+        ],
+        'ACCOUNT SETTINGS',
+        [
+            'text' => 'Profile',
             'url' => 'admin/settings',
             'icon' => 'user',
         ],
         [
-            'text' => 'Change Password',
+            'text' => 'Setting',
             'url' => 'admin/settings',
-            'icon' => 'lock',
+            'icon' => 'cog',
+        ],
+        [
+            'text' => 'Logout',
+            'url' => 'admin/settings',
+            'icon' => 'power-off',
+        ],
+        [
+            'text' => 'Help',
+            'url' => 'help',
+            'icon' => 'question',
         ],
        /*  'LABELS',
         [

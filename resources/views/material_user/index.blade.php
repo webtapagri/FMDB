@@ -212,7 +212,8 @@
             { 
                  "render": function (data, type, row) {
                      if(row.src === '0') {
-                        var content = '<span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</span><span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Read to PO</span>';
+                        var content = '<button OnClick="extend(this)" data-no_document="' + (row.no_document ? row.no_document:row.no_material) + '" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</button>';
+                            content +='<span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Read to PO</span>';
                      }else{
                         var content = '<span class="label label-warning">Requested</span>';
                      }
@@ -228,6 +229,11 @@
         "sort": false,
         "lengthChange": false,
       });
+    }
+
+    function extend(param) {
+        var no_document = jQuery(param).data('no_document');
+        window.location.href = "{{ ('material_extend') }}/" + no_document;
     }
 
     function searchData() {
@@ -290,8 +296,6 @@
             content +='</div></div>';
            var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material') !!}?search=' + no_document)));
 
-
-
             content +='<div class="col-md-6">';
             content += '<table class="table table-condensed">';
             content += '<tr>';
@@ -324,7 +328,12 @@
                 content += '</tr>';
             } else {
                 content += '<tr>';
-                content += '    <td colspan="2"><span href="#" class="btn btn-success btn-block">Extend</span><span href="#" class="btn btn-success btn-block ">Read to PO</span></td>';
+                if(row.src === '0') {
+                  var  content = '<button OnClick="extend(this)" data-no_document="' + (row.no_document ? row.no_document:row.no_material) + '" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</button>';
+                    content +='<span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Read to PO</span>';
+                }else{
+                    var content = '<span class="label label-warning">Requested</span>';
+                }
                 content += '</tr>';
             }   
 

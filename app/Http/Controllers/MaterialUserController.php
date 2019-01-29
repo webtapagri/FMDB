@@ -22,6 +22,10 @@ class MaterialUserController extends Controller
     public function create() {
         return view('material_user/add');
     }
+  
+    public function extend($document_no) {
+        return view('material_user/extend')->with('document_no', $document_no);
+    }
    
     public function detail() {
         $no_document = $_REQUEST['no_document'];
