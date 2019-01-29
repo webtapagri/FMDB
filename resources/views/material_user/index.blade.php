@@ -160,11 +160,8 @@
             {  
                 "render": function (data, type, row) {
                     if(row.file_image) {
-                        if(row.src === '0') {
-                            var key = row.material_no;
-                        } else {
-                            var key = row.no_document;
-                        }
+                        var key = row.no_document;
+  
                         var content = '<img src="' + row.file_image + '" class="img-responsive select-img" title="show detail ' + row.material_name + '"  OnClick="showDetail(\'' + key + '\',\'' + row.src + '\')">';
                     } else{
                         var content = '';
@@ -174,11 +171,7 @@
             },
             { 
                 "render": function (data, type, row) {
-                    if(row.src === '0') {
-                        var key = row.material_no;
-                    } else {
-                        var key = row.no_document;
-                    }
+                    var key = row.no_document;
 
                     var content  = '<div class="row" style="padding-left:30px;padding-right:30px;padding-bottom:30px">';
                         content += '<div class="row">';
@@ -285,11 +278,9 @@
                 content += '<a href="' + val.file_image + '"><img src="' + val.file_image + '" alt=""></a>';
             });
             content +='</div></div>';
-            if(status === '1') {
-                var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material') !!}?search=' + no_document)));
-            } else {
-                 var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tm_material') !!}?search=' + no_document)));
-            }   
+           var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material') !!}?search=' + no_document)));
+
+
 
             content +='<div class="col-md-6">';
             content += '<table class="table table-condensed">';
@@ -319,7 +310,7 @@
                 content += '</tr>';
             } else {
                 content += '<tr>';
-                content += '    <td colspan="2"><span href="#" class="btn btn-flat btn-success btn-flat btn-block">Extend</span><span href="#" class="btn btn-flat btn-success btn-flat btn-block ">Read to PO</span></td>';
+                content += '    <td colspan="2"><span href="#" class="btn btn-success btn-block">Extend</span><span href="#" class="btn btn-success btn-block ">Read to PO</span></td>';
                 content += '</tr>';
             }   
 
@@ -328,7 +319,7 @@
         
         jQuery('#show-aterial-detail').html(content);
         jQuery('.sp-wrap').smoothproducts();
-        jQuery("#detail-modal .modal-title").html("Detail" + detail[0].material_name );	
+        jQuery("#detail-modal .modal-title").html("Detail " + detail[0].material_name );	
         jQuery("#detail-modal").modal({backdrop:'static', keyboard:false});			
         jQuery("#detail-modal").modal("show");		
     }
