@@ -42,7 +42,18 @@ class MaterialUserController extends Controller
 
         $service = new Services(array(
             'request' => 'GET',
-            'method' => "tr_materials_union/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
+            'method' => "tr_materials_union/"
+        ));
+        $data = $service->result;
+
+        return response()->json(array('data' => $data->data));
+    }
+    
+    public function get_material_user_grid_search() {
+
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
         ));
         $data = $service->result;
 
@@ -123,6 +134,12 @@ class MaterialUserController extends Controller
                     $result = array_merge($result, array($value->material_name));
                 }
             } 
+           
+            foreach ($res->data as $key => $value) {
+                if(!in_array($value->part_number, $result)){
+                    $result = array_merge($result, array($value->part_number));
+                }
+            } 
         }
 
         $service = new Services(array(
@@ -143,6 +160,12 @@ class MaterialUserController extends Controller
                     $result = array_merge($result, array($value->material_name));
                 }
             }
+
+            foreach ($res->data as $key => $value) {
+                if (!in_array($value->part_number, $result)) {
+                    $result = array_merge($result, array($value->part_number));
+                }
+            } 
         }
         
         return response()->json(array('data'=>$result));

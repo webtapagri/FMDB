@@ -138,9 +138,15 @@
             jQuery('#data-table').DataTable().destroy();
         }
 
+        if(param) {
+            var api = '{!! route('get.material_user_grid_search') !!}';
+        } else {
+            var api = '{!! route('get.material_user_grid') !!}';
+        }
+
         var table =   jQuery('#data-table').DataTable({
         ajax: {
-            url:'{!! route('get.material_user_grid') !!}' + '?search='+ (param ? param:''),
+            url: api + '?search=' + (param ? param:''),
             dataFilter: function(data){
                 var json = jQuery.parseJSON( data );
                 json.recordsTotal = json.recordsTotal;
@@ -185,6 +191,10 @@
                         content += '<div class="row">';
                         content += '    <div class="col-md-4"><b>Merk</b></div>';
                         content += '    <div class="col-md-8">' + (row.merk ? row.merk :'')+ '</div>';
+                        content += '</div>';
+                        content += '<div class="row">';
+                        content += '    <div class="col-md-4"><b>Part Number</b></div>';
+                        content += '    <div class="col-md-8">' + (row.part_number ? row.part_number:'') + '</div>';
                         content += '</div>';
                         content += '<div class="row">';
                         content += '    <div class="col-md-4"><b>Satuan</b></div>';
@@ -295,6 +305,10 @@
             content += '<tr>';
             content += '    <td><b>Merk</b></td>';
             content += '    <td>' + (detail[0].merk ? detail[0].merk :'')+ '</td>';
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td><b>Part number</b></td>';
+            content += '    <td>' + (detail[0].part_number ? detail[0].part_number :'')+ '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Satuan</b></td>';

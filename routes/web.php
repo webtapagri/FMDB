@@ -72,6 +72,7 @@ Route::get('get-loading_group', ['as' => 'get.loading_group', 'uses' => 'Materia
 Route::get('get-profit_center', ['as' => 'get.profit_center', 'uses' => 'MaterialUserController@get_profit_center']);
 Route::get('get-mrp_type', ['as' => 'get.mrp_type', 'uses' => 'MaterialUserController@get_mrp_type']);
 Route::get('get-material_user_grid', ['as' => 'get.material_user_grid', 'uses' => 'MaterialUserController@get_material_user_grid']);
+Route::get('get-material_user_grid_search', ['as' => 'get.material_user_grid_search', 'uses' => 'MaterialUserController@get_material_user_grid_search']);
 Route::get('get-tr_material', ['as' => 'get.tr_material', 'uses' => 'MaterialUserController@get_tr_materials']);
 Route::get('get-tm_material', ['as' => 'get.tm_material', 'uses' => 'MaterialUserController@get_tm_materials']);
 Route::get('get-sle', ['as' => 'get.sle', 'uses' => 'MaterialUserController@get_sle']);
