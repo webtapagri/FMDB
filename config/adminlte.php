@@ -164,16 +164,6 @@ return [
             'url' => 'admin/settings',
             'icon' => 'cog',
         ],
-        [
-            'text' => 'Logout',
-            'url' => 'admin/settings',
-            'icon' => 'power-off',
-        ],
-        [
-            'text' => 'Help',
-            'url' => 'help',
-            'icon' => 'question',
-        ],
        /*  'LABELS',
         [
             'text'       => 'Important',

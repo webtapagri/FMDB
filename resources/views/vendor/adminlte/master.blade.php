@@ -27,6 +27,7 @@
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/custom.css') }}">
 
     @if(config('adminlte.plugins.datatables'))
@@ -69,6 +70,10 @@
 
 @yield('adminlte_js')
 <script>
+    jQuery(window).on('load', function() {
+        jQuery('.loading-event').fadeOut();
+    })
+
     function notify(param){
         Command: toastr[param.type](param.message)
 
@@ -104,7 +109,11 @@
 		});
 		
 		return mydata;
-	}
+    }
+    
+    function logOut() {
+        jQuery('#logout-form').submit()
+    }
 </script>
 </body>
 </html>

@@ -237,8 +237,10 @@
     }
 
     function searchData() {
+        jQuery('.loading-event').fadeIn();
         var param = jQuery('#search_material').val();
         initData(param);
+        jQuery('.loading-event').fadeOut()
     }
 
     function searchDataTable() {
@@ -286,6 +288,7 @@
     }
 
     function showDetail(no_document, status) {
+        jQuery('.loading-event').fadeIn();
         var content = '<div class="col-md-6">';
             content += '<div class="sp-wrap text-center">';
 
@@ -344,7 +347,8 @@
         jQuery('.sp-wrap').smoothproducts();
         jQuery("#detail-modal .modal-title").html("Detail " + detail[0].material_name );	
         jQuery("#detail-modal").modal({backdrop:'static', keyboard:false});			
-        jQuery("#detail-modal").modal("show");		
+        jQuery("#detail-modal").modal("show");	
+        jQuery('.loading-event').fadeOut()	
     }
 </script>            
 @stop

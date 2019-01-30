@@ -14,6 +14,7 @@
 ][config('adminlte.layout')] : '') . (config('adminlte.collapse_sidebar') ? ' sidebar-collapse ' : ''))
 
 @section('body')
+    <div class="loading-event"></div>
     <div class="wrapper">
 
         <!-- Main Header -->
@@ -94,6 +95,9 @@
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    <li><a href="#" OnClick="logOut()"><i class="fa fa-power-off"></i> <span>Log out</span></a></li>
+                    <li style="border-top:1px solid #182225"><a href=""><i class="fa fa-question"></i> <span>Help</span></a></li>
+
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

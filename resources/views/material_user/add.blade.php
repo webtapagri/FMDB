@@ -384,16 +384,15 @@ label {
 				contentType:false,
 				processData:false,
 				cache:false,
-				beforeSend:function(){},
+				beforeSend:function(){jQuery('.loading-event').fadeIn();},
 				success:function(result){
                     var data = jQuery.parseJSON(result);
                     if(data.code == '201'){
-                        jQuery("#add-data-modal").modal("hide");
-                        jQuery("#data-table").DataTable().ajax.reload();
                         notify({
                             type:'success',
                             message:data.message
                         });
+                        window.location.href = "{{ url('material_user') }}";
                     }else{
                         notify({
                             type:'warning',
@@ -401,7 +400,7 @@ label {
                         });
                     } 
 				},
-				complete:function(){}
+				complete:function(){jQuery('.loading-event').fadeOut();}
 			 });
         });
 
