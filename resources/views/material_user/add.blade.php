@@ -13,8 +13,14 @@ label {
 </style>
 <section class="content">
       <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-        <div class="">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-pencil"></i> Add Material</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                            <div class="">
             <ul class="nav nav-tabs">
             <li class="active"><a href="#panel-initial" class="panel-initial">INITIAL</a></li>
             <li><a href="#panel-basic-data" class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
@@ -210,10 +216,10 @@ label {
                                 </div>
                             </div>   
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-flat hide" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success btn-flat" style="margin-right: 5px;">Next</button>
-                            <button type="button" class="btn btn-danger btn-flat btn-cancel" style="margin-right: 5px;">Cancel</button>
+                        <div class="box-footer clearfix">
+                            <button type="button" class="btn btn-default btn-flat hide pull-right" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success btn-flat pull-right" style="margin-right: 5px;">Next</button>
+                            <button type="button" class="btn btn-danger btn-flat btn-cancel pull-right" style="margin-right: 5px;">Cancel</button>
                         </div> 
                     </form>
                     
@@ -315,7 +321,7 @@ label {
                                         <textarea type="text" class="form-control input-sm" name="remarks" id="remarks"></textarea>
                                     </div>
                                 </div> 
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label for="volume_unit" class="col-md-3">Image</label>
                                      <div class="col-md-3">
                                             <div class="form-group hide">
@@ -339,10 +345,10 @@ label {
                                     </div> 
                                 </div> 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default btn-flat" onClick="initialPanel()">Back</button>
-                                <button type="submit" class="btn btn-success btn-flat" style="margin-right: 5px;">Submit</button>
-                                <button type="button" class="btn btn-danger btn-flat btn-cancel" style="margin-right: 5px;">Cancel</button>
+                              <div class="box-footer clearfix">
+                                <button type="button" class="btn btn-default btn-flat pull-right" onClick="initialPanel()">Back</button>
+                                <button type="submit" class="btn btn-success btn-flat pull-right" style="margin-right: 5px;">Submit</button>
+                                <button type="button" class="btn btn-danger btn-flat btn-cancel pull-right" style="margin-right: 5px;">Cancel</button>
                             </div> 
                         </form>
                 </div>
@@ -352,6 +358,8 @@ label {
             </div>
             <!-- /.tab-content -->
         </div>
+                </div>
+            </div>    
         <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->

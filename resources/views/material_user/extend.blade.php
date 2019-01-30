@@ -13,8 +13,14 @@ label {
 </style>
 <section class="content">
       <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-        <div class="">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-plus"></i> Extend Material</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                            <div class="">
             <ul class="nav nav-tabs">
             <li class="active"><a href="#panel-initial" class="panel-initial">INITIAL</a></li>
             <li><a href="#panel-basic-data" class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
@@ -25,49 +31,25 @@ label {
                     <form id="form-initial"  class="form-horizontal">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="sap_material_group" class="col-md-4">Material Group</label>
-                                <div class="col-md-8">
+                                <label for="sap_material_group" class="col-md-3">Material Group</label>
+                                <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="sap_material_group" id="sap_material_group" required>
                                         
                                     </select>
                                 </div>    
                             </div>
                             <div class="form-group">
-                                <label for="plant" class="col-md-4">Extend for Plant</label>
-                                    <div class="col-md-8">
+                                <label for="plant" class="col-md-3">Plant</label>
+                                    <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="plant" id="plant" maxlength="4" required>
                                         
                                     </select>
                                 </div>    
                             </div>
-                            <div class="form-group">
-                                <label for="material_type" class="col-md-4">Extend for Material Type</label>
-                                <div class="col-md-8">
-                                    <select type="text" class="c" name="material_type" id="material_type"  maxlength="10"  required>
-                                        
-                                    </select>
-                                </div>
-                            </div> 
-                           
-                            <div class="form-group">
-                                <label for="store_location" class="col-md-4">Extend for Store Location</label>
-                                    <div class="col-md-8">
-                                    <select type="text" class="form-control input-sm" name="store_location" id="store_location"  maxlength="4" required>
-                                    </select>
-                                </div>
-                            </div>  
-
-                            <div class="form-group">
-                                <label for="sales_org" class="col-md-4">Extend for Sales Org</label>
-                                <div class="col-md-8"> 
-                                    <select type="text" class="form-control input-sm" name="sales_org" id="sales_org"  maxlength="4" required>
-                                    </select>
-                                </div>
-                            </div>  
                             
                             <div class="form-group">
-                                <label for="location" class="col-md-4"> Location</label>
-                                <div class="col-md-8">
+                                <label for="location" class="col-md-3">Location</label>
+                                <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="location" id="location"  maxlength="10" required>
                                         
                                     </select>
@@ -75,8 +57,8 @@ label {
                             </div>  
                           
                             <div class="form-group">
-                                <label for="mrp_controller" class="col-md-4">MRP Controller</label>
-                                <div class="col-md-8">
+                                <label for="mrp_controller" class="col-md-3">MRP Controller</label>
+                                <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="mrp_controller" id="mrp_controller"  maxlength="3"  required>
                                         
                                     </select>
@@ -84,16 +66,16 @@ label {
                             </div>  
                             
                             <div class="form-group">
-                                <label for="valuation_class" class="col-md-4">Valuation Class</label>
-                                <div class="col-md-8">
+                                <label for="valuation_class" class="col-md-3">Valuation Class</label>
+                                <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="valuation_class"  maxlength="10"  id="valuation_class" required>
                                         
                                     </select>
                                 </div>
                             </div>  
                             <div class="form-group">
-                                <label for="sector_industry" class="col-md-4">Industri sector</label>
-                                    <div class="col-md-8">
+                                <label for="sector_industry" class="col-md-3">Industri sector</label>
+                                    <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="industry_sector" id="industry_sector" maxlength="20" required >
                                         
                                     </select>
@@ -101,8 +83,33 @@ label {
                             </div>
                             
                             <div class="form-group">
-                                <label for="dist_channel" class="col-md-4">Distribution Channel</label>
-                                <div class="col-md-8"> 
+                                <label for="material_type" class="col-md-3">Material Type</label>
+                                <div class="col-md-9">
+                                    <select type="text" class="c" name="material_type" id="material_type"  maxlength="10"  required>
+                                        
+                                    </select>
+                                </div>
+                            </div> 
+                           
+                            <div class="form-group">
+                                <label for="store_location" class="col-md-3">Store Location</label>
+                                    <div class="col-md-9">
+                                    <select type="text" class="form-control input-sm" name="store_location" id="store_location"  maxlength="4" required>
+                                    </select>
+                                </div>
+                            </div>  
+
+                            <div class="form-group">
+                                <label for="sales_org" class="col-md-3">Sales Org</label>
+                                <div class="col-md-9"> 
+                                    <select type="text" class="form-control input-sm" name="sales_org" id="sales_org"  maxlength="4" required>
+                                    </select>
+                                </div>
+                            </div>  
+                            
+                            <div class="form-group">
+                                <label for="dist_channel" class="col-md-3">Distribution Channel</label>
+                                <div class="col-md-9"> 
                                     <select type="text" class="form-control input-sm" name="dist_channel" id="dist_channel"  maxlength="4" required>
                                         
                                     </select>
@@ -110,109 +117,109 @@ label {
                             </div>    
                            
                             <div class="form-group">
-                                <label for="division" class="col-md-4">Division</label>
-                                    <div class="col-md-8"> 
+                                <label for="division" class="col-md-3">Division</label>
+                                    <div class="col-md-9"> 
                                     <select type="text" class="form-control input-sm" name="division" id="division"  maxlength="30" required>
                                         
                                     </select>
                                 </div>
                             </div>  
                             <div class="form-group">
-                                <label for="general_item_category_group" class="col-md-4">General Item Category Group</label>
-                                <div class="col-md-8"> 
+                                <label for="general_item_category_group" class="col-md-3">General Item Category Group</label>
+                                <div class="col-md-9"> 
                                     <select type="text" class="form-control input-sm" name="general_item_category_group" id="general_item_category_group" maxlength="4" required>
                                         
                                     </select>
                                 </div>
                             </div>   
                             <div class="form-group">
-                                <label for="cash_discount" class="col-md-4">Cash Discount</label>
-                                <div class="col-md-8"> 
+                                <label for="cash_discount" class="col-md-3">Cash Discount</label>
+                                <div class="col-md-9"> 
                                     <select type="text" class="form-control input-sm" name="cash_discount" id="cash_discount"  maxlength="1"  required></select>
                                 </div>
                             </div>    
                             <div class="form-group">
-                                <label for="tax_classification" class="col-md-4">Tax Classification</label>
-                                <div class="col-md-8"> 
+                                <label for="tax_classification" class="col-md-3">Tax Classification</label>
+                                <div class="col-md-9"> 
                                     <select type="text" class="form-control input-sm" name="tax_classification" id="tax_classification" maxlength="1" required>
                                         
                                     </select>
                                 </div>
                             </div>    
                             <div class="form-group">
-                                    <label for="account_assign" class="col-md-4">Account Assignment Group</label>
-                                    <div class="col-md-8">
+                                    <label for="account_assign" class="col-md-3">Account Assignment Group</label>
+                                    <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="account_assign" id="account_assign" maxlength="2" required>
                                         
                                     </select>
                                 </div>
                             </div>   
                             <div class="form-group">
-                                <label for="item_category_group" class="col-md-4">Item Category Group</label>
-                                <div class="col-md-8"> 
+                                <label for="item_category_group" class="col-md-3">Item Category Group</label>
+                                <div class="col-md-9"> 
                                     <select type="text" class="form-control input-sm" name="item_category_group" id="item_category_group" maxlength="30" required>
                                         
                                     </select>
                                 </div>
                             </div>     
                             <div class="form-group">
-                                <label for="availability_check" class="col-md-4">Availability Check</label>
-                                <div class="col-md-8"> 
+                                <label for="availability_check" class="col-md-3">Availability Check</label>
+                                <div class="col-md-9"> 
                                     <select type="text" class="form-control input-sm" name="availability_check" id="availability_check" maxlength="2" required>
                                         
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="transportation_group" class="col-md-4">Transportation Group</label>
-                                <div class="col-md-8">
+                                <label for="transportation_group" class="col-md-3">Transportation Group</label>
+                                <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="transportation_group" maxlength="4" id="transportation_group" required>
                                         
                                     </select>
                                 </div>
                             </div>    
                             <div class="form-group">
-                                <label for="loading_group" class="col-md-4">Loading Group</label>
-                                <div class="col-md-8"> 
+                                <label for="loading_group" class="col-md-3">Loading Group</label>
+                                <div class="col-md-9"> 
                                     <select type="text" class="form-control input-sm" name="loading_group" id="loading_group" maxlength="4" required>
                                         
                                     </select>
                                 </div>
                             </div>            
                             <div class="form-group">
-                                <label for="profit_center" class="col-md-4">Profit Center</label>
-                                    <div class="col-md-8">
+                                <label for="profit_center" class="col-md-3">Profit Center</label>
+                                    <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="profit_center" id="profit_center" maxlength="4"  required>
                                         
                                     </select>
                                 </div>
                             </div>  
                             <div class="form-group">
-                                <label for="mrp_type" class="col-md-4">MRP Type</label>
-                                    <div class="col-md-8"> 
+                                <label for="mrp_type" class="col-md-3">MRP Type</label>
+                                    <div class="col-md-9"> 
                                     <select type="text" class="form-control input-sm" name="mrp_type" id="mrp_type" maxlength="4"  required>
                                         
                                     </select>
                                 </div>
                             </div>  
                             <div class="form-group">
-                                <label for="period_ind_for_sle" class="col-md-4">Period Ind. for SLE</label>
-                                <div class="col-md-8">
+                                <label for="period_ind_for_sle" class="col-md-3">Period Ind. for SLE</label>
+                                <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="period_ind_for_sle" maxlength="10" id="period_ind_for_sle" required>
                                     </select>
                                 </div>
                             </div>  
                             <div class="form-group">
-                                    <label for="price_unit" class="col-md-4">Price Unit</label>
+                                    <label for="price_unit" class="col-md-3">Price Unit</label>
                                     <div class="col-md-4"> 
                                     <input type="number" class="form-control input-sm" name="price_unit" id="price_unit" value="1" required>
                                 </div>
                             </div>   
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-flat hide" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success btn-flat" style="margin-right: 5px;">Next</button>
-                            <button type="button" class="btn btn-danger btn-flat btn-cancel" style="margin-right: 5px;">Cancel</button>
+                        <div class="box-footer clearfix">
+                            <button type="button" class="btn btn-default btn-flat hide pull-right" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success btn-flat pull-right" style="margin-right: 5px;">Next</button>
+                            <button type="button" class="btn btn-danger btn-flat btn-cancel pull-right" style="margin-right: 5px;">Cancel</button>
                         </div> 
                     </form>
                     
@@ -224,8 +231,8 @@ label {
                         <form id="form-basic-data" enctype="multipart/form-data" class="form-horizontal">
                             <div class="box-body">
                                 <div class="form-group">
-                                        <label for="group_material" class="col-md-4">Group Material</label>
-                                    <div class="col-md-8">
+                                        <label for="group_material" class="col-md-3">Group Material</label>
+                                    <div class="col-md-9">
                                         <input type="text" class="form-control input-sm" name="group_material" id="group_material" readonly>
                                         <input type="hidden" name="group_material_id" id="group_material_id" readonly>
                                         <span class="input-group-btn hide">
@@ -235,102 +242,102 @@ label {
                                 </div>    
                                 <div class="form-group material-group-input" id="input-description">  
                                     
-                                    <label for="part_no" class="col-md-4">Description</label>
-                                    <div class="col-md-8">  
+                                    <label for="part_no" class="col-md-3">Description</label>
+                                    <div class="col-md-9">  
                                         <input type="text" class="form-control input-sm attr-material-group" name="description" id="description" autocomplete="off">
                                     </div>
                                 </div>   
                                 <div class="form-group material-group-input" id="input-part-no">
-                                    <label for="part_no" class="col-md-4">Part Number</label>
-                                        <div class="col-md-8"> 
+                                    <label for="part_no" class="col-md-3">Part Number</label>
+                                        <div class="col-md-9"> 
                                         <input type="text" class="form-control input-sm attr-material-group" name="part_no" id="part_no"  autocomplete="off">
                                     </div>
                                 </div> 
                                 <div class="form-group material-group-input" id="input-specification">
-                                    <label for="part_no" class="col-md-4 col-form-label">Spesifikasi</label>
-                                    <div class="col-md-8"> 
+                                    <label for="part_no" class="col-md-3 col-form-label">Spesifikasi</label>
+                                    <div class="col-md-9"> 
                                         <input type="text" class="form-control input-sm attr-material-group" name="specification"  id="specification" >
                                     </div>
                                 </div> 
                                 <div class="form-group material-group-input" id="input-merk">
-                                        <label for="brand" class="col-md-4">Merk</label>
+                                        <label for="brand" class="col-md-3">Merk</label>
                                             <div class="col-md-4">    
                                         <input type="text" class="form-control input-sm attr-material-group" name="merk"  id="merk"  >
                                     </div>
                                 </div> 
                                 <div class="form-group ">
-                                    <label for="material_sap" class="col-md-4">Material pada SAP</label>
-                                        <div class="col-md-8">
+                                    <label for="material_sap" class="col-md-3">Material pada SAP</label>
+                                        <div class="col-md-9">
                                         <input type="text" class="form-control input-sm" name="material_sap"  id="material_sap" maxlength="30"  readonly>
                                         <span class="help-block" id="help_material_sap"></span>
                                     </div>
                                 </div> 
                                 <div class="form-group">    
-                                    <label for="uom" class="col-md-4">Base Unit of Measure</label>
-                                        <div class="col-md-8">
+                                    <label for="uom" class="col-md-3">Base Unit of Measure</label>
+                                        <div class="col-md-9">
                                         <select class="form-control input-sm" name="uom" id="uom" ></select>
                                     </div>
                                 </div> 
                                 <h5><b>DIMENSI</b></h5>
                                 <div class="form-group">
-                                    <label for="gross_weight" class="col-md-4">Gross Weight</label>
+                                    <label for="gross_weight" class="col-md-3">Gross Weight</label>
                                     <div class="col-md-4">   
                                         <input type="text" class="form-control input-sm" name="gross_weight" id="gross_weight" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div>    
                                 <div class="form-group">
-                                    <label for="net_weight" class="col-md-4">Net Weight</label>
+                                    <label for="net_weight" class="col-md-3">Net Weight</label>
                                     <div class="col-md-4">
                                         <input type="text" class="form-control input-sm" name="net_weight" id="net_weight" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="volume" class="col-md-4">Volume</label>
+                                    <label for="volume" class="col-md-3">Volume</label>
                                     <div class="col-md-4">
                                         <input type="text" class="form-control input-sm" name="volume" id="volume" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="size" class="col-md-4">Size/Dimension</label>
+                                    <label for="size" class="col-md-3">Size/Dimension</label>
                                     <div class="col-md-4">
                                         <input type="text" class="form-control input-sm" name="size" id="size" maxlength="30" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="weight_unit" class="col-md-4">Weight Unit</label>
+                                    <label for="weight_unit" class="col-md-3">Weight Unit</label>
                                     <div class="col-md-4">
                                         <input type="text" class="form-control input-sm" name="weight_unit" id="weight_unit" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="volume_unit" class="col-md-4">Volume Unit</label>
+                                    <label for="volume_unit" class="col-md-3">Volume Unit</label>
                                     <div class="col-md-4">
                                         <input type="text" class="form-control input-sm" name="volume_unit" id="volume_unit" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="volume_unit" class="col-md-4">Remarks</label>
-                                    <div class="col-md-8">
+                                    <label for="volume_unit" class="col-md-3">Remarks</label>
+                                    <div class="col-md-9">
                                         <textarea type="text" class="form-control input-sm" name="remarks" id="remarks"></textarea>
                                     </div>
                                 </div> 
-                                <h5>Images</h5>
-                                 <div class="row">
-                                     <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="volume_unit" class="col-md-3">Image</label>
+                                     <div class="col-md-3">
                                             <div class="form-group hide">
                                         <input type="file" id="files_1" name="files_1" accept='image/*'  OnChange="showImage(1)">
                                         <p class="help-block">*jpg, png</p>
                                         </div>
                                         <img id="material-images-1" style="cursor:pointer" OnClick="openFile(1)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
                                     </div> 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                             <div class="form-group hide">
                                         <input type="file" id="files_2" name="files_2" accept='image/*'  OnChange="showImage(2)">
                                         <p class="help-block">*jpg, png</p>
                                         </div>
                                         <img id="material-images-2" style="cursor:pointer" OnClick="openFile(2)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
                                     </div> 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                             <div class="form-group hide">
                                         <input type="file" id="files_3" name="files_3"  accept='image/*'  OnChange="showImage(3)">
                                         </div>
@@ -338,10 +345,10 @@ label {
                                     </div> 
                                 </div> 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default btn-flat" onClick="initialPanel()">Back</button>
-                                <button type="submit" class="btn btn-success btn-flat" style="margin-right: 5px;">Submit</button>
-                                <button type="button" class="btn btn-danger btn-flat btn-cancel" style="margin-right: 5px;">Cancel</button>
+                              <div class="box-footer clearfix">
+                                <button type="button" class="btn btn-default btn-flat pull-right" onClick="initialPanel()">Back</button>
+                                <button type="submit" class="btn btn-success btn-flat pull-right" style="margin-right: 5px;">Submit</button>
+                                <button type="button" class="btn btn-danger btn-flat btn-cancel pull-right" style="margin-right: 5px;">Cancel</button>
                             </div> 
                         </form>
                 </div>
@@ -351,6 +358,8 @@ label {
             </div>
             <!-- /.tab-content -->
         </div>
+                </div>
+            </div>    
         <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->
@@ -383,16 +392,15 @@ label {
 				contentType:false,
 				processData:false,
 				cache:false,
-				beforeSend:function(){},
+				beforeSend:function(){jQuery('.loading-event').fadeIn();},
 				success:function(result){
                     var data = jQuery.parseJSON(result);
                     if(data.code == '201'){
-                        jQuery("#add-data-modal").modal("hide");
-                        jQuery("#data-table").DataTable().ajax.reload();
                         notify({
                             type:'success',
                             message:data.message
                         });
+                        window.location.href = "{{ url('material_user') }}";
                     }else{
                         notify({
                             type:'warning',
@@ -400,7 +408,7 @@ label {
                         });
                     } 
 				},
-				complete:function(){}
+				complete:function(){jQuery('.loading-event').fadeOut();}
 			 });
         });
 

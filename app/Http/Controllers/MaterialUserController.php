@@ -220,7 +220,7 @@ class MaterialUserController extends Controller
             "locat" => $request->location,
             "remarks" => $request->remarks
         );
-        var_dump(json_encode($param));
+
         $service = new Services(array(
             'request' => 'POST',
             'method' => 'tr_materials',

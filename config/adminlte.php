@@ -116,8 +116,13 @@ return [
         ],
         [
             'text' => 'Home',
-            'url' => 'material_user',
+            'url' => '',
             'icon' => 'home',
+        ],
+        [
+            'text' => 'Material',
+            'url' => 'material_user',
+            'icon' => 'cube',
         ],
         [
             'text' => 'Material Request',
@@ -126,7 +131,7 @@ return [
         ],
         [
             'text' => 'Material Extend',
-            'url' => 'material_user/extend',
+            'url' => 'material_extend/new',
             'icon' => 'plus',
         ],
         [
