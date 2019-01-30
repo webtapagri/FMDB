@@ -14,9 +14,7 @@ return [
  */
 
     'title' => 'FMDB',
-
     'title_prefix' => '',
-
     'title_postfix' => '',
 
     /*
@@ -31,7 +29,6 @@ return [
      */
 
     'logo' => '<b>FMDB</b> Web',
-
     'logo_mini' => '<b>F</b>',
 
     /*
@@ -126,6 +123,16 @@ return [
         ],
         [
             'text' => 'Material Request',
+            'url' => 'material_user/create',
+            'icon' => 'plus',
+        ],
+        [
+            'text' => 'Edit Material Request',
+            'url' => 'material_user/create',
+            'icon' => 'pencil',
+        ],
+        [
+            'text' => 'Edit Master Material',
             'url' => 'material_user/create',
             'icon' => 'pencil',
         ],

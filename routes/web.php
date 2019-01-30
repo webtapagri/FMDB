@@ -42,7 +42,6 @@ Route::get('data-table-material', ['as' => 'get.material', 'uses' => 'MaterialCo
 Route::get('sap_group_material', ['as' => 'get.sap_group_material', 'uses' => 'MaterialController@sap_group_material']);
 Route::get('data-table-group-material', ['as' => 'get.data_table_group_material', 'uses' => 'MaterialController@groupMaterialGroup']);
 
-
 Route::resource('material_user', 'MaterialUserController');
 Route::get('/material_extend/{id}', 'MaterialUserController@extend')->name('extend');
 

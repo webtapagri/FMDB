@@ -206,7 +206,6 @@ class MaterialUserController extends Controller
             "mrp_controller" => $request->mrp_controller,
             "valuation_class" => $request->valuation_class,
             "tax_classification" => $request->tax_classification,
-            "tax_classification" => 1,
             "account_assign" => $request->account_assign,
             "general_item" => $request->general_item_category_group,
             "avail_check" => $request->availability_check,
@@ -226,6 +225,7 @@ class MaterialUserController extends Controller
             'method' => 'tr_materials',
             'data'=> $param
         ));
+        
         $res = $service->result;        
         if($res->code == '201'){
             foreach ($_FILES as $row) {
