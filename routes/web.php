@@ -19,33 +19,33 @@ use App\Http\Controllers\MaterialController;
 
 Auth::routes();
 
-
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/groupmaterials', 'GroupMaterialController');
 Route::post('/groupmaterials/post', 'GroupMaterialController@store');
 Route::get('/groupmaterials/edit/', 'GroupMaterialController@show');
-Route::post('/groupmaterials/inactive', 'GroupMaterialController@inactive');
+Route::post('/groupmaterials/inactive', 'GroupMaterialController@inactive'); 
 Route::post('/groupmaterials/active', 'GroupMaterialController@active');
 Route::get('get-data-group-material', ['as' => 'get.group_material', 'uses' => 'GroupMaterialController@getData']);
 Route::get('get-api-group-material', ['as' => 'get.get_group_material', 'uses' => 'GroupMaterialController@get_material_group']);
 
-
+/* MATERIAL */
 Route::resource('materials', 'MaterialController');
 Route::post('/materials/post', 'MaterialController@store');
 Route::get('/materials/edit/', 'MaterialController@show');
-
 Route::post('/materials/inactive', 'MaterialController@inactive');
 Route::post('/materials/active', 'MaterialController@active');
 Route::get('data-table-material', ['as' => 'get.material', 'uses' => 'MaterialController@getData']);
 Route::get('sap_group_material', ['as' => 'get.sap_group_material', 'uses' => 'MaterialController@sap_group_material']);
 Route::get('data-table-group-material', ['as' => 'get.data_table_group_material', 'uses' => 'MaterialController@groupMaterialGroup']);
 
+
+/* MATERIAL USER */
 Route::resource('material_user', 'MaterialUserController');
 Route::get('/material_extend/{id}', 'MaterialUserController@extend')->name('extend');
-
 Route::get('/material_user/show', 'MaterialController@show');
+Route::get('/material_user/searchs', 'MaterialController@search');
 Route::post('/material_user/post', 'MaterialUserController@store');
 Route::put('/material_user/store_location/{id}', 'MaterialUserController@store_location');
 Route::get('/material_user/getimage/', 'MaterialUserController@get_image');
@@ -53,7 +53,6 @@ Route::get('get-image-detail', ['as' => 'get.get_image_detail', 'uses' => 'Mater
 Route::get('material-user-detail', ['as' => 'get.material_user_detail', 'uses' => 'MaterialUserController@detail']);
 
 Route::get('group-material-list', ['as' => 'get.group_material_list', 'uses' => 'MaterialUserController@groupMaterialGroup']);
-
 Route::get('get-uom', ['as' => 'get.uom', 'uses' => 'MaterialUserController@get_uom']);
 Route::get('get-plant', ['as' => 'get.plant', 'uses' => 'MaterialUserController@get_plant']);
 Route::get('get-div', ['as' => 'get.div', 'uses' => 'MaterialUserController@get_div']);
@@ -78,6 +77,11 @@ Route::get('get-tr_material', ['as' => 'get.tr_material', 'uses' => 'MaterialUse
 Route::get('get-tm_material', ['as' => 'get.tm_material', 'uses' => 'MaterialUserController@get_tm_materials']);
 Route::get('get-sle', ['as' => 'get.sle', 'uses' => 'MaterialUserController@get_sle']);
 Route::get('get-auto_sugest', ['as' => 'get.auto_sugest', 'uses' => 'MaterialUserController@get_auto_sugest']);
+
+/* MATERIAL USER EDIT */
+Route::resource('tr_materials', 'TrMaterialController');
+Route::get('/tr_material_grid/{id}', 'TrMaterialController@grid')->name('search');
+Route::get('tr_material_auto_sugest', 'TrMaterialController@auto_sugest');
 
 Route::post('/ldaplogin', 'LDAPController@login');
 Route::resource('/wsdl', 'WsdlController');

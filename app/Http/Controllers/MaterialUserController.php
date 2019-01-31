@@ -26,7 +26,7 @@ class MaterialUserController extends Controller
     public function extend($document_no) {
         return view('material_user/extend')->with('document_no', $document_no);
     }
-   
+
     public function detail() {
         $no_document = $_REQUEST['no_document'];
         $service = new Services(array(
@@ -175,9 +175,6 @@ class MaterialUserController extends Controller
         return response()->json(array('data'=>$result));
     }
 
-    
-
-
     public function store(Request $request)
     {
         $no_document = rand(1, 1000000);
@@ -225,7 +222,7 @@ class MaterialUserController extends Controller
             'method' => 'tr_materials',
             'data'=> $param
         ));
-        
+
         $res = $service->result;        
         if($res->code == '201'){
             foreach ($_FILES as $row) {

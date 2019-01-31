@@ -125,12 +125,14 @@
 
         var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.auto_sugest') !!}')));
         jQuery("#search_material").autocomplete({
-            source: search
+            source: search,
+            minLength: 3
         });
-
+        
         jQuery('.btn-add').on('click', function() {
             window.location.href = "{{ url('material_user/create') }}";
         });
+
     });
 
     function initData(param) {
@@ -231,60 +233,11 @@
       });
     }
 
-    function extend(param) {
-        var no_document = jQuery(param).data('no_document');
-        window.location.href = "{{ ('material_extend') }}/" + no_document;
-    }
-
     function searchData() {
         jQuery('.loading-event').fadeIn();
         var param = jQuery('#search_material').val();
         initData(param);
         jQuery('.loading-event').fadeOut()
-    }
-
-    function searchDataTable() {
-        // Declare variables 
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("search_material");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("data-table");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            } 
-        }
-    } 
-
-    function binEncode(data) {
-        var binArray = []
-        var datEncode = "";
-
-        for (i=0; i < data.length; i++) {
-            binArray.push(data[i].charCodeAt(0).toString(2)); 
-        } 
-        for (j=0; j < binArray.length; j++) {
-            var pad = padding_left(binArray[j], '0', 8);
-            datEncode += pad + ' '; 
-        }
-        function padding_left(s, c, n) { if (! s || ! c || s.length >= n) {
-            return s;
-        }
-
-        var max = (n - s.length)/c.length;
-        for (var i = 0; i < max; i++) {
-            s = c + s; } return s;
-        }
-        return binArray;
     }
 
     function showDetail(no_document, status) {
