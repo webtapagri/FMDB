@@ -66,6 +66,10 @@
         border:none !important;
         float:none !important;
     }
+
+    #search_material {
+        text-transform: uppercase;
+    }
 </style>
 <section class="content">
        <div class="row">
