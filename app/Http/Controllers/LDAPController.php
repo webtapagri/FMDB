@@ -3,49 +3,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use function GuzzleHttp\json_encode;
+use App\Services;
+use Redirect;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Input;
+use Auth;
+use Cookie;
+use Route;
+use Session;
 
 class LDAPController extends Controller
 {
+    public function __construct()
+    {
+        if (!empty(session('authenticated'))) {
+            $request->session()->put('authenticated', time());
+            return $next($request);
+        }
+        return redirect('/login');
+    }
+
     public function login(Request $request) {
+        $this->validate($request, [
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
         $username = $request->username;
         $password = $request->password;
-        
-        $auth = $this->ldapAuth($username, $password);
-        $result = json_decode(
-            '{
-                    "count": 1,
-                    "0": {
-                        "cn": {
-                            "count": 1,
-                            "0": "Dadang Kurniawan"
-                        },
-                        "0": "cn",
-                        "givenname": {
-                            "count": 1,
-                            "0": "Dadang"
-                        },
-                        "1": "givenname",
-                        "samaccountname": {
-                            "count": 1,
-                            "0": "dadang.kurniawan"
-                        },
-                        "2": "samaccountname",
-                        "mail": {
-                            "count": 1,
-                            "0": "dadang.kurniawan@tap-agri.co.id"
-                        },
-                        "3": "mail",
-                        "count": 4,
-                        "dn": "CN=Dadang Kurniawan,OU=Information Technology Division,OU=HO TAP,OU=B.Triputra Agro Persada,DC=tap,DC=corp"
-                    }
-                }'
+
+        $param = array(
+            "username"=> $username,
+            "password"=> $password,
         );
 
- 
-        
-        //set session        
-        
+        $service = new Services(array(
+            'request' => 'POST',
+            'host' => 'ldap',
+            'method' => 'login',
+            'data' => $param
+        ));
+
+        $data = $service->result;
+        if($data->status) {
+            
+            Session::put('authenticated', time());
+            Session::put('user', $username);
+
+          /*   $request->session()->put('authenticated', time());
+            $request->session()->put('username', $username); */
+           /*  Cookie::queue('authenticated', true, 120);
+            Cookie::queue('username', $username, 120); */
+            return redirect('/');
+        }else{
+            $errors = new MessageBag([
+                'password' => ['Email and/or password invalid.']
+            ]);
+            return Redirect::back()->withErrors($errors)->withInput(Input::except('password'));
+        }
+    }
+
+    public function logout(Request $request) {
+        $request->session()->forget('authenticated');
+        $request->session()->forget('user');
+        return redirect()->intended('/login');
     }
 
     public function ldapAuth($username, $password)

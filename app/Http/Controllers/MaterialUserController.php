@@ -11,19 +11,29 @@ use GuzzleHttp\Exception\ClientErrorResponseException;
 use App\SetMaterial;
 use App\Guz;
 use App\Services;
+use Session;
 use function GuzzleHttp\json_encode;
 
 class MaterialUserController extends Controller
 {
     public function index() {
+        if (empty(Session::get('authenticated')))
+            return redirect('/login');
+
         return view('material_user/index');
     }
 
     public function create() {
+        if (empty(Session::get('authenticated')))
+            return redirect('/login');
+
         return view('material_user/add');
     }
   
     public function extend($document_no) {
+        if (empty(Session::get('authenticated')))
+            return redirect('/login');
+            
         return view('material_user/extend')->with('document_no', $document_no);
     }
 
@@ -214,6 +224,7 @@ class MaterialUserController extends Controller
             "cash_discount" => $request->cash_discount,
             "price_unit" => $request->price_unit,
             "locat" => $request->location,
+            "material_type" => $request->material_type,
             "remarks" => $request->remarks
         );
 

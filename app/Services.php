@@ -18,14 +18,19 @@ class Services extends Model
 		'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
 	);
 	protected $api = "http://149.129.224.117:8080/api/";
-	protected $ldap = "http://tap-ldapdev.tap-agri.com/data-sap/";
+	protected $ldap = "http://tap-ldapdev.tap-agri.com/";
 	public $result;
 
 	public function __construct($param=array())
 	{
       
         if(!empty($param['host'])) {
-            $url = ($param['host'] == 'ldap' ? $this->ldap:$this->api) . $param['method'];
+			if($param['host'] == 'ldap') {
+				$url = $this->ldap . ($param['method'] == 'login' ? $param['method']: 'data-sap/'. $param['method']);
+			} else {
+				$url = $this->api . $param['method'];
+			}
+            //$url = ($param['host'] == 'ldap' ? $this->ldap:$this->api) . $param['method'];
         } else {
           
             $url = $this->api.$param['method'];

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\GroupMaterial;
 use function GuzzleHttp\json_encode;
-
+use Session;
 class GroupMaterialController extends Controller
 {
     /**
@@ -16,6 +16,9 @@ class GroupMaterialController extends Controller
      */
     public function index()
     {
+        if (empty(Session::get('authenticated')))
+            return redirect('/login');
+
         return view('groupmaterials.index');
     }
 

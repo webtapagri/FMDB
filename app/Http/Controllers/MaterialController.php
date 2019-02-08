@@ -11,7 +11,7 @@ use function GuzzleHttp\json_encode;
 use Vyuldashev\XmlToArray\XmlToArray;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 use nusoap_client;
-
+use Session;
 class MaterialController extends Controller
 {
     /**
@@ -28,6 +28,9 @@ class MaterialController extends Controller
 
     public function index()
     {
+        if (empty(Session::get('authenticated')))
+            return redirect('/login');
+
         return view('materials.index');
     }
 

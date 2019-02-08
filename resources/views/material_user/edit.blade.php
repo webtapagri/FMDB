@@ -222,7 +222,6 @@ label {
                             <button type="button" class="btn btn-danger btn-flat btn-cancel pull-right" style="margin-right: 5px;">Cancel</button>
                         </div> 
                     </form>
-                    
                 </div>
                 <!-- /#fa-icons -->
 

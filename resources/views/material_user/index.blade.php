@@ -123,6 +123,26 @@
     jQuery(document).ready(function() {
         initData();  
 
+/*         var callback = function(request, response) {
+        var searchText = request.item;
+        // Set searchField somehow here
+        $.ajax({  
+            type: "GET",  
+            dataType: "text",  
+            url: "SearchCallback.aspx?searchText=" + searchText + "&searchField=" + searchField,
+            success: function (data)
+            {
+                var splitData =  data.split(",");
+                response(splitData);
+            });      
+        });
+    }; */
+
+    $( ".searchTextBox" ).autocomplete({
+        source: callback,
+        autoFill: true
+    });
+
         var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.auto_sugest') !!}')));
         jQuery("#search_material").autocomplete({
             source: search,

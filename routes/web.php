@@ -18,9 +18,14 @@ use App\Http\Controllers\MaterialController;
 }); */
 
 Auth::routes();
+Route::group(['middleware' => ['web']], function () {
+
+});
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/ldaplogin', 'LDAPController@login');
+Route::post('/ldaplogout', 'LDAPController@logout');
 
 Route::resource('/groupmaterials', 'GroupMaterialController');
 Route::post('/groupmaterials/post', 'GroupMaterialController@store');
@@ -39,7 +44,6 @@ Route::post('/materials/active', 'MaterialController@active');
 Route::get('data-table-material', ['as' => 'get.material', 'uses' => 'MaterialController@getData']);
 Route::get('sap_group_material', ['as' => 'get.sap_group_material', 'uses' => 'MaterialController@sap_group_material']);
 Route::get('data-table-group-material', ['as' => 'get.data_table_group_material', 'uses' => 'MaterialController@groupMaterialGroup']);
-
 
 /* MATERIAL USER */
 Route::resource('material_user', 'MaterialUserController');
@@ -79,9 +83,10 @@ Route::get('get-sle', ['as' => 'get.sle', 'uses' => 'MaterialUserController@get_
 Route::get('get-auto_sugest', ['as' => 'get.auto_sugest', 'uses' => 'MaterialUserController@get_auto_sugest']);
 
 /* MATERIAL USER EDIT */
-Route::resource('tr_materials', 'TrMaterialController');
+Route::resource('/tr_materials', 'TrMaterialController');
+Route::post('/tr_materials/post', 'TrMaterialController@store');
 Route::get('/tr_material_grid/{id}', 'TrMaterialController@grid')->name('search');
 Route::get('tr_material_auto_sugest', 'TrMaterialController@auto_sugest');
 
-Route::post('/ldaplogin', 'LDAPController@login');
+
 Route::resource('/wsdl', 'WsdlController');

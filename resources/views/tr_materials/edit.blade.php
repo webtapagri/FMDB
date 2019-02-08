@@ -16,7 +16,7 @@ label {
         <div class="col-md-10 col-md-offset-1">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-pencil"></i> Add Material</h3>
+                    <h3 class="box-title"><i class="fa fa-pencil"></i> Edit Material</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -29,190 +29,150 @@ label {
             <!-- Font Awesome Icons -->
                 <div class="tab-pane active" id="panel-initial">
                     <form id="form-initial"  class="form-horizontal">
-                         <fieldset disabled>
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="sap_material_group" class="col-md-3">Material Group</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="sap_material_group" id="sap_material_group" required>
-                                        
-                                    </select>
+                                    <select  class="form-control input-sm" name="sap_material_group" id="sap_material_group" required readonly></select>
                                 </div>    
                             </div>
                             <div class="form-group">
                                 <label for="plant" class="col-md-3">Plant</label>
                                     <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="plant" id="plant" maxlength="4" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="plant" value="{{ $plant }}" id="plant"  required readonly>
                                 </div>    
                             </div>
                             
                             <div class="form-group">
                                 <label for="location" class="col-md-3">Location</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="location" id="location"  maxlength="10" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="location" id="location" value="{{$location}}" required readonly>
                                 </div>
                             </div>  
                           
                             <div class="form-group">
                                 <label for="mrp_controller" class="col-md-3">MRP Controller</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="mrp_controller" id="mrp_controller"  maxlength="3"  required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="mrp_controller" id="mrp_controller"  value="{{ $mrp_controller }}"  required readonly>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="valuation_class" class="col-md-3">Valuation Class</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="valuation_class"  maxlength="10"  id="valuation_class" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="valuation_class"  value="{{ $valuation_class }}"  id="valuation_class" required readonly>
                                 </div>
                             </div>  
                             <div class="form-group">
                                 <label for="sector_industry" class="col-md-3">Industri sector</label>
                                     <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="industry_sector" id="industry_sector" maxlength="20" required >
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="industry_sector" id="industry_sector" value="{{ $industry_sector }}" required readonly>
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="material_type" class="col-md-3">Material Type</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="c" name="material_type" id="material_type"  maxlength="10"  required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="material_type" id="material_type" value="{{ $material_type }}" required readonly>
                                 </div>
                             </div> 
                            
                             <div class="form-group">
                                 <label for="store_location" class="col-md-3">Store Location</label>
                                     <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="store_location" id="store_location"  maxlength="4" required>
-                                    </select>
+                                    <select class="form-control input-sm" name="store_location" id="store_location" value="{{ $store_loc }}" required readonly></select>
                                 </div>
                             </div>  
 
                             <div class="form-group">
                                 <label for="sales_org" class="col-md-3">Sales Org</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="sales_org" id="sales_org"  maxlength="4" required>
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="sales_org" id="sales_org"  value="{{ $sales_org }}" required readonly>
                                 </div>
                             </div>  
                             
                             <div class="form-group">
                                 <label for="dist_channel" class="col-md-3">Distribution Channel</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="dist_channel" id="dist_channel"  maxlength="4" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="dist_channel" id="dist_channel" value="{{ $dist_channel }}" required readonly>
                                 </div>
                             </div>    
                            
                             <div class="form-group">
                                 <label for="division" class="col-md-3">Division</label>
                                     <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="division" id="division"  maxlength="30" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" value="{{ $div }}" name="division" id="division"  required readonly>
                                 </div>
                             </div>  
                             <div class="form-group">
                                 <label for="general_item_category_group" class="col-md-3">General Item Category Group</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="general_item_category_group" id="general_item_category_group" maxlength="4" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="general_item_category_group" id="general_item_category_group" value="{{ $item_cat }}" required readonly>
                                 </div>
                             </div>   
                             <div class="form-group">
                                 <label for="cash_discount" class="col-md-3">Cash Discount</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="cash_discount" id="cash_discount"  maxlength="1"  required></select>
+                                    <input type="text" class="form-control input-sm" name="cash_discount" id="cash_discount"  value="{{ $cash_discount }}"  required readonly>
                                 </div>
                             </div>    
                             <div class="form-group">
                                 <label for="tax_classification" class="col-md-3">Tax Classification</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="tax_classification" id="tax_classification" maxlength="1" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="tax_classification" id="tax_classification" value="{{ $tax_class }}" required readonly>
                                 </div>
                             </div>    
                             <div class="form-group">
                                     <label for="account_assign" class="col-md-3">Account Assignment Group</label>
                                     <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="account_assign" id="account_assign" maxlength="2" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="account_assign" id="account_assign" value="{{ $account_assign }}" required readonly>
                                 </div>
                             </div>   
                             <div class="form-group">
                                 <label for="item_category_group" class="col-md-3">Item Category Group</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="item_category_group" id="item_category_group" maxlength="30" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="item_category_group" id="item_category_group" value="{{ $item_cat }}"   required readonly>
                                 </div>
                             </div>     
                             <div class="form-group">
                                 <label for="availability_check" class="col-md-3">Availability Check</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="availability_check" id="availability_check" maxlength="2" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="availability_check" id="availability_check" value="{{ $avail_check }}" required readonly>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="transportation_group" class="col-md-3">Transportation Group</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="transportation_group" maxlength="4" id="transportation_group" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="transportation_group" value="{{$trans_group }}" id="transportation_group" required readonly>
                                 </div>
                             </div>    
                             <div class="form-group">
                                 <label for="loading_group" class="col-md-3">Loading Group</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="loading_group" id="loading_group" maxlength="4" required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="loading_group" id="loading_group" value="{{ $loading_group }}" required readonly>
                                 </div>
                             </div>            
                             <div class="form-group">
                                 <label for="profit_center" class="col-md-3">Profit Center</label>
                                     <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="profit_center" id="profit_center" maxlength="4"  required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="profit_center" id="profit_center" value="{{ $profit_center }}"  required readonly>
                                 </div>
                             </div>  
                             <div class="form-group">
                                 <label for="mrp_type" class="col-md-3">MRP Type</label>
                                     <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="mrp_type" id="mrp_type" maxlength="4"  required>
-                                        
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="mrp_type" id="mrp_type" value="{{ $mrp_type }}"  required readonly>
                                 </div>
                             </div>  
                             <div class="form-group">
                                 <label for="period_ind_for_sle" class="col-md-3">Period Ind. for SLE</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="period_ind_for_sle" maxlength="10" id="period_ind_for_sle" required>
-                                    </select>
+                                    <input type="text" class="form-control input-sm" name="period_ind_for_sle" value="{{ $sle }}" id="period_ind_for_sle" required readonly>
                                 </div>
                             </div>  
                             <div class="form-group">
                                     <label for="price_unit" class="col-md-3">Price Unit</label>
                                     <div class="col-md-4"> 
-                                    <input type="number" class="form-control input-sm" name="price_unit" id="price_unit" value="1" required>
+                                    <input type="number" class="form-control input-sm" name="price_unit" id="price_unit" value="{{ $price_unit }}" required readonly>
                                 </div>
                             </div>   
                         </div>
@@ -235,6 +195,7 @@ label {
                                     <div class="col-md-9">
                                         <input type="text" class="form-control input-sm" name="group_material" id="group_material" readonly>
                                         <input type="hidden" name="group_material_id" id="group_material_id" readonly>
+                                         <input type="hidden" name="no_document" value="{{ $material->no_document }}">
                                         <span class="input-group-btn hide">
                                             <button type="button" class="btn btn-default btn-flat btn-group-material"><i class="fa fa-search"></i></button>
                                         </span>
@@ -244,31 +205,31 @@ label {
                                     
                                     <label for="part_no" class="col-md-3">Description</label>
                                     <div class="col-md-9">  
-                                        <input type="text" class="form-control input-sm attr-material-group" name="description" id="description" autocomplete="off">
+                                        <input type="text" class="form-control input-sm attr-material-group" value="{{ $material->description }}" name="description" id="description" autocomplete="off">
                                     </div>
                                 </div>   
                                 <div class="form-group material-group-input" id="input-part-no">
                                     <label for="part_no" class="col-md-3">Part Number</label>
                                         <div class="col-md-9"> 
-                                        <input type="text" class="form-control input-sm attr-material-group" name="part_no" id="part_no"  autocomplete="off">
+                                        <input type="text" class="form-control input-sm attr-material-group" value="{{ $material->part_number }}" name="part_no" id="part_no"  autocomplete="off">
                                     </div>
                                 </div> 
                                 <div class="form-group material-group-input" id="input-specification">
                                     <label for="part_no" class="col-md-3 col-form-label">Spesifikasi</label>
                                     <div class="col-md-9"> 
-                                        <input type="text" class="form-control input-sm attr-material-group" name="specification"  id="specification" >
+                                        <input type="text" class="form-control input-sm attr-material-group" value="{{ $material->spec }}" name="specification"  id="specification" >
                                     </div>
                                 </div> 
                                 <div class="form-group material-group-input" id="input-merk">
                                         <label for="brand" class="col-md-3">Merk</label>
                                             <div class="col-md-4">    
-                                        <input type="text" class="form-control input-sm attr-material-group" name="merk"  id="merk"  >
+                                        <input type="text" class="form-control input-sm attr-material-group" name="merk"  id="merk" value="{{ $material->merk }}" >
                                     </div>
                                 </div> 
                                 <div class="form-group ">
                                     <label for="material_sap" class="col-md-3">Material pada SAP</label>
                                         <div class="col-md-9">
-                                        <input type="text" class="form-control input-sm" name="material_sap"  id="material_sap" maxlength="30"  readonly>
+                                        <input type="text" class="form-control input-sm" name="material_sap" value="{{ $material->material_name }}"  id="material_sap" maxlength="30"  readonly>
                                         <span class="help-block" id="help_material_sap"></span>
                                     </div>
                                 </div> 
@@ -282,43 +243,43 @@ label {
                                 <div class="form-group">
                                     <label for="gross_weight" class="col-md-3">Gross Weight</label>
                                     <div class="col-md-4">   
-                                        <input type="text" class="form-control input-sm" name="gross_weight" id="gross_weight" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="gross_weight" id="gross_weight" value="{{ $material->gross_weight }}" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div>    
                                 <div class="form-group">
                                     <label for="net_weight" class="col-md-3">Net Weight</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="net_weight" id="net_weight" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="net_weight" id="net_weight" value="{{ $material->net_weight }}" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="volume" class="col-md-3">Volume</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="volume" id="volume" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="volume" id="volume" onkeypress="return isNumber(event)" value="{{ $material->volume }}" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="size" class="col-md-3">Size/Dimension</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="size" id="size" maxlength="30" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="size" id="size" maxlength="30" value="{{ $material->size_dimension }}" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="weight_unit" class="col-md-3">Weight Unit</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="weight_unit" id="weight_unit" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="weight_unit" id="weight_unit" value="{{ $material->weight_unit }}" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="volume_unit" class="col-md-3">Volume Unit</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="volume_unit" id="volume_unit" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="volume_unit" id="volume_unit" value="{{ $material->volume_unit }}" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="volume_unit" class="col-md-3">Remarks</label>
                                     <div class="col-md-9">
-                                        <textarea type="text" class="form-control input-sm" name="remarks" id="remarks"></textarea>
+                                        <textarea type="text" class="form-control input-sm" name="remarks" id="remarks">{{ $material->remarks }}</textarea>
                                     </div>
                                 </div> 
                                 <div class="form-group">
@@ -383,10 +344,10 @@ label {
                 }
             });
 
-            var form = jQuery('#form-initial').find('input, select, textarea').appendTo('#form-basic-data');
+            //var form = jQuery('#form-initial').find('input, select, textarea').appendTo('#form-basic-data');
             var param = new FormData(this);
             jQuery.ajax({
-				url:"{{ url('material_user/post') }}",
+				url:"{{ url('tr_materials/post') }}",
 			    type:"POST",
 				data: param,
 				contentType:false,
@@ -400,7 +361,7 @@ label {
                             type:'success',
                             message:data.message
                         });
-                        window.location.href = "{{ url('material_user') }}";
+                        window.location.href = "{{ url('tr_materials') }}";
                     }else{
                         notify({
                             type:'warning',
@@ -432,179 +393,21 @@ label {
             placeholder: ' ',
             allowClear: true
         });
-      
-        var plant = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.plant') !!}')));
-        jQuery('#plant').select2({
-            data: plant,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        }).on("change", function() {
-            var store_location = dataJson("{{ url('material_user/store_location/?id=') }}"+jQuery(this).val());
-            jQuery('#store_location').select2({
-                data: store_location,
-                width:'100%',
-                placeholder: "",
-                allowClear: true
-            });
-        });
 
-        jQuery("#plant").trigger('change');
+        jQuery('#uom').val('{{ $material->uom }}');
+        jQuery('#uom').trigger('change');
 
-
-         jQuery('#store_location').select2({
-                width:'100%',
-                placeholder: "",
-                allowClear: true
-            });
-      
-        var location = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.location') !!}')));
-        jQuery('#location').select2({
-            data: location,
+        var store_location = dataJson("{{ url('material_user/store_location/?id='. $plant_id) }}");
+        jQuery('#store_location').select2({
+            data: store_location,
             width:'100%',
             placeholder: "",
             allowClear: true
         });
-      
-        var mrp_controller = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.mrp_controller') !!}')));
-        jQuery('#mrp_controller').select2({
-            data: mrp_controller,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-       
-        var valuation_class = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.valuation_class') !!}')));
-        jQuery('#valuation_class').select2({
-            data: valuation_class,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
 
-        var industry_sector = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.industry_sector') !!}')));
-        jQuery('#industry_sector').select2({
-            data:industry_sector,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-     
-        var material_type = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.material_type') !!}')));
-        jQuery('#material_type').select2({
-            data:material_type,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-
-        var division = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.div') !!}')));
-        jQuery('#division').select2({
-            data: division,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-       
-        var sales_org = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.sales_org') !!}')));
-        jQuery('#sales_org').select2({
-            data: sales_org,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-       
-        var dist_channel = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.dist_channel') !!}')));
-        jQuery('#dist_channel').select2({
-            data: dist_channel,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-        
-        var item_cat = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.item_cat') !!}')));
-        jQuery('#general_item_category_group, #item_category_group').select2({
-            data: item_cat,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-      
-      
-        var tax_classification = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tax_classification') !!}')));
-        jQuery('#tax_classification').select2({
-            data: tax_classification,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
+        jQuery('#store_location').val('{{ $store_loc}}');
       
 
-        var account_assign = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.account_assign') !!}')));
-        jQuery('#account_assign').select2({
-            data: account_assign,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-       
-        var availability_check = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.availability_check') !!}')));
-        jQuery('#availability_check').select2({
-            data: availability_check,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-       
-        var transportation_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.transportation_group') !!}')));
-        jQuery('#transportation_group').select2({
-            data: transportation_group,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-    
-        var loading_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.loading_group') !!}')));
-        jQuery('#loading_group').select2({
-            data: loading_group,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-      
-        var profit_center = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.profit_center') !!}')));
-        jQuery('#profit_center').select2({
-            data: profit_center,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-       
-        var mrp_type = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.mrp_type') !!}')));
-        jQuery('#mrp_type').select2({
-            data: mrp_type,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-       
-        var sle = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.sle') !!}')));
-        jQuery('#period_ind_for_sle').select2({
-            data: sle,
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
-      
-        jQuery('#cash_discount').select2({
-            data: [
-                {"id": 0, "text": "No"},
-                {"id": 1, "text": "Yes"}
-            ],
-            width:'100%',
-            placeholder: ' ',
-            allowClear: true
-        });
 
         jQuery('#form-initial').on('submit', function(e){
             e.preventDefault();
@@ -675,11 +478,11 @@ label {
             });
         }else{
             selected_material_group = 'deskripsi-material';
-            jQuery("#material_sap").val('01');
+            help_material_sap = 'deskripsi material';
             jQuery("#input-description").addClass("has-success");
             jQuery("#description").prop("required",true);
         }
-       
+         jQuery(".material-group-input").trigger('change'); 
         jQuery("#help_material_sap").text('Pattern: ' + help_material_sap);
     }
 
