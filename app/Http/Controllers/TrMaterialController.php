@@ -121,14 +121,14 @@ class TrMaterialController extends Controller
         );
         
         $service = new Services(array(
-            'request' => 'POST',
+            'request' => 'PUT',
             'method' => 'tr_materials/' . $request->no_document,
             'data' => $param
         ));
 
         $res = $service->result;
         if ($res->code == '201') {
-            foreach ($_FILES as $row) {
+            /* foreach ($_FILES as $row) {
                 if ($row["name"]) {
                     $name = $row["name"];
                     $size = $row["size"];
@@ -163,7 +163,7 @@ class TrMaterialController extends Controller
                         break;
                     }
                 }
-            }
+            } */
         }
 
         echo json_encode(array(

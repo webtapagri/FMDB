@@ -56,6 +56,16 @@ class Services extends Model
 
 				$res = $client->request('POST', $url, $params);
 			break;
+			case 'PUT':
+				$params = [
+					'form_params' => $param['data'],
+					'headers' => $this->header,
+					'allow_redirects' => false,
+					'timeout' => 5
+				];
+
+				$res = $client->request('PUT', $url, $params);
+			break;
         }   
 
         $this->result = json_decode($res->getBody()->getContents());
