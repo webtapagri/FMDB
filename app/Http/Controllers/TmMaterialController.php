@@ -30,13 +30,10 @@ class TmMaterialController extends Controller
     {
         $service = new Services(array(
             'request' => 'GET',
-            'method' => "tm_materials/" . $search
+            'method' => "tm_materials_search/" . $search
         ));
-      
 
         $data = $service->result;
-        var_dump($data->data);
-        exit();
         if($data->data) {
             foreach ($data->data as $row) {
                 $image = ($row->no_material ? $this->image($row->no_material) :'');
@@ -175,7 +172,7 @@ class TmMaterialController extends Controller
 
         $service = new Services(array(
             'request' => 'PUT',
-            'method' => 'tm_materials/' . $request->no_document,
+            'method' => 'tm_materials/' . $request->no_material,
             'data' => $param
         ));
 
@@ -214,9 +211,9 @@ class TmMaterialController extends Controller
                         ));
                     } else{
                         $files = array(
-                            "no_document" => $request->no_document,
+                            "no_document" => '-',
                             "file_name" => $name,
-                            'material_no' => '-',
+                            'material_no' => $request->no_material,
                             "doc_size" => $size,
                             "file_category" => $type,
                             "file_image" => $base64
@@ -267,44 +264,44 @@ class TmMaterialController extends Controller
             return redirect('/login');
 
         $material = $this->material($id);
-        $param = (object) array(
-            "no_document" => $material[0]->no_document,
-            "industri_sector" => $material[0]->industri_sector,
-            "plant" => $material[0]->plant,
-            "store_loc" => $material[0]->store_loc,
-            "sales_org" => $material[0]->sales_org,
-            "dist_channel" => $material[0]->dist_channel,
-            "mat_group" => $material[0]->mat_group,
-            "part_number" => $material[0]->part_number,
-            "spec" => $material[0]->spec,
-            "merk" => $material[0]->merk,
-            "material_name" => $material[0]->material_name,
-            "description" => $material[0]->description,
-            "uom" => $material[0]->uom,
-            "division" => $material[0]->division,
-            "item_cat_group" => $material[0]->item_cat_group,
-            "gross_weight" => $material[0]->gross_weight,
-            "net_weight" => $material[0]->net_weight,
-            "volume" => $material[0]->volume,
-            "size_dimension" => $material[0]->size_dimension,
-            "weight_unit" => $material[0]->weight_unit,
-            "volume_unit" => $material[0]->volume_unit,
-            "mrp_controller" => $material[0]->mrp_controller,
-            "valuation_class" => $material[0]->valuation_class,
-            "tax_classification" => $material[0]->tax_classification,
-            "account_assign" => $material[0]->account_assign,
-            "general_item" => $material[0]->general_item,
-            "avail_check" => $material[0]->avail_check,
-            "transportation_group" => $material[0]->transportation_group,
-            "loading_group" => $material[0]->loading_group,
-            "profit_center" => $material[0]->profit_center,
-            "mrp_type" => $material[0]->mrp_type,
-            "period_sle" => $material[0]->period_sle,
-            "cash_discount" => $material[0]->cash_discount,
-            "price_unit" => $material[0]->price_unit,
-            "locat" => $material[0]->locat,
-            "material_type" => $material[0]->material_type,
-            "remarks" => $material[0]->remarks,
+        $param = (object)array(
+            "no_material" => $material->no_material,
+            "industri_sector" => $material->industri_sector,
+            "plant" => $material->plant,
+            "store_loc" => $material->store_loc,
+            "sales_org" => $material->sales_org,
+            "dist_channel" => $material->dist_channel,
+            "mat_group" => $material->mat_group,
+            "part_number" => $material->part_number,
+            "spec" => $material->spec,
+            "merk" => $material->merk,
+            "material_name" => $material->material_name,
+            "description" => $material->description,
+            "uom" => $material->uom,
+            "division" => $material->division,
+            "item_cat_group" => $material->item_cat_group,
+            "gross_weight" => $material->gross_weight,
+            "net_weight" => $material->net_weight,
+            "volume" => $material->volume,
+            "size_dimension" => $material->size_dimension,
+            "weight_unit" => $material->weight_unit,
+            "volume_unit" => $material->volume_unit,
+            "mrp_controller" => $material->mrp_controller,
+            "valuation_class" => $material->valuation_class,
+            "tax_classification" => $material->tax_classification,
+            "account_assign" => $material->account_assign,
+            "general_item" => $material->general_item,
+            "avail_check" => $material->avail_check,
+            "transportation_group" => $material->transportation_group,
+            "loading_group" => $material->loading_group,
+            "profit_center" => $material->profit_center,
+            "mrp_type" => $material->mrp_type,
+            "period_sle" => $material->period_sle,
+            "cash_discount" => $material->cash_discount,
+            "price_unit" => $material->price_unit,
+            "locat" => $material->locat,
+            "material_type" => $material->material_type,
+            "remarks" => $material->remarks,
         );
 
 
@@ -333,7 +330,7 @@ class TmMaterialController extends Controller
         $data['mat_group_name'] = ($param->mat_group ? $this->material_group($param->mat_group):'');
         $data['store_loc_name'] = ($param->store_loc ? $this->store_loc($param->store_loc, $param->plant):'');
         $data['material'] = $param;
-        $data["files"] = ($material[0]->no_document ? $this->files($material[0]->no_document) : '');
+        $data["files"] = ($material->no_material ? $this->files($material->no_material) : '');
 
         return view('tm_materials/edit', $data);
     }

@@ -197,7 +197,7 @@ label {
                                     <div class="col-md-9">
                                         <input type="text" class="form-control input-sm" name="group_material" id="group_material" readonly>
                                         <input type="hidden" name="group_material_id" id="group_material_id" readonly>
-                                         <input type="hidden" name="no_document" value="{{ $material->no_document }}">
+                                         <input type="hidden" name="no_material" value="{{ $material->no_material }}">
                                         <span class="input-group-btn hide">
                                             <button type="button" class="btn btn-default btn-flat btn-group-material"><i class="fa fa-search"></i></button>
                                         </span>
@@ -352,7 +352,7 @@ label {
             //var form = jQuery('#form-initial').find('input, select, textarea').appendTo('#form-basic-data');
             var param = new FormData(this);
             jQuery.ajax({
-				url:"{{ url('tr_materials/post') }}",
+				url:"{{ url('tm_materials/post') }}",
 			    type:"POST",
 				data: param,
 				contentType:false,
@@ -366,7 +366,7 @@ label {
                             type:'success',
                             message:data.message
                         });
-                        window.location.href = "{{ url('tr_materials') }}";
+                        window.location.href = "{{ url('tm_materials') }}";
                     }else{
                         notify({
                             type:'warning',

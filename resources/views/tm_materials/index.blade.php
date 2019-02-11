@@ -122,7 +122,6 @@
 
     jQuery(document).ready(function() {
         var word = jQuery.parseJSON(JSON.stringify(dataJson('{!! url('tm_material_auto_sugest') !!}')));
-        console.log(word);
         jQuery("#search_material").autocomplete({
             source: word
         });
@@ -169,7 +168,7 @@
                     {  
                         "render": function (data, type, row) {
                             if(row.image) {
-                                var key = row.no_document;
+                                var key = row.no_material;
         
                                 var content = '<img src="' + row.image + '" class="img-responsive select-img" title="show detail ' + row.material_name + '"  OnClick="showDetail(\'' + key + '\',\'' + row.src + '\')">';
                             } else{
@@ -180,7 +179,7 @@
                     },
                     { 
                         "render": function (data, type, row) {
-                            var key = row.no_document;
+                            var key = row.no_material;
 
                             var content  = '<div class="row" style="padding-left:30px;padding-right:30px;padding-bottom:30px">';
                                 content += '<div class="row">';
@@ -214,7 +213,7 @@
                     },
                     { 
                         "render": function (data, type, row) {
-                            var content = '<button OnClick="edit(this)" data-no_document="' + row.no_document + '" class="btn btn-flat btn-success btn-flat btn-block "><i class="fa fa-pencil"></i> Edit</button>';
+                            var content = '<button OnClick="edit(this)" data-no_material="' + row.no_material + '" class="btn btn-flat btn-success btn-flat btn-block "><i class="fa fa-pencil"></i> Edit</button>';
                             return content;
                         } 
                     }
@@ -233,8 +232,8 @@
     }
 
     function edit(param) {
-        var no_document = jQuery(param).data('no_document');
-        window.location.href = "{{ url('tm_materials') }}/" + no_document;
+        var no_material = jQuery(param).data('no_material');
+        window.location.href = "{{ url('tm_materials') }}/" + no_material;
     }
 
     function searchData() {
@@ -327,7 +326,7 @@
             content += '    <td>' + (detail[0].remarks ? detail[0].remarks:'') + '</td>';
             content += '</tr>';
             content += '<tr>';
-            content += '    <td colspan="2"><button OnClick="edit(this)" data-no_document="' + detail[0].no_document + '" class="btn btn-flat btn-success btn-flat btn-block"><i class="fa fa-pencil"></i> Edit</button></td>';
+            content += '    <td colspan="2"><button OnClick="edit(this)" data-no_document="' + detail[0].no_material + '" class="btn btn-flat btn-success btn-flat btn-block"><i class="fa fa-pencil"></i> Edit</button></td>';
             content += '</tr>';
             content += '</table>';
             content +='</div>';
