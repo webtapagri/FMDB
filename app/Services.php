@@ -30,7 +30,6 @@ class Services extends Model
 			} else {
 				$url = $this->api . $param['method'];
 			}
-            //$url = ($param['host'] == 'ldap' ? $this->ldap:$this->api) . $param['method'];
         } else {
           
             $url = $this->api.$param['method'];
@@ -58,7 +57,7 @@ class Services extends Model
 			break;
 			case 'PUT':
 				$params = [
-					'form_params' => $param['data'],
+					'json' => $param['data'],
 					'headers' => $this->header,
 					'allow_redirects' => false,
 					'timeout' => 5

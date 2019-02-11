@@ -128,7 +128,7 @@ return [
         ],
         [
             'text' => 'Edit Material Request',
-            'url' => 'material_user/create',
+            'url' => 'tr_materials',
             'icon' => 'pencil',
         ],
         [

@@ -32,9 +32,60 @@ class TrMaterialController extends Controller
             'request' => 'GET',
             'method' => "tr_materials/" . $search
         ));
-        $data = $service->result;
+      
 
-        return response()->json(array('data' => $data->data));
+        $data = $service->result;
+        if($data->data) {
+            foreach ($data->data as $row) {
+                $image = ($row->no_document ? $this->image($row->no_document) :'');
+
+                $arr[] = array(
+                    "image" => $image,
+                    "no_material" => $row->no_material,
+                    "no_document" => $row->no_document,
+                    "industri_sector" => $row->industri_sector,
+                    "plant" => $row->plant,
+                    "store_loc" => $row->store_loc,
+                    "sales_org" => $row->sales_org,
+                    "dist_channel" => $row->dist_channel,
+                    "mat_group" => $row->mat_group,
+                    "part_number" => $row->part_number,
+                    "spec" => $row->spec,
+                    "merk" => $row->merk,
+                    "material_name" => $row->material_name,
+                    "description" => $row->description,
+                    "uom" => $row->uom,
+                    "division" => $row->division,
+                    "item_cat_group" => $row->item_cat_group,
+                    "gross_weight" => $row->gross_weight,
+                    "net_weight" => $row->net_weight,
+                    "volume" => $row->volume,
+                    "size_dimension" => $row->size_dimension,
+                    "weight_unit" => $row->weight_unit,
+                    "volume_unit" => $row->volume_unit,
+                    "mrp_controller" => $row->mrp_controller,
+                    "valuation_class" => $row->valuation_class,
+                    "tax_classification" => $row->tax_classification,
+                    "account_assign" => $row->account_assign,
+                    "general_item" => $row->general_item,
+                    "avail_check" => $row->avail_check,
+                    "transportation_group" => $row->transportation_group,
+                    "loading_group" => $row->loading_group,
+                    "profit_center" => $row->profit_center,
+                    "mrp_type" => $row->mrp_type,
+                    "period_sle" => $row->period_sle,
+                    "cash_discount" => $row->cash_discount,
+                    "price_unit" => $row->price_unit,
+                    "locat" => $row->locat,
+                    "material_type" => $row->material_type,
+                    "remarks" => $row->remarks
+                );
+            }
+        }else{
+            $arr[] = array();
+        }
+        
+        return response()->json(array('data' => $arr));
     }
 
     public function image($no_document)
@@ -44,10 +95,11 @@ class TrMaterialController extends Controller
             'method' => 'tr_files/' . $no_document
         ));
         $data = $service->result;
+
         if ($data->status === "failed") {
             return '';
         } else {
-            return $data->data->file_image;
+            return $data->data[0]->file_image;
         }
     }
 
@@ -64,6 +116,12 @@ class TrMaterialController extends Controller
             foreach ($res->data as $key => $value) {
                 if (!in_array($value->no_material, $result)) {
                     $result = array_merge($result, array($value->no_material));
+                }
+            }
+            
+            foreach ($res->data as $key => $value) {
+                if (!in_array($value->no_document, $result)) {
+                    $result = array_merge($result, array($value->no_document));
                 }
             }
 
@@ -117,9 +175,9 @@ class TrMaterialController extends Controller
             "weight_unit" => $request->weight_unit,
             "volume_unit" => $request->volume_unit,
             "remarks" => $request->remarks,
-            "updated_by" => 'user',
+            "updated_by" => Session::get('user'),
         );
-        
+
         $service = new Services(array(
             'request' => 'PUT',
             'method' => 'tr_materials/' . $request->no_document,
@@ -128,7 +186,8 @@ class TrMaterialController extends Controller
 
         $res = $service->result;
         if ($res->code == '201') {
-            /* foreach ($_FILES as $row) {
+            $no = 1;
+            foreach ($_FILES as $row) {
                 if ($row["name"]) {
                     $name = $row["name"];
                     $size = $row["size"];
@@ -136,20 +195,46 @@ class TrMaterialController extends Controller
                     $type = pathinfo($row["tmp_name"], PATHINFO_EXTENSION);
                     $data = file_get_contents($path);
                     $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-                    $files = array(
-                        "no_document" => $no_document,
-                        "file_name" => $name,
-                        'material_no' => '-',
-                        "doc_size" => $size,
-                        "file_category" => $type,
-                        "file_image" => $base64
-                    );
+                   
+                  
+                    if($no == 1) {
+                        $id = $request->files_id_1;
+                    } else if($no == 2) {
+                        $id = $request->files_id_2;
+                    } else if ($no == 3) {
+                        $id = $request->files_id_3;
+                    }
 
-                    $service = new Services(array(
-                        'request' => 'POST',
-                        'method' => 'tr_files',
-                        'data' => $files
-                    ));
+                    if($id) {
+                        $files = array(
+                            "file_name" => $name,
+                            "doc_size" => $size,
+                            "file_category" => $type,
+                            "file_image" => $base64
+                        );
+                        $service = new Services(array(
+                            'request' => 'PUT',
+                            'method' => 'tr_files/'.$id,
+                            'data' => $files
+                        ));
+                    } else{
+                        $files = array(
+                            "no_document" => $request->no_document,
+                            "file_name" => $name,
+                            'material_no' => '-',
+                            "doc_size" => $size,
+                            "file_category" => $type,
+                            "file_image" => $base64
+                        );
+
+                        $service = new Services(array(
+                            'request' => 'POST',
+                            'method' => 'tr_files',
+                            'data' => $files
+                        ));
+                    }
+
+                   
                     $res = $service->result;
                     if ($res->code == '201') {
                         $status = true;
@@ -163,7 +248,10 @@ class TrMaterialController extends Controller
                         break;
                     }
                 }
-            } */
+                $no++;
+            }
+        } else{
+
         }
 
         echo json_encode(array(
@@ -221,55 +309,96 @@ class TrMaterialController extends Controller
             "price_unit" => $material[0]->price_unit,
             "locat" => $material[0]->locat,
             "material_type" => $material[0]->material_type,
-            "remarks" => $material[0]->remarks
+            "remarks" => $material[0]->remarks,
         );
 
-        $div = DB::table('tm_general_data')->where(array("general_code"=> "div", "description_code"=> $param->division))->pluck('description');
-        $plant = DB::table('tm_general_data')->where(array("general_code" => "plant", "description_code" => $param->plant))->pluck('description');
-        $location = DB::table('tm_general_data')->where(array("general_code" => "location", "description_code" => $param->locat))->pluck('description');
-        $mrp_controller = DB::table('tm_general_data')->where(array("general_code" => "mrp_controller", "description_code" => $param->mrp_controller))->pluck('description');
-        $valuation_class = DB::table('tm_general_data')->where(array("general_code" => "valuation_class", "description_code" => $param->valuation_class))->pluck('description');
-        $industry_sector = DB::table('tm_general_data')->where(array("general_code" => "industry_sector", "description_code" => $param->industri_sector))->pluck('description');
-        $material_type = DB::table('tm_general_data')->where(array("general_code" => "material_type", "description_code" => $param->material_type))->pluck('description');
-        $sales_org = DB::table('tm_general_data')->where(array("general_code" => "sales_org", "description_code" => $param->sales_org))->pluck('description');
-        $item_cat = DB::table('tm_general_data')->where(array("general_code" => "item_cat", "description_code" => $param->item_cat_group))->pluck('description');
-        $dist_channel = DB::table('tm_general_data')->where(array("general_code" => "dist_channel", "description_code" => $param->dist_channel))->pluck('description');
-        $tax_class = DB::table('tm_general_data')->where(array("general_code" => "tax_class", "description_code" => $param->tax_classification))->pluck('description');
-        $account_assign = DB::table('tm_general_data')->where(array("general_code" => "account_assign", "description_code" => $param->account_assign))->pluck('description');
-        $avail_check = DB::table('tm_general_data')->where(array("general_code" => "avail_check", "description_code" => $param->avail_check))->pluck('description');
-        $trans_group = DB::table('tm_general_data')->where(array("general_code" => "trans_group", "description_code" => $param->transportation_group))->pluck('description');
-        $loading_group = DB::table('tm_general_data')->where(array("general_code" => "loading_group", "description_code" => $param->loading_group))->pluck('description');
-        $profit_center = DB::table('tm_general_data')->where(array("general_code" => "profit_center", "description_code" => $param->profit_center))->pluck('description');
-        $mrp_type = DB::table('tm_general_data')->where(array("general_code" => "mrp_type", "description_code" => $param->mrp_type))->pluck('description');
-        $sle = DB::table('tm_general_data')->where(array("general_code" => "sle", "description_code" => $param->period_sle))->pluck('description');
 
-        $data['div'] = $div[0];
-        $data['plant'] = $plant[0];
-        $data['location'] = $location[0];
-        $data['mrp_controller'] = $mrp_controller[0];
-        $data['valuation_class'] = $valuation_class[0];
-        $data['industry_sector'] = $industry_sector[0];
-        $data['material_type'] = $material_type[0];
-        $data['dist_channel'] = $dist_channel[0];
-        $data['item_cat'] = $item_cat[0];
-        $data['tax_class'] = $tax_class[0];
-        $data['account_assign'] = $account_assign[0];
-        $data['avail_check'] = $avail_check[0];
-        $data['trans_group'] = $trans_group[0];
-        $data['loading_group'] = $loading_group[0];
-        $data['profit_center'] = $profit_center[0];
-        $data['mrp_type'] = $mrp_type[0];
-        $data['sle'] = $sle[0];
-        $data['sales_org'] = $sales_org[0];
+        $data['div'] = ($param->division ? $this->getMaster('div',$param->division) : '');
+        $data['plant'] = ($param->plant ? $this->getMaster('plant',$param->plant) : '');
+        $data['location'] = ($param->locat ? $this->getMaster('location', $param->locat):'');
+        $data['mrp_controller'] = ($param->mrp_controller ? $this->getMaster('mrp_controller', $param->mrp_controller):'');
+        $data['valuation_class'] = ($param->valuation_class ? $this->getMaster('valuation_class', $param->valuation_class) : '');
+        $data['industry_sector'] = ($param->industri_sector ? $this->getMaster('industry_sector', $param->industri_sector) : '');
+        $data['material_type'] = ($param->material_type ? $this->getMaster('material_type', $param->material_type) : '');
+        $data['dist_channel'] = ($param->dist_channel ? $this->getMaster('dist_channel', $param->dist_channel) : '');
+        $data['item_cat'] = ($param->item_cat_group ? $this->getMaster('item_cat', $param->item_cat_group) : '');
+        $data['tax_class'] = ($param->tax_classification ? $this->getMaster('tax_class', $param->tax_classification) : '');
+        $data['account_assign'] = ($param->account_assign ? $this->getMaster('account_assign', $param->account_assign) : '');
+        $data['avail_check'] = ($param->avail_check ? $this->getMaster('avail_check', $param->avail_check) : '');
+        $data['trans_group'] = ($param->transportation_group ? $this->getMaster('trans_group', $param->transportation_group) : '');
+        $data['loading_group'] = ($param->loading_group ? $this->getMaster('loading_group', $param->loading_group) : '');
+        $data['profit_center'] = ($param->profit_center ? $this->getMaster('profit_center', $param->profit_center) : '');
+        $data['mrp_type'] = ($param->mrp_type ? $this->getMaster('mrp_type', $param->mrp_type) : '');
+        $data['sle'] = ($param->period_sle ? $this->getMaster('sle', $param->period_sle) : '');
+        $data['sales_org'] = ($param->sales_org ? $this->getMaster('sales_org', $param->sales_org) : '');
         $data['store_loc'] = $param->store_loc;
         $data['price_unit'] = $param->price_unit;
         $data['plant_id'] = $param->plant;
         $data['cash_discount'] = ($param->cash_discount == 0 ? 'No':'yes');
+        $data['mat_group_name'] = ($param->mat_group ? $this->material_group($param->mat_group):'');
+        $data['store_loc_name'] = ($param->store_loc ? $this->store_loc($param->store_loc, $param->plant):'');
         $data['material'] = $param;
+        $data["files"] = ($material[0]->no_document ? $this->files($material[0]->no_document) : '');
 
         return view('tr_materials/edit', $data);
     }
 
+    function getMaster($gen_code, $code) {
+        $data = DB::table('tm_general_data')->where(array("general_code" => $gen_code, "description_code" => $code))->pluck('description');
+        return $data[0];
+    }
+
+    function material_group($id) {
+        $service = new Services(array(
+            'request' => 'GET',
+            'host' => 'ldap',
+            'method' => "material_group"
+        ));
+
+        $data = $service->result;
+     
+        $mat_group = '';
+        foreach ($data->data as $row) {
+          foreach($row as $detail) {
+                if ($detail->MATKL === $id) {
+                    $mat_group = $detail->MATKL . " - " . str_replace("_", " ", $detail->WGBEZ);
+                } 
+          }
+        }
+
+        return $mat_group;
+    }
+
+    public function files($no_document)
+    {
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => 'tr_files/' . $no_document
+        ));
+        $data = $service->result;
+        if ($data->status === "failed") {
+            return '';
+        } else {
+            return $data->data;
+        }
+    }
+
+    function store_loc($id, $plant) {
+        $service = new Services(array(
+            'request' => 'GET',
+            'host' => 'ldap',
+            'method' => "store_loc/" . $plant
+        ));
+        $data = $service->result;
+        $store_loc = '';
+        foreach ($data->data as $row) {
+            if($row->LGOR === $id) {
+                $store_loc = $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE);
+            }
+        }
+
+        return $store_loc;
+    }
 
     /**
      * Show the form for editing the specified resource.

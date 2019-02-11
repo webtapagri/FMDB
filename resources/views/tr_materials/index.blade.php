@@ -167,10 +167,10 @@
                 columns: [
                     {  
                         "render": function (data, type, row) {
-                            if(row.file_image) {
+                            if(row.image) {
                                 var key = row.no_document;
         
-                                var content = '<img src="' + row.file_image + '" class="img-responsive select-img" title="show detail ' + row.material_name + '"  OnClick="showDetail(\'' + key + '\',\'' + row.src + '\')">';
+                                var content = '<img src="' + row.image + '" class="img-responsive select-img" title="show detail ' + row.material_name + '"  OnClick="showDetail(\'' + key + '\',\'' + row.src + '\')">';
                             } else{
                                 var content = '';
                             }    
@@ -213,7 +213,7 @@
                     },
                     { 
                         "render": function (data, type, row) {
-                            var content = '<button OnClick="edit(this)" data-no_document="' + row.no_document + '" class="btn btn-flat btn-sm btn-default btn-flat btn-block"><i class="fa fa-pencil"></i> Edit</button>';
+                            var content = '<button OnClick="edit(this)" data-no_document="' + row.no_document + '" class="btn btn-flat btn-success btn-flat btn-block "><i class="fa fa-pencil"></i> Edit</button>';
                             return content;
                         } 
                     }
@@ -325,21 +325,9 @@
             content += '    <td><b>Keterangan:</b></td>';
             content += '    <td>' + (detail[0].remarks ? detail[0].remarks:'') + '</td>';
             content += '</tr>';
-            if(status === '1') {
-                 content += '<tr>';
-                content += '    <td colspan="2"><span class="label label-warning">Requested</span></td>';
-                content += '</tr>';
-            } else {
-                content += '<tr>';
-                if(row.src === '0') {
-                  var  content = '<button OnClick="extend(this)" data-no_document="' + (row.no_document ? row.no_document:row.no_material) + '" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</button>';
-                    content +='<span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Read to PO</span>';
-                }else{
-                    var content = '<span class="label label-warning">Requested</span>';
-                }
-                content += '</tr>';
-            }   
-
+            content += '<tr>';
+            content += '    <td colspan="2"><button OnClick="edit(this)" data-no_document="' + detail[0].no_document + '" class="btn btn-flat btn-success btn-flat btn-block"><i class="fa fa-pencil"></i> Edit</button></td>';
+            content += '</tr>';
             content += '</table>';
             content +='</div>';
         

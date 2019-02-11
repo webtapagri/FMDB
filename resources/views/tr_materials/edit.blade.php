@@ -33,7 +33,8 @@ label {
                             <div class="form-group">
                                 <label for="sap_material_group" class="col-md-3">Material Group</label>
                                 <div class="col-md-9">
-                                    <select  class="form-control input-sm" name="sap_material_group" id="sap_material_group" required readonly></select>
+                                    <input type="test"  class="form-control input-sm" name="sap_material_group" id="sap_material_group" value="{{ $mat_group_name }}" required readonly></select>
+                                   <!--  <select  class="form-control input-sm" name="sap_material_group" id="sap_material_group" required readonly></select> -->
                                 </div>    
                             </div>
                             <div class="form-group">
@@ -79,7 +80,8 @@ label {
                             <div class="form-group">
                                 <label for="store_location" class="col-md-3">Store Location</label>
                                     <div class="col-md-9">
-                                    <select class="form-control input-sm" name="store_location" id="store_location" value="{{ $store_loc }}" required readonly></select>
+                                   <!--  <select class="form-control input-sm" name="store_location" id="store_location" value="{{ $store_loc }}" required readonly></select> -->
+                                    <input type="text" class="form-control input-sm" name="store_location" id="store_location" value="{{ $store_loc_name }}" required readonly>
                                 </div>
                             </div>  
 
@@ -287,22 +289,25 @@ label {
                                      <div class="col-md-3">
                                             <div class="form-group hide">
                                         <input type="file" id="files_1" name="files_1" accept='image/*'  OnChange="showImage(1)">
+                                        <input type="hidden" id="files_id_1" name="files_id_1" value="{{ (isset($files[0]) ? $files[0]->id:'') }}">
                                         <p class="help-block">*jpg, png</p>
                                         </div>
-                                        <img id="material-images-1" style="cursor:pointer" OnClick="openFile(1)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
+                                        <img id="material-images-1" style="cursor:pointer" OnClick="openFile(1)" class="img-responsive select-img" src="{{  (isset($files[0]) ? $files[0]->file_image:URL::asset('img/default-img.png'))}}">
                                     </div> 
                                     <div class="col-md-3">
                                             <div class="form-group hide">
                                         <input type="file" id="files_2" name="files_2" accept='image/*'  OnChange="showImage(2)">
+                                        <input type="hidden" id="files_id_2" name="files_id_2" value="{{ (isset($files[1]) ? $files[1]->id:'') }}">
                                         <p class="help-block">*jpg, png</p>
                                         </div>
-                                        <img id="material-images-2" style="cursor:pointer" OnClick="openFile(2)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
+                                        <img id="material-images-2" style="cursor:pointer" OnClick="openFile(2)" class="img-responsive select-img" src="{{  (isset($files[1]) ? $files[1]->file_image:URL::asset('img/default-img.png'))}}">
                                     </div> 
                                     <div class="col-md-3">
                                             <div class="form-group hide">
                                         <input type="file" id="files_3" name="files_3"  accept='image/*'  OnChange="showImage(3)">
-                                        </div>
-                                        <img id="material-images-3" style="cursor:pointer" OnClick="openFile(3)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
+                                         <input type="hidden" id="files_id_3" name="files_id_3" value="{{ (isset($files[2]) ? $files[2]->id:'') }}">    
+                                    </div>
+                                        <img id="material-images-3" style="cursor:pointer" OnClick="openFile(3)" class="img-responsive select-img" src="{{  (isset($files[2]) ? $files[2]->file_image:URL::asset('img/default-img.png'))}}">
                                     </div> 
                                 </div> 
                             </div>
@@ -335,7 +340,7 @@ label {
             window.location.href = "{{ url('material_user') }}";
         });
 
-        SelectGroup();
+        SelectGroup('{{ $material->mat_group }}');
          jQuery('#form-basic-data').on('submit', function(e) {
             e.preventDefault();
            jQuery.ajaxSetup({
@@ -361,7 +366,7 @@ label {
                             type:'success',
                             message:data.message
                         });
-                        window.location.href = "{{ url('tr_materials') }}";
+                        //window.location.href = "{{ url('tr_materials') }}";
                     }else{
                         notify({
                             type:'warning',
@@ -373,19 +378,6 @@ label {
 			 });
         });
 
-        var material_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_group_material') !!}')));
-        jQuery('#sap_material_group').select2({
-            data: material_group,
-            width:'100%',
-            placeholder: "",
-            allowClear: true
-        }).on('change', function() {
-            jQuery("#group_material").val(jQuery(this).val());
-            SelectGroup(jQuery(this).val());
-        });
-
-        jQuery('#sap_material_group').trigger('change');
-
         var uom = dataJson('{!! route('get.uom') !!}');
         jQuery('#uom').select2({
             data: uom,
@@ -396,18 +388,6 @@ label {
 
         jQuery('#uom').val('{{ $material->uom }}');
         jQuery('#uom').trigger('change');
-
-        var store_location = dataJson("{{ url('material_user/store_location/?id='. $plant_id) }}");
-        jQuery('#store_location').select2({
-            data: store_location,
-            width:'100%',
-            placeholder: "",
-            allowClear: true
-        });
-
-        jQuery('#store_location').val('{{ $store_loc}}');
-      
-
 
         jQuery('#form-initial').on('submit', function(e){
             e.preventDefault();
