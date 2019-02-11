@@ -150,7 +150,7 @@ class GroupMaterialController extends Controller
             }
             $arr = array(
                 "id"=> $data->data[0][$i]->MATKL,
-                "text"=> $data->data[0][$i]->MATKL." - ". str_replace("_"," ", $data->data[0][$i]->WGBEZ)
+                "text"=> $data->data[0][$i]->MATKL." - ". str_replace("_"," ", $data->data[0][$i]->WGBEZ60)
             );
             $json .= json_encode($arr); 
         }    

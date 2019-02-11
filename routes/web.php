@@ -88,5 +88,10 @@ Route::post('/tr_materials/post', 'TrMaterialController@store');
 Route::get('/tr_material_grid/{id}', 'TrMaterialController@grid')->name('search');
 Route::get('tr_material_auto_sugest', 'TrMaterialController@auto_sugest');
 
+Route::resource('/tm_materials', 'TmMaterialController');
+Route::post('/tm_materials/post', 'TmMaterialController@store');
+Route::get('/tm_material_grid/{id}', 'TmMaterialController@grid')->name('search');
+Route::get('tm_material_auto_sugest', 'TmMaterialController@auto_sugest');
+
 
 Route::resource('/wsdl', 'WsdlController');

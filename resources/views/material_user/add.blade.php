@@ -675,6 +675,7 @@ label {
             });
         }else{
             selected_material_group = 'deskripsi-material';
+            help_material_sap = "Deskripsi material";
             jQuery("#material_sap").val('01');
             jQuery("#input-description").addClass("has-success");
             jQuery("#description").prop("required",true);

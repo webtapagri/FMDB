@@ -133,7 +133,7 @@ return [
         ],
         [
             'text' => 'Edit Master Material',
-            'url' => 'material_user/create',
+            'url' => 'tm_materials',
             'icon' => 'pencil',
         ],
         [
