@@ -39,9 +39,9 @@ class GroupMaterialController extends Controller
             }
 
             if ($row->status == 1) {
-                $status = '<span class="label label-danger status" data-status="' . $row->status . '">inactive</span>';
+                $status = '<span class="badge bg-grey status" data-status="' . $row->status . '">N</span>';
             } else {
-                $status = '<span class="label label-success status" data-status="' . $row->status . '">active</span>';
+                $status = '<span class="badge bg-green status" data-status="' . $row->status . '">Y</span>';
             }
  
             $arr = array(
@@ -53,9 +53,9 @@ class GroupMaterialController extends Controller
                 "latest_code" => $row->latest_code,
                 "status" => $status,
                 "action" => '
-                    <button class="btn btn-xs btn-success btn-action btn-edit" title="edit data '.$row->name. '" onClick="edit(' . $row->id . ')"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-xs btn-danger btn-action btn-activated ' . ($row->status == 0 ? '' : 'hide') . '" onClick="inactive('.$row->id.')"><i class="fa fa-trash"></i></button>
-                    <button class="btn btn-xs btn-success btn-action btn-inactivated '.($row->status == 1 ? '': 'hide'). '" onClick="active(' . $row->id . ')"><i class="fa fa-check"></i></button>
+                    <button class="btn btn-flat btn-xs btn-success btn-action btn-edit" title="edit data '.$row->name. '" onClick="edit(' . $row->id . ')"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-flat btn-xs btn-danger btn-action btn-activated ' . ($row->status == 0 ? '' : 'hide') . '" onClick="inactive('.$row->id. ')"><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-flat btn-xs btn-success btn-action btn-inactivated '.($row->status == 1 ? '': 'hide'). '" onClick="active(' . $row->id . ')"><i class="fa fa-check"></i></button>
                 '
             );
 
@@ -92,7 +92,6 @@ class GroupMaterialController extends Controller
             $group_material->name = $request->name;
             $group_material->description = $request->description;
             $group_material->status = 0;
-
 
             $group_material->save();
 

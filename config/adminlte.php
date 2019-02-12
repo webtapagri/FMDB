@@ -172,9 +172,22 @@ return [
             'icon' => 'user',
         ],
         [
-            'text' => 'Setting',
-            'url' => 'admin/settings',
+            'text' => 'User Setting',
             'icon' => 'cog',
+            'submenu' => [
+                [
+                    'text' => 'User',
+                    'url' => 'users',
+                ],
+                [
+                    'text' => 'Role',
+                    'url' => 'roles',
+                ],
+                [
+                    'text' => 'role users',
+                    'url' => 'roleusers',
+                ],
+            ],
         ],
        /*  'LABELS',
         [

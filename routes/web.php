@@ -94,4 +94,27 @@ Route::get('/tm_material_grid/{id}', 'TmMaterialController@grid')->name('search'
 Route::get('tm_material_auto_sugest', 'TmMaterialController@auto_sugest');
 
 
-Route::resource('/wsdl', 'WsdlController');
+/* USER SETTINGS */
+Route::resource('/users', 'UsersController');
+Route::post('/users/post', 'UsersController@store');
+Route::get('/users/edit/', 'UsersController@show');
+Route::post('/users/inactive', 'UsersController@inactive');
+Route::post('/users/active', 'UsersController@active');
+Route::get('grid-tr-user', ['as' => 'get.grid_tr_user', 'uses' => 'UsersController@dataGrid']);
+
+Route::resource('/roles', 'RolesController');
+Route::post('/roles/post', 'RolesController@store');
+Route::get('/roles/edit/', 'RolesController@show');
+Route::post('/roles/inactive', 'RolesController@inactive');
+Route::post('/roles/active', 'RolesController@active');
+Route::get('grid-tm-role', ['as' => 'get.grid_tm_role', 'uses' => 'RolesController@dataGrid']);
+
+
+Route::resource('/roleusers', 'RoleUserController');
+Route::post('/roleusers/post', 'RoleUserController@store');
+Route::get('/roleusers/edit/', 'RoleUserController@show');
+Route::post('/roleusers/inactive', 'RoleUserController@inactive');
+Route::post('/roleusers/active', 'RoleUserController@active');
+Route::get('grid-role-user', ['as' => 'get.role_user', 'uses' => 'RoleUserController@dataGrid']);
+Route::get('get-select_tr_user', ['as' => 'get.select_tr_user', 'uses' => 'RoleUserController@get_tr_user']);
+Route::get('get-select_role', ['as' => 'get.select_role', 'uses' => 'RoleUserController@get_role']);
