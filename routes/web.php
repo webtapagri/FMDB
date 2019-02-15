@@ -126,4 +126,11 @@ Route::post('/menu/inactive', 'MenuController@inactive');
 Route::post('/menu/active', 'MenuController@active');
 Route::get('grid-menu', ['as' => 'get.menu_grid', 'uses' => 'MenuController@dataGrid']);
 
+Route::resource('/accessright', 'AccessRightController');
+Route::post('/accessright/post', 'AccessRightController@store');
+Route::get('/accessright/edit/', 'AccessRightController@show');
+Route::post('/accessright/inactive', 'AccessRightController@inactive');
+Route::post('/accessright/active', 'AccessRightController@active');
+Route::get('grid-accessright', ['as' => 'get.accessright_grid', 'uses' => 'AccessRightController@dataGrid']);
+
 Route::resource('/roleaccess', 'RoleAccessController');

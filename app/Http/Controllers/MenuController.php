@@ -48,13 +48,18 @@ class MenuController extends Controller
                     'data' => $param
                 ));
             } else {
-                $param["created_at"] = date('Y-m-d H:i:s');
-                $param["created_by"] = Session::get('user');
-                $data = new Services(array(
-                    'request' => 'POST',
-                    'method' => 'tm_menu',
-                    'data' => $param
-                ));
+                if($this->validateCode($request->code)) {
+                    $param["created_at"] = date('Y-m-d H:i:s');
+                    $param["created_by"] = Session::get('user');
+                    $data = new Services(array(
+                        'request' => 'POST',
+                        'method' => 'tm_menu',
+                        'data' => $param
+                    ));
+                } else {
+                    return response()->json(['status' => false, "message" => "Menu code sudah digunakan"]);
+                    exit();
+                }
             }
 
             $res = $data->result;
@@ -65,6 +70,19 @@ class MenuController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['status' => false, "message" => $e->getMessage()]);
+        }
+    }
+
+    function validateCode($code) {
+        $service = new Services(array(
+            'request' => 'GET',
+            'method' => "tm_menu/" . $code
+        ));
+        $res = $service->result;
+        if ($res->data) {
+            return false;
+        } else {
+            return true;
         }
     }
 

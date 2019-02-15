@@ -126,7 +126,7 @@ class RoleUserController extends Controller
         try {
             $param["updated_by"] = Session::get('user');
             $data = new Services(array(
-                'request' => 'DELETE',
+                'request' => 'ACTIVE',
                 'method' => 'tr_role_user/' . $request->id . '/0',
                 'data' => $param
             ));
@@ -149,7 +149,7 @@ class RoleUserController extends Controller
         try {
             $param["updated_by"] = Session::get('user');
             $data = new Services(array(
-                'request' => 'DELETE',
+                'request' => 'ACTIVE',
                 'method' => 'tr_role_user/' . $request->id . '/1',
                 'data' => $param
             ));

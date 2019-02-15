@@ -184,10 +184,6 @@ return [
                     'url' => 'roleusers',
                 ],
                 [
-                    'text' => 'role access',
-                    'url' => 'roleaccess',
-                ],
-                [
                     'text' => 'Access Right',
                     'url' => 'accessright',
                 ],

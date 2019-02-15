@@ -88,7 +88,7 @@ class UsersController extends Controller
         try {
             $param["updated_by"] = Session::get('user');
             $data = new Services(array(
-                'request' => 'DELETE',
+                'request' => 'ACTIVE',
                 'method' => 'tr_user/' . $request->id . '/0',
                 'data' => $param
             ));
@@ -110,7 +110,7 @@ class UsersController extends Controller
         try {
             $param["updated_by"] = Session::get('user');
             $data = new Services(array(
-                'request' => 'DELETE',
+                'request' => 'ACTIVE',
                 'method' => 'tr_user/' . $request->id . '/1',
                 'data' => $param
             ));

@@ -71,6 +71,14 @@ class Services extends Model
 
 				$res = $client->request('PUT', $url, $params);
 			break;
+			case 'ACTIVE':
+				$params = [
+					'json' => $param['data'],
+					'headers' => $this->header,
+				];
+
+				$res = $client->request('DELETE', $url, $params);
+			break;
         }   
 
         $this->result = json_decode($res->getBody()->getContents());
