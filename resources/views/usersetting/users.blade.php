@@ -88,15 +88,15 @@
          jQuery('#data-table').DataTable({
             ajax: '{!! route('get.grid_tr_user') !!}',
             columns: [
-                { data: 'USERNAME', name: 'username' },
-                { data: 'NAMA', name: 'name' },
-                { data: 'EMAIL', name: 'email' },
-                { data: 'JOB_CODE', name: 'job_code' },
-                { data: 'NIK', name: 'nik' },
-                { data: 'AREA_CODE', name: 'area_code' },
+                { data: 'username', name: 'username' },
+                { data: 'nama', name: 'name' },
+                { data: 'email', name: 'email' },
+                { data: 'job_code', name: 'job_code' },
+                { data: 'nik', name: 'nik' },
+                { data: 'area_code', name: 'area_code' },
                 {  
                     "render": function (data, type, row) {
-                        if(row.FL_ACTIVE == 1) {
+                        if(row.fl_active == 1) {
                             var content = '<span class="badge bg-green">Y</span>';
                         } else{
                             var content = '<span class="badge bg-grey">N</span>';
@@ -106,9 +106,9 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit" title="edit data ' + row.USER_ID + '" onClick="edit(' + row.USER_ID + ')"><i class="fa fa-pencil"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated ' + (row.FL_ACTIVE == 1 ? '' : 'hide') + '" onClick="inactive(' + row.USER_ID + ')"><i class="fa fa-trash"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-success btn-action btn-inactivated ' + (row.FL_ACTIVE == 0 ? '': 'hide') + '" onClick="active(' + row.USER_ID + ')"><i class="fa fa-check"></i></button>';
+                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit" title="edit data ' + row.id + '" onClick="edit(' + row.id + ')"><i class="fa fa-pencil"></i></button>';
+                            content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated ' + (row.fl_active == 1 ? '' : 'hide') + '" style="margin-left:5px" onClick="inactive(' + row.id + ')"><i class="fa fa-trash"></i></button>';
+                            content += '<button class="btn btn-flat btn-xs btn-success btn-action btn-inactivated ' + (row.fl_active == 0 ? '': 'hide') + '" style="margin-left:5px"  onClick="active(' + row.id + ')"><i class="fa fa-check"></i></button>';
                         
                         return content;
                     }
@@ -175,13 +175,13 @@
         jQuery("#edit_id").val(id);
 
         var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('users/edit/?id=') }}"+id)));
-        jQuery("#edit_id").val(result[0].USER_ID);
-        jQuery("#username").val(result[0].USERNAME);
-        jQuery("#name").val(result[0].NAMA);
-        jQuery("#email").val(result[0].EMAIL);
-        jQuery("#job_code").val(result[0].JOB_CODE);
-        jQuery("#nik").val(result[0].NIK);
-        jQuery("#area_code").val(result[0].AREA_CODE);
+        jQuery("#edit_id").val(result.id);
+        jQuery("#username").val(result.username);
+        jQuery("#name").val(result.nama);
+        jQuery("#email").val(result.email);
+        jQuery("#job_code").val(result.job_code);
+        jQuery("#nik").val(result.nik);
+        jQuery("#area_code").val(result.area_code);
 
         jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data");			
         jQuery("#add-data-modal").modal("show");

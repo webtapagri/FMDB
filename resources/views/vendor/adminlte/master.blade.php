@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}">
     
-
+    <link rel="stylesheet" href="{{ asset('vendor/jstree/themes/default/style.css') }}">
     @if(config('adminlte.plugins.select2'))
         <!-- Select2 -->
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
@@ -52,6 +52,7 @@
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/dist/js/getBrowser.js') }}"></script>
 <script src="{{ asset('vendor/smooth-products/js/smoothproducts.js') }}"></script>
+<script src="{{ asset('vendor/jstree/jstree.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
 @if(config('adminlte.plugins.select2'))

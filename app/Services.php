@@ -55,6 +55,12 @@ class Services extends Model
 
 				$res = $client->request('POST', $url, $params);
 			break;
+			case 'DELETE':
+				$params = [
+					'headers' => $this->header
+				];
+				$res = $client->request('DELETE', $url, $params);
+				break;
 			case 'PUT':
 				$params = [
 					'json' => $param['data'],

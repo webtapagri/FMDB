@@ -83,8 +83,8 @@
                 {
                     "render": function (data, type, row) {
                         var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit" title="edit data ' + row.id + '" onClick="edit(' + row.id + ')"><i class="fa fa-pencil"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated ' + (row.role_active == 1 ? '' : 'hide') + '" onClick="inactive(' + row.id + ')"><i class="fa fa-trash"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-success btn-action btn-inactivated ' + (row.role_active == 0 ? '': 'hide') + '" onClick="active(' + row.id + ')"><i class="fa fa-check"></i></button>';
+                            content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated ' + (row.role_active == 1 ? '' : 'hide') + '" style="margin-left:5px"  onClick="inactive(' + row.id + ')"><i class="fa fa-trash"></i></button>';
+                            content += '<button class="btn btn-flat btn-xs btn-success btn-action btn-inactivated ' + (row.role_active == 0 ? '': 'hide') + '" style="margin-left:5px"  onClick="active(' + row.id + ')"><i class="fa fa-check"></i></button>';
                         
                         return content;
                     }
@@ -98,6 +98,7 @@
 
         jQuery('.btn-add').on('click', function() {
             document.getElementById("data-form").reset();
+            jQuery('#role_id').prop('disabled',false);
             jQuery("#edit_id").val("");
             jQuery("#add-data-modal").modal({backdrop:'static', keyboard:false});		
             jQuery("#add-data-modal .modal-title").html("<i class='fa fa-plus'></i> Create new data");		
@@ -149,12 +150,12 @@
     function edit(id) {
         document.getElementById("data-form").reset();
         jQuery("#edit_id").val(id);
-
+        jQuery('#role_id').prop('disabled',true);
         var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('roles/edit/?id=') }}"+id)));
-        jQuery("#edit_id").val(result[0].id);
-        jQuery("#role_id").val(result[0].id);
-        jQuery("#name").val(result[0].role_name);
-        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data " + result[0].role_name);			
+        jQuery("#edit_id").val(result.id);
+        jQuery("#role_id").val(result.id);
+        jQuery("#name").val(result.role_name);
+        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data " + result.role_name);			
         jQuery("#add-data-modal").modal("show");
     }
 

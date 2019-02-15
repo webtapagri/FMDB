@@ -118,3 +118,12 @@ Route::post('/roleusers/active', 'RoleUserController@active');
 Route::get('grid-role-user', ['as' => 'get.role_user', 'uses' => 'RoleUserController@dataGrid']);
 Route::get('get-select_tr_user', ['as' => 'get.select_tr_user', 'uses' => 'RoleUserController@get_tr_user']);
 Route::get('get-select_role', ['as' => 'get.select_role', 'uses' => 'RoleUserController@get_role']);
+
+Route::resource('/menu', 'MenuController');
+Route::post('/menu/post', 'MenuController@store');
+Route::get('/menu/edit/', 'MenuController@show');
+Route::post('/menu/inactive', 'MenuController@inactive');
+Route::post('/menu/active', 'MenuController@active');
+Route::get('grid-menu', ['as' => 'get.menu_grid', 'uses' => 'MenuController@dataGrid']);
+
+Route::resource('/roleaccess', 'RoleAccessController');

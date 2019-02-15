@@ -83,13 +83,9 @@ return [
      */
 
     'dashboard_url' => 'home',
-
     'logout_url' => 'logout',
-
     'logout_method' => null,
-
     'login_url' => 'login',
-
     'register_url' => 'register',
 
     /*
@@ -106,11 +102,6 @@ return [
 
     'menu' => [
        /*  'MAIN NAVIGATION', */
-        [
-            'text' => 'Blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
         [
             'text' => 'Home',
             'url' => '',
@@ -142,6 +133,11 @@ return [
             'icon' => 'plus',
         ],
         [
+            'text' => 'Group Materials',
+            'url' => 'groupmaterials',
+            'icon' => 'th',
+        ],
+       /*  [
             'text' => 'Master Data',
             'icon' => 'folder',
             'submenu' => [
@@ -154,7 +150,7 @@ return [
                     'url' => 'groupmaterials',
                 ],
             ],
-        ],
+        ], */
         [
             'text' => 'Verifikasi',
             'url' => 'verfiikasi',
@@ -187,21 +183,20 @@ return [
                     'text' => 'role users',
                     'url' => 'roleusers',
                 ],
+                [
+                    'text' => 'role access',
+                    'url' => 'roleaccess',
+                ],
+                [
+                    'text' => 'Access Right',
+                    'url' => 'accessright',
+                ],
+                [
+                    'text' => 'Menu',
+                    'url' => 'menu',
+                ],
             ],
         ],
-       /*  'LABELS',
-        [
-            'text'       => 'Important',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'Warning',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'Information',
-            'icon_color' => 'aqua',
-        ], */
     ],
 
     /*
@@ -221,7 +216,8 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
+        /* JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class, */
+        App\MyMenuFilter::class,
     ],
 
     /*
