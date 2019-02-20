@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\TmRole;
 use function GuzzleHttp\json_encode;
 use Session;
-use App\Services;
+use API;
 
 class MenuController extends Controller
 {
@@ -22,11 +22,11 @@ class MenuController extends Controller
 
     public function dataGrid()
     {
-        $service = new Services(array(
+        $service =API::exec(array(
             'request' => 'GET',
             'method' => "tm_menu"
         ));
-        $data = $service->result;
+        $data = $service;
 
         return response()->json(array('data' => $data->data));
     }
@@ -42,7 +42,7 @@ class MenuController extends Controller
             if ($request->edit_id) {
                 $param["updated_at"] = date('Y-m-d H:i:s');
                 $param["updated_by"] = Session::get('user');
-                $data = new Services(array(
+                $data =API::exec(array(
                     'request' => 'PUT',
                     'method' => 'tm_menu/' . $request->edit_id,
                     'data' => $param
@@ -51,7 +51,7 @@ class MenuController extends Controller
                 if($this->validateCode($request->code)) {
                     $param["created_at"] = date('Y-m-d H:i:s');
                     $param["created_by"] = Session::get('user');
-                    $data = new Services(array(
+                    $data =API::exec(array(
                         'request' => 'POST',
                         'method' => 'tm_menu',
                         'data' => $param
@@ -62,7 +62,7 @@ class MenuController extends Controller
                 }
             }
 
-            $res = $data->result;
+            $res = $data;
             if ($res->code == '201') {
                 return response()->json(['status' => true, "message" => 'Data is successfully ' . ($request->edit_id ? 'updated' : 'added')]);;
             } else {
@@ -74,11 +74,11 @@ class MenuController extends Controller
     }
 
     function validateCode($code) {
-        $service = new Services(array(
+        $service =API::exec(array(
             'request' => 'GET',
             'method' => "tm_menu/" . $code
         ));
-        $res = $service->result;
+        $res = $service;
         if ($res->data) {
             return false;
         } else {
@@ -89,11 +89,11 @@ class MenuController extends Controller
     public function show()
     {
         $param = $_REQUEST;
-        $service = new Services(array(
+        $service =API::exec(array(
             'request' => 'GET',
             'method' => "tm_menu/" . $param["id"]
         ));
-        $data = $service->result;
+        $data = $service;
 
         return response()->json(array('data' => $data->data));
         
@@ -102,12 +102,12 @@ class MenuController extends Controller
     public function inactive(Request $request)
     {
         try {
-            $data = new Services(array(
+            $data =API::exec(array(
                 'request' => 'DELETE',
                 'method' => 'tm_menu/' . $request->id,
             ));
 
-            $res = $data->result;
+            $res = $data;
 
             if ($res->code == '201') {
                 return response()->json(['status' => true, "message" => 'Data is successfully deleted']);;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services;
+use API;
 use Redirect;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Input;
@@ -37,24 +37,20 @@ class LDAPController extends Controller
             "password"=> $password,
         );
 
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'POST',
             'host' => 'ldap',
             'method' => 'login',
             'data' => $param
         ));
 
-        $data = $service->result;
+        $data = $service;
         if($data->status) {
             
             Session::put('authenticated', time());
             Session::put('user', $username);
-
-          /*   $request->session()->put('authenticated', time());
-            $request->session()->put('username', $username); */
-           /*  Cookie::queue('authenticated', true, 120);
-            Cookie::queue('username', $username, 120); */
             return redirect('/');
+
         }else{
             $errors = new MessageBag([
                 'password' => ['Email and/or password invalid.']

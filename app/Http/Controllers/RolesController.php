@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\TmRole;
 use function GuzzleHttp\json_encode;
 use Session;
-use App\Services;
+use API;
 
 class RolesController extends Controller
 {
@@ -22,11 +21,11 @@ class RolesController extends Controller
 
     public function dataGrid()
     {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tm_role"
         ));
-        $data = $service->result;
+        $data = $service;
 
         return response()->json(array('data' => $data->data));
     }
@@ -41,7 +40,7 @@ class RolesController extends Controller
             if ($request->edit_id) {
                 $param["updated_at"] = date('Y-m-d H:i:s');
                 $param["updated_by"] = Session::get('user');
-                $data = new Services(array(
+                $data = API::exec(array(
                     'request' => 'PUT',
                     'method' => 'tm_role/' . $request->edit_id,
                     'data' => $param
@@ -49,14 +48,14 @@ class RolesController extends Controller
             } else {
                 $param["created_at"] = date('Y-m-d H:i:s');
                 $param["created_by"] = Session::get('user');
-                $data = new Services(array(
+                $data = API::exec(array(
                     'request' => 'POST',
                     'method' => 'tm_role',
                     'data' => $param
                 ));
             }
 
-            $res = $data->result;
+            $res = $data;
             if ($res->code == '201') {
                 return response()->json(['status' => true, "message" => 'Data is successfully ' . ($request->edit_id ? 'updated' : 'added')]);;
             } else {
@@ -70,11 +69,11 @@ class RolesController extends Controller
     public function show()
     {
         $param = $_REQUEST;
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tm_role/" . $param["id"]
         ));
-        $data = $service->result;
+        $data = $service;
 
         return response()->json(array('data' => $data->data));
         
@@ -84,13 +83,13 @@ class RolesController extends Controller
     {
         try {
             $param["updated_by"] = Session::get('user');
-            $data = new Services(array(
+            $data = API::exec(array(
                 'request' => 'ACTIVE',
                 'method' => 'tm_role/' . $request->id . '/0',
                 'data' => $param
             ));
 
-            $res = $data->result;
+            $res = $data;
 
             if ($res->code == '201') {
                 return response()->json(['status' => true, "message" => 'Data is successfully inactived']);;
@@ -107,13 +106,13 @@ class RolesController extends Controller
     {
         try {
             $param["updated_by"] = Session::get('user');
-            $data = new Services(array(
+            $data = API::exec(array(
                 'request' => 'ACTIVE',
                 'method' => 'tm_role/' . $request->id . '/1',
                 'data' => $param
             ));
 
-            $res = $data->result;
+            $res = $data;
 
             if ($res->code == '201') {
                 return response()->json(['status' => true, "message" => 'Data is successfully inactived']);;

@@ -101,99 +101,8 @@ return [
      */
 
     'menu' => [
-       /*  'MAIN NAVIGATION', */
-        [
-            'text' => 'Home',
-            'url' => '',
-            'icon' => 'home',
-        ],
-        [
-            'text' => 'Material',
-            'url' => 'material_user',
-            'icon' => 'cube',
-        ],
-        [
-            'text' => 'Material Request',
-            'url' => 'material_user/create',
-            'icon' => 'plus',
-        ],
-        [
-            'text' => 'Edit Material Request',
-            'url' => 'tr_materials',
-            'icon' => 'pencil',
-        ],
-        [
-            'text' => 'Edit Master Material',
-            'url' => 'tm_materials',
-            'icon' => 'pencil',
-        ],
-        [
-            'text' => 'Material Extend',
-            'url' => 'material_extend/new',
-            'icon' => 'plus',
-        ],
-        [
-            'text' => 'Group Materials',
-            'url' => 'groupmaterials',
-            'icon' => 'th',
-        ],
-       /*  [
-            'text' => 'Master Data',
-            'icon' => 'folder',
-            'submenu' => [
-                [
-                    'text' => 'Material',
-                    'url' => 'materials',
-                ],
-                [
-                    'text' => 'groupmaterials',
-                    'url' => 'groupmaterials',
-                ],
-            ],
-        ], */
-        [
-            'text' => 'Verifikasi',
-            'url' => 'verfiikasi',
-            'icon' => 'user',
-        ],
-        [
-            'text' => 'Reporting',
-            'url' => 'reporting',
-            'icon' => 'file',
-        ],
-        'ACCOUNT SETTINGS',
-        [
-            'text' => 'Profile',
-            'url' => 'admin/settings',
-            'icon' => 'user',
-        ],
-        [
-            'text' => 'User Setting',
-            'icon' => 'cog',
-            'submenu' => [
-                [
-                    'text' => 'User',
-                    'url' => 'users',
-                ],
-                [
-                    'text' => 'Role',
-                    'url' => 'roles',
-                ],
-                [
-                    'text' => 'role users',
-                    'url' => 'roleusers',
-                ],
-                [
-                    'text' => 'Access Right',
-                    'url' => 'accessright',
-                ],
-                [
-                    'text' => 'Menu',
-                    'url' => 'menu',
-                ],
-            ],
-        ],
-    ],
+  
+    ], 
 
     /*
     |--------------------------------------------------------------------------
@@ -212,8 +121,8 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
-        /* JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class, */
-        App\MyMenuFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
+        //App\MyMenuFilter::class,
     ],
 
     /*

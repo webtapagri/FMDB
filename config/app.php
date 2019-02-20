@@ -172,11 +172,17 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
         Artisaninweb\SoapWrapper\ServiceProvider::class, 
+        Artisaninweb\SoapWrapper\ServiceProvider::class, 
+
+        //made by mkddr #endregion
+        App\Providers\AccessRightHelper::class,
+        App\Providers\ApiHelper::class,
 
     ],
 
@@ -227,6 +233,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'SoapWrapper' => Artisaninweb\SoapWrapper\Facade\SoapWrapper::class,  
+        'AccessRight' => App\Providers\AccessRightHelper::class,  
+        'API' => App\Providers\ApiHelper::class,  
 
     ],
 

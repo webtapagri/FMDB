@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use function GuzzleHttp\json_decode;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientErrorResponseException;
-use App\Services;
+use API;
 use function GuzzleHttp\json_encode;
 use Session;
 
@@ -28,12 +28,12 @@ class TmMaterialController extends Controller
 
     public function grid($search)
     {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tm_materials_search/" . $search
         ));
 
-        $data = $service->result;
+        $data = $service;
         if($data->data) {
             foreach ($data->data as $row) {
                 $image = ($row->no_material ? $this->image($row->no_material) :'');
@@ -88,11 +88,11 @@ class TmMaterialController extends Controller
 
     public function image($no_material)
     {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_files/' . $no_material
         ));
-        $data = $service->result;
+        $data = $service;
 
         if ($data->status === "failed") {
             return '';
@@ -104,12 +104,12 @@ class TmMaterialController extends Controller
     public function auto_sugest()
     {
         $result = array();
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tm_materials'
         ));
 
-        $res = $service->result;
+        $res = $service;
         if ($res->status === 'success') {
             foreach ($res->data as $key => $value) {
                 if (!in_array($value->no_material, $result)) {
@@ -170,13 +170,13 @@ class TmMaterialController extends Controller
             "updated_by" => Session::get('user'),
         );
 
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'PUT',
             'method' => 'tm_materials/' . $request->no_material,
             'data' => $param
         ));
 
-        $res = $service->result;
+        $res = $service;
         if ($res->code == '201') {
             $no = 1;
             foreach ($_FILES as $row) {
@@ -204,7 +204,7 @@ class TmMaterialController extends Controller
                             "file_category" => $type,
                             "file_image" => $base64
                         );
-                        $service = new Services(array(
+                        $service = API::exec(array(
                             'request' => 'PUT',
                             'method' => 'tr_files/'.$id,
                             'data' => $files
@@ -219,7 +219,7 @@ class TmMaterialController extends Controller
                             "file_image" => $base64
                         );
 
-                        $service = new Services(array(
+                        $service = API::exec(array(
                             'request' => 'POST',
                             'method' => 'tr_files',
                             'data' => $files
@@ -227,7 +227,7 @@ class TmMaterialController extends Controller
                     }
 
                    
-                    $res = $service->result;
+                    $res = $service;
                     if ($res->code == '201') {
                         $status = true;
                     } else {
@@ -341,13 +341,13 @@ class TmMaterialController extends Controller
     }
 
     function material_group($id) {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'host' => 'ldap',
             'method' => "material_group"
         ));
 
-        $data = $service->result;
+        $data = $service;
      
         $mat_group = '';
         foreach ($data->data as $row) {
@@ -363,11 +363,11 @@ class TmMaterialController extends Controller
 
     public function files($no_document)
     {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_files/' . $no_document
         ));
-        $data = $service->result;
+        $data = $service;
         if ($data->status === "failed") {
             return '';
         } else {
@@ -376,12 +376,12 @@ class TmMaterialController extends Controller
     }
 
     function store_loc($id, $plant) {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'host' => 'ldap',
             'method' => "store_loc/" . $plant
         ));
-        $data = $service->result;
+        $data = $service;
         $store_loc = '';
         foreach ($data->data as $row) {
             if($row->LGOR === $id) {
@@ -401,12 +401,12 @@ class TmMaterialController extends Controller
 
     function material($id) {
         $result = array();
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tm_materials/' . $id
         ));
 
-        $res = $service->result;
+        $res = $service;
         if ($res->status === 'success') {
             $result = $res->data;
         }

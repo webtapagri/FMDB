@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\TrUser;
 use function GuzzleHttp\json_encode;
 use Session;
-use App\Services;
+use API;
 
 class UsersController extends Controller
 {
@@ -20,11 +20,11 @@ class UsersController extends Controller
     }
 
     public function dataGrid() {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tr_user"
         ));
-        $data = $service->result;
+        $data = $service;
 
         return response()->json(array('data' => $data->data));
 
@@ -45,7 +45,7 @@ class UsersController extends Controller
             if($request->edit_id) {
                 $param["updated_at"] = date('Y-m-d H:i:s');
                 $param["updated_by"] = Session::get('user');
-                $data = new Services(array(
+                $data = API::exec(array(
                     'request' => 'PUT',
                     'method' => 'tr_user/' . $request->edit_id,
                     'data' => $param
@@ -53,14 +53,14 @@ class UsersController extends Controller
             } else {
                 $param["created_at"] = date('Y-m-d H:i:s');
                 $param["created_by"] = Session::get('user');
-                $data = new Services(array(
+                $data = API::exec(array(
                     'request' => 'POST',
                     'method' => 'tr_user',
                     'data' => $param
                 ));
             }
 
-            $res = $data->result;
+            $res = $data;
             if ($res->code == '201') {
                 return response()->json(['status' => true, "message" => 'Data is successfully ' . ($request->edit_id ? 'updated' : 'added')]);;
             } else {
@@ -76,24 +76,24 @@ class UsersController extends Controller
     public function show()
     {
         $param = $_REQUEST;
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tr_user/" . $param["id"]
         ));
-        $data = $service->result;
+        $data = $service;
         return response()->json(array('data' => $data->data));
     }
 
     public function inactive(Request $request) {
         try {
             $param["updated_by"] = Session::get('user');
-            $data = new Services(array(
+            $data = API::exec(array(
                 'request' => 'ACTIVE',
                 'method' => 'tr_user/' . $request->id . '/0',
                 'data' => $param
             ));
 
-            $res = $data->result;
+            $res = $data;
 
             if ($res->code == '201') {
                 return response()->json(['status' => true, "message" => 'Data is successfully inactived']);;
@@ -109,13 +109,13 @@ class UsersController extends Controller
     public function active(Request $request) {
         try {
             $param["updated_by"] = Session::get('user');
-            $data = new Services(array(
+            $data = API::exec(array(
                 'request' => 'ACTIVE',
                 'method' => 'tr_user/' . $request->id . '/1',
                 'data' => $param
             ));
 
-            $res = $data->result;
+            $res = $data;
 
             if ($res->code == '201') {
                 return response()->json(['status' => true, "message" => 'Data is successfully inactived']);;

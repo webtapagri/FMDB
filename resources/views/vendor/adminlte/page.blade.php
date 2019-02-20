@@ -58,12 +58,6 @@
                 <div class="navbar-custom-menu">
 
                     <ul class="nav navbar-nav">
-                          <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-user"></i>
-                                <span class="hidden-xs"><b>{{ Session::get('user') }}</b></span>
-                            </a>
-                        </li>
                         <li>
                             @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
                                 <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">
@@ -98,12 +92,31 @@
 
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-
+                 <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="{{ asset('img/user-default.png') }}" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                    <p>{{ strtoupper(Session::get('user')) }}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> ADMINISTRATOR</a>
+                    </div>
+                </div>
+                <!-- search form -->
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    <!-- @each('adminlte::partials.menu-item', $adminlte->menu(), 'item') -->
+                     <li class="header">Menu</li>
+                    @foreach(AccessRight::menu() as $row) 
+                        <li class="{{ (str_replace(url('/').'/','', url()->current()) == $row->url ? 'active':'') }}">
+                            <a href="{{ url(($row->url ? $row->url:'/')) }}">
+                                <i class="fa fa-fw fa-caret-right"></i>
+                                <span>{{ $row->menu_name }}</span>
+                            </a>
+                        </li>
+                    @endforeach 
+                    <li><a style="border-top:1px solid #182225" href=""><i class="fa fa-user"></i> <span>Profile</span></a></li>
                     <li><a href="#" OnClick="logOut()"><i class="fa fa-power-off"></i> <span>Log out</span></a></li>
-                    <li style="border-top:1px solid #182225"><a href=""><i class="fa fa-question"></i> <span>Help</span></a></li>
+                    <li><a href=""><i class="fa fa-question"></i> <span>Help</span></a></li>
 
                 </ul>
                 <!-- /.sidebar-menu -->

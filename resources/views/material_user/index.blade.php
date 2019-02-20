@@ -142,10 +142,10 @@
         });
     }; */
 
-    $( ".searchTextBox" ).autocomplete({
+/*     $( ".searchTextBox" ).autocomplete({
         source: callback,
         autoFill: true
-    });
+    }); */
 
         var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.auto_sugest') !!}')));
         jQuery("#search_material").autocomplete({

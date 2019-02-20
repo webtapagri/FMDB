@@ -17,9 +17,10 @@
                 <table id="data-table" class="table table-bordered table-hover table-condensed" width="100%">
                     <thead>
                         <tr>
-                            <th width="15%">Role ID</th>
-                            <th>Name</th>
-                            <th width="10%">Active</th>
+                            <th width="15%">Role</th>
+                            <th>Menu</th>
+                            <th>Operation</th>
+                            <th>Description</th>
                             <th width="8%">Action</th>
                         </tr>
                     </thead>
@@ -42,13 +43,27 @@
                 <div class="modal-body">	
                     <div class="box-body">
                         <div class="col-xs-12">
-                            <label class="control-label" for="name">Role ID</label> 
-                            <input class="form-control" name='role_id' id="role_id" maxlength="2" requried>
+                            <label class="control-label" for="name">Role</label> 
+                             <select class="form-control select2" name='role_id' id="role_id" requried>
+                                <option></option>
+                            </select>
                         </div>
                         <div class="col-xs-12">
-                            <label class="control-label" for="name">Nama</label> 
-                            <input class="form-control" name='name' id="name" maxlength="200" requried>
+                            <label class="control-label" for="name">Menu</label> 
+                            <select class="form-control select2" name='menu' id="menu" maxlength="200" requried>
+                                <option></option>
+                            </select>
                              <input type="hidden" name='edit_id' id="edit_id">
+                        </div>
+                        <div class="col-xs-12">
+                            <label class="control-label" for="name">Operation</label> 
+                            <select class="form-control select2" name='operation' id="operation" required>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12">
+                            <label class="control-label" for="name">Description</label> 
+                            <textarea class="form-control" name='description' id="description"  requried></textarea>
                         </div>
                     </div>	 
                 </div>
@@ -66,38 +81,63 @@
     var attribute = [];
     jQuery(document).ready(function() {
          jQuery('#data-table').DataTable({
-            ajax: '{!! route('get.grid_tm_role') !!}',
+            ajax: '{!! route('get.accessright_grid') !!}',
             columns: [
-                { data: 'id', name: 'id' },
                 { data: 'role_name', name: 'role_name' },
-                {  
-                    "render": function (data, type, row) {
-                        if(row.role_active == 1) {
-                            var content = '<span class="badge bg-green">Y</span>';
-                        } else{
-                            var content = '<span class="badge bg-grey">N</span>';
-                        }    
-                        return content;
-                    } 
-                },
+                { data: 'menu_name', name: 'menu_name' },
+                { data: 'operation', name: 'operation' },
+                { data: 'description', name: 'description' },
                 {
                     "render": function (data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit" title="edit data ' + row.id + '" onClick="edit(' + row.id + ')"><i class="fa fa-pencil"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated ' + (row.role_active == 1 ? '' : 'hide') + '" style="margin-left:5px"  onClick="inactive(' + row.id + ')"><i class="fa fa-trash"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-success btn-action btn-inactivated ' + (row.role_active == 0 ? '': 'hide') + '" style="margin-left:5px"  onClick="active(' + row.id + ')"><i class="fa fa-check"></i></button>';
+                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit" title="edit data ' + row.id + '" onClick="edit(\'' + row.id_role +"-"+ row.menu_code+ '-' + row.operation + '\')"><i class="fa fa-pencil"></i></button>';
+                            content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated" style="margin-left:5px"  onClick="inactive(\'' + row.id_role +"-"+ row.menu_code+ '-' + row.operation + '\')"><i class="fa fa-trash"></i></button>';
                         
                         return content;
                     }
                 } 
             ],
              columnDefs: [
-                { targets: [3], className: 'text-center', orderable: false},
-                { targets: [2], className: 'text-center'}
+                { targets: [4], className: 'text-center', orderable: false},
             ]
+        });
+
+        var role = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.select_role') !!}')));
+        jQuery('#role_id').select2({
+            data: role,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        }); 
+       
+        var menu = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.select_menu') !!}')));
+        jQuery('#menu').select2({
+            data: menu,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        }); 
+       
+        jQuery('#operation').select2({
+            data: [
+                {id: 'CREATE', text: 'CREATE'},
+                {id: 'READ', text: 'READ'},
+                {id: 'UPDATE', text: 'UPDATE'},
+                {id: 'DELETE', text: 'DELETE'}
+            ],
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
         }); 
 
         jQuery('.btn-add').on('click', function() {
             document.getElementById("data-form").reset();
+            jQuery('#menu').select2('val', '');
+            jQuery('#menu').trigger('change');
+            jQuery('#role_id').select2('val', '');
+            jQuery('#role_id').trigger('change');
+            jQuery('#operation').select2('val', '');
+            jQuery('#operation').trigger('change');
+
             jQuery('#role_id').prop('disabled',false);
             jQuery("#edit_id").val("");
             jQuery("#add-data-modal").modal({backdrop:'static', keyboard:false});		
@@ -121,18 +161,25 @@
             });
             
             jQuery.ajax({
-				url:"{{ url('roles/post') }}",
+				url:"{{ url('accessright/post') }}",
 				method:"POST",
 				data: param,
 				beforeSend:function(){ jQuery('.loading-event').fadeIn();},
 				success:function(result){
                     if(result.status){
-                        jQuery("#add-data-modal").modal("hide");
-                        jQuery("#data-table").DataTable().ajax.reload();
-                        notify({
-                            type:'success',
-                            message:result.message
-                        });
+                        if(result.exist) {
+                             notify({
+                                type:'warning',
+                                message:result.message
+                            });
+                        }else{
+                            jQuery("#add-data-modal").modal("hide");
+                            jQuery("#data-table").DataTable().ajax.reload();
+                            notify({
+                                type:'success',
+                                message:result.message
+                            });
+                        }
                     }else{
                         notify({
                             type:'warning',
@@ -142,32 +189,37 @@
 				},
 				complete:function(){ jQuery('.loading-event').fadeOut();}
 			 }); 
-            
-            
         })
     });
 
-    function edit(id) {
+    function edit(row) {
         document.getElementById("data-form").reset();
-        jQuery("#edit_id").val(id);
-        jQuery('#role_id').prop('disabled',true);
-        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('roles/edit/?id=') }}"+id)));
-        jQuery("#edit_id").val(result.id);
-        jQuery("#role_id").val(result.id);
-        jQuery("#name").val(result.role_name);
+        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('accessright/edit/?id=') }}"+row)));
+        console.log(result);
+        jQuery("#edit_id").val(row);
+        jQuery('#menu').select2('val', result.menu_code);
+        jQuery('#menu').trigger('change');
+        jQuery('#role_id').select2('val', result.id_role);
+        jQuery('#role_id').trigger('change');
+        jQuery('#operation').select2('val', result.operation);
+        jQuery('#operation').trigger('change');
+        jQuery('#description').val(result.description);
+
         jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data " + result.role_name);			
         jQuery("#add-data-modal").modal("show");
     }
 
     function inactive(id) {
-        jQuery.ajaxSetup({
+        var conf = confirm("anda yakin mau menghapus data ini?");
+		if (conf == true) { 
+             jQuery.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
         jQuery.ajax({
-            url:"{{ url('roles/inactive') }}",
+            url:"{{ url('accessright/inactive') }}",
             method:"POST",
             data: {id:id},
             beforeSend:function(){ jQuery('.loading-event').fadeIn();},
@@ -186,37 +238,8 @@
                 } 
             },
             complete:function(){ jQuery('.loading-event').fadeOut();}
-        }); 
-    }
-    
-    function active(id) {
-        jQuery.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        jQuery.ajax({
-            url:"{{ url('roles/active') }}",
-            method:"POST",
-            data: {id:id},
-            beforeSend:function(){ jQuery('.loading-event').fadeIn();},
-            success:function(result){
-                if(result.status){
-                    jQuery("#data-table").DataTable().ajax.reload();
-                    notify({
-                        type:'success',
-                        message:result.message
-                    });
-                }else{
-                    notify({
-                        type:'warning',
-                        message:result.message
-                    });
-                } 
-            },
-            complete:function(){ jQuery('.loading-event').fadeOut();}
-        }); 
+        });   
+        } 
     }
 
 

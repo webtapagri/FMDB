@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use function GuzzleHttp\json_decode;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientErrorResponseException;
-use App\Services;
+use API;
 use function GuzzleHttp\json_encode;
 use Session;
 
@@ -28,13 +28,13 @@ class TrMaterialController extends Controller
 
     public function grid($search)
     {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tr_materials/" . $search
         ));
       
-
-        $data = $service->result;
+        $arr = array();
+        $data = $service;
         if($data->data) {
             foreach ($data->data as $row) {
                 $image = ($row->no_document ? $this->image($row->no_document) :'');
@@ -81,8 +81,6 @@ class TrMaterialController extends Controller
                     "remarks" => $row->remarks
                 );
             }
-        }else{
-            $arr[] = array();
         }
         
         return response()->json(array('data' => $arr));
@@ -90,11 +88,11 @@ class TrMaterialController extends Controller
 
     public function image($no_document)
     {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_files/' . $no_document
         ));
-        $data = $service->result;
+        $data = $service;
 
         if ($data->status === "failed") {
             return '';
@@ -106,12 +104,12 @@ class TrMaterialController extends Controller
     public function auto_sugest()
     {
         $result = array();
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_materials'
         ));
 
-        $res = $service->result;
+        $res = $service;
         if ($res->status === 'success') {
             foreach ($res->data as $key => $value) {
                 if (!in_array($value->no_material, $result)) {
@@ -141,22 +139,7 @@ class TrMaterialController extends Controller
         return response()->json(array('data' => $result));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -178,13 +161,13 @@ class TrMaterialController extends Controller
             "updated_by" => Session::get('user'),
         );
 
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'PUT',
             'method' => 'tr_materials/' . $request->no_document,
             'data' => $param
         ));
 
-        $res = $service->result;
+        $res = $service;
         if ($res->code == '201') {
             $no = 1;
             foreach ($_FILES as $row) {
@@ -212,7 +195,7 @@ class TrMaterialController extends Controller
                             "file_category" => $type,
                             "file_image" => $base64
                         );
-                        $service = new Services(array(
+                        $service = API::exec(array(
                             'request' => 'PUT',
                             'method' => 'tr_files/'.$id,
                             'data' => $files
@@ -227,7 +210,7 @@ class TrMaterialController extends Controller
                             "file_image" => $base64
                         );
 
-                        $service = new Services(array(
+                        $service = API::exec(array(
                             'request' => 'POST',
                             'method' => 'tr_files',
                             'data' => $files
@@ -235,7 +218,7 @@ class TrMaterialController extends Controller
                     }
 
                    
-                    $res = $service->result;
+                    $res = $service;
                     if ($res->code == '201') {
                         $status = true;
                     } else {
@@ -260,12 +243,6 @@ class TrMaterialController extends Controller
         ));
     }  
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         if (empty(Session::get('authenticated')))
@@ -349,13 +326,13 @@ class TrMaterialController extends Controller
     }
 
     function material_group($id) {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'host' => 'ldap',
             'method' => "material_group"
         ));
 
-        $data = $service->result;
+        $data = $service;
      
         $mat_group = '';
         foreach ($data->data as $row) {
@@ -371,11 +348,11 @@ class TrMaterialController extends Controller
 
     public function files($no_document)
     {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_files/' . $no_document
         ));
-        $data = $service->result;
+        $data = $service;
         if ($data->status === "failed") {
             return '';
         } else {
@@ -384,12 +361,12 @@ class TrMaterialController extends Controller
     }
 
     function store_loc($id, $plant) {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'host' => 'ldap',
             'method' => "store_loc/" . $plant
         ));
-        $data = $service->result;
+        $data = $service;
         $store_loc = '';
         foreach ($data->data as $row) {
             if($row->LGOR === $id) {
@@ -400,21 +377,15 @@ class TrMaterialController extends Controller
         return $store_loc;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     function material($id) {
         $result = array();
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_materials/' . $id
         ));
 
-        $res = $service->result;
+        $res = $service;
         if ($res->status === 'success') {
             $result = $res->data;
         }
@@ -427,26 +398,4 @@ class TrMaterialController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

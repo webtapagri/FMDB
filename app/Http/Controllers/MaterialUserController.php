@@ -9,8 +9,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientErrorResponseException;
 
 use App\SetMaterial;
-use App\Guz;
-use App\Services;
+use API;
 use Session;
 use function GuzzleHttp\json_encode;
 
@@ -39,11 +38,11 @@ class MaterialUserController extends Controller
 
     public function detail() {
         $no_document = $_REQUEST['no_document'];
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_files/' . $no_document
         ));
-        $res = $service->result;
+        $res = $service;
         $arr = array();
         if (count($res->data) > 0) {
             $arr = $res->data;
@@ -54,55 +53,55 @@ class MaterialUserController extends Controller
 
     public function get_material_user_grid() {
 
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tr_materials_union/"
         ));
-        $data = $service->result;
+        $data = $service;
 
         return response()->json(array('data' => $data->data));
     }
     
     public function get_material_user_grid_search() {
 
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
         ));
-        $data = $service->result;
+        $data = $service;
 
         return response()->json(array('data' => $data->data));
     }
     
     public function get_tr_materials() {
 
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tr_materials/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
         ));
-        $data = $service->result;
+        $data = $service;
 
         return response()->json(array('data' => $data->data));
     }
 
     public function get_tm_materials() {
 
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => "tm_materials/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
         ));
-        $data = $service->result;
+        $data = $service;
 
         return response()->json(array('data' => $data->data));
     }
 
     public function getThumbnail($no_document)
     {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_files/' . $no_document
         ));
-        $data = $service->result;
+        $data = $service;
         if ($data->status === "failed") {
           return '';
         }else{
@@ -113,11 +112,11 @@ class MaterialUserController extends Controller
     public function get_image()
     {
         $no_document = $_REQUEST['no_document'];
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_files/' . $no_document
         ));
-        $res = $service->result;
+        $res = $service;
         $arr = array();
 
         if(count($res->data)>0) {
@@ -130,12 +129,12 @@ class MaterialUserController extends Controller
     public function get_auto_sugest()
     {
         $result = array();
-        $service = new Services(array(
+        $service = API::exec(array(
             'request'=> 'GET',
             'method'=> 'tr_materials'
         ));
 
-        $res = $service->result;
+        $res = $service;
         if($res->status === 'success') {
             foreach ($res->data as $key => $value) {
                 if(!in_array($value->no_material, $result)){
@@ -156,12 +155,12 @@ class MaterialUserController extends Controller
             } 
         }
 
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tm_materials'
         ));
 
-        $res = $service->result;
+        $res = $service;
         if ($res->status === 'success') {
             foreach ($res->data as $key => $value) {
                 if (!in_array($value->no_material, $result)) {
@@ -228,13 +227,13 @@ class MaterialUserController extends Controller
             "remarks" => $request->remarks
         );
 
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'POST',
             'method' => 'tr_materials',
             'data'=> $param
         ));
 
-        $res = $service->result;        
+        $res = $service;        
         if($res->code == '201'){
             foreach ($_FILES as $row) {
                 if($row["name"]) {
@@ -253,12 +252,12 @@ class MaterialUserController extends Controller
                         "file_image" => $base64
                     );
 
-                    $service = new Services(array(
+                    $service = API::exec(array(
                         'request' => 'POST',
                         'method' => 'tr_files',
                         'data' => $files
                     ));
-                    $res = $service->result;          
+                    $res = $service;          
                     if ($res->code == '201') {
                         $status = true;
                     } else {
@@ -282,12 +281,12 @@ class MaterialUserController extends Controller
     
     public function get_uom()
     {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'host'=> 'ldap',
             'method' => "uom"
         ));
-        $data = $service->result;
+        $data = $service;
         $arr = array();
         foreach($data->data as $row) {
             $arr[] = array(
@@ -527,12 +526,12 @@ class MaterialUserController extends Controller
     }
 
     public function show(Request $request) {
-        $service = new Services(array(
+        $service = API::exec(array(
             'request' => 'GET',
             'host' => 'ldap',
             'method' => "store_loc/" . $_REQUEST["id"]
         ));
-        $data = $service->result;
+        $data = $service;
         foreach ($data->data as $row) {
             $arr[] = array(
                 "id" => $row->LGOR,

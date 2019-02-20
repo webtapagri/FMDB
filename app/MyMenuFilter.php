@@ -10,12 +10,19 @@ class MyMenuFilter implements FilterInterface
 {
     public function transform($item, Builder $builder)
     {
-        /* $granted = $this->menuByRole();
+
+       /*  $granted = $this->menuByRole();
         $menu = [];    
         if(in_array($item['text'], $granted)) {
             return $item;   
         } */
-
+        $item = array(
+            'text'=> 'Home',
+            'icon'=> 'home',
+            'url'=> '',
+            'class'=> '',
+            'href'=> ''
+        );
         return $item;
     }
 
