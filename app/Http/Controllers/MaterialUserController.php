@@ -548,7 +548,6 @@ class MaterialUserController extends Controller
         $arr = array();
         foreach ($data as $row) {
             $arr[] = array(
-                "no" => $no,
                 "id" => $row->id,
                 "name" => $row->code,
                 "description" => $row->description,

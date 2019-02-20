@@ -19,6 +19,7 @@ class AccessRightHelper extends ServiceProvider
 
     static function granted() {
         $current = str_replace(url('/') . '/', '', url()->current());
+
     }
 
 }

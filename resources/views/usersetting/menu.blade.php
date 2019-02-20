@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-xs-12">
                             <label class="control-label" for="name">Url</label> 
-                            <input class="form-control" name='url' id="url"  placeholder="put the url on routes (e.g: menu for http://127.0.0.1:8000/menu)" maxlength="200" requried>
+                            <input class="form-control" name='url' id="url"  placeholder="put the url from routes (e.g: menu for {{ url('/') }}/menu)" maxlength="200" requried>
                         </div>
                         <div class="col-xs-4">
                             <label class="control-label" for="name">Sorting</label> 
