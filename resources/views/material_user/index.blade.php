@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="col-md-1" align="left">
-                    <span href="#" class="btn btn-flat btn-sm btn-success btn-add" style="display:none">&nbsp;<i class="glyphicon glyphicon-plus" title="Request new material"></i>&nbsp;Add</span>
+                    <span href="#" class="btn btn-flat btn-sm btn-success btn-add {{ (isset($access['CREATE']) ? '':'hide') }}" style="display:none">&nbsp;<i class="glyphicon glyphicon-plus" title="Request new material"></i>&nbsp;Add</span>
                 </div>
     </div>
     <br>

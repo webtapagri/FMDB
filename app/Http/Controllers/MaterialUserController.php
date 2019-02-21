@@ -18,13 +18,19 @@ class MaterialUserController extends Controller
     public function index() {
         if (empty(Session::get('authenticated')))
             return redirect('/login');
+        
+            if (AccessRight::granted() == false)
+            return response(view('errors.403'), 403);;
 
-        return view('material_user/index');
+        $access = AccessRight::access();    
+        return view('material_user/index')->with(compact('access'));
     }
 
     public function create() {
         if (empty(Session::get('authenticated')))
             return redirect('/login');
+
+        $access = AccessRight::access();    
 
         return view('material_user/add');
     }

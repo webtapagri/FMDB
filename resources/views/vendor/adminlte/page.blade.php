@@ -105,12 +105,13 @@
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <!-- @each('adminlte::partials.menu-item', $adminlte->menu(), 'item') -->
+                    <li class="{{ (url('/') ? 'active':'') }}"><a style="border-top:1px solid #182225" href="{{ url('/') }}"><i class="fa fa-bar-chart"></i> <span>Dashbord</span></a></li>
                      <li class="header">Menu</li>
                     @foreach(AccessRight::menu() as $row) 
                         <li class="{{ (str_replace(url('/').'/','', url()->current()) == $row->url ? 'active':'') }}">
                             <a href="{{ url(($row->url ? $row->url:'/')) }}">
                                 <i class="fa fa-fw fa-caret-right"></i>
-                                <span>{{ $row->menu_name }}</span>
+                                <span>{{ $row->name }}</span>
                             </a>
                         </li>
                     @endforeach 

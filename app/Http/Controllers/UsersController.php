@@ -15,8 +15,11 @@ class UsersController extends Controller
     {
         if (empty(Session::get('authenticated')))
             return redirect('/login');
+        if (AccessRight::granted() == false)
+            return response(view('errors.403'), 403);;
 
-        return view('usersetting.users');
+        $access = AccessRight::access();
+        return view('usersetting.users')->with(compact('access'));
     }
 
     public function dataGrid() {

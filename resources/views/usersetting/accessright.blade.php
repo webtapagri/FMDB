@@ -7,7 +7,7 @@
             <span style="font-size:24px">Access Right</span>
         </div>
         <div class="col-xs-8" align="right">
-            <span href="#" class="btn btn-sm btn-flat btn-success btn-add">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
+            <span href="#" class="btn btn-sm btn-flat btn-success btn-add {{ (isset($access['CREATE']) ? '':'hide') }}">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
         </div>
     </div>
       <div class="row">
@@ -89,8 +89,8 @@
                 { data: 'description', name: 'description' },
                 {
                     "render": function (data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit" title="edit data ' + row.id + '" onClick="edit(\'' + row.id_role +"-"+ row.menu_code+ '-' + row.operation + '\')"><i class="fa fa-pencil"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated" style="margin-left:5px"  onClick="inactive(\'' + row.id_role +"-"+ row.menu_code+ '-' + row.operation + '\')"><i class="fa fa-trash"></i></button>';
+                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide') }}" title="edit data ' + row.id + '" onClick="edit(\'' + row.id_role +"-"+ row.menu_code+ '-' + row.operation + '\')"><i class="fa fa-pencil"></i></button>';
+                            content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide') }}" style="margin-left:5px"  onClick="inactive(\'' + row.id_role +"-"+ row.menu_code+ '-' + row.operation + '\')"><i class="fa fa-trash"></i></button>';
                         
                         return content;
                     }

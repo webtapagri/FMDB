@@ -11,6 +11,7 @@ use Auth;
 use Cookie;
 use Route;
 use Session;
+use AccessRight;
 
 class LDAPController extends Controller
 {
@@ -49,6 +50,7 @@ class LDAPController extends Controller
             
             Session::put('authenticated', time());
             Session::put('user', $username);
+            AccessRight::grantAccess();
             return redirect('/');
 
         }else{
@@ -62,6 +64,7 @@ class LDAPController extends Controller
     public function logout(Request $request) {
         $request->session()->forget('authenticated');
         $request->session()->forget('user');
+        $request->session()->flush();;
         return redirect()->intended('/login');
     }
 

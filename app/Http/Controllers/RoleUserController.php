@@ -17,7 +17,11 @@ class RoleUserController extends Controller
         if (empty(Session::get('authenticated')))
             return redirect('/login');
 
-        return view('usersetting.role_user');
+        if (AccessRight::granted() == false)
+            return response(view('errors.403'), 403);;
+
+        $access = AccessRight::access();
+        return view('usersetting.role_user')->with(compact('access'));
     }
 
     public function dataGrid()

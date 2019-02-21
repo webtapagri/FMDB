@@ -23,6 +23,11 @@ class TrMaterialController extends Controller
         if (empty(Session::get('authenticated')))
             return redirect('/login');
 
+        if (AccessRight::granted() == false)
+            return response(view('errors.403'), 403);;
+
+        $access = AccessRight::access();        
+
         return view('tr_materials/index');
     }
 

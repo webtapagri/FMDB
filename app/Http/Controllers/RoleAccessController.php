@@ -12,11 +12,7 @@ use Session;
 
 class RoleAccessController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         if (empty(Session::get('authenticated')))
@@ -25,12 +21,7 @@ class RoleAccessController extends Controller
         return view('usersetting.role_access');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
 
@@ -57,12 +48,7 @@ class RoleAccessController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tm_Role  $Tm_Role
-     * @return \Illuminate\Http\Response
-     */
+
     public function show()
     {
         $param = $_REQUEST;

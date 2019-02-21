@@ -8,6 +8,7 @@ use App\TmRole;
 use function GuzzleHttp\json_encode;
 use Session;
 use API;
+use AccessRight;
 
 class MenuController extends Controller
 {
@@ -16,8 +17,12 @@ class MenuController extends Controller
     {
         if (empty(Session::get('authenticated')))
             return redirect('/login');
+            
+        if (AccessRight::granted() == false)
+            return response(view('errors.403'), 403);;
 
-        return view('usersetting.menu');
+        $access = AccessRight::access();
+        return view('usersetting.menu')->with(compact('access'));
     }
 
     public function dataGrid()

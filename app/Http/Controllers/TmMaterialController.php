@@ -23,6 +23,11 @@ class TmMaterialController extends Controller
         if (empty(Session::get('authenticated')))
             return redirect('/login');
 
+        if (AccessRight::granted() == false)
+            return response(view('errors.403'), 403);;
+
+        $access = AccessRight::access();    
+
         return view('tm_materials/index');
     }
 
