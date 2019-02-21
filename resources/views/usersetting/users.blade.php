@@ -122,6 +122,7 @@
 
         jQuery('.btn-add').on('click', function() {
             document.getElementById("data-form").reset();
+            jQuery('#username').prop("disabled", false);
             jQuery("#edit_id").val("");
             jQuery("#add-data-modal").modal({backdrop:'static', keyboard:false});		
             jQuery("#add-data-modal .modal-title").html("<i class='fa fa-plus'></i> Create new data");		
@@ -173,7 +174,7 @@
     function edit(id) {
         document.getElementById("data-form").reset();
         jQuery("#edit_id").val(id);
-
+        jQuery('#username').prop("disabled", true);
         var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('users/edit/?id=') }}"+id)));
         jQuery("#edit_id").val(result.id);
         jQuery("#username").val(result.username);

@@ -19,7 +19,7 @@ class RoleUserController extends Controller
             return redirect('/login');
 
         if (AccessRight::granted() == false)
-            return response(view('errors.403'), 403);;
+            return response(view('errors.403'), 403);
 
         $access = AccessRight::access();
         return view('usersetting.role_user')->with(compact('access'));

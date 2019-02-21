@@ -106,15 +106,24 @@
                 <ul class="sidebar-menu" data-widget="tree">
                     <!-- @each('adminlte::partials.menu-item', $adminlte->menu(), 'item') -->
                     <li class="{{ (url('/') == url()->current() ? 'active':'') }}"><a style="border-top:1px solid #182225" href="{{ url('/') }}"><i class="fa fa-bar-chart"></i> <span>Dashbord</span></a></li>
-                     <li class="header">Menu</li>
-                    @foreach(AccessRight::menu() as $row) 
-                        <li class="{{ (str_replace(url('/').'/','', url()->current()) == $row->url ? 'active':'') }}">
-                            <a href="{{ url(($row->url ? $row->url:'/')) }}">
-                                <i class="fa fa-fw fa-caret-right"></i>
-                                <span>{{ $row->name }}</span>
-                            </a>
-                        </li>
-                    @endforeach 
+                    <li class="treeview menu-open {{ AccessRight::menu() ? '':'hide'}}">
+                        <a href="#">
+                            <i class="fa fa-folder-open"></i> <span>Main Menu</span>
+                            <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display:block">
+                             @foreach(AccessRight::menu() as $row) 
+                                <li class="{{ (str_replace(url('/').'/','', url()->current()) == $row->url ? 'active':'') }}">
+                                    <a href="{{ url(($row->url ? $row->url:'/')) }}">
+                                        <i class="fa fa-fw fa-caret-right"></i>
+                                        <span>{{ $row->name }}</span>
+                                    </a>
+                                </li>
+                            @endforeach 
+                        </ul>
+                    </li>
                     <li  class="{{ (Session::get('role') == 'GUEST' ? 'hide':'') }}  {{ (str_replace(url('/').'/','', url()->current()) == 'profile'? 'active':'') }}"><a style="border-top:1px solid #182225" href="{{ url('profile') }}"><i class="fa fa-user"></i> <span>Profile</span></a></li>
                     <li><a href="#" OnClick="logOut()"><i class="fa fa-power-off"></i> <span>Log out</span></a></li>
                     <li><a href=""><i class="fa fa-question"></i> <span>Help</span></a></li>
@@ -158,5 +167,5 @@
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @stack('js')
-    @yield('js')
+    @yield('js') 
 @stop
