@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\ClientErrorResponseException;
 use API;
 use function GuzzleHttp\json_encode;
 use Session;
+use AccessRight;
 
 class TrMaterialController extends Controller
 {

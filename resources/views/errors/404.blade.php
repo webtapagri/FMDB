@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-
+@section('title', 'FMDB - 404')
 @section('content')
     <section class="content">
       <div class="error-page">

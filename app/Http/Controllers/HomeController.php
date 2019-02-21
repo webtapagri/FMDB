@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Cookie;
 use Session;
+
 class HomeController extends Controller
 {
     /**
@@ -22,6 +23,7 @@ class HomeController extends Controller
     {
         if(empty(Session::get('authenticated')))
             return redirect('/login');
+ 
 
         return view('home');
     }

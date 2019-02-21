@@ -47,9 +47,22 @@ class LDAPController extends Controller
 
         $data = $service;
         if($data->status) {
-            
             Session::put('authenticated', time());
             Session::put('user', $username);
+
+            $service = API::exec(array(
+                'request' => 'GET',
+                'method' => "tr_user_profile/" . $username
+            ));
+            $profile = $service->data;    
+            if($profile) {
+                Session::put('name', $profile[0]->nama);
+                Session::put('role', $profile[0]->role_name);
+            } else {
+                Session::put('name', $username);
+                Session::put('role', 'GUEST');
+            }
+           
             AccessRight::grantAccess();
             return redirect('/');
 

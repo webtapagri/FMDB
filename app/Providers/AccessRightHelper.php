@@ -48,4 +48,14 @@ class AccessRightHelper extends ServiceProvider
             Session::put($row->url, $row->operation);
         }
     }
+
+    static public function profile() {
+        $username = Session::get('user');
+        $service = API::exec(array(
+            'request' => 'GET',
+            'method' => "tr_user_profile/" . $username
+        ));
+        
+        return $service->data;
+    }
 }

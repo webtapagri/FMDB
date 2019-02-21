@@ -11,6 +11,7 @@ use Session;
 use AccessRight;
 use API;
 
+
 class AccessRightController extends Controller
 {
     public function index()

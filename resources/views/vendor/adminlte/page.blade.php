@@ -97,15 +97,15 @@
                         <img src="{{ asset('img/user-default.png') }}" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                    <p>{{ strtoupper(Session::get('user')) }}</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> ADMINISTRATOR</a>
+                    <p>{{ strtoupper(Session::get('name')) }}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> {{ strtoupper(Session::get('role')) }}</a>
                     </div>
                 </div>
                 <!-- search form -->
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <!-- @each('adminlte::partials.menu-item', $adminlte->menu(), 'item') -->
-                    <li class="{{ (url('/') ? 'active':'') }}"><a style="border-top:1px solid #182225" href="{{ url('/') }}"><i class="fa fa-bar-chart"></i> <span>Dashbord</span></a></li>
+                    <li class="{{ (url('/') == url()->current() ? 'active':'') }}"><a style="border-top:1px solid #182225" href="{{ url('/') }}"><i class="fa fa-bar-chart"></i> <span>Dashbord</span></a></li>
                      <li class="header">Menu</li>
                     @foreach(AccessRight::menu() as $row) 
                         <li class="{{ (str_replace(url('/').'/','', url()->current()) == $row->url ? 'active':'') }}">
@@ -115,7 +115,7 @@
                             </a>
                         </li>
                     @endforeach 
-                    <li><a style="border-top:1px solid #182225" href=""><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                    <li  class="{{ (Session::get('role') == 'GUEST' ? 'hide':'') }}  {{ (str_replace(url('/').'/','', url()->current()) == 'profile'? 'active':'') }}"><a style="border-top:1px solid #182225" href="{{ url('profile') }}"><i class="fa fa-user"></i> <span>Profile</span></a></li>
                     <li><a href="#" OnClick="logOut()"><i class="fa fa-power-off"></i> <span>Log out</span></a></li>
                     <li><a href=""><i class="fa fa-question"></i> <span>Help</span></a></li>
 

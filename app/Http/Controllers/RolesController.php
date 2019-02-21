@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use function GuzzleHttp\json_encode;
 use Session;
 use API;
+use AccessRight;
 
 class RolesController extends Controller
 {

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'FMDB')
+@section('title', 'FMDB - Material request')
 
 @section('content')
 <style>

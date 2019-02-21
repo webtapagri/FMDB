@@ -8,6 +8,7 @@ use App\RoleUser;
 use function GuzzleHttp\json_encode;
 use Session;
 use API;
+use AccessRight;
 
 class RoleUserController extends Controller
 {

@@ -24,6 +24,7 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profile', 'ProfileController@index');
 Route::post('/ldaplogin', 'LDAPController@login');
 Route::post('/ldaplogout', 'LDAPController@logout');
 

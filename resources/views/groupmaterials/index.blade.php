@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'FMDB')
+@section('title', 'FMDB - Material group')
 @section('content')
 <section class="content">
        <div class="row">

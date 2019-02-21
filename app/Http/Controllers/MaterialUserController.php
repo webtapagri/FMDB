@@ -12,6 +12,7 @@ use App\SetMaterial;
 use API;
 use Session;
 use function GuzzleHttp\json_encode;
+use AccessRight;
 
 class MaterialUserController extends Controller
 {
