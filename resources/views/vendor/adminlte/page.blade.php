@@ -108,7 +108,7 @@
                     <li class="{{ (url('/') == url()->current() ? 'active':'') }}"><a style="border-top:1px solid #182225" href="{{ url('/') }}"><i class="fa fa-bar-chart"></i> <span>Dashbord</span></a></li>
                     <li class="treeview menu-open {{ AccessRight::menu() ? '':'hide'}}">
                         <a href="#">
-                            <i class="fa fa-folder-open"></i> <span>Main Menu</span>
+                            <i class="fa fa-th"></i> <span>Main Menu</span>
                             <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -126,7 +126,7 @@
                     </li>
                     <li  class="{{ (Session::get('role') == 'GUEST' ? 'hide':'') }}  {{ (str_replace(url('/').'/','', url()->current()) == 'profile'? 'active':'') }}"><a style="border-top:1px solid #182225" href="{{ url('profile') }}"><i class="fa fa-user"></i> <span>Profile</span></a></li>
                     <li><a href="#" OnClick="logOut()"><i class="fa fa-power-off"></i> <span>Log out</span></a></li>
-                    <li><a href=""><i class="fa fa-question"></i> <span>Help</span></a></li>
+                    <li><a href=""><i class="fa fa-question text-green"></i> <span>Help</span></a></li>
 
                 </ul>
                 <!-- /.sidebar-menu -->

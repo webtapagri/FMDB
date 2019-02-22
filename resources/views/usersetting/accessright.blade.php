@@ -17,7 +17,7 @@
                 <table id="data-table" class="table table-bordered table-hover table-condensed" width="100%">
                     <thead>
                         <tr>
-                            <th width="15%">Role</th>
+                            <th width="30%">Role</th>
                             <th>Menu</th>
                             <th>Operation</th>
                             <th>Description</th>
