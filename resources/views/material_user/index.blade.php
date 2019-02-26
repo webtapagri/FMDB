@@ -74,12 +74,14 @@
 <section class="content">
        <div class="row">
               <div class="col-md-9 col-md-offset-1">
-                    <div class="input-group">
-                        <input type="text" class="form-control" onChange="searchData()" id="search_material" placeholder="search material">
+                    <form id="search-form" class="form-horizontal">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="search_material" placeholder="search material" required="required">
                             <span class="input-group-btn">
-                            <button type="button" class="btn btn-flat btn-success btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                    </div>
+                        <button type="submit" class="btn btn-flat btn-success btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-1" align="left">
                     <span href="#" class="btn btn-flat btn-sm btn-success btn-add {{ (isset($access['CREATE']) ? '':'hide') }}" style="display:none">&nbsp;<i class="glyphicon glyphicon-plus" title="Request new material"></i>&nbsp;Add</span>
@@ -156,6 +158,11 @@
         jQuery('.btn-add').on('click', function() {
             window.location.href = "{{ url('material_user/create') }}";
         });
+
+         jQuery('#search-form').on('submit', function(e) {
+            e.preventDefault();
+            searchData();
+        })
 
     });
 

@@ -9,7 +9,7 @@ use function GuzzleHttp\json_encode;
 use Session;
 use API;
 use AccessRight;
-class UsersController extends Controller
+class MappingMaterialGroupController extends Controller
 {
     public function index()
     {
@@ -20,13 +20,13 @@ class UsersController extends Controller
             return response(view('errors.403'), 403);
 
         $access = AccessRight::access();
-        return view('usersetting.users')->with(compact('access'));
+        return view('mapping.mat_group')->with(compact('access'));
     }
 
     public function dataGrid() {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_user"
+            'method' => "tm_mapping_matgroup"
         ));
         $data = $service;
 
@@ -37,14 +37,9 @@ class UsersController extends Controller
     public function store(Request $request)
     {
        try {
-            $param["username"] = $request->username;
-            $param["nama"] = $request->name;
-            $param["email"] = $request->email;
-            $param["job_code"] = $request->job_code;
-            $param["nik"] = $request->nik;
-            $param["area_code"] = implode(',', $request->area_code);
-            $param["fl_active"] = 1;
-
+            $param["mat_group"] = $request->mat_group;
+            $param["valuation_class"] = $request->valuation_class;
+            $param["material_type"] = $request->material_type;
             
             if($request->edit_id) {
                 $param["updated_at"] = date('Y-m-d H:i:s');
@@ -63,12 +58,12 @@ class UsersController extends Controller
                 }
             } else {
 
-                if($this->validateUsername($request->username)) {
+                if($this->validateMatGroup($request->mat_group)) {
                     $param["created_at"] = date('Y-m-d H:i:s');
                     $param["created_by"] = Session::get('user');
                     $data = API::exec(array(
                         'request' => 'POST',
-                        'method' => 'tr_user',
+                        'method' => 'tm_mapping_matgroup',
                         'data' => $param
                     ));
 
@@ -79,7 +74,7 @@ class UsersController extends Controller
                         return response()->json(['status' => false, "message" => $res->message]);
                     }
                 } else{
-                    return response()->json(['status' => false, "message" => 'Username <b>'. $request->username .'</b> already used by another user!']);
+                    return response()->json(['status' => false, "message" => 'Material Group already used by another user!']);
                 }
                
             }
@@ -89,10 +84,10 @@ class UsersController extends Controller
        }
     }
 
-    public function validateUsername($username) {
+    public function validateMatGroup($matgroup) {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_user_profile/" . $username
+            'method' => "tm_mapping_matgroup/" . $matgroup
         ));
         $profile = $service->data;    
         if($profile) {

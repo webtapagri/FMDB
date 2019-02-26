@@ -127,6 +127,12 @@ Route::post('/menu/inactive', 'MenuController@inactive');
 Route::post('/menu/active', 'MenuController@active');
 Route::get('grid-menu', ['as' => 'get.menu_grid', 'uses' => 'MenuController@dataGrid']);
 
+Route::resource('/mappingmatgroup', 'MappingMaterialGroupController');
+Route::post( '/mappingmatgroup/post', 'MappingMaterialGroupController@store');
+Route::get( '/mappingmatgroup/edit/', 'MappingMaterialGroupController@show');
+Route::post( '/mappingmatgroup/inactive', 'MappingMaterialGroupController@inactive');
+Route::get( 'grid-mappingmatgroup', ['as' => 'get.mappingmatgroup_grid', 'uses' => 'MappingMaterialGroupController@dataGrid']);
+
 Route::resource('/accessright', 'AccessRightController');
 Route::post('/accessright/post', 'AccessRightController@store');
 Route::get('/accessright/edit/', 'AccessRightController@show');
@@ -136,3 +142,6 @@ Route::get('grid-accessright', ['as' => 'get.accessright_grid', 'uses' => 'Acces
 Route::get('get-select_menu', ['as' => 'get.select_menu', 'uses' => 'AccessRightController@get_menu']);
 
 Route::resource('/roleaccess', 'RoleAccessController');
+
+//Route::get('select2list', ['as' => 'get.select2', 'uses' => 'Select2Controller@select2']);
+Route::get('/select2', 'Select2Controller@get')->name('data');

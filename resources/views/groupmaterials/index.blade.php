@@ -46,7 +46,7 @@
                     <div class="box-body">
                         <div class="col-xs-12">
                             <label class="control-label" for="name">Code</label> 
-                            <select class="form-control" name="code" id="code"></select>
+                            <select class="form-control" name="code" id="code" required="required"></select>
                             <input type="hidden" name='edit_id' id="edit_id">
                         </div>
                         <div class="col-xs-12">

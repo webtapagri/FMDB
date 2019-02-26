@@ -193,97 +193,100 @@ class MaterialUserController extends Controller
 
     public function store(Request $request)
     {
-        $no_document = rand(1, 1000000);
-        $param = array(
-            "no_document" => $no_document,
-            "industri_sector" => $request->industry_sector,
-            "plant" => $request->plant,
-            "store_loc" => $request->store_location,
-            "sales_org" => $request->sales_org,
-            "dist_channel" => $request->dist_channel,
-            "mat_group" => $request->group_material,
-            "part_number" => $request->part_no,
-            "spec" => $request->specification,
-            "merk" => $request->merk,
-            "material_name" => $request->material_sap,
-            "description" => $request->description,
-            "uom" => $request->uom,
-            "division" => $request->division,
-            "item_cat_group" => $request->item_category_group,
-            "gross_weight" => $request->gross_weight,
-            "net_weight" => $request->net_weight,
-            "volume" => $request->volume,
-            "size_dimension" => $request->size,
-            "weight_unit" => $request->weight_unit,
-            "volume_unit" => $request->volume_unit,
-            "mrp_controller" => $request->mrp_controller,
-            "valuation_class" => $request->valuation_class,
-            "tax_classification" => $request->tax_classification,
-            "account_assign" => $request->account_assign,
-            "general_item" => $request->general_item_category_group,
-            "avail_check" => $request->availability_check,
-            "transportation_group" => $request->transportation_group,
-            "loading_group" => $request->loading_group,
-            "profit_center" => $request->profit_center,
-            "mrp_type" => $request->mrp_type,
-            "period_sle" => $request->period_ind_for_sle,
-            "cash_discount" => $request->cash_discount,
-            "price_unit" => $request->price_unit,
-            "locat" => $request->location,
-            "material_type" => $request->material_type,
-            "remarks" => $request->remarks
-        );
+        try {
+            $no_document = rand(1, 1000000);
+            $param = array(
+                "no_document" => $no_document,
+                "industri_sector" => $request->industry_sector,
+                "plant" => $request->plant,
+                "store_loc" => $request->store_location,
+                "sales_org" => $request->sales_org,
+                "dist_channel" => $request->dist_channel,
+                "mat_group" => $request->sap_material_group,
+                "part_number" => $request->part_no,
+                "spec" => $request->specification,
+                "merk" => $request->merk,
+                "material_name" => $request->material_sap,
+                "description" => $request->description,
+                "uom" => $request->uom,
+                "division" => $request->division,
+                "item_cat_group" => $request->item_category_group,
+                "gross_weight" => $request->gross_weight,
+                "net_weight" => $request->net_weight,
+                "volume" => $request->volume,
+                "size_dimension" => $request->size,
+                "weight_unit" => $request->weight_unit,
+                "volume_unit" => $request->volume_unit,
+                "mrp_controller" => $request->mrp_controller,
+                "valuation_class" => $request->valuation_class,
+                "tax_classification" => $request->tax_classification,
+                "account_assign" => $request->account_assign,
+                "general_item" => $request->general_item_category_group,
+                "avail_check" => $request->availability_check,
+                "transportation_group" => $request->transportation_group,
+                "loading_group" => $request->loading_group,
+                "profit_center" => $request->profit_center,
+                "mrp_type" => $request->mrp_type,
+                "period_sle" => $request->period_ind_for_sle,
+                "cash_discount" => $request->cash_discount,
+                "price_unit" => $request->price_unit,
+                "locat" => $request->location,
+                "material_type" => $request->material_type,
+                "remarks" => $request->remarks,
+                "price_estimate" => $request->price_estimate
+            );
+            $service = API::exec(array(
+                'request' => 'POST',
+                'method' => 'tr_materials',
+                'data'=> $param
+             ));
 
-        $service = API::exec(array(
-            'request' => 'POST',
-            'method' => 'tr_materials',
-            'data'=> $param
-        ));
+            $res = $service;
+            if($res->status  == 'failed'){
+                 foreach ($_FILES as $row) {
+                    if($row["name"] ) {
+                        $name = $row["name"];
+                        $size = $row["size"];
+                        $path = $row["tmp_name"];
+                        $type = pathinfo($row["tmp_name"], PATHINFO_EXTENSION);
+                        $data = file_get_contents($path);
+                        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                        $files = array(
+                            "no_document" => $no_document,
+                            "file_name" => $name,
+                            'material_no' => '-',
+                            "doc_size" => $size,
+                            "file_category" => $type,
+                            "file_image" => $base64
+                        );
 
-        $res = $service;        
-        if($res->code == '201'){
-            foreach ($_FILES as $row) {
-                if($row["name"]) {
-                    $name = $row["name"];
-                    $size = $row["size"];
-                    $path = $row["tmp_name"];
-                    $type = pathinfo($row["tmp_name"], PATHINFO_EXTENSION);
-                    $data = file_get_contents($path);
-                    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-                    $files = array(
-                        "no_document" => $no_document,
-                        "file_name" => $name,
-                        'material_no' => '-',
-                        "doc_size" => $size,
-                        "file_category" => $type,
-                        "file_image" => $base64
-                    );
-
-                    $service = API::exec(array(
-                        'request' => 'POST',
-                        'method' => 'tr_files',
-                        'data' => $files
-                    ));
-                    $res = $service;          
-                    if ($res->code == '201') {
-                        $status = true;
-                    } else {
-                        $status = false;
-                        echo json_encode(array(
-                            "code" => 201,
-                            "status" => "gagal upload",
-                            "message" => $files
+                        $service = API::exec(array(
+                            'request' => 'POST',
+                            'method' => 'tr_files',
+                            'data' => $files
                         ));
-                        break;
+                        $res = $service;
+                        if ($res->code == '201') {
+                            $status = true;
+                        } else {
+                            $status = false;
+                            echo json_encode(array(
+                                "code" => 201,
+                                "status" => "gagal upload",
+                                "message" => $files
+                            ));
+                            break;
+                        }
                     }
                 }
+                return response()->json(['status' => true, "message" => $res->message]);
+
+            } else{
+                return response()->json(['status' => false, "message" => $res->message]);
             }
-        }
-       
-        echo json_encode(array(
-            'code' => 201,
-            "message" => "berhasil"
-        ));
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, "message" => $e->getMessage()]);
+       }
     }  
     
     public function get_uom()

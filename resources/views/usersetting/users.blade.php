@@ -7,7 +7,7 @@
             <span style="font-size:24px">Users</span>
         </div>
         <div class="col-xs-8" align="right">
-            <span href="#" class="btn btn-sm btn-flat btn-success btn-add {{ (isset($access['CREATE']) ? '':'hide') }}">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
+            <span href="#" class="btn btn-flat btn-sm btn-flat btn-success btn-add {{ (isset($access['CREATE']) ? '':'hide') }}">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
         </div>
     </div>
       <div class="row">
@@ -68,13 +68,15 @@
                         </div>
                         <div class="col-xs-12">
                             <label class="control-label" for="name">Area Code</label> 
-                            <input type="text" class="form-control"  name='area_code' id="area_code" maxlength="200">
+                            <select class="form-control"  name='area_code[]' id="area_code" multiple="multiple" maxlength="200" required="reqreuid">
+                                <option></option>
+                            </select>
                         </div>
                     </div>	 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" style="margin-right: 5px;">Submit</button>
+                    <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-success" style="margin-right: 5px;">Submit</button>
                 </div>
             </form>
 		</div>
@@ -106,9 +108,9 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide') }}" title="edit data ' + row.id + '" onClick="edit(' + row.id + ')"><i class="fa fa-pencil"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide') }} ' + (row.fl_active == 1 ? '' : 'hide') + '" style="margin-left:5px" onClick="inactive(' + row.id + ')"><i class="fa fa-trash"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-success btn-action btn-inactivated {{ (isset($access['DELETE']) ? '':'hide') }} ' + (row.fl_active == 0 ? '': 'hide') + '" style="margin-left:5px"  onClick="active(' + row.id + ')"><i class="fa fa-check"></i></button>';
+                        var content = '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide') }}" title="edit data ' + row.id + '" onClick="edit(' + row.id + ')"><i class="fa fa-pencil"></i></button>';
+                            content += '<button class="btn btn-flat btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide') }} ' + (row.fl_active == 1 ? '' : 'hide') + '" style="margin-left:5px" onClick="inactive(' + row.id + ')"><i class="fa fa-trash"></i></button>';
+                            content += '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-inactivated {{ (isset($access['DELETE']) ? '':'hide') }} ' + (row.fl_active == 0 ? '': 'hide') + '" style="margin-left:5px"  onClick="active(' + row.id + ')"><i class="fa fa-check"></i></button>';
                         
                         return content;
                     }
@@ -120,8 +122,22 @@
             ]
         }); 
 
+        var plant = makeSelectFromgeneralData({
+            url: "{{ url('/select2') }}",
+            code: 'plant'
+        });
+        
+        jQuery('#area_code').select2({
+            data:plant,
+            width:'100%',
+            placeholder: ' ',
+            allowClear: true
+        })
+
         jQuery('.btn-add').on('click', function() {
             document.getElementById("data-form").reset();
+            jQuery("#area_code").val('');
+            jQuery("#area_code").trigger('change');
             jQuery('#username').prop("readonly", false);
             jQuery("#edit_id").val("");
             jQuery("#add-data-modal").modal({backdrop:'static', keyboard:false});		
@@ -143,7 +159,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
             jQuery.ajax({
 				url:"{{ url('users/post') }}",
 				method:"POST",
@@ -173,6 +188,9 @@
 
     function edit(id) {
         document.getElementById("data-form").reset();
+        jQuery("#area_code").val('');
+        jQuery("#area_code").trigger('change');
+
         jQuery("#edit_id").val(id);
         jQuery('#username').prop("readonly", true);
         var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('users/edit/?id=') }}"+id)));
@@ -182,7 +200,9 @@
         jQuery("#email").val(result.email);
         jQuery("#job_code").val(result.job_code);
         jQuery("#nik").val(result.nik);
-        jQuery("#area_code").val(result.area_code);
+        var area_code = result.area_code;
+        jQuery("#area_code").val(area_code.split(','));
+        jQuery("#area_code").trigger('change');
 
         jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data");			
         jQuery("#add-data-modal").modal("show");
@@ -247,7 +267,5 @@
             complete:function(){ jQuery('.loading-event').fadeOut();}
         }); 
     }
-
-
 </script>            
 @stop

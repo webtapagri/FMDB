@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'FMDB')
+@section('title', 'FMDB - Material Request')
 
 @section('content')
 <style>
@@ -16,7 +16,7 @@ label {
         <div class="col-md-10 col-md-offset-1">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-pencil"></i> Add Material</h3>
+                    <h3 class="box-title"><i class="fa fa-pencil"></i>Material Request</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -268,7 +268,7 @@ label {
                                 <div class="form-group ">
                                     <label for="material_sap" class="col-md-3">Material pada SAP</label>
                                         <div class="col-md-9">
-                                        <input type="text" class="form-control input-sm" name="material_sap"  id="material_sap" maxlength="30"  readonly>
+                                        <input type="text" class="form-control input-sm" name="material_sap"  id="material_sap" maxlength="40"  readonly>
                                         <span class="help-block" id="help_material_sap"></span>
                                     </div>
                                 </div> 
@@ -316,7 +316,13 @@ label {
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="volume_unit" class="col-md-3">Remarks</label>
+                                    <label for="volume_unit" class="col-md-3">Estimate price</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control input-sm" name="price_estimate" id="price_estimate" maxlength="13" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label for="volume_unit" class="col-md-3">Catatan</label>
                                     <div class="col-md-9">
                                         <textarea type="text" class="form-control input-sm" name="remarks" id="remarks"></textarea>
                                     </div>
@@ -394,8 +400,7 @@ label {
 				cache:false,
 				beforeSend:function(){jQuery('.loading-event').fadeIn();},
 				success:function(result){
-                    var data = jQuery.parseJSON(result);
-                    if(data.code == '201'){
+                    if(result.status){
                         notify({
                             type:'success',
                             message:data.message
@@ -419,7 +424,8 @@ label {
             placeholder: "",
             allowClear: true
         }).on('change', function() {
-            jQuery("#group_material").val(jQuery(this).val());
+            var data = jQuery(this).select2('data');
+            jQuery("#group_material").val(data[0].text);
             SelectGroup(jQuery(this).val());
         });
 
@@ -611,7 +617,7 @@ label {
             basicDataPanel();
         });
 
-        jQuery('.attr-material-group').on('change', function(){
+        jQuery('.attr-material-group').on('keyup', function(){
             genMaterialNo();
         })
 
@@ -704,7 +710,7 @@ label {
             no++;
         });
 
-        jQuery("#material_sap").val(material_no);
+        jQuery("#material_sap").val(material_no.substring(0,39));
     }
 
     function initialPanel() {

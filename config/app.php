@@ -136,7 +136,6 @@ return [
     */
 
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -237,5 +236,4 @@ return [
         'API' => App\Providers\ApiHelper::class,  
 
     ],
-
 ];

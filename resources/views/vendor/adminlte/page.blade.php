@@ -16,7 +16,6 @@
 @section('body')
     <div class="loading-event"></div>
     <div class="wrapper">
-
         <!-- Main Header -->
         <header class="main-header">
             @if(config('adminlte.layout') == 'top-nav')
@@ -98,7 +97,7 @@
                     </div>
                     <div class="pull-left info">
                     <p>{{ strtoupper(Session::get('name')) }}</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> {{ strtoupper(Session::get('role')) }}</a>
+                    <a href="#">{{ strtoupper(Session::get('role')) }}</a>
                     </div>
                 </div>
                 <!-- search form -->
