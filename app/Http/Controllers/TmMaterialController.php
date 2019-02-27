@@ -138,7 +138,14 @@ class TmMaterialController extends Controller
             }
         }
 
-        return response()->json(array('data' => $result));
+        $slim_data = array();
+        foreach($result  as $key => $value) {
+            if (strpos($value, $_REQUEST['param']) !== false) {
+                $slim_data = array_merge($slim_data, array($value));
+            }
+        }
+
+        return response()->json(array('data'=> $slim_data));
     }
 
     /**
@@ -157,6 +164,7 @@ class TmMaterialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(Request $request)
     {
         $param = array(

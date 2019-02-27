@@ -5,7 +5,7 @@
 <section class="content">
     <div class="row">
         <div class="col-xs-4">
-            <span style="font-size:24px">Menu</span>
+            <span style="font-size:24px">Mapping Material Group</span>
         </div>
         <div class="col-xs-8" align="right">
             <span href="#" class="btn btn-sm btn-flat btn-success btn-add {{ (isset($access['CREATE']) ? '':'hide') }}">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
@@ -44,6 +44,7 @@
                     <div class="box-body">
                         <div class="col-xs-12">
                             <label class="control-label" for="name">Material Group</label>
+                            <input type="hidden" name='edit_id' id="edit_id">
                             <select class="form-control" name='mat_group' id="mat_group" requried>
                                 <option></option>
                             </select>
@@ -92,9 +93,8 @@
                 },
                 {
                     "render": function(data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE ']) ? '':'hide ') }}" title="edit data ' + row.name + '" onClick="edit(' + row.menu_code + ')"><i class="fa fa-pencil"></i></button>';
-                        content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE ']) ? '':'hide ') }}" style="margin-left:5px"  onClick="inactive(' + row.menu_code + ')"><i class="fa fa-trash"></i></button>';
-
+                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide ') }}" title="edit data ' + row.mat_group + '" onClick="edit(\'' + row.mat_group + '/'+ row.valuation_class + '/' + row.material_type +'\')"><i class="fa fa-pencil"></i></button>';
+                        content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide ') }}" style="margin-left:5px"  onClick="inactive(\'' + row.mat_group + '/'+ row.valuation_class + '/' + row.material_type +'\')"><i class="fa fa-trash"></i></button>';
                         return content;
                     }
                 }
@@ -142,23 +142,12 @@
         });
 
         jQuery('.btn-add').on('click', function() {
-            document.getElementById("data-form").reset();
-            jQuery('#code').prop('disabled', false);
-            jQuery("#edit_id").val("");
+            clearForm();
             jQuery("#add-data-modal").modal({
                 backdrop: 'static',
                 keyboard: false
             });
             jQuery("#add-data-modal .modal-title").html("<i class='fa fa-plus'></i> Create new data");
-            jQuery("#add-data-modal").modal("show");
-        });
-
-        jQuery('.btn-edit').on('click', function() {
-            jQuery("#add-data-modal").modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-            jQuery("#add-data-modal .modal-title").html("<i class='fa fa-pencil'></i> Edit data");
             jQuery("#add-data-modal").modal("show");
         });
 
@@ -203,17 +192,32 @@
     });
 
     function edit(id) {
-        document.getElementById("data-form").reset();
+        clearForm();
+        var param = id.split('/');
         jQuery("#edit_id").val(id);
-        jQuery('#code').prop('disabled', true);
-        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('menu/edit/?id=') }}" + id)));
-        jQuery("#edit_id").val(result.menu_code);
-        jQuery("#code").val(result.menu_code);
-        jQuery("#name").val(result.menu_name);
-        jQuery("#url").val(result.url);
-        jQuery("#sorting").val(result.sorting);
-        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data " + result.menu_name);
+        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('mappingmatgroup/edit/?id=') }}" + param[0])));
+       
+        jQuery('#mat_group').val(result[0].mat_group);
+        jQuery('#mat_group').trigger('change');
+
+        jQuery('#valuation_class').val(result[0].valuation_class);
+        jQuery('#valuation_class').trigger('change');
+        jQuery('#material_type').val(result[0].material_type);
+        jQuery('#material_type').trigger('change');
+
+        jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data " + result[0].mat_group);
         jQuery("#add-data-modal").modal("show");
+    }
+
+    function clearForm() {
+        document.getElementById("data-form").reset();
+        jQuery('#mat_group').val('');
+        jQuery('#mat_group').trigger('change');
+        jQuery('#valuation_class').val('');
+        jQuery('#valuation_class').trigger('change');
+        jQuery('#material_type').val('');
+        jQuery('#material_type').trigger('change');
+        jQuery("#edit_id").val("");
     }
 
     function inactive(id) {
@@ -224,7 +228,7 @@
         });
 
         jQuery.ajax({
-            url: "{{ url('menu/inactive') }}",
+            url: "{{ url('mappingmatgroup/inactive') }}",
             method: "POST",
             data: {
                 id: id
@@ -250,51 +254,6 @@
                 jQuery('.loading-event').fadeOut();
             }
         });
-    }
-
-    function active(id) {
-        jQuery.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        jQuery.ajax({
-            url: "{{ url('menu/active') }}",
-            method: "POST",
-            data: {
-                id: id
-            },
-            beforeSend: function() {
-                jQuery('.loading-event').fadeIn();
-            },
-            success: function(result) {
-                if (result.status) {
-                    jQuery("#data-table").DataTable().ajax.reload();
-                    notify({
-                        type: 'success',
-                        message: result.message
-                    });
-                } else {
-                    notify({
-                        type: 'warning',
-                        message: result.message
-                    });
-                }
-            },
-            complete: function() {
-                jQuery('.loading-event').fadeOut();
-            }
-        });
-    }
-
-    function isNumber(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
     }
 </script>
 @stop 

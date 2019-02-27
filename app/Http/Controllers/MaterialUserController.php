@@ -137,58 +137,45 @@ class MaterialUserController extends Controller
     {
         $result = array();
         $service = API::exec(array(
-            'request'=> 'GET',
-            'method'=> 'tr_materials'
+            'request' => 'GET',
+            'method' => "tr_materials_union_limit/" . $_REQUEST['param']
         ));
 
         $res = $service;
         if($res->status === 'success') {
             foreach ($res->data as $key => $value) {
-                if(!in_array($value->no_material, $result)){
-                    $result = array_merge($result, array($value->no_material));
+                if( $value->no_material) {
+                    if( !in_array($value->no_material, $result)){ 
+                        $result = array_merge($result, array($value->no_material));
+                    }
                 }
             } 
             
             foreach ($res->data as $key => $value) {
-                if(!in_array($value->material_name, $result)){
-                    $result = array_merge($result, array($value->material_name));
+                if( $value->material_name) {
+                    if(!in_array($value->material_name, $result)){
+                         $result = array_merge($result, array($value->material_name));
+                    }
                 }
             } 
            
             foreach ($res->data as $key => $value) {
-                if(!in_array($value->part_number, $result)){
-                    $result = array_merge($result, array($value->part_number));
+                if( $value->part_number) {
+                    if( !in_array($value->part_number, $result)){ 
+                        $result = array_merge($result, array($value->part_number));
+                    }
                 }
             } 
         }
 
-        $service = API::exec(array(
-            'request' => 'GET',
-            'method' => 'tm_materials'
-        ));
-
-        $res = $service;
-        if ($res->status === 'success') {
-            foreach ($res->data as $key => $value) {
-                if (!in_array($value->no_material, $result)) {
-                    $result = array_merge($result, array($value->no_material));
-                }
+        $slim_data = array();
+        foreach($result as $key => $value) {
+            if (strpos($value, $_REQUEST['param']) !== false) {
+                $slim_data = array_merge($slim_data, array($value));
             }
-
-            foreach ($res->data as $key => $value) {
-                if (!in_array($value->material_name, $result)) {
-                    $result = array_merge($result, array($value->material_name));
-                }
-            }
-
-            foreach ($res->data as $key => $value) {
-                if (!in_array($value->part_number, $result)) {
-                    $result = array_merge($result, array($value->part_number));
-                }
-            } 
         }
-        
-        return response()->json(array('data'=>$result));
+
+        return response()->json(array('data'=> $slim_data));
     }
 
     public function store(Request $request)

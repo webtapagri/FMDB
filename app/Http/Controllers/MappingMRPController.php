@@ -9,7 +9,7 @@ use function GuzzleHttp\json_encode;
 use Session;
 use API;
 use AccessRight;
-class MappingMaterialGroupController extends Controller
+class MappingMRPController extends Controller
 {
     public function index()
     {
@@ -21,13 +21,13 @@ class MappingMaterialGroupController extends Controller
 
         $access = AccessRight::access();
 
-        return view('mapping.mat_group')->with(compact('access'));
+        return view('mapping.mrp')->with(compact('access'));
     }
 
     public function dataGrid() {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tm_mapping_matgroup"
+            'method' => "tm_mapping_mrp"
         ));
         $data = $service;
 
@@ -39,15 +39,14 @@ class MappingMaterialGroupController extends Controller
     {
        try {
             $param["mat_group"] = $request->mat_group;
-            $param["valuation_class"] = $request->valuation_class;
-            $param["material_type"] = $request->material_type;
+            $param["plant"] = $request->plant;
+            $param["mrp_controller"] = $request->mrp_controller;
             
             if($request->edit_id) {
-                $param["updated_at"] = date('Y-m-d H:i:s');
-                $param["updated_by"] = Session::get('user');
+                var_dump('01');
                 $data = API::exec(array(
                     'request' => 'PUT',
-                    'method' => 'tm_mapping_matgroup/' . $request->edit_id,
+                    'method' => 'tm_mapping_mrp/' . $request->edit_id,
                     'data' => $param
                 ));
 
@@ -58,25 +57,18 @@ class MappingMaterialGroupController extends Controller
                     return response()->json(['status' => false, "message" => $res->message]);
                 }
             } else {
+                $data = API::exec(array(
+                    'request' => 'POST',
+                    'method' => 'tm_mapping_mrp',
+                    'data' => $param
+                ));
 
-                if($this->validateMatGroup($request->mat_group)) {
-                    $param["created_at"] = date('Y-m-d H:i:s');
-                    $param["created_by"] = Session::get('user');
-                    $data = API::exec(array(
-                        'request' => 'POST',
-                        'method' => 'tm_mapping_matgroup',
-                        'data' => $param
-                    ));
-
-                    $res = $data;
-                    if ($res->code == '201') {
-                        return response()->json(['status' => true, "message" => 'Data is successfully ' . ($request->edit_id ? 'updated' : 'added')]);;
-                    } else {
-                        return response()->json(['status' => false, "message" => $res->message]);
+                $res = $data;
+                if ($res->code == '201') {
+                    return response()->json(['status' => true, "message" => 'Data is successfully ' . ($request->edit_id ? 'updated' : 'added')]);;
+                } else {
+                    return response()->json(['status' => false, "message" => $res->message]);
                     }
-                } else{
-                    return response()->json(['status' => false, "message" => 'Material Group already already exist!']);
-                }
             }
             
        } catch (\Exception $e) {
@@ -87,7 +79,7 @@ class MappingMaterialGroupController extends Controller
     public function validateMatGroup($matgroup) {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tm_mapping_matgroup/" . $matgroup
+            'method' => "tm_mapping_mrp/" . $matgroup
         ));
         $profile = $service->data;    
         if($profile) {
@@ -103,7 +95,7 @@ class MappingMaterialGroupController extends Controller
         $param = $_REQUEST;
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tm_mapping_matgroup/" . $param["id"]
+            'method' => "tm_mapping_mrp/" . $param["id"]
         ));
         $data = $service;
         return response()->json(array('data' => $data->data));
@@ -114,7 +106,7 @@ class MappingMaterialGroupController extends Controller
             $param["updated_by"] = Session::get('user');
             $data = API::exec(array( 
                 'request' => 'DELETE',
-                'method' => 'tm_mapping_matgroup/' . $request->id ,
+                'method' => 'tm_mapping_mrp/' . $request->id ,
                 'data' => $param
             ));
 

@@ -127,33 +127,19 @@
     var imgFiles = [];    
 
     jQuery(document).ready(function() {
-        initData();  
 
-/*         var callback = function(request, response) {
-        var searchText = request.item;
-        // Set searchField somehow here
-        $.ajax({  
-            type: "GET",  
-            dataType: "text",  
-            url: "SearchCallback.aspx?searchText=" + searchText + "&searchField=" + searchField,
-            success: function (data)
-            {
-                var splitData =  data.split(",");
-                response(splitData);
-            });      
-        });
-    }; */
-
-/*     $( ".searchTextBox" ).autocomplete({
-        source: callback,
-        autoFill: true
-    }); */
-
-        var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.auto_sugest') !!}')));
         jQuery("#search_material").autocomplete({
-            source: search,
+            source: function (request, response) {
+                if(jQuery('#search_material').val()) {
+                    var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.auto_sugest') !!}?param=' + jQuery('#search_material').val())));
+                    response (search)
+                }
+            },
             minLength: 3
         });
+
+
+        initData();  
         
         jQuery('.btn-add').on('click', function() {
             window.location.href = "{{ url('material_user/create') }}";
@@ -162,8 +148,7 @@
          jQuery('#search-form').on('submit', function(e) {
             e.preventDefault();
             searchData();
-        })
-
+        });
     });
 
     function initData(param) {

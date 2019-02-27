@@ -133,6 +133,12 @@ Route::get( '/mappingmatgroup/edit/', 'MappingMaterialGroupController@show');
 Route::post( '/mappingmatgroup/inactive', 'MappingMaterialGroupController@inactive');
 Route::get( 'grid-mappingmatgroup', ['as' => 'get.mappingmatgroup_grid', 'uses' => 'MappingMaterialGroupController@dataGrid']);
 
+Route::resource('/mappingmrp', 'MappingMRPController');
+Route::post( '/mappingmrp/post', 'MappingMRPController@store');
+Route::get( '/mappingmrp/edit/', 'MappingMRPController@show');
+Route::post( '/mappingmrp/inactive', 'MappingMRPController@inactive');
+Route::get( 'grid-mappingmrp', ['as' => 'get.mappingmrp_grid', 'uses' => 'MappingMRPController@dataGrid']);
+
 Route::resource('/accessright', 'AccessRightController');
 Route::post('/accessright/post', 'AccessRightController@store');
 Route::get('/accessright/edit/', 'AccessRightController@show');
