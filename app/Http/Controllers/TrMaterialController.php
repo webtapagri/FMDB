@@ -142,14 +142,7 @@ class TrMaterialController extends Controller
             }
         }
 
-        $slim_data = array();
-        foreach($result  as $key => $value) {
-            if (strpos($value, $_REQUEST['param']) !== false) {
-                $slim_data = array_merge($slim_data, array($value));
-            }
-        }
-
-        return response()->json(array('data'=> $slim_data));
+        return response()->json(array('data' => $result));
     }
 
 
