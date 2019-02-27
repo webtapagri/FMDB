@@ -139,6 +139,12 @@ Route::get( '/mappingmrp/edit/', 'MappingMRPController@show');
 Route::post( '/mappingmrp/inactive', 'MappingMRPController@inactive');
 Route::get( 'grid-mappingmrp', ['as' => 'get.mappingmrp_grid', 'uses' => 'MappingMRPController@dataGrid']);
 
+Route::resource('/mappingplant', 'MappingPlantController');
+Route::post( '/mappingplant/post', 'MappingPlantController@store');
+Route::get( '/mappingplant/edit/', 'MappingPlantController@show');
+Route::post( '/mappingplant/inactive', 'MappingPlantController@inactive');
+Route::get( 'grid-mappingplant', ['as' => 'get.mappingplant_grid', 'uses' => 'MappingPlantController@dataGrid']);
+
 Route::resource('/accessright', 'AccessRightController');
 Route::post('/accessright/post', 'AccessRightController@store');
 Route::get('/accessright/edit/', 'AccessRightController@show');

@@ -145,7 +145,6 @@ class TrMaterialController extends Controller
         return response()->json(array('data' => $result));
     }
 
-
     public function store(Request $request)
     {
 

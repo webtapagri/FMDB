@@ -5,7 +5,7 @@
 <section class="content">
     <div class="row">
         <div class="col-xs-4">
-            <span style="font-size:24px">Mapping MRP</span>
+            <span style="font-size:24px">Mapping Plant</span>
         </div>
         <div class="col-xs-8" align="right">
             <span href="#" class="btn btn-sm btn-flat btn-success btn-add {{ (isset($access['CREATE']) ? '':'hide') }}">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
@@ -19,8 +19,10 @@
                         <thead>
                             <tr>
                                 <th>Plant</th>
-                                <th>Material Group</th>
-                                <th>MRP Controller</th>
+                                <th>Locat</th>
+                                <th>Store Loc</th>
+                                <th>Sales Org</th>
+                                <th>Profit Center</th>
                                 <th width="8%">Action</th>
                             </tr>
                         </thead>
@@ -49,15 +51,27 @@
                             </select>
                         </div>
                         <div class="col-xs-12">
-                            <label class="control-label" for="name">Material Group</label>
+                            <label class="control-label" for="name">Locat</label>
                             <input type="hidden" name='edit_id' id="edit_id">
-                            <select class="form-control" name='mat_group' id="mat_group" requried>
+                            <select class="form-control" name='locat' id="locat" requried>
                                 <option></option>
                             </select>
                         </div>
                         <div class="col-xs-12">
-                            <label class="control-label" for="name">MRP Controller</label>
-                            <select class="form-control" name='mrp_controller' id="mrp_controller" requried>
+                            <label class="control-label" for="name">Store Loc</label>
+                            <select class="form-control" name='store_loc' id="store_loc" requried>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12">
+                            <label class="control-label" for="name">Sales ORG</label>
+                            <select class="form-control" name='sales_org' id="sales_org" requried>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12">
+                            <label class="control-label" for="name">Profit Center</label>
+                            <select class="form-control" name='profit_center' id="profit_center" requried>
                                 <option></option>
                             </select>
                         </div>
@@ -78,41 +92,49 @@
     var attribute = [];
     jQuery(document).ready(function() {
         jQuery('#data-table').DataTable({
-            ajax: '{!! route("get.mappingmrp_grid") !!}',
+            ajax: '{!! route("get.mappingplant_grid") !!}',
             columns: [{
                     data: 'plant',
                     name: 'plant'
                 },
                 {
-                    data: 'mat_group',
-                    name: 'mat_group'
+                    data: 'locat',
+                    name: 'locat'
                 },
                 {
-                    data: 'mrp_controller',
-                    name: 'mrp_controller'
+                    data: 'store_loc',
+                    name: 'store_loc'
+                },
+                {
+                    data: 'sales_org',
+                    name: 'sales_org'
+                },
+                {
+                    data: 'profit_center',
+                    name: 'profit_center'
                 },
                 {
                     "render": function(data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide ') }}" title="edit data ' + row.mat_group + '" onClick="edit(\'' + row.plant + '/'+ row.mat_group + '/' + row.mrp_controller +'\')"><i class="fa fa-pencil"></i></button>';
-                        content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide ') }}" style="margin-left:5px"  onClick="inactive(\'' + row.plant + '/'+ row.mat_group + '/' + row.mrp_controller +'\')"><i class="fa fa-trash"></i></button>';
+                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide ') }}" title="edit data ' + row.plant + '" onClick="edit(\'' + row.plant  +'\')"><i class="fa fa-pencil"></i></button>';
+                        content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide ') }}" style="margin-left:5px"  onClick="inactive(\'' + row.plant  +'\')"><i class="fa fa-trash"></i></button>';
                         return content;
                     }
                 }
             ],
             columnDefs: [{
-                targets: [3],
+                targets: [5],
                 className: 'text-center',
                 orderable: false
             }, ]
         });
 
-        var mat_group = makeSelectFromgeneralData({
+        var locat = makeSelectFromgeneralData({
             url: "{{ url('/select2') }}",
-            code: 'mat_group'
+            code: 'location'
         });
 
-        jQuery('#mat_group').select2({
-            data: mat_group,
+        jQuery('#locat').select2({
+            data: locat,
             width: '100%',
             placeholder: ' ',
             allowClear: true
@@ -128,15 +150,35 @@
             width: '100%',
             placeholder: ' ',
             allowClear: true
-        });
+        }).on('change', function() {
+              var store_location = dataJson("{{ url('material_user/store_location/?id=') }}"+jQuery(this).val());
+            jQuery('#store_loc').select2({
+                data: store_location,
+                width:'100%',
+                placeholder: "",
+                allowClear: true
+            });
+        })
 
-        var mrp_controller = makeSelectFromgeneralData({
+        var sales_org = makeSelectFromgeneralData({
             url: "{{ url('/select2') }}",
-            code: 'mrp_controller'
+            code: 'sales_org'
         });
 
-        jQuery('#mrp_controller').select2({
-            data: mrp_controller,
+        jQuery('#sales_org').select2({
+            data: sales_org,
+            width: '100%',
+            placeholder: ' ',
+            allowClear: true
+        });
+
+        var profit_center = makeSelectFromgeneralData({
+            url: "{{ url('/select2') }}",
+            code: 'profit_center'
+        });
+
+        jQuery('#profit_center').select2({
+            data: profit_center,
             width: '100%',
             placeholder: ' ',
             allowClear: true
@@ -164,7 +206,7 @@
             });
 
             jQuery.ajax({
-                url: "{{ url('mappingmrp/post') }}",
+                url: "{{ url('mappingplant/post') }}",
                 method: "POST",
                 data: param,
                 beforeSend: function() {
@@ -198,16 +240,20 @@
         clearForm();
         jQuery("#edit_id").val(id);
         jQuery('#code').prop('disabled', true);
-        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('mappingmrp/edit/?id=') }}" + id)));
-        jQuery("#edit_id").val(result.menu_code);
+        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('mappingplant/edit/?id=') }}" + id)));
+        jQuery("#edit_id").val(result[0].plant);
         
-        jQuery('#mat_group').val(result[0].mat_group);
-        jQuery('#mat_group').trigger('change');
 
         jQuery('#plant').val(result[0].plant);
         jQuery('#plant').trigger('change');
-        jQuery('#mrp_controller').val(result[0].mrp_controller);
-        jQuery('#mrp_controller').trigger('change');
+        
+        jQuery('#sales_org').trigger('change');
+        jQuery('#store_loc').val(result[0].store_loc);
+        jQuery('#store_loc').trigger('change');
+        jQuery('#profit_center').val(result[0].profit_center);
+        jQuery('#profit_center').trigger('change');
+        jQuery('#locat').val(result[0].locat);
+        jQuery('#locat').trigger('change');
 
         jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data " + result[0].plant);
         jQuery("#add-data-modal").modal("show");
@@ -215,12 +261,16 @@
 
     function clearForm() {
         document.getElementById("data-form").reset();
-        jQuery('#mat_group').val('');
-        jQuery('#mat_group').trigger('change');
         jQuery('#plant').val('');
         jQuery('#plant').trigger('change');
-        jQuery('#mrp_controller').val('');
-        jQuery('#mrp_controller').trigger('change');
+        jQuery('#sales_org').val('');
+        jQuery('#sales_org').trigger('change');
+        jQuery('#store_loc').val('');
+        jQuery('#store_loc').trigger('change');
+        jQuery('#profit_center').val('');
+        jQuery('#profit_center').trigger('change');
+        jQuery('#locat').val('');
+        jQuery('#locat').trigger('change');
         jQuery("#edit_id").val("");
     }
 
@@ -232,7 +282,7 @@
         });
 
         jQuery.ajax({
-            url: "{{ url('mappingmrp/inactive') }}",
+            url: "{{ url('mappingplant/inactive') }}",
             method: "POST",
             data: {
                 id: id

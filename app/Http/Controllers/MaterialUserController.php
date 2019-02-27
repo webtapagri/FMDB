@@ -528,6 +528,7 @@ class MaterialUserController extends Controller
             'host' => 'ldap',
             'method' => "store_loc/" . $_REQUEST["id"]
         ));
+
         $data = $service;
         foreach ($data->data as $row) {
             $arr[] = array(
