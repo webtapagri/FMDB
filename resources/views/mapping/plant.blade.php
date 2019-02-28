@@ -138,7 +138,7 @@
             width: '100%',
             placeholder: ' ',
             allowClear: true
-        })
+        });
 
         var plant = makeSelectFromgeneralData({
             url: "{{ url('/select2') }}",

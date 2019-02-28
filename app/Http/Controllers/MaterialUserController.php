@@ -70,10 +70,9 @@ class MaterialUserController extends Controller
     }
     
     public function get_material_user_grid_search() {
-
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
+            'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? urlencode($_REQUEST['param']) : '')
         ));
         $data = $service;
 
@@ -138,9 +137,9 @@ class MaterialUserController extends Controller
         $result = array();
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials_union_limit/" . $_REQUEST['param']
+            'method' => "tr_materials_union_limit/" . urlencode( $_REQUEST['param'])
         ));
-
+        
         $res = $service;
         if($res->status === 'success') {
             foreach ($res->data as $key => $value) {
@@ -167,7 +166,7 @@ class MaterialUserController extends Controller
                 }
             } 
         }
-        //var_dump($result);
+
         $slim_data = array();
         foreach($result as $key => $value) {
 
@@ -524,21 +523,37 @@ class MaterialUserController extends Controller
     }
 
     public function show(Request $request) {
-        $service = API::exec(array(
-            'request' => 'GET',
-            'host' => 'ldap',
-            'method' => "store_loc/" . $_REQUEST["id"]
-        ));
+      try {
+            $service = API::exec(array(
+                'request' => 'GET',
+                'host' => 'ldap',
+                'method' => "store_loc/" . $_REQUEST["id"]
+            ));
 
-        $data = $service;
-        foreach ($data->data as $row) {
-            $arr[] = array(
-                "id" => $row->LGOR,
-                "text" => $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE)
-            );
-        }
-        return response()->json(array('data' => $arr));
+            $data = $service;
+            foreach ($data->data as $row) {
+                $arr[] = array(
+                    "id" => $row->LGOR,
+                    "text" => $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE)
+                );
+            }
+            return response()->json(array('data' => $arr));
+      } catch (\Throwable $e) {
+            $service = API::exec(array(
+                'request' => 'GET',
+                'host' => 'ldap',
+                'method' => "store_loc/all"
+            ));
 
+            $data = $service;
+            foreach ($data->data as $row) {
+                $arr[] = array(
+                    "id" => $row->LGOR,
+                    "text" => $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE)
+                );
+            }
+            return response()->json(array('data' => $arr));
+      }
     }
 
     public function groupMaterialGroup()

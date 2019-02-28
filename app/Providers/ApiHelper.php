@@ -17,8 +17,7 @@ class ApiHelper extends ServiceProvider
             'Authorization' => 'Bearer e8NDkyjDgqvapG5XnIH6nVgq3QJTkwcTg6MpRlYVRpn3oOojoSmZaV54bYug6XfUfTQzmX37XzLoMEHLSNYqV53NuT2PcHFblFFi'
         );
         $api = "http://149.129.224.117:8080/api/";
-        $ldap = "http://tap-ldap.tap-agri.com/";
-        $result;
+        $ldap = "http://tap-ldapdev.tap-agri.com/";
 
         if (!empty($param['host'])) {
             if ($param['host'] == 'ldap') {

@@ -93,7 +93,7 @@
                 },
                 {
                     "render": function(data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide ') }}" title="edit data ' + row.mat_group + '" onClick="edit(\'' + row.plant + '/'+ row.mat_group + '/' + row.mrp_controller +'\')"><i class="fa fa-pencil"></i></button>';
+                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide ') }}" title="edit data ' + row.mat_group + '" onClick="edit(\'' + row.plant + '/'+ row.mat_group +'\')"><i class="fa fa-pencil"></i></button>';
                         content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide ') }}" style="margin-left:5px"  onClick="inactive(\'' + row.plant + '/'+ row.mat_group + '/' + row.mrp_controller +'\')"><i class="fa fa-trash"></i></button>';
                         return content;
                     }

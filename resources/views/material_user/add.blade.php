@@ -16,7 +16,7 @@ label {
         <div class="col-md-10 col-md-offset-1">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-pencil"></i>Material Request</h3>
+                    <h3 class="box-title"><i class="fa fa-plus"></i> Material Request</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -42,7 +42,7 @@ label {
                                 <label for="plant" class="col-md-3">Plant</label>
                                     <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="plant" id="plant" maxlength="4" required>
-                                        
+
                                     </select>
                                 </div>    
                             </div>
@@ -85,7 +85,7 @@ label {
                             <div class="form-group">
                                 <label for="material_type" class="col-md-3">Material Type</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="c" name="material_type" id="material_type"  maxlength="10"  required>
+                                    <select type="text" class="form-control input-sm" name="material_type" id="material_type"  maxlength="10"  required>
                                         
                                     </select>
                                 </div>
@@ -417,15 +417,20 @@ label {
 			 });
         });
 
-        var material_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_group_material') !!}')));
+        var mat_group = makeSelectFromgeneralData({
+            url: "{{ url('/select2') }}",
+            code: 'mat_group'
+        });
         jQuery('#sap_material_group').select2({
-            data: material_group,
+            data: mat_group,
             width:'100%',
             placeholder: "",
             allowClear: true
         }).on('change', function() {
             var data = jQuery(this).select2('data');
             jQuery("#group_material").val(data[0].text);
+            mappingMRP();
+            mappingMatGroup(data[0].id);
             SelectGroup(jQuery(this).val());
         });
 
@@ -446,23 +451,15 @@ label {
             placeholder: ' ',
             allowClear: true
         }).on("change", function() {
-            var store_location = dataJson("{{ url('material_user/store_location/?id=') }}"+jQuery(this).val());
-            jQuery('#store_location').select2({
-                data: store_location,
-                width:'100%',
-                placeholder: "",
-                allowClear: true
-            });
+           mappingPlant(jQuery(this).val());
+           mappingMRP();
         });
 
-        jQuery("#plant").trigger('change');
-
-
          jQuery('#store_location').select2({
-                width:'100%',
-                placeholder: "",
-                allowClear: true
-            });
+            width:'100%',
+            placeholder: "",
+            allowClear: true
+        });
       
         var location = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.location') !!}')));
         jQuery('#location').select2({
@@ -611,6 +608,8 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+
+        jQuery("#plant").trigger('change');
 
         jQuery('#form-initial').on('submit', function(e){
             e.preventDefault();
@@ -776,6 +775,77 @@ label {
                 return false;
         }
         return true;
+    }
+
+    function mappingMatGroup(id) {
+        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('mappingmatgroup/edit/?id=') }}" + id)));
+        if(result.length > 0) {
+            jQuery('#material_type').val(result[0].material_type);
+            jQuery('#material_type').trigger('change');
+        
+            jQuery('#valuation_class').val(result[0].valuation_class);
+            jQuery('#valuation_class').trigger('change');   
+        } else {
+                jQuery('#material_type').val('');
+            jQuery('#material_type').trigger('change');
+        
+            jQuery('#valuation_class').val('');
+            jQuery('#valuation_class').trigger('change');   
+        }
+    }
+
+    function mappingPlant(id) {
+        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('mappingplant/edit/?id=') }}" + id)));
+        if(result.length > 0) {
+             var store_location = dataJson("{{ url('material_user/store_location/?id=') }}" + result[0].plant);
+            jQuery('#store_location').select2({
+                data: store_location,
+                width:'100%',
+                placeholder: "",
+                allowClear: true
+            });
+
+            jQuery('#store_location').val(result[0].store_loc);
+            jQuery('#store_location').trigger('change');
+
+            jQuery('#location').val(result[0].locat);
+            jQuery('#location').trigger('change');
+           
+            jQuery('#profit_center').val(result[0].profit_center);
+            jQuery('#profit_center').trigger('change');
+           
+            jQuery('#sales_org').val(result[0].sales_org);
+            jQuery('#sales_org').trigger('change');
+
+
+        } else {
+            jQuery('#store_location').val('');
+            jQuery('#store_location').trigger('change');
+
+            jQuery('#location').val('');
+            jQuery('#location').trigger('change');
+           
+            jQuery('#profit_center').val('');
+            jQuery('#profit_center').trigger('change');
+           
+            jQuery('#sales_org').val('');
+            jQuery('#sales_org').trigger('change');
+        }
+    }
+
+    function mappingMRP() {
+        var plant = jQuery('#plant').val();
+        var mat_group = jQuery('#sap_material_group').val();
+        if(plant && mat_group) {
+             var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('mappingmrp/edit/?id=') }}" + plant +'/'+ mat_group )));
+            if(result.length > 0) { 
+                jQuery('#mrp_controller').val(result[0].mrp_controller);
+                jQuery('#mrp_controller').trigger('change');
+            } else {
+                jQuery('#mrp_controller').val('');
+                jQuery('#mrp_controller').trigger('change');
+            }
+        }
     }
 
 </script>            

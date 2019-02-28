@@ -32,7 +32,6 @@ class MappingPlantController extends Controller
         $data = $service;
 
         return response()->json(array('data' => $data->data));
-
     }
 
     public function store(Request $request)
