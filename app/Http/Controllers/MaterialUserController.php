@@ -167,10 +167,11 @@ class MaterialUserController extends Controller
                 }
             } 
         }
-
+        //var_dump($result);
         $slim_data = array();
         foreach($result as $key => $value) {
-            if (strpos($value, $_REQUEST['param']) !== false) {
+
+            if (strpos($value, $_REQUEST['param'])) {
                 $slim_data = array_merge($slim_data, array($value));
             }
         }
