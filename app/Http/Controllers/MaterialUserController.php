@@ -72,7 +72,7 @@ class MaterialUserController extends Controller
     public function get_material_user_grid_search() {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? urlencode($_REQUEST['param']) : '')
+            'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? urlencode($_REQUEST['search']) : '')
         ));
         $data = $service;
 

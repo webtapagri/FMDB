@@ -381,7 +381,7 @@ label {
         });
 
         SelectGroup();
-         jQuery('#form-basic-data').on('submit', function(e) {
+        jQuery('#form-basic-data').on('submit', function(e) {
             e.preventDefault();
            jQuery.ajaxSetup({
                 headers: {
@@ -634,7 +634,7 @@ label {
 
     function closeGroupMaterialModal() {
         // jQuery('#group-material-modal').modal('hide');
-         $('#group-material-modal').on('hidden.bs.modal', function(event) {
+        jQuery('#group-material-modal').on('hidden.bs.modal', function(event) {
 
             $('#add-data-modal').off('hidden.bs.modal');
             jQuery('#add-data-modal').modal({backdrop: 'static', keyboard: false});
@@ -643,7 +643,7 @@ label {
         //jQuery("#add-data-modal").modal("show");
     }
 
-     function SelectGroup(mat_no) {
+    function SelectGroup(mat_no) {
         jQuery(".material-group-input").removeClass('has-success');
         jQuery(".attr-material-group").prop("required", false);
         var material_attr = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.group_material_list') !!}?code='+mat_no)));
@@ -694,7 +694,7 @@ label {
          var material_no = "";
         var no = 1;
         jQuery.each(data, function(key, val) {
-             if(no > 1 ) {
+            if(no > 1 ) {
                material_no += "-";
             }
             if(val == 'part-number') {
@@ -786,7 +786,7 @@ label {
             jQuery('#valuation_class').val(result[0].valuation_class);
             jQuery('#valuation_class').trigger('change');   
         } else {
-                jQuery('#material_type').val('');
+            jQuery('#material_type').val('');
             jQuery('#material_type').trigger('change');
         
             jQuery('#valuation_class').val('');
@@ -816,8 +816,6 @@ label {
            
             jQuery('#sales_org').val(result[0].sales_org);
             jQuery('#sales_org').trigger('change');
-
-
         } else {
             jQuery('#store_location').val('');
             jQuery('#store_location').trigger('change');

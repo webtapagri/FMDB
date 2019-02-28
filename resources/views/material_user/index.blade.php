@@ -76,7 +76,7 @@
               <div class="col-md-9 col-md-offset-1">
                     <form id="search-form" class="form-horizontal">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="search_material" placeholder="search material" required="required">
+                            <input type="text" class="form-control" id="search_material" placeholder="search material" >
                             <span class="input-group-btn">
                         <button type="submit" class="btn btn-flat btn-success btn-flat"><i class="fa fa-search"></i></button>
                     </span>
