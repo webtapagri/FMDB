@@ -171,7 +171,7 @@ class MaterialUserController extends Controller
         $slim_data = array();
         foreach($result as $key => $value) {
 
-            if (strpos($value, $_REQUEST['param'])) {
+            if (preg_match('/'.$_REQUEST['param'].'/i', $value)) {
                 $slim_data = array_merge($slim_data, array($value));
             }
         }
