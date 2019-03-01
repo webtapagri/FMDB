@@ -121,9 +121,15 @@
     var imgFiles = [];    
 
     jQuery(document).ready(function() {
-        var word = jQuery.parseJSON(JSON.stringify(dataJson('{!! url('tm_material_auto_sugest') !!}')));
+
         jQuery("#search_material").autocomplete({
-            source: word
+            source: function (request, response) {
+                if(jQuery('#search_material').val()) {
+                    var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! url('tm_material_auto_sugest') !!}?param=' + jQuery('#search_material').val())));
+                    response (search)
+                }
+            },
+            minLength: 3
         });
 
         jQuery('#search_material').on('change', function() {

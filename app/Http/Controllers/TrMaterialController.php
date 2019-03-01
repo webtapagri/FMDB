@@ -112,7 +112,7 @@ class TrMaterialController extends Controller
         $result = array();
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => 'tr_materials'
+            'method' => 'edit_material_request_search'
         ));
 
         $res = $service;
@@ -142,7 +142,15 @@ class TrMaterialController extends Controller
             }
         }
 
-        return response()->json(array('data' => $result));
+        $slim_data = array();
+        foreach($result   as $key => $value) {
+
+            if (preg_match('/'.$_REQUEST['param'].'/i', $value)) {
+                $slim_data = array_merge($slim_data, array($value));
+            }
+        }
+
+        return response()->json(array('data'=> $slim_data));
     }
 
     public function store(Request $request)

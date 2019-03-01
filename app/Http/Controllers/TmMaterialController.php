@@ -112,7 +112,7 @@ class TmMaterialController extends Controller
         $result = array();
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => 'tm_materials'
+            'method' => 'tm_materials_edit_search/' . urlencode($_REQUEST['param'])
         ));
 
         $res = $service;
@@ -138,7 +138,15 @@ class TmMaterialController extends Controller
             }
         }
 
-        return response()->json(array('data' => $result));
+        $slim_data = array();
+        foreach($result  as $key => $value) {
+
+            if (preg_match('/'.$_REQUEST ['param'].'/i', $value)) {
+                $slim_data = array_merge($slim_data, array($value));
+            }
+        }
+
+        return response()->json(array('data'=> $slim_data));
     }
 
     /**

@@ -21,7 +21,7 @@ class MappingMaterialGroupController extends Controller
 
         $access = AccessRight::access();
 
-        return view('mapping.mat_group')->with(compact('access'));
+        return view('mapping.mat_group')->with(compact('access')); 
     }
 
     public function dataGrid() {
@@ -58,7 +58,6 @@ class MappingMaterialGroupController extends Controller
                     return response()->json(['status' => false, "message" => $res->message]);
                 }
             } else {
-
                 if($this->validateMatGroup($request->mat_group)) {
                     $param["created_at"] = date('Y-m-d H:i:s');
                     $param["created_by"] = Session::get('user');

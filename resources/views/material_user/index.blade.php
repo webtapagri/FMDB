@@ -52,6 +52,7 @@
 		text-align: center;
 		padding: 30px 0
 	}
+    
 	.clear {
 		clear: both;
 	}

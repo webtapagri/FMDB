@@ -137,7 +137,7 @@ class MaterialUserController extends Controller
         $result = array();
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials_union_limit/" . urlencode( $_REQUEST['param'])
+            'method' => "tr_materials_filter/" . urlencode( $_REQUEST['param'])
         ));
         
         $res = $service;
