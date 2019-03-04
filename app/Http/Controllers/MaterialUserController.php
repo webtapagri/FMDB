@@ -229,7 +229,7 @@ class MaterialUserController extends Controller
              ));
 
             $res = $service;
-            if($res->status  == 'failed'){
+            if($res->status  == 'success'){
                  foreach ($_FILES as $row) {
                     if($row["name"] ) {
                         $name = $row["name"];

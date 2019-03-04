@@ -22,7 +22,7 @@
 	}
 	a:link,
 	a:visited {
-		color: #F0353A;
+		color: #00a853;
 	}
 	a:hover {
 		color: #8C0B0E;
