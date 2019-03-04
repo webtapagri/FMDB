@@ -71,8 +71,9 @@ class MaterialUserController extends Controller
     public function get_material_user_grid_search() {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? urlencode($_REQUEST['search']) : '')
+            'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
         ));
+
         $data = $service;
 
         return response()->json(array('data' => $data->data));
@@ -136,7 +137,7 @@ class MaterialUserController extends Controller
         $result = array();
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials_filter/" . urlencode( $_REQUEST['param'])
+            'method' => "tr_materials_filter/" . $_REQUEST['param']
         ));
         
         $res = $service;
@@ -169,8 +170,6 @@ class MaterialUserController extends Controller
 
         $slim_data = array();
         foreach($result as $key => $value) {
-            var_dump(str_replace(' ', '', $_REQUEST['param']));
-            var_dump( str_replace(' ', '', $value));
             if (preg_match('/'.str_replace(' ','', $_REQUEST['param']).'/i', str_replace(' ','', $value))) {
                 $slim_data = array_merge($slim_data, array($value));
             }
