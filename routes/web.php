@@ -145,6 +145,12 @@ Route::get( '/mappingplant/edit/', 'MappingPlantController@show');
 Route::post( '/mappingplant/inactive', 'MappingPlantController@inactive');
 Route::get( 'grid-mappingplant', ['as' => 'get.mappingplant_grid', 'uses' => 'MappingPlantController@dataGrid']);
 
+Route::resource('/matrixapproval', 'MatrixApprovalController');
+Route::post( '/matrixapproval/post', 'MatrixApprovalController@store');
+Route::get( '/matrixapproval/edit/', 'MatrixApprovalController@show');
+Route::post( '/matrixapproval/inactive', 'MatrixApprovalController@inactive');
+Route::get( 'grid-matrixapproval', ['as' => 'get.matrixapproval_grid', 'uses' => 'MatrixApprovalController@dataGrid']);
+
 Route::resource('/accessright', 'AccessRightController');
 Route::post('/accessright/post', 'AccessRightController@store');
 Route::get('/accessright/edit/', 'AccessRightController@show');

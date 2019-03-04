@@ -65,7 +65,6 @@ class MaterialUserController extends Controller
             'method' => "tr_materials_union/"
         ));
         $data = $service;
-
         return response()->json(array('data' => $data->data));
     }
     
@@ -141,6 +140,7 @@ class MaterialUserController extends Controller
         ));
         
         $res = $service;
+
         if($res->status === 'success') {
             foreach ($res->data as $key => $value) {
                 if( $value->no_material) {
@@ -169,8 +169,9 @@ class MaterialUserController extends Controller
 
         $slim_data = array();
         foreach($result as $key => $value) {
-
-            if (preg_match('/'.$_REQUEST['param'].'/i', $value)) {
+            var_dump(str_replace(' ', '', $_REQUEST['param']));
+            var_dump( str_replace(' ', '', $value));
+            if (preg_match('/'.str_replace(' ','', $_REQUEST['param']).'/i', str_replace(' ','', $value))) {
                 $slim_data = array_merge($slim_data, array($value));
             }
         }

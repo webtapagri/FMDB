@@ -202,7 +202,6 @@ class TmMaterialController extends Controller
                     $data = file_get_contents($path);
                     $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
                    
-                  
                     if($no == 1) {
                         $id = $request->files_id_1;
                     } else if($no == 2) {
@@ -317,7 +316,6 @@ class TmMaterialController extends Controller
             "material_type" => $material->material_type,
             "remarks" => $material->remarks,
         );
-
 
         $data['div'] = ($param->division ? $this->getMaster('div',$param->division) : '');
         $data['plant'] = ($param->plant ? $this->getMaster('plant',$param->plant) : '');
