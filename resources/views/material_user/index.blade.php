@@ -80,11 +80,13 @@
                             <input type="text" class="form-control" id="search_material" placeholder="search material" >
                             <span class="input-group-btn">
                         <button type="submit" class="btn btn-flat btn-success btn-flat"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-flat btn-danger btn-flat btn-clear-filter hide"><i class="fa fa-filter"></i></button>
                     </span>
                         </div>
                     </form>
                 </div>
                 <div class="col-md-1" align="left">
+                    <span href="#" class="btn btn-flat btn-default btn-refresh  hide" >&nbsp;<i class="glyphicon glyphicon-filter" title="Request new material"></i></span>
                     <span href="#" class="btn btn-flat btn-sm btn-success btn-add {{ (isset($access['CREATE']) ? '':'hide') }}" style="display:none">&nbsp;<i class="glyphicon glyphicon-plus" title="Request new material"></i>&nbsp;Add</span>
                 </div>
     </div>
@@ -150,6 +152,20 @@
             e.preventDefault();
             searchData();
         });
+
+       jQuery("#search_material").on('change', function() {
+            if(jQuery(this).val()) {
+                  jQuery('.btn-clear-filter').removeClass('hide');
+            } else {
+                jQuery('.btn-clear-filter').addClass('hide');
+            }
+        });
+
+        jQuery('.btn-clear-filter').on('click', function() {
+            jQuery('#search_material').val('');
+            jQuery('#search_material').trigger('change');
+            initData();
+        })
     });
 
     function initData(param) {
@@ -299,27 +315,26 @@
             content += '    <td><b>Keterangan:</b></td>';
             content += '    <td>' + (detail.remarks ? detail.remarks:'') + '</td>';
             content += '</tr>';
+            content += '<tr>';
             if(status === '1') {
-                content += '<tr>';
                 content += '    <td colspan="2"><span class="label label-warning">Requested</span></td>';
-                content += '</tr>';
             } else {
-                content += '<tr>';
+                 content += '<td colspan="2">';
                 if(status === '0') {
-                    content += '<button OnClick="extend(this)" data-no_document="' + no_document + '" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</button>';
-                    content +='<span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Read to PO</span>';
+                    content += '<button type="button" OnClick="extend(this)" data-no_document="' + no_document + '" class="btn btn-flat btn-sm btn-default btn-block">Extend</button>';
+                    content +='<button type="button" class="btn btn-flat btn-sm btn-default btn-block ">Read to PO</button>';
                 }else{
                     content += '<span class="label label-warning">Requested</span>';
                 }
-                content += '</tr>';
+                 content += '<td>';
             }   
-
+            content += '</tr>';
             content += '</table>';
             content +='</div>';
         
         jQuery('#show-aterial-detail').html(content);
         jQuery('.sp-wrap').smoothproducts();
-        jQuery("#detail-modal .modal-title").html("Detail " + detail.material_name );	
+        jQuery("#detail-modal .modal-title").html(no_document + " - " + detail.material_name );	
         jQuery("#detail-modal").modal({backdrop:'static', keyboard:false});			
         jQuery("#detail-modal").modal("show");	
         jQuery('.loading-event').fadeOut()	

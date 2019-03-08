@@ -361,7 +361,7 @@ class TrMaterialController extends Controller
     {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => 'tr_files/' . $no_document
+            'method' => 'tr_files/' . str_replace('/','_', $no_document)
         ));
         $data = $service;
         if ($data->status === "failed") {

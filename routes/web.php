@@ -145,6 +145,18 @@ Route::get( '/mappingplant/edit/', 'MappingPlantController@show');
 Route::post( '/mappingplant/inactive', 'MappingPlantController@inactive');
 Route::get( 'grid-mappingplant', ['as' => 'get.mappingplant_grid', 'uses' => 'MappingPlantController@dataGrid']);
 
+Route::resource('/outstanding', 'OutstandingController');
+Route::post('/outstanding/post', 'OutstandingController@store');
+Route::get('/outstanding/edit/', 'OutstandingController@show');
+Route::post('/outstanding/inactive', 'OutstandingController@inactive');
+Route::get('grid-outstanding', ['as' => 'get.outstanding_grid', 'uses' => 'OutstandingController@dataGrid']);
+
+Route::resource('/verifikasi', 'VerifikasiController');
+Route::post('/verifikasi/post', 'VerifikasiController@store');
+Route::get('/verifikasi/edit/', 'VerifikasiController@show');
+Route::post('/verifikasi/inactive', 'VerifikasiController@inactive');
+Route::get('grid-verifikasi', ['as' => 'get.verifikasi_grid', 'uses' => 'VerifikasiController@dataGrid']);
+
 Route::resource('/matrixapproval', 'MatrixApprovalController');
 Route::post( '/matrixapproval/post', 'MatrixApprovalController@store');
 Route::get( '/matrixapproval/edit/', 'MatrixApprovalController@show');

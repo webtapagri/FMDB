@@ -20,7 +20,7 @@ class MaterialUserController extends Controller
         if (empty(Session::get('authenticated')))
             return redirect('/login');
         
-            if (AccessRight::granted() == false)
+        if (AccessRight::granted() == false)
             return response(view('errors.403'), 403);;
 
         $access = AccessRight::access();    
@@ -82,7 +82,7 @@ class MaterialUserController extends Controller
 
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
+            'method' => "tr_materials/".(!empty($_REQUEST['search']) ? str_replace('/','_', $_REQUEST['search']) : '')
         ));
         $data = $service;
 
@@ -90,13 +90,11 @@ class MaterialUserController extends Controller
     }
 
     public function get_tm_materials() {
-
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tm_materials/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
+            'method' => "tm_materials/".(!empty($_REQUEST['search']) ? str_replace('/','_', $_REQUEST['search']): '')
         ));
         $data = $service;
-
         return response()->json(array('data' => $data->data));
     }
 
@@ -104,7 +102,7 @@ class MaterialUserController extends Controller
     {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => 'tr_files/' . $no_document
+            'method' => 'tr_files/' . str_replace('/','_', $no_document)
         ));
         $data = $service;
         if ($data->status === "failed") {
@@ -119,7 +117,7 @@ class MaterialUserController extends Controller
         $no_document = $_REQUEST['no_document'];
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => 'tr_files/' . $no_document
+            'method' => 'tr_files/' . str_replace('/','_', $no_document)
         ));
         $res = $service;
         $arr = array();
@@ -127,7 +125,6 @@ class MaterialUserController extends Controller
         if(count($res->data)>0) {
             $arr = $res->data;
         }
-        
         return response()->json(array('data'=>$arr));
     }
 
@@ -180,7 +177,7 @@ class MaterialUserController extends Controller
     public function store(Request $request)
     {
         try {
-            $no_document = rand(1, 1000000);
+            $no_document = "19.03/TAP-PPIC/00003";
             $param = array(
                 "no_document" => $no_document,
                 "industri_sector" => $request->industry_sector,
@@ -275,8 +272,6 @@ class MaterialUserController extends Controller
             return response()->json(['status' => false, "message" => $e->getMessage()]);
        }
     }  
-
-
     
     public function get_uom()
     {
