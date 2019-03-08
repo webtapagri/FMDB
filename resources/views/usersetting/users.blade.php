@@ -69,7 +69,7 @@
                         <div class="col-xs-12">
                             <label class="control-label" for="name">Area Code</label> 
                             <select class="form-control"  name='area_code[]' id="area_code" multiple="multiple" maxlength="200" required="reqreuid">
-                                <option></option>
+
                             </select>
                         </div>
                     </div>	 
@@ -108,7 +108,7 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        var content = '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide') }}" title="edit data ' + row.id + '" onClick="edit(' + row.id + ')"><i class="fa fa-pencil"></i></button>';
+                        var content = '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide') }}" title="edit data ' + row.mat_group + '" onClick="edit(' + row.id + ')"><i class="fa fa-pencil"></i></button>';
                             content += '<button class="btn btn-flat btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide') }} ' + (row.fl_active == 1 ? '' : 'hide') + '" style="margin-left:5px" onClick="inactive(' + row.id + ')"><i class="fa fa-trash"></i></button>';
                             content += '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-inactivated {{ (isset($access['DELETE']) ? '':'hide') }} ' + (row.fl_active == 0 ? '': 'hide') + '" style="margin-left:5px"  onClick="active(' + row.id + ')"><i class="fa fa-check"></i></button>';
                         

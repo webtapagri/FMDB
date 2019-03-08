@@ -75,7 +75,6 @@ class MaterialUserController extends Controller
         ));
 
         $data = $service;
-
         return response()->json(array('data' => $data->data));
     }
     
@@ -222,6 +221,7 @@ class MaterialUserController extends Controller
                 "remarks" => $request->remarks,
                 "price_estimate" => $request->price_estimate
             );
+
             $service = API::exec(array(
                 'request' => 'POST',
                 'method' => 'tr_materials',
@@ -275,6 +275,8 @@ class MaterialUserController extends Controller
             return response()->json(['status' => false, "message" => $e->getMessage()]);
        }
     }  
+
+
     
     public function get_uom()
     {
@@ -569,7 +571,4 @@ class MaterialUserController extends Controller
         }
         return response()->json(array('data' => $arr));
     }
-
-
-
 }

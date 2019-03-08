@@ -33,7 +33,7 @@ Route::post('/groupmaterials/post', 'GroupMaterialController@store');
 Route::get('/groupmaterials/edit/', 'GroupMaterialController@show');
 Route::post('/groupmaterials/inactive', 'GroupMaterialController@inactive'); 
 Route::post('/groupmaterials/active', 'GroupMaterialController@active');
-Route::get('get-data-group-material', ['as' => 'get.group_material', 'uses' => 'GroupMaterialController@getData']);
+Route::get( 'grid-groupmaterials', ['as' => 'get.groupmaterials_grid', 'uses' => 'GroupMaterialController@dataGrid']);
 Route::get('get-api-group-material', ['as' => 'get.get_group_material', 'uses' => 'GroupMaterialController@get_material_group']);
 
 /* MATERIAL */

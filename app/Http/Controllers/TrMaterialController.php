@@ -155,8 +155,6 @@ class TrMaterialController extends Controller
 
     public function store(Request $request)
     {
-
-  
         $param = array(
             "part_number" => $request->part_no,
             "spec" => $request->specification,

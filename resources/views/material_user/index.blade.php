@@ -117,7 +117,7 @@
                 </div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default btn-close-group-material-modal" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-flat btn-default btn-close-group-material-modal" data-dismiss="modal">Close</button>
 			</div>
 		</div>
     </div>
@@ -196,11 +196,11 @@
             },
             { 
                 "render": function (data, type, row) {
-                    var key = row.no_document;
+                    var key = (row.src === '0' ? row.no_material:row.no_document);
 
                     var content  = '<div class="row" style="padding-left:30px;padding-right:30px;padding-bottom:30px">';
                         content += '<div class="row">';
-                        content += '    <div class="col-md-4"><b>Material Number</b></div>';
+                        content += '    <div class="col-md-4"><b>' + (row.src === '0' ? 'Material No': 'Document No') + '</b></div>';
                         content += '    <div class="col-md-8">' + row.no_material + '</div>'
                         content += '</div>';
                         content += '<div class="row">';
@@ -267,45 +267,49 @@
                 content += '<a href="' + val.file_image + '"><img src="' + val.file_image + '" alt=""></a>';
             });
             content +='</div></div>';
-           var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material') !!}?search=' + no_document)));
+            if(status === '0') {
+                var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tm_material') !!}?search=' + no_document)));
+            }else{
+                var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material') !!}?search=' + no_document)));
+            }
 
             content +='<div class="col-md-6">';
             content += '<table class="table table-condensed">';
             content += '<tr>';
-            content += '    <td widh="180px"><b>Material Number</b></td>';
-            content += '    <td>' + detail[0].no_material + '</td>'
+            content += '    <td widh="180px"><b>' + (status === '0' ? 'Material No': 'Document No') + '</b></td>';
+            content += '    <td>' + detail.no_material + '</td>'
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Nama Material</b></td>';
-            content += '    <td>' + detail[0].material_name + '</td>';
+            content += '    <td>' + detail.material_name + '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Merk</b></td>';
-            content += '    <td>' + (detail[0].merk ? detail[0].merk :'')+ '</td>';
+            content += '    <td>' + (detail.merk ? detail.merk :'')+ '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Part number</b></td>';
-            content += '    <td>' + (detail[0].part_number ? detail[0].part_number :'')+ '</td>';
+            content += '    <td>' + (detail.part_number ? detail.part_number :'')+ '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Satuan</b></td>';
-            content += '    <td>' + detail[0].weight_unit + '</td>';
+            content += '    <td>' + detail.weight_unit + '</td>';
             content += '</td>';
             content += '<tr>';
             content += '    <td><b>Keterangan:</b></td>';
-            content += '    <td>' + (detail[0].remarks ? detail[0].remarks:'') + '</td>';
+            content += '    <td>' + (detail.remarks ? detail.remarks:'') + '</td>';
             content += '</tr>';
             if(status === '1') {
-                 content += '<tr>';
+                content += '<tr>';
                 content += '    <td colspan="2"><span class="label label-warning">Requested</span></td>';
                 content += '</tr>';
             } else {
                 content += '<tr>';
-                if(row.src === '0') {
-                  var  content = '<button OnClick="extend(this)" data-no_document="' + (row.no_document ? row.no_document:row.no_material) + '" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</button>';
+                if(status === '0') {
+                    content += '<button OnClick="extend(this)" data-no_document="' + no_document + '" class="btn btn-flat btn-sm btn-default btn-flat btn-block">Extend</button>';
                     content +='<span href="#" class="btn btn-flat btn-sm btn-default btn-flat btn-block ">Read to PO</span>';
                 }else{
-                    var content = '<span class="label label-warning">Requested</span>';
+                    content += '<span class="label label-warning">Requested</span>';
                 }
                 content += '</tr>';
             }   
@@ -315,7 +319,7 @@
         
         jQuery('#show-aterial-detail').html(content);
         jQuery('.sp-wrap').smoothproducts();
-        jQuery("#detail-modal .modal-title").html("Detail " + detail[0].material_name );	
+        jQuery("#detail-modal .modal-title").html("Detail " + detail.material_name );	
         jQuery("#detail-modal").modal({backdrop:'static', keyboard:false});			
         jQuery("#detail-modal").modal("show");	
         jQuery('.loading-event').fadeOut()	

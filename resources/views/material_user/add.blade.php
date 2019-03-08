@@ -403,13 +403,13 @@ label {
                     if(result.status){
                         notify({
                             type:'success',
-                            message:data.message
+                            message:result.message
                         });
                         window.location.href = "{{ url('material_user') }}";
                     }else{
                         notify({
                             type:'warning',
-                            message:data.message
+                            message:result.message
                         });
                     } 
 				},

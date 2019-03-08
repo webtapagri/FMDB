@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\GroupMaterial;
-use function GuzzleHttp\json_encode;
 use Session;
+use API;
+use AccessRight;
+
 class GroupMaterialController extends Controller
 {
 
@@ -15,77 +17,54 @@ class GroupMaterialController extends Controller
         if (empty(Session::get('authenticated')))
             return redirect('/login');
 
-        return view('groupmaterials.index');
+        $access = AccessRight::access();
+        return view('groupmaterials.index')->with(compact('access'));
     }
 
-    public function getData() {
-        //return Datatables::of(GroupMaterial::query())->make(true);
-        $data = DB::table('group_materials')->select('id','code', 'latest_code', 'name', 'description', 'status')->get();
-        $json = '{"data":[';
-        $no = 1;
-        foreach ($data as $row) {
-            if ($no > 1) {
-                $json .= ",";
-            }
+    public function dataGrid() {
 
-            if ($row->status == 1) {
-                $status = '<span class="badge bg-grey status" data-status="' . $row->status . '">N</span>';
-            } else {
-                $status = '<span class="badge bg-green status" data-status="' . $row->status . '">Y</span>';
-            }
- 
-            $arr = array(
-                "id" => $row->id,
-                "no" => $no,
-                "code" => $row->code,
-                "description" => $row->description,
-                "name" => $row->name,
-                "latest_code" => $row->latest_code,
-                "status" => $status,
-                "action" => '
-                    <button class="btn btn-flat btn-xs btn-success btn-action btn-edit" title="edit data '.$row->name. '" onClick="edit(' . $row->id . ')"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-flat btn-xs btn-danger btn-action btn-activated ' . ($row->status == 0 ? '' : 'hide') . '" onClick="inactive('.$row->id. ')"><i class="fa fa-trash"></i></button>
-                    <button class="btn btn-flat btn-xs btn-success btn-action btn-inactivated '.($row->status == 1 ? '': 'hide'). '" onClick="active(' . $row->id . ')"><i class="fa fa-check"></i></button>
-                '
-            );
-
-            $json .= json_encode($arr);
-            $no++;
-        }
-        $json .= ']}';
-        echo $json;
+        $service = API::exec(array(
+            'request' => 'GET',
+            'method' => "tm_set_material"
+        ));
+        $data = $service;
+        return response()->json(array('data' => $data->data));
     }
 
     public function store(Request $request)
     {
-        
-       try {
-            if ($request->edit_id) {
-                $group_material = GroupMaterial::find($request->edit_id);
+        try {
+            $param["mat_group"] = trim($request->material_group);
+            $param["description"] = trim( $request->description);
+            $param["latest_code"] = trim($request->latest_code);
+            $param["status"] = 1;
+
+            if($request->edit_id) {
+                $data = API::exec(array(
+                    'request' => 'PUT',
+                    'method' => 'tm_set_material/' . $request->edit_id,
+                    'data' => $param
+                ));
             } else {
-                $group_material = new GroupMaterial();
+                $data = API::exec(array(
+                    'request' => 'POST',
+                    'method' => 'tm_set_material',
+                    'data' => $param
+                ));
             }
 
-            $group_material->code = $request->code;
-            $group_material->latest_code = $request->latest_code;
-            $group_material->name = $request->name;
-            $group_material->description = $request->description;
-            $group_material->status = 0;
-
-            $group_material->save();
-
-            return response()->json(['status' => true, "message" => 'Data is successfully ' . ($request->edit_id ? 'updated' : 'added')]);
+            $res = $data;
+            if ($res->code == '201') {
+                return response()->json(['status' => true, "message" => 'Data is successfully ' . ($request->edit_id ? 'updated' : 'added')]);
+             } else {
+                return response()->json(['status' => false, "message" => $res->message]);
+            }
+            
        } catch (\Exception $e) {
             return response()->json(['status' => false, "message" => $e->getMessage()]);
        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\GroupMaterial  $groupMaterial
-     * @return \Illuminate\Http\Response
-     */
     public function show(GroupMaterial $groupMaterial)
     {
         $param = $_REQUEST;
@@ -98,18 +77,48 @@ class GroupMaterialController extends Controller
         echo $json;
     }
 
-    public function inactive(Request $request) {
-        $group_material = GroupMaterial::find($request->id);
-        $group_material->status = 1;
-        $group_material->save();
-        return response()->json(['status' => true, "message" => 'Data is successfully inactived']);
+    public function inactive(Request $request)
+    {
+        try {
+            $param["updated_by"] = Session::get('user');
+            $data = API::exec(array(
+                'request' => 'ACTIVE',
+                'method' => 'tm_set_material/' . $request->id . '/0',
+                'data' => $param
+            ));
+
+            $res = $data;
+
+            if ($res->code == '201') {
+                return response()->json(['status' => true, "message" => 'Data is successfully inactived']);;
+            } else {
+                return response()->json(['status' => false, "message" => $res->message]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, "message" => $e->getMessage()]);
+        }
     }
-   
-    public function active(Request $request) {
-        $group_material = GroupMaterial::find($request->id);
-        $group_material->status = 0;
-        $group_material->save();
-        return response()->json(['status' => true, "message" => 'Data is successfully actived']);
+
+    public function active(Request $request)
+    {
+        try {
+            $param["updated_by"] = Session::get('user');
+            $data = API::exec(array(
+                'request' => 'ACTIVE',
+                'method' => 'tm_set_material/' . $request->id . '/1',
+                'data' => $param
+            ));
+
+            $res = $data;
+
+            if ($res->code == '201') {
+                return response()->json(['status' => true, "message" => 'Data is successfully inactived']);;
+            } else {
+                return response()->json(['status' => false, "message" => $res->message]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, "message" => $e->getMessage()]);
+        }
     }
 
     public function get_material_group()
