@@ -176,7 +176,7 @@
                             if(row.image) {
                                 var key = row.no_material;
         
-                                var content = '<img src="' + row.image + '" class="img-responsive select-img" title="show detail ' + row.material_name + '"  OnClick="showDetail(\'' + key + '\',\'' + row.src + '\')">';
+                                var content = '<img src="' + row.image + '" class="img-responsive select-img" title="show detail ' + row.material_name + '"  OnClick="showDetail(\'' + key + '\')">';
                             } else{
                                 var content = '';
                             }    
@@ -194,7 +194,7 @@
                                 content += '</div>';
                                 content += '<div class="row">';
                                 content += '    <div class="col-md-4"><b>Nama Material</b></div>';
-                                content += '    <div class="col-md-8"><a href="#" onClick="showDetail(\'' + key + '\',\'' + row.src + '\')" title="show detail ' + row.material_name + '">' + row.material_name + '</a></div>';
+                                content += '    <div class="col-md-8"><a href="#" onClick="showDetail(\'' + key + '\')" title="show detail ' + row.material_name + '">' + row.material_name + '</a></div>';
                                 content += '</div>';
                                 content += '<div class="row">';
                                 content += '    <div class="col-md-4"><b>Merk</b></div>';
@@ -293,12 +293,14 @@
         return binArray;
     }
 
-    function showDetail(no_material, status) {
+    function showDetail(no_material) {
         jQuery('.loading-event').fadeIn();
         var content = '<div class="col-md-6">';
             content += '<div class="sp-wrap text-center">';
 
-            var img_list = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_image_detail') !!}?no_material=' + no_material)));    
+            var img_list = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_image_detail') !!}?no_document=' + no_material))); 
+            //var img_list = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_image_detail') !!}?no_document=' + no_document))); 
+
             jQuery.each(img_list, function(key, val){
                 content += '<a href="' + val.file_image + '"><img src="' + val.file_image + '" alt=""></a>';
             });
@@ -309,37 +311,37 @@
             content += '<table class="table table-condensed">';
             content += '<tr>';
             content += '    <td widh="180px"><b>Material Number</b></td>';
-            content += '    <td>' + detail[0].no_material + '</td>'
+            content += '    <td>' + detail.no_material + '</td>'
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Nama Material</b></td>';
-            content += '    <td>' + detail[0].material_name + '</td>';
+            content += '    <td>' + detail.material_name + '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Merk</b></td>';
-            content += '    <td>' + (detail[0].merk ? detail[0].merk :'')+ '</td>';
+            content += '    <td>' + (detail.merk ? detail.merk :'')+ '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Part number</b></td>';
-            content += '    <td>' + (detail[0].part_number ? detail[0].part_number :'')+ '</td>';
+            content += '    <td>' + (detail.part_number ? detail.part_number :'')+ '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Satuan</b></td>';
-            content += '    <td>' + detail[0].weight_unit + '</td>';
+            content += '    <td>' + detail.weight_unit + '</td>';
             content += '</td>';
             content += '<tr>';
             content += '    <td><b>Keterangan:</b></td>';
-            content += '    <td>' + (detail[0].remarks ? detail[0].remarks:'') + '</td>';
+            content += '    <td>' + (detail.remarks ? detail.remarks:'') + '</td>';
             content += '</tr>';
             content += '<tr>';
-            content += '    <td colspan="2"><button OnClick="edit(this)" data-no_document="' + detail[0].no_material + '" class="btn btn-flat btn-success btn-flat btn-block"><i class="fa fa-pencil"></i> Edit</button></td>';
+            content += '    <td colspan="2"><button OnClick="edit(this)" data-no_document="' + detail.no_material + '" class="btn btn-flat btn-success btn-flat btn-block"><i class="fa fa-pencil"></i> Edit</button></td>';
             content += '</tr>';
             content += '</table>';
             content +='</div>';
         
         jQuery('#show-aterial-detail').html(content);
         jQuery('.sp-wrap').smoothproducts();
-        jQuery("#detail-modal .modal-title").html("Detail " + detail[0].material_name );	
+        jQuery("#detail-modal .modal-title").html("Detail " + detail.material_name );	
         jQuery("#detail-modal").modal({backdrop:'static', keyboard:false});			
         jQuery("#detail-modal").modal("show");	
         jQuery('.loading-event').fadeOut()	
