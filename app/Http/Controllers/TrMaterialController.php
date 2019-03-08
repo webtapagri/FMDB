@@ -140,7 +140,7 @@ class TrMaterialController extends Controller
         $slim_data = array();
         foreach($result   as $key => $value) {
 
-              if (preg_match('/'.str_replace(' ','', $_REQUEST['param']).'/i', str_replace(' ','', $value))) {
+              if (preg_match('/'.str_replace(' ','', $_REQUEST['search']).'/i', str_replace(' ','', $value))) {
                 $slim_data = array_merge($slim_data, array($value));
             }
         }
