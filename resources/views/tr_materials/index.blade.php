@@ -121,9 +121,19 @@
     var imgFiles = [];    
 
     jQuery(document).ready(function() {
-        var word = jQuery.parseJSON(JSON.stringify(dataJson('{!! url('tr_material_auto_sugest') !!}')));
+      /*   var word = jQuery.parseJSON(JSON.stringify(dataJson('{!! url('tr_material_auto_sugest') !!}')));
         jQuery("#search_material").autocomplete({
             source: word
+        }); */
+
+        jQuery("#search_material").autocomplete({
+            source: function (request, response) {
+                if(jQuery('#search_material').val()) {
+                    var search = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material_auto_sugest') !!}?search=' + jQuery('#search_material').val())));
+                    response (search)
+                }
+            },
+            minLength: 3
         });
 
         jQuery('#search_material').on('change', function() {
