@@ -112,7 +112,7 @@ class TmMaterialController extends Controller
         $result = array();
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => 'tm_materials_edit_search/' . urlencode($_REQUEST['param'])
+            'method' => 'tm_materials_edit_search/' . (!empty($_REQUEST['param']) ? $_REQUEST['param'] : '')
         ));
 
         $res = $service;
@@ -141,7 +141,7 @@ class TmMaterialController extends Controller
         $slim_data = array();
         foreach($result  as $key => $value) {
 
-            if (preg_match('/'.$_REQUEST ['param'].'/i', $value)) {
+            if (preg_match('/'.str_replace(' ','', $_REQUEST['param']).'/i', str_replace(' ','', $value))) {
                 $slim_data = array_merge($slim_data, array($value));
             }
         }
