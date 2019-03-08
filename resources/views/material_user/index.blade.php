@@ -201,7 +201,7 @@
             {  
                 "render": function (data, type, row) {
                     if(row.file_image) {
-                        var key = row.no_document;
+                        var key = (row.src === '0' ? row.no_material:row.no_document);
   
                         var content = '<img src="' + row.file_image + '" class="img-responsive select-img" title="show detail ' + row.material_name + '"  OnClick="showDetail(\'' + key + '\',\'' + row.src + '\')">';
                     } else{

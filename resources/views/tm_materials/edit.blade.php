@@ -337,7 +337,7 @@ label {
     var imgFiles = [];    
     jQuery(document).ready(function() {
         jQuery(".btn-cancel").on('click', function() {
-            window.location.href = "{{ url('material_user') }}";
+            window.location.href = "{{ url('tm_materials') }}";
         });
 
         SelectGroup('{{ $material->mat_group }}');
