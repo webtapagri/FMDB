@@ -23,7 +23,7 @@ class HomeController extends Controller
     {
         if(empty(Session::get('authenticated')))
             return redirect('/login');
- 
+    
 
         return view('home');
     }

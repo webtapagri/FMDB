@@ -58,7 +58,8 @@ class LDAPController extends Controller
             if($profile) {
                 Session::put('name', $profile[0]->nama);
                 Session::put('role', $profile[0]->role_name);
-                Session::put('role_id', $profile[0]->role_name);
+                Session::put('role_id', $profile[0]->role_id);
+                Session::put('role_name', $profile[0]->role_name);
             } else {
                 Session::put('name', $username);
                 Session::put('role', 'GUEST');

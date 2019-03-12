@@ -58,6 +58,7 @@ Route::resource( 'materialrequest', 'MaterialRequestController');
 //Route::resource( 'materialrequest', 'MaterialRequestController@search');
 Route::get('/material_extend/{id}', 'MaterialRequestController@extend')->name('extend');
 Route::get('/materialrequest/show', 'MaterialController@show');
+Route::get( 'get-editmaterialrequest', ['as' => 'get.editmaterialrequest', 'uses' => 'EditMaterialRequestController@get_editmaterial']);
 
 //Route::get('/materialrequest/search', 'MaterialController@search');
 Route::post('/materialrequest/post', 'MaterialRequestController@store');
@@ -87,7 +88,6 @@ Route::get('get-profit_center', ['as' => 'get.profit_center', 'uses' => 'Materia
 Route::get('get-mrp_type', ['as' => 'get.mrp_type', 'uses' => 'MaterialRequestController@get_mrp_type']);
 Route::get('get-material_user_grid', ['as' => 'get.material_user_grid', 'uses' => 'MaterialRequestController@get_material_user_grid']);
 Route::get('get-material_user_grid_search', ['as' => 'get.material_user_grid_search', 'uses' => 'MaterialRequestController@get_material_user_grid_search']);
-Route::get('get-tr_material', ['as' => 'get.tr_material', 'uses' => 'MaterialRequestController@get_editmaterial']);
 Route::get('get-tm_material', ['as' => 'get.tm_material', 'uses' => 'MaterialRequestController@get_tm_materials']);
 Route::get('get-sle', ['as' => 'get.sle', 'uses' => 'MaterialRequestController@get_sle']);
 Route::get('get-auto_sugest', ['as' => 'get.auto_sugest', 'uses' => 'MaterialRequestController@get_auto_sugest']);

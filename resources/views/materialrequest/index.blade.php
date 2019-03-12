@@ -255,7 +255,7 @@
                 content += '<a href="' + val.file_image + '"><img src="' + val.file_image + '" alt=""></a>';
             });
             content +='</div></div>';
-           var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material') !!}?search=' + no_document)));
+           var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.editmaterialrequest') !!}?search=' + no_document)));
 
             content +='<div class="col-md-6">';
             content += '<table class="table table-condensed">';

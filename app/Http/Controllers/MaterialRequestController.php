@@ -177,7 +177,7 @@ class MaterialRequestController extends Controller
     public function store(Request $request)
     {
         try {
-            $no_document = "19.03/TAP-PPIC/00003";
+            $no_document = rand(1,10000000000);
             $param = array(
                 "no_document" => $no_document,
                 "industri_sector" => $request->industry_sector,
@@ -216,12 +216,14 @@ class MaterialRequestController extends Controller
                 "locat" => $request->location,
                 "material_type" => $request->material_type,
                 "remarks" => $request->remarks,
-                "price_estimate" => $request->price_estimate
+                "price_estimate" => $request->price_estimate,
+                "user_id" => Session::get('user_id'),
+                "role_id" => Session::get('role_id')
             );
 
             $service = API::exec(array(
                 'request' => 'POST',
-                'method' => 'tr_materials',
+                'method' => 'tr_materials_insert',
                 'data'=> $param
              ));
 

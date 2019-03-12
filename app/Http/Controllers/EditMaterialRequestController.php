@@ -29,7 +29,7 @@ class EditMaterialRequestController extends Controller
 
         $access = AccessRight::access();        
 
-        return view('materialrequest/index');
+        return view('materialrequest/index')->with(\compact('access'));
     }
 
     public function grid()
