@@ -14,7 +14,7 @@ use Session;
 use function GuzzleHttp\json_encode;
 use AccessRight;
 
-class MaterialUserController extends Controller
+class MaterialRequestController extends Controller
 {
     public function index() {
         if (empty(Session::get('authenticated')))
@@ -24,7 +24,7 @@ class MaterialUserController extends Controller
             return response(view('errors.403'), 403);;
 
         $access = AccessRight::access();    
-        return view('material_user/index')->with(compact('access'));
+        return view('materialrequest/add')->with(compact('access'));
     }
 
     public function create() {
@@ -33,14 +33,14 @@ class MaterialUserController extends Controller
 
         $access = AccessRight::access();    
 
-        return view('material_user/add');
+        return view('materialrequest/add');
     }
   
     public function extend($document_no) {
         if (empty(Session::get('authenticated')))
             return redirect('/login');
             
-        return view('material_user/extend')->with('document_no', $document_no);
+        return view('materialrequest/extend')->with('document_no', $document_no);
     }
 
     public function detail() {
@@ -55,7 +55,7 @@ class MaterialUserController extends Controller
             $arr = $res->data;
         }    
   
-        return View('material_user/detail')->with('data', $arr);
+        return View('materialrequest/detail')->with('data', $arr);
     }
 
     public function get_material_user_grid() {
@@ -529,27 +529,16 @@ class MaterialUserController extends Controller
 
             $data = $service;
             foreach ($data->data as $row) {
-                $arr[] = array(
-                    "id" => $row->LGOR,
-                    "text" => $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE)
-                );
+                foreach($row as $detail) {
+                    $arr[] = array(
+                        "id" => $detail->LGORT,
+                        "text" => $detail->LGORT . " - " . str_replace("_", " ", $detail->LGOBE)
+                    );
+                }
             }
             return response()->json(array('data' => $arr));
       } catch (\Throwable $e) {
-            $service = API::exec(array(
-                'request' => 'GET',
-                'host' => 'ldap',
-                'method' => "store_loc/all"
-            ));
-
-            $data = $service;
-            foreach ($data->data as $row) {
-                $arr[] = array(
-                    "id" => $row->LGOR,
-                    "text" => $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE)
-                );
-            }
-            return response()->json(array('data' => $arr));
+            return response()->json(array('data' => array()));  
       }
     }
 

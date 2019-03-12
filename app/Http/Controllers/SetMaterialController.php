@@ -9,7 +9,7 @@ use Session;
 use API;
 use AccessRight;
 
-class GroupMaterialController extends Controller
+class SetMaterialController extends Controller
 {
 
     public function index()
@@ -18,7 +18,7 @@ class GroupMaterialController extends Controller
             return redirect('/login');
 
         $access = AccessRight::access();
-        return view('groupmaterials.index')->with(compact('access'));
+        return view('setmaterial.index')->with(compact('access'));
     }
 
     public function dataGrid() {
@@ -65,16 +65,16 @@ class GroupMaterialController extends Controller
        }
     }
 
-    public function show(GroupMaterial $groupMaterial)
+    public function show()
     {
         $param = $_REQUEST;
-        $json = '{"data":[';
-        $data = DB::table('group_materials')->where('id', $param["id"] )->get();
-        foreach($data as $row) {
-            $json .= json_encode($row);
-        }    
-        $json .= ']}';    
-        echo $json;
+        $service = API::exec(array(
+            'request' => 'GET',
+            'method' => "tm_set_material/" . $param["id"]
+        ));
+        $data = $service;
+
+        return response()->json(array('data' => $data->data));
     }
 
     public function inactive(Request $request)

@@ -94,28 +94,28 @@
         jQuery('#data-table').DataTable({
             ajax: '{!! route("get.mappingplant_grid") !!}',
             columns: [{
-                    data: 'plant',
-                    name: 'plant'
+                    data: 'plant_name',
+                    name: 'plant_name'
                 },
                 {
-                    data: 'locat',
-                    name: 'locat'
+                    data: 'locat_name',
+                    name: 'locat_name'
                 },
                 {
-                    data: 'store_loc',
-                    name: 'store_loc'
+                    data: 'store_loc_name',
+                    name: 'store_loc_name'
                 },
                 {
-                    data: 'sales_org',
-                    name: 'sales_org'
+                    data: 'sales_org_name',
+                    name: 'sales_org_name'
                 },
                 {
-                    data: 'profit_center',
-                    name: 'profit_center'
+                    data: 'profit_center_name',
+                    name: 'profit_center_name'
                 },
                 {
                     "render": function(data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide ') }}" title="edit data ' + row.plant + '" onClick="edit(\'' + row.plant  +'\')"><i class="fa fa-pencil"></i></button>';
+                        var content = '<button class="btn btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide ') }}" title="edit data ' + row.plant_name + '" onClick="edit(\'' + row.plant  +'\')"><i class="fa fa-pencil"></i></button>';
                         content += '<button class="btn btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide ') }}" style="margin-left:5px"  onClick="inactive(\'' + row.plant  +'\')"><i class="fa fa-trash"></i></button>';
                         return content;
                     }
@@ -151,7 +151,7 @@
             placeholder: ' ',
             allowClear: true
         }).on('change', function() {
-              var store_location = dataJson("{{ url('material_user/store_location/?id=') }}"+jQuery(this).val());
+              var store_location = dataJson("{{ url('materialrequest/store_location/?id=') }}"+jQuery(this).val());
             jQuery('#store_loc').select2({
                 data: store_location,
                 width:'100%',

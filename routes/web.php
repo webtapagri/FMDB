@@ -28,13 +28,14 @@ Route::get('/profile', 'ProfileController@index');
 Route::post('/ldaplogin', 'LDAPController@login');
 Route::post('/ldaplogout', 'LDAPController@logout');
 
-Route::resource('/groupmaterials', 'GroupMaterialController');
-Route::post('/groupmaterials/post', 'GroupMaterialController@store');
-Route::get('/groupmaterials/edit/', 'GroupMaterialController@show');
-Route::post('/groupmaterials/inactive', 'GroupMaterialController@inactive'); 
-Route::post('/groupmaterials/active', 'GroupMaterialController@active');
-Route::get( 'grid-groupmaterials', ['as' => 'get.groupmaterials_grid', 'uses' => 'GroupMaterialController@dataGrid']);
-Route::get('get-api-group-material', ['as' => 'get.get_group_material', 'uses' => 'GroupMaterialController@get_material_group']);
+/* MATERIAL SET */
+Route::resource('/setmaterial', 'SetMaterialController');
+Route::post('/setmaterial/post', 'SetMaterialController@store');
+Route::get('/setmaterial/edit/', 'SetMaterialController@show');
+Route::post('/setmaterial/inactive', 'SetMaterialController@inactive');
+Route::post('/setmaterial/active', 'SetMaterialController@active');
+Route::get('grid-setmaterial', ['as' => 'get.setmaterial_grid', 'uses' => 'SetMaterialController@dataGrid']);
+Route::get('get-api-group-material', ['as' => 'get.get_group_material', 'uses' => 'SetMaterialController@get_material_group']);
 
 /* MATERIAL */
 Route::resource('materials', 'MaterialController');
@@ -46,54 +47,64 @@ Route::get('data-table-material', ['as' => 'get.material', 'uses' => 'MaterialCo
 Route::get('sap_group_material', ['as' => 'get.sap_group_material', 'uses' => 'MaterialController@sap_group_material']);
 Route::get('data-table-group-material', ['as' => 'get.data_table_group_material', 'uses' => 'MaterialController@groupMaterialGroup']);
 
-/* MATERIAL USER */
-Route::resource('material_user', 'MaterialUserController');
-Route::get('/material_extend/{id}', 'MaterialUserController@extend')->name('extend');
-Route::get('/material_user/show', 'MaterialController@show');
-Route::get('/material_user/searchs', 'MaterialController@search');
-Route::post('/material_user/post', 'MaterialUserController@store');
-Route::put('/material_user/store_location/{id}', 'MaterialUserController@store_location');
-Route::get('/material_user/getimage/', 'MaterialUserController@get_image');
-Route::get('get-image-detail', ['as' => 'get.get_image_detail', 'uses' => 'MaterialUserController@get_image']);
-Route::get('material-user-detail', ['as' => 'get.material_user_detail', 'uses' => 'MaterialUserController@detail']);
+/* MASTER MATERIAL */
+Route::resource('mastermaterial', 'MasterMaterialController');
+Route::get('get-mastermaterial_grid', ['as' => 'get.mastermaterial_grid', 'uses' => 'MasterMaterialController@get_material_user_grid']);
+Route::get('get-mastermaterial_grid_search', ['as' => 'get.mastermaterial_grid_search', 'uses' => 'MasterMaterialController@get_material_user_grid_search']);
 
-Route::get('group-material-list', ['as' => 'get.group_material_list', 'uses' => 'MaterialUserController@groupMaterialGroup']);
-Route::get('get-uom', ['as' => 'get.uom', 'uses' => 'MaterialUserController@get_uom']);
-Route::get('get-plant', ['as' => 'get.plant', 'uses' => 'MaterialUserController@get_plant']);
-Route::get('get-div', ['as' => 'get.div', 'uses' => 'MaterialUserController@get_div']);
-Route::get('get-location', ['as' => 'get.location', 'uses' => 'MaterialUserController@get_location']);
-Route::get('get-mrp_controller', ['as' => 'get.mrp_controller', 'uses' => 'MaterialUserController@get_mrp_controller']);
-Route::get('get-valuation_class', ['as' => 'get.valuation_class', 'uses' => 'MaterialUserController@get_valuation_class']);
-Route::get('get-industry_sector', ['as' => 'get.industry_sector', 'uses' => 'MaterialUserController@get_industry_sector']);
-Route::get('get-material_type', ['as' => 'get.material_type', 'uses' => 'MaterialUserController@get_material_type']);
-Route::get('get-sales_org', ['as' => 'get.sales_org', 'uses' => 'MaterialUserController@get_sales_org']);
-Route::get('get-dist_channel', ['as' => 'get.dist_channel', 'uses' => 'MaterialUserController@get_dist_channel']);
-Route::get('get-item_cat', ['as' => 'get.item_cat', 'uses' => 'MaterialUserController@get_item_cat']);
-Route::get('get-tax_classification', ['as' => 'get.tax_classification', 'uses' => 'MaterialUserController@get_tax_classification']);
-Route::get('get-account_assign', ['as' => 'get.account_assign', 'uses' => 'MaterialUserController@get_account_assign']);
-Route::get('get-availability_check', ['as' => 'get.availability_check', 'uses' => 'MaterialUserController@get_availability_check']);
-Route::get('get-transportation_group', ['as' => 'get.transportation_group', 'uses' => 'MaterialUserController@get_transportation_group']);
-Route::get('get-loading_group', ['as' => 'get.loading_group', 'uses' => 'MaterialUserController@get_loading_group']);
-Route::get('get-profit_center', ['as' => 'get.profit_center', 'uses' => 'MaterialUserController@get_profit_center']);
-Route::get('get-mrp_type', ['as' => 'get.mrp_type', 'uses' => 'MaterialUserController@get_mrp_type']);
-Route::get('get-material_user_grid', ['as' => 'get.material_user_grid', 'uses' => 'MaterialUserController@get_material_user_grid']);
-Route::get('get-material_user_grid_search', ['as' => 'get.material_user_grid_search', 'uses' => 'MaterialUserController@get_material_user_grid_search']);
-Route::get('get-tr_material', ['as' => 'get.tr_material', 'uses' => 'MaterialUserController@get_tr_materials']);
-Route::get('get-tm_material', ['as' => 'get.tm_material', 'uses' => 'MaterialUserController@get_tm_materials']);
-Route::get('get-sle', ['as' => 'get.sle', 'uses' => 'MaterialUserController@get_sle']);
-Route::get('get-auto_sugest', ['as' => 'get.auto_sugest', 'uses' => 'MaterialUserController@get_auto_sugest']);
+
+/* MATERIAL REQUEST */
+Route::resource( 'materialrequest', 'MaterialRequestController');
+//Route::resource( 'materialrequest', 'MaterialRequestController@search');
+Route::get('/material_extend/{id}', 'MaterialRequestController@extend')->name('extend');
+Route::get('/materialrequest/show', 'MaterialController@show');
+
+//Route::get('/materialrequest/search', 'MaterialController@search');
+Route::post('/materialrequest/post', 'MaterialRequestController@store');
+Route::put('/materialrequest/store_location/{id}', 'MaterialRequestController@store_location');
+Route::get('/materialrequest/getimage/', 'MaterialRequestController@get_image');
+Route::get('get-image-detail', ['as' => 'get.get_image_detail', 'uses' => 'MaterialRequestController@get_image']);
+Route::get('material-user-detail', ['as' => 'get.material_user_detail', 'uses' => 'MaterialRequestController@detail']);
+
+Route::get('group-material-list', ['as' => 'get.group_material_list', 'uses' => 'MaterialRequestController@groupMaterialGroup']);
+Route::get('get-uom', ['as' => 'get.uom', 'uses' => 'MaterialRequestController@get_uom']);
+Route::get('get-plant', ['as' => 'get.plant', 'uses' => 'MaterialRequestController@get_plant']);
+Route::get('get-div', ['as' => 'get.div', 'uses' => 'MaterialRequestController@get_div']);
+Route::get('get-location', ['as' => 'get.location', 'uses' => 'MaterialRequestController@get_location']);
+Route::get('get-mrp_controller', ['as' => 'get.mrp_controller', 'uses' => 'MaterialRequestController@get_mrp_controller']);
+Route::get('get-valuation_class', ['as' => 'get.valuation_class', 'uses' => 'MaterialRequestController@get_valuation_class']);
+Route::get('get-industry_sector', ['as' => 'get.industry_sector', 'uses' => 'MaterialRequestController@get_industry_sector']);
+Route::get('get-material_type', ['as' => 'get.material_type', 'uses' => 'MaterialRequestController@get_material_type']);
+Route::get('get-sales_org', ['as' => 'get.sales_org', 'uses' => 'MaterialRequestController@get_sales_org']);
+Route::get('get-dist_channel', ['as' => 'get.dist_channel', 'uses' => 'MaterialRequestController@get_dist_channel']);
+Route::get('get-item_cat', ['as' => 'get.item_cat', 'uses' => 'MaterialRequestController@get_item_cat']);
+Route::get('get-tax_classification', ['as' => 'get.tax_classification', 'uses' => 'MaterialRequestController@get_tax_classification']);
+Route::get('get-account_assign', ['as' => 'get.account_assign', 'uses' => 'MaterialRequestController@get_account_assign']);
+Route::get('get-availability_check', ['as' => 'get.availability_check', 'uses' => 'MaterialRequestController@get_availability_check']);
+Route::get('get-transportation_group', ['as' => 'get.transportation_group', 'uses' => 'MaterialRequestController@get_transportation_group']);
+Route::get('get-loading_group', ['as' => 'get.loading_group', 'uses' => 'MaterialRequestController@get_loading_group']);
+Route::get('get-profit_center', ['as' => 'get.profit_center', 'uses' => 'MaterialRequestController@get_profit_center']);
+Route::get('get-mrp_type', ['as' => 'get.mrp_type', 'uses' => 'MaterialRequestController@get_mrp_type']);
+Route::get('get-material_user_grid', ['as' => 'get.material_user_grid', 'uses' => 'MaterialRequestController@get_material_user_grid']);
+Route::get('get-material_user_grid_search', ['as' => 'get.material_user_grid_search', 'uses' => 'MaterialRequestController@get_material_user_grid_search']);
+Route::get('get-tr_material', ['as' => 'get.tr_material', 'uses' => 'MaterialRequestController@get_editmaterial']);
+Route::get('get-tm_material', ['as' => 'get.tm_material', 'uses' => 'MaterialRequestController@get_tm_materials']);
+Route::get('get-sle', ['as' => 'get.sle', 'uses' => 'MaterialRequestController@get_sle']);
+Route::get('get-auto_sugest', ['as' => 'get.auto_sugest', 'uses' => 'MaterialRequestController@get_auto_sugest']);
 
 /* MATERIAL USER EDIT */
-Route::resource('/tr_materials', 'TrMaterialController');
-Route::post('/tr_materials/post', 'TrMaterialController@store');
-Route::get('/tr_material_grid/{id}', 'TrMaterialController@grid')->name('search');
-Route::get('tr_material_auto_sugest', 'TrMaterialController@auto_sugest');
-Route::get('get-tr_material_auto_sugest', ['as' => 'get.tr_material_auto_sugest', 'uses' => 'TrMaterialController@auto_sugest']);
+Route::resource('/editmaterialrequest', 'EditMaterialRequestController');
+Route::post( '/editmaterialrequest/post', 'EditMaterialRequestController@store');
+Route::get('editmaterialrequest_auto_sugest', 'EditMaterialRequestController@auto_sugest');
+Route::get('get-editmaterialrequest_auto_sugest', ['as' => 'get.editmaterialrequest_auto_sugest', 'uses' => 'EditMaterialRequestController@auto_sugest']);
+Route::get( 'get-editmaterialrequest_grid', ['as' => 'get.editmaterialrequest_grid', 'uses' => 'EditMaterialRequestController@grid']);
 
-Route::resource('/tm_materials', 'TmMaterialController');
-Route::post('/tm_materials/post', 'TmMaterialController@store');
-Route::get('/tm_material_grid/{id}', 'TmMaterialController@grid')->name('search');
-Route::get('tm_material_auto_sugest', 'TmMaterialController@auto_sugest');
+
+Route::resource('/editmaterial', 'EditMaterialController');
+Route::post('/editmaterial/post', 'EditMaterialController@store');
+Route::get('/editmaterial/edit/', 'EditMaterialController@show');
+Route::get('/editmaterial_grid/{id}', 'EditMaterialController@grid')->name('search');
+Route::get('editmaterial_auto_sugest', 'EditMaterialController@auto_sugest');
 
 
 

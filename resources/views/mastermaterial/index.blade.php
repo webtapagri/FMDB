@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'FMDB - Material')
+@section('title', 'FMDB - Master Material')
 
 @section('content')
 <style>
@@ -145,7 +145,7 @@
         initData();  
         
         jQuery('.btn-add').on('click', function() {
-            window.location.href = "{{ url('material_user/create') }}";
+            window.location.href = "{{ url('materialrequest/create') }}";
         });
 
          jQuery('#search-form').on('submit', function(e) {
@@ -174,9 +174,9 @@
         }
 
         if(param) {
-            var api = '{!! route('get.material_user_grid_search') !!}';
+            var api = '{!! route('get.mastermaterial_grid_search') !!}';
         } else {
-            var api = '{!! route('get.material_user_grid') !!}';
+            var api = '{!! route('get.mastermaterial_grid') !!}';
         }
 
         var table =   jQuery('#data-table').DataTable({

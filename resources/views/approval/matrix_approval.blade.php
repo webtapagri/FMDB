@@ -91,17 +91,19 @@
     jQuery(document).ready(function() {
         jQuery('#data-table').DataTable({
             ajax: '{!! route("get.matrixapproval_grid") !!}',
-            columns: [{
-                    data: 'mrp',
-                    name: 'mrp'
+            columns: [
+                {
+                  "render": function(data, type, row) {
+                      return (row.mrp == "ALL" ? "ALL":row.mrp_controller_name);
+                  }
                 },
                 {
-                    data: 'mat_group',
-                    name: 'mat_group'
+                    data: 'material_group_name',
+                    name: 'material_group_name'
                 },
                 {
-                    data: 'role_id',
-                    name: 'role_id'
+                    data: 'role_name',
+                    name: 'role_name'
                 },
                 {
                     data: 'seq',

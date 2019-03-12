@@ -58,6 +58,7 @@ class LDAPController extends Controller
             if($profile) {
                 Session::put('name', $profile[0]->nama);
                 Session::put('role', $profile[0]->role_name);
+                Session::put('role_id', $profile[0]->role_name);
             } else {
                 Session::put('name', $username);
                 Session::put('role', 'GUEST');
@@ -70,6 +71,7 @@ class LDAPController extends Controller
             $errors = new MessageBag([
                 'password' => ['Email and/or password invalid.']
             ]);
+            
             return Redirect::back()->withErrors($errors)->withInput(Input::except('password'));
         }
     }

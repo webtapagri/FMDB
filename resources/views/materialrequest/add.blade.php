@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'FMDB')
+@section('title', 'FMDB - Material Request')
 
 @section('content')
 <style>
@@ -16,7 +16,7 @@ label {
         <div class="col-md-10 col-md-offset-1">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-plus"></i> Extend Material</h3>
+                    <h3 class="box-title"><i class="fa fa-plus"></i> Material Request</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -42,7 +42,7 @@ label {
                                 <label for="plant" class="col-md-3">Plant</label>
                                     <div class="col-md-9">
                                     <select type="text" class="form-control input-sm" name="plant" id="plant" maxlength="4" required>
-                                        
+
                                     </select>
                                 </div>    
                             </div>
@@ -85,7 +85,7 @@ label {
                             <div class="form-group">
                                 <label for="material_type" class="col-md-3">Material Type</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="c" name="material_type" id="material_type"  maxlength="10"  required>
+                                    <select type="text" class="form-control input-sm" name="material_type" id="material_type"  maxlength="10"  required>
                                         
                                     </select>
                                 </div>
@@ -268,7 +268,7 @@ label {
                                 <div class="form-group ">
                                     <label for="material_sap" class="col-md-3">Material pada SAP</label>
                                         <div class="col-md-9">
-                                        <input type="text" class="form-control input-sm" name="material_sap"  id="material_sap" maxlength="30"  readonly>
+                                        <input type="text" class="form-control input-sm" name="material_sap"  id="material_sap" maxlength="40"  readonly>
                                         <span class="help-block" id="help_material_sap"></span>
                                     </div>
                                 </div> 
@@ -316,7 +316,13 @@ label {
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="volume_unit" class="col-md-3">Remarks</label>
+                                    <label for="volume_unit" class="col-md-3">Estimate price</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control input-sm" name="price_estimate" id="price_estimate" maxlength="13" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label for="volume_unit" class="col-md-3">Catatan</label>
                                     <div class="col-md-9">
                                         <textarea type="text" class="form-control input-sm" name="remarks" id="remarks"></textarea>
                                     </div>
@@ -371,11 +377,11 @@ label {
     var imgFiles = [];    
     jQuery(document).ready(function() {
         jQuery(".btn-cancel").on('click', function() {
-            window.location.href = "{{ url('material_user') }}";
+            window.location.href = "{{ url('materialrequest') }}";
         });
 
         SelectGroup();
-         jQuery('#form-basic-data').on('submit', function(e) {
+        jQuery('#form-basic-data').on('submit', function(e) {
             e.preventDefault();
            jQuery.ajaxSetup({
                 headers: {
@@ -386,7 +392,7 @@ label {
             var form = jQuery('#form-initial').find('input, select, textarea').appendTo('#form-basic-data');
             var param = new FormData(this);
             jQuery.ajax({
-				url:"{{ url('material_user/post') }}",
+				url:"{{ url('materialrequest/post') }}",
 			    type:"POST",
 				data: param,
 				contentType:false,
@@ -394,17 +400,16 @@ label {
 				cache:false,
 				beforeSend:function(){jQuery('.loading-event').fadeIn();},
 				success:function(result){
-                    var data = jQuery.parseJSON(result);
-                    if(data.code == '201'){
+                    if(result.status){
                         notify({
                             type:'success',
-                            message:data.message
+                            message:result.message
                         });
-                        window.location.href = "{{ url('material_user') }}";
+                        window.location.href = "{{ url('materialrequest') }}";
                     }else{
                         notify({
                             type:'warning',
-                            message:data.message
+                            message:result.message
                         });
                     } 
 				},
@@ -412,14 +417,20 @@ label {
 			 });
         });
 
-        var material_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_group_material') !!}')));
+        var mat_group = makeSelectFromgeneralData({
+            url: "{{ url('/select2') }}",
+            code: 'mat_group'
+        });
         jQuery('#sap_material_group').select2({
-            data: material_group,
+            data: mat_group,
             width:'100%',
             placeholder: "",
             allowClear: true
         }).on('change', function() {
-            jQuery("#group_material").val(jQuery(this).val());
+            var data = jQuery(this).select2('data');
+            jQuery("#group_material").val(data[0].text);
+            mappingMRP();
+            mappingMatGroup(data[0].id);
             SelectGroup(jQuery(this).val());
         });
 
@@ -440,23 +451,15 @@ label {
             placeholder: ' ',
             allowClear: true
         }).on("change", function() {
-            var store_location = dataJson("{{ url('material_user/store_location/?id=') }}"+jQuery(this).val());
-            jQuery('#store_location').select2({
-                data: store_location,
-                width:'100%',
-                placeholder: "",
-                allowClear: true
-            });
+           mappingPlant(jQuery(this).val());
+           mappingMRP();
         });
 
-        jQuery("#plant").trigger('change');
-
-
          jQuery('#store_location').select2({
-                width:'100%',
-                placeholder: "",
-                allowClear: true
-            });
+            width:'100%',
+            placeholder: "",
+            allowClear: true
+        });
       
         var location = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.location') !!}')));
         jQuery('#location').select2({
@@ -606,12 +609,14 @@ label {
             allowClear: true
         });
 
+        jQuery("#plant").trigger('change');
+
         jQuery('#form-initial').on('submit', function(e){
             e.preventDefault();
             basicDataPanel();
         });
 
-        jQuery('.attr-material-group').on('change', function(){
+        jQuery('.attr-material-group').on('keyup', function(){
             genMaterialNo();
         })
 
@@ -629,7 +634,7 @@ label {
 
     function closeGroupMaterialModal() {
         // jQuery('#group-material-modal').modal('hide');
-         $('#group-material-modal').on('hidden.bs.modal', function(event) {
+        jQuery('#group-material-modal').on('hidden.bs.modal', function(event) {
 
             $('#add-data-modal').off('hidden.bs.modal');
             jQuery('#add-data-modal').modal({backdrop: 'static', keyboard: false});
@@ -638,7 +643,7 @@ label {
         //jQuery("#add-data-modal").modal("show");
     }
 
-     function SelectGroup(mat_no) {
+    function SelectGroup(mat_no) {
         jQuery(".material-group-input").removeClass('has-success');
         jQuery(".attr-material-group").prop("required", false);
         var material_attr = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.group_material_list') !!}?code='+mat_no)));
@@ -675,6 +680,7 @@ label {
             });
         }else{
             selected_material_group = 'deskripsi-material';
+            help_material_sap = "Deskripsi material";
             jQuery("#material_sap").val('01');
             jQuery("#input-description").addClass("has-success");
             jQuery("#description").prop("required",true);
@@ -688,7 +694,7 @@ label {
          var material_no = "";
         var no = 1;
         jQuery.each(data, function(key, val) {
-             if(no > 1 ) {
+            if(no > 1 ) {
                material_no += "-";
             }
             if(val == 'part-number') {
@@ -703,7 +709,7 @@ label {
             no++;
         });
 
-        jQuery("#material_sap").val(material_no);
+        jQuery("#material_sap").val(material_no.substring(0,39));
     }
 
     function initialPanel() {
@@ -769,6 +775,75 @@ label {
                 return false;
         }
         return true;
+    }
+
+    function mappingMatGroup(id) {
+        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('mappingmatgroup/edit/?id=') }}" + id)));
+        if(result.length > 0) {
+            jQuery('#material_type').val(result[0].material_type);
+            jQuery('#material_type').trigger('change');
+        
+            jQuery('#valuation_class').val(result[0].valuation_class);
+            jQuery('#valuation_class').trigger('change');   
+        } else {
+            jQuery('#material_type').val('');
+            jQuery('#material_type').trigger('change');
+        
+            jQuery('#valuation_class').val('');
+            jQuery('#valuation_class').trigger('change');   
+        }
+    }
+
+    function mappingPlant(id) {
+        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('mappingplant/edit/?id=') }}" + id)));
+        if(result.length > 0) {
+             var store_location = dataJson("{{ url('materialrequest/store_location/?id=') }}" + result[0].plant);
+            jQuery('#store_location').select2({
+                data: store_location,
+                width:'100%',
+                placeholder: "",
+                allowClear: true
+            });
+
+            jQuery('#store_location').val(result[0].store_loc);
+            jQuery('#store_location').trigger('change');
+
+            jQuery('#location').val(result[0].locat);
+            jQuery('#location').trigger('change');
+           
+            jQuery('#profit_center').val(result[0].profit_center);
+            jQuery('#profit_center').trigger('change');
+           
+            jQuery('#sales_org').val(result[0].sales_org);
+            jQuery('#sales_org').trigger('change');
+        } else {
+            jQuery('#store_location').val('');
+            jQuery('#store_location').trigger('change');
+
+            jQuery('#location').val('');
+            jQuery('#location').trigger('change');
+           
+            jQuery('#profit_center').val('');
+            jQuery('#profit_center').trigger('change');
+           
+            jQuery('#sales_org').val('');
+            jQuery('#sales_org').trigger('change');
+        }
+    }
+
+    function mappingMRP() {
+        var plant = jQuery('#plant').val();
+        var mat_group = jQuery('#sap_material_group').val();
+        if(plant && mat_group) {
+             var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('mappingmrp/edit/?id=') }}" + plant +'/'+ mat_group )));
+            if(result.length > 0) { 
+                jQuery('#mrp_controller').val(result[0].mrp_controller);
+                jQuery('#mrp_controller').trigger('change');
+            } else {
+                jQuery('#mrp_controller').val('');
+                jQuery('#mrp_controller').trigger('change');
+            }
+        }
     }
 
 </script>            

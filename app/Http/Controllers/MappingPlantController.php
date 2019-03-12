@@ -31,7 +31,35 @@ class MappingPlantController extends Controller
         ));
         $data = $service;
 
-        return response()->json(array('data' => $data->data));
+        foreach($data->data as $row) {
+            $arr[] = array(
+                'plant'=> $row->plant,
+                'plant_name'=> $row->plant_name,
+                'locat_name'=> $row->locat_name,
+                'sales_org_name'=> $row->sales_org_name,
+                'profit_center_name'=> $row->profit_center_name,
+                'store_loc_name'=> $this->store_loc($row->plant, $row->store_loc),
+            );    
+        }
+
+        return response()->json(array('data' => $arr));
+    }
+
+    function store_loc($plant, $store_loc) {
+        $service = API::exec(array(
+            'request' => 'GET',
+            'host' => 'ldap',
+            'method' => "store_loc/" . $plant .'/'. $store_loc
+        ));
+        $name = '';
+        $data = $service;
+        if($data) {
+            foreach( $data->data as $row) {
+                $name = $row->LGORT . " - " . str_replace("_", " ", $row->LGOBE);
+            }
+        }
+
+        return ($name ? $name:$store_loc);
     }
 
     public function store(Request $request)

@@ -12,7 +12,7 @@ use function GuzzleHttp\json_encode;
 use Session;
 use AccessRight;
 
-class TmMaterialController extends Controller
+class EditMaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,7 +29,7 @@ class TmMaterialController extends Controller
 
         $access = AccessRight::access();    
 
-        return view('tm_materials/index');
+        return view('editmaterial/index');
     }
 
     public function grid($search)
@@ -112,7 +112,7 @@ class TmMaterialController extends Controller
         $result = array();
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => 'tm_materials_edit_search/' . (!empty($_REQUEST['param']) ? $_REQUEST['param'] : '')
+            'method' => 'tm_materials_edit_search/' .  str_replace('/','_', $_REQUEST['param'])
         ));
 
         $res = $service;
@@ -186,7 +186,7 @@ class TmMaterialController extends Controller
 
         $service = API::exec(array(
             'request' => 'PUT',
-            'method' => 'tm_materials/' . $request->no_material,
+            'method' => 'editmaterial/' . $request->no_material,
             'data' => $param
         ));
 
@@ -344,7 +344,7 @@ class TmMaterialController extends Controller
         $data['material'] = $param;
         $data["files"] = ($material->no_material ? $this->files($material->no_material) : '');
 
-        return view('tm_materials/edit', $data);
+        return view('editmaterial/edit', $data);
     }
 
     function getMaster($gen_code, $code) {

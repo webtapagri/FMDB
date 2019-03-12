@@ -1,10 +1,10 @@
 @extends('adminlte::page')
-@section('title', 'FMDB - Material group')
+@section('title', 'FMDB - Set Material')
 @section('content')
 <section class="content">
     <div class="row">
         <div class="col-xs-4">
-            <span style="font-size:24px">Group material</span>
+            <span style="font-size:24px">Set Material</span>
         </div>
         <div class="col-xs-8" align="right">
             <span href="#" class="btn btn-flat btn-sm btn-success btn-add">&nbsp;<i class="glyphicon glyphicon-plus" title="Add new data"></i>&nbsp; Add</span>
@@ -78,10 +78,10 @@
     var attribute = [];
     jQuery(document).ready(function() {
         jQuery('#data-table').DataTable({
-            ajax: '{!! route("get.groupmaterials_grid") !!}',
+            ajax: '{!! route("get.setmaterial_grid") !!}',
             columns: [{
-                    data: 'mat_group',
-                    name: 'mat_group'
+                    data: 'mat_group_name',
+                    name: 'mat_group_name'
                 },
                 {
                     data: 'description',
@@ -103,9 +103,10 @@
                 },
                 {
                     "render": function(data, type, row) {
-                        var content = '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide ') }}" title="edit data ' + row.id + '" onClick="edit(' + row.id + ')"><i class="fa fa-pencil"></i></button>';
-                        content += '<button class="btn btn-flat btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide ') }} ' + (row.status == 1 ? '' : 'hide') + '" style="margin-left:5px" onClick="inactive(' + row.id + ')"><i class="fa fa-trash"></i></button>';
-                        content += '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-inactivated {{ (isset($access['DELETE']) ? '':'hide ') }} ' + (row.status == 0 ? '' : 'hide') + '" style="margin-left:5px"  onClick="active(' + row.id + ')"><i class="fa fa-check"></i></button>';
+                        var mat_group = row.mat_group;
+                        var content = '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide ') }}" title="edit data ' + row.mat_group + '" onClick="edit(' + mat_group.trim() + ')"><i class="fa fa-pencil"></i></button>';
+                        content += '<button class="btn btn-flat btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide ') }} ' + (row.status == 1 ? '' : 'hide') + '" style="margin-left:5px" onClick="inactive(' + mat_group.trim() + ')"><i class="fa fa-trash"></i></button>';
+                        content += '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-inactivated {{ (isset($access['DELETE']) ? '':'hide ') }} ' + (row.status == 0 ? '' : 'hide') + '" style="margin-left:5px"  onClick="active(' + mat_group.trim() + ')"><i class="fa fa-check"></i></button>';
 
                         return content;
                     }
@@ -203,7 +204,7 @@
             });
 
             jQuery.ajax({
-                url: "{{ url('groupmaterials/post') }}",
+                url: "{{ url('setmaterial/post') }}",
                 method: "POST",
                 data: param,
                 beforeSend: function() {},
@@ -233,7 +234,7 @@
         document.getElementById("data-form").reset();
         jQuery("#edit_id").val(id);
 
-        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('groupmaterials/edit/?id=') }}" + id)));
+        var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('setmaterial/edit/?id=') }}" + id)));
         var descritpion = result[0].description;
         var attribute = descritpion.split(',');
 
@@ -256,7 +257,7 @@
         });
 
         jQuery.ajax({
-            url: "{{ url('groupmaterials/inactive') }}",
+            url: "{{ url('setmaterial/inactive') }}",
             method: "POST",
             data: {
                 id: id
@@ -288,7 +289,7 @@
         });
 
         jQuery.ajax({
-            url: "{{ url('groupmaterials/active') }}",
+            url: "{{ url('setmaterial/active') }}",
             method: "POST",
             data: {
                 id: id

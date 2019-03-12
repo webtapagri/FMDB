@@ -16,14 +16,14 @@ label {
         <div class="col-md-10 col-md-offset-1">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-pencil"></i> Edit Material</h3>
+                    <h3 class="box-title"><i class="fa fa-pencil"></i> Edit Material Request</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                             <div class="">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#panel-initial" class="panel-initial">INITIAL</a></li>
-                <li><a href="#panel-basic-data" class="panel-basic-data" disabled>MATERIAL INFORMATION</a></li>
+                <li class="active"><a href="#panel-initial" data-toggle="tab" class="panel-initial">INITIAL</a></li>
+                <li><a href="#panel-basic-data" data-toggle="tab" class="panel-basic-data">MATERIAL INFORMATION</a></li>
             </ul>
             <div class="tab-content">
             <!-- Font Awesome Icons -->
@@ -34,7 +34,6 @@ label {
                                 <label for="sap_material_group" class="col-md-3">Material Group</label>
                                 <div class="col-md-9">
                                     <input type="test"  class="form-control input-sm" name="sap_material_group" id="sap_material_group" value="{{ $mat_group_name }}" required readonly></select>
-                                   <!--  <select  class="form-control input-sm" name="sap_material_group" id="sap_material_group" required readonly></select> -->
                                 </div>    
                             </div>
                             <div class="form-group">
@@ -337,7 +336,7 @@ label {
     var imgFiles = [];    
     jQuery(document).ready(function() {
         jQuery(".btn-cancel").on('click', function() {
-            window.location.href = "{{ url('tr_materials') }}";
+            window.location.href = "{{ url('editmaterialrequest') }}";
         });
 
         SelectGroup('{{ $material->mat_group }}');
@@ -352,7 +351,7 @@ label {
             //var form = jQuery('#form-initial').find('input, select, textarea').appendTo('#form-basic-data');
             var param = new FormData(this);
             jQuery.ajax({
-				url:"{{ url('tr_materials/post') }}",
+				url:"{{ url('editmaterialrequest/post') }}",
 			    type:"POST",
 				data: param,
 				contentType:false,
@@ -366,7 +365,7 @@ label {
                             type:'success',
                             message:data.message
                         });
-                        window.location.href = "{{ url('tr_materials') }}";
+                        window.location.href = "{{ url('editmaterialrequest') }}";
                     }else{
                         notify({
                             type:'warning',

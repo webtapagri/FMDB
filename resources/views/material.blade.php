@@ -467,7 +467,7 @@
             var form = jQuery('#form-initial').find('input, select, textarea').appendTo('#form-basic-data');
             var param = new FormData(this);
             jQuery.ajax({
-				url:"{{ url('material_user/post') }}",
+				url:"{{ url('materialrequest/post') }}",
 			    type:"POST",
 				data: param,
 				contentType:false,
@@ -522,7 +522,7 @@
             placeholder: ' ',
             allowClear: true
         }).on("change", function() {
-            var store_location = dataJson("{{ url('material_user/store_location/?id=') }}"+jQuery(this).val());
+            var store_location = dataJson("{{ url('materialrequest/store_location/?id=') }}"+jQuery(this).val());
             jQuery('#store_location').select2({
                 data: store_location,
                 width:'100%',

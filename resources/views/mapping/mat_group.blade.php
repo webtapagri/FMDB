@@ -80,16 +80,16 @@
         jQuery('#data-table').DataTable({
             ajax: '{!! route("get.mappingmatgroup_grid") !!}',
             columns: [{
-                    data: 'mat_group',
-                    name: 'mat_group'
+                    data: 'mat_group_name',
+                    name: 'mat_group_name'
                 },
                 {
-                    data: 'valuation_class',
-                    name: 'valuation_class'
+                    data: 'valuation_class_name',
+                    name: 'valuation_class_name'
                 },
                 {
-                    data: 'material_type',
-                    name: 'material_type'
+                    data: 'material_type_name',
+                    name: 'material_type_name'
                 },
                 {
                     "render": function(data, type, row) {

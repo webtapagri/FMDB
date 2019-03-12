@@ -12,7 +12,7 @@ use function GuzzleHttp\json_encode;
 use Session;
 use AccessRight;
 
-class TrMaterialController extends Controller
+class EditMaterialRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,30 +25,30 @@ class TrMaterialController extends Controller
             return redirect('/login');
 
         if (AccessRight::granted() == false)
-            return response(view('errors.403'), 403);;
+            return response(view('errors.403'), 403);
 
         $access = AccessRight::access();        
 
-        return view('tr_materials/index');
+        return view('materialrequest/index');
     }
 
-    public function grid($search)
+    public function grid()
     {
+        $search = str_replace('/','_', $_REQUEST['search']);
         $service = API::exec(array(
             'request' => 'GET',
             'method' => "tr_materials/" . $search
         ));
-      
         $arr = array();
         $data = $service;
         if($data->data) {
             foreach ($data->data as $row) {
-                $image = ($row->no_document ? $this->image($row->no_document) :'');
+                $image = ($row->no_document ? $this->image($search) :'');
 
                 $arr[] = array(
                     "image" => $image,
-                    "no_material" => $row->no_material,
-                    "no_document" => $row->no_document,
+                    "no_material" => str_replace('/','_', $row->no_material),
+                    "no_document" => str_replace('/','_',$row->no_document),
                     "industri_sector" => $row->industri_sector,
                     "plant" => $row->plant,
                     "store_loc" => $row->store_loc,
@@ -323,7 +323,7 @@ class TrMaterialController extends Controller
         $data['material'] = $param;
         $data["files"] = ($material[0]->no_document ? $this->files($material[0]->no_document) : '');
 
-        return view('tr_materials/edit', $data);
+        return view('materialrequest/edit', $data);
     }
 
     function getMaster($gen_code, $code) {
@@ -374,11 +374,14 @@ class TrMaterialController extends Controller
         ));
         $data = $service;
         $store_loc = '';
-        foreach ($data->data as $row) {
-            if($row->LGOR === $id) {
-                $store_loc = $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE);
+        /* var_dump( count($data->data));
+        if(count($data->data) > 0) {
+            foreach ($data->data as $row) {
+                if( $row->LGOR === $id) {
+                    $store_loc = $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE);
+                }
             }
-        }
+        } */
 
         return $store_loc;
     }

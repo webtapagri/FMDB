@@ -80,16 +80,16 @@
         jQuery('#data-table').DataTable({
             ajax: '{!! route("get.mappingmrp_grid") !!}',
             columns: [{
-                    data: 'plant',
-                    name: 'plant'
+                    data: 'plant_name',
+                    name: 'plant_name'
                 },
                 {
-                    data: 'mat_group',
-                    name: 'mat_group'
+                    data: 'material_group_name',
+                    name: 'material_group_name'
                 },
                 {
-                    data: 'mrp_controller',
-                    name: 'mrp_controller'
+                    data: 'mrp_controller_name',
+                    name: 'mrp_controller_name'
                 },
                 {
                     "render": function(data, type, row) {
