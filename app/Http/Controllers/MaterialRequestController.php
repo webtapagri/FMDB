@@ -178,6 +178,23 @@ class MaterialRequestController extends Controller
     {
         try {
             $no_document = rand(1,10000000000);
+            foreach ($_FILES as $row) {
+                if($row["name"] ) {
+                    $name = $row["name"];
+                    $size = $row["size"];
+                    $path = $row["tmp_name"];
+                    $type = pathinfo($row["tmp_name"], PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                    $files[] = array(
+                        "file_name" => $name,
+                        "doc_size" => $size,
+                        "file_category" => $type,
+                        "file_image" => $base64
+                    );
+                }
+            }
+
             $param = array(
                 "no_document" => $no_document,
                 "industri_sector" => $request->industry_sector,
@@ -218,14 +235,17 @@ class MaterialRequestController extends Controller
                 "remarks" => $request->remarks,
                 "price_estimate" => $request->price_estimate,
                 "user_id" => Session::get('user_id'),
-                "role_id" => Session::get('role_id')
+                "role_id" => Session::get('role_id'),
+                "files"=>  $files
             );
 
+            var_dump(json_encode($param));
+            exit();
             $service = API::exec(array(
                 'request' => 'POST',
                 'method' => 'tr_materials_insert',
                 'data'=> $param
-             ));
+             )); 
 
             $res = $service;
             if($res->status  == 'success'){
