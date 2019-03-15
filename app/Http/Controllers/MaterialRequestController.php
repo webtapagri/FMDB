@@ -239,8 +239,6 @@ class MaterialRequestController extends Controller
                 "files"=>  $files
             );
 
-            var_dump(json_encode($param));
-            exit();
             $service = API::exec(array(
                 'request' => 'POST',
                 'method' => 'tr_materials_insert',

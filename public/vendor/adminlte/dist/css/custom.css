@@ -12,7 +12,7 @@
 }
 
   .select-img:hover {
-        opacity: 0.5;
+        opacity: 0.7;
         cursor: pointer
     }
 
@@ -306,3 +306,53 @@ table.dataTable.table-condensed .sorting:after, table.dataTable.table-condensed 
 #scrToTop:hover {
   background-color: #555;
 }
+
+  .image-group {
+        position:relative;
+         width: 100%;
+    }
+
+    .image-group img {
+        width: 100%;
+        height: auto;
+    }
+
+    .image-group .btn-pannel-image {
+        position: absolute !important;
+        top: 5px;
+        z-index: 9999;
+    }
+
+    .image-group .btn {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        display:none;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        z-index: 99999;
+    }
+    
+
+    .image-group:hover > .btn{
+       display:block;
+       opacity:1;
+    }
+    
+    .image-item-material {
+      position: relative;
+      width: 100%;
+    }
+    
+    .image-item-material img{
+      width: 100%;
+      height: auto;
+    }
+   
+    .image-item-material .badge{
+      position: absolute;
+        top: 10%;
+        left: 25%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }

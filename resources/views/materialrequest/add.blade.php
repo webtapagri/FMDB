@@ -329,26 +329,21 @@ label {
                                 </div> 
                                 <div class="form-group">
                                     <label for="volume_unit" class="col-md-3">Image</label>
-                                     <div class="col-md-3">
-                                            <div class="form-group hide">
-                                        <input type="file" id="files_1" name="files_1" accept='image/*'  OnChange="showImage(1)">
-                                        <p class="help-block">*jpg, png</p>
+                                    <div  class="col-md-9">
+                                         <div id="filesContainer">
+                                                <div class="col-md-4" id="panel-image-1">
+                                                    <div class="form-group hide">
+                                                        <input type="file" id="files_1" name="files_1" accept='image/*'  OnChange="showImage(1)">
+                                                        <p class="help-block">*jpg, png</p>
+                                                        </div>
+                                                        <div class="image-group">
+                                                            <button type="button" class="btn btn-danger btn-xs btn-flat btn-add-file-image btn-remove-image1 hide" OnClick="removeImage(1)"><i class="fa fa-trash"></i></button>
+                                                            <img id="material-images-1" data-status="0" style="cursor:pointer" title="click to change image" OnClick="openFile(1)" class="img-responsive select-img" src="{{URL::asset('img/add-img.png')}}">
+                                                        </div>
+                                                    </div> 
                                         </div>
-                                        <img id="material-images-1" style="cursor:pointer" OnClick="openFile(1)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
-                                    </div> 
-                                    <div class="col-md-3">
-                                            <div class="form-group hide">
-                                        <input type="file" id="files_2" name="files_2" accept='image/*'  OnChange="showImage(2)">
-                                        <p class="help-block">*jpg, png</p>
-                                        </div>
-                                        <img id="material-images-2" style="cursor:pointer" OnClick="openFile(2)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
-                                    </div> 
-                                    <div class="col-md-3">
-                                            <div class="form-group hide">
-                                        <input type="file" id="files_3" name="files_3"  accept='image/*'  OnChange="showImage(3)">
-                                        </div>
-                                        <img id="material-images-3" style="cursor:pointer" OnClick="openFile(3)" class="img-responsive select-img" src="{{URL::asset('img/default-img.png')}}">
-                                    </div> 
+                                    </div>
+                                    
                                 </div> 
                             </div>
                               <div class="box-footer clearfix">
@@ -375,6 +370,7 @@ label {
 @section('js')
 <script>
     var imgFiles = [];    
+    var addFile = 2;
     jQuery(document).ready(function() {
         jQuery(".btn-cancel").on('click', function() {
             window.location.href = "{{ url('materialrequest') }}";
@@ -739,10 +735,47 @@ label {
          var src = document.getElementById("files_" + id);
         var target = document.getElementById("material-images-" + id);
         var fr=new FileReader();
-        // when image is loaded, set the src of the image where you want to display it
         fr.onload = function(e) { target.src = this.result; };
         fr.readAsDataURL(src.files[0]);
         imgFiles.push(src.files[0]);
+        jQuery('.btn-remove-image' + id).removeClass('hide');
+        var status = jQuery('#material-images-' + id).data('status');
+
+        if(status === 0) {
+            genAddFile();
+            jQuery('#material-images-' + id).data('status', 1);
+        }
+    }
+
+    function removeImage(id) {
+        var input = jQuery( "input:file");
+        jQuery('#panel-image-' + id).remove();
+    }
+
+
+    function genAddFile() {
+         var input = jQuery( "input:file");
+        if (input.length == 10) {
+            notify({
+                type: 'warning',
+                message: "max file image is 10"
+            });
+        } else {
+            var content = '';
+            content +='<div class="col-md-4" id="panel-image-' + addFile + '">';
+            content +='<div class="form-group hide">';
+            content +='<input type="file" id="files_' + addFile + '" name="files_' + addFile + '" accept="image/*"  OnChange="showImage(' + addFile + ')">';
+            content +='<p class="help-block">*jpg, png</p>';
+            content +='</div>';
+            content +='<div class="image-group">';
+            content +='<button type="button" class="btn btn-danger btn-xs btn-flat btn-add-file-image btn-remove-image' + addFile + ' hide" OnClick="removeImage(' + addFile + ')"><i class="fa fa-trash"></i></button>';
+            content +='<img id="material-images-' + addFile + '" title="click to change image"  data-status="0" style="cursor:pointer" OnClick="openFile(' + addFile + ')" class="img-responsive select-img" src="{{URL::asset('img/add-img.png')}}">';
+            content +='</div>'; 
+            content +='</div>'; 
+
+            jQuery('#filesContainer').append(content);
+            addFile++;
+        }
     }
 
     function binEncode(data) {
@@ -845,6 +878,7 @@ label {
             }
         }
     }
+
 
 </script>            
 @stop

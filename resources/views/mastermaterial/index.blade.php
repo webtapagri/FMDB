@@ -93,16 +93,13 @@
                 columns: [
                 {  
                     "render": function (data, type, row) {
-                        var content = '';
+                        var content = '<div class="image-item-material">';
                         if(row.src === '1') {
-                            content += '<div class="material-status"><span class="badge bg-yellow">REQUESTED</span></div>';
+                            content += '<span class="badge bg-yellow">REQUESTED</span>';
                         }
-                        if(row.file_image) {
-                            var key = (row.src === '0' ? row.no_material:row.no_document);
-                            content += '<img src="' + row.file_image + '" class="img-responsive select-img" title="show detail ' + row.material_name + '"  OnClick="showDetail(\'' + key + '\',\'' + row.src + '\')">';
-                        } else{
-                            content += '';
-                        }    
+                        var key = (row.src === '0' ? row.no_material:row.no_document);
+                            content += '<img src="' + (row.file_image ? row.file_image:'{{URL::asset('img/default-img.png')}}') + '" class="img-responsive select-img" title="show detail ' + row.material_name + '"  OnClick="showDetail(\'' + key + '\',\'' + row.src + '\')">';
+                         content += '</div>';
                         return content;
                     } 
                 },
@@ -158,9 +155,6 @@
             },
             minLength: 3,
         }).on('change', function (e) {
-    /*         if(e.which === 13) {
-               
-            }   */
              $(".ui-menu-item").hide();          
         });
         
@@ -180,7 +174,6 @@
         jQuery('.btn-clear-filter').on('click', function() {
             jQuery('#search_material').val('');
             jQuery('#search_material').trigger('change');
-            initData();
         });
     });
 
