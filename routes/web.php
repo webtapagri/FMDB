@@ -49,7 +49,14 @@ Route::get('data-table-group-material', ['as' => 'get.data_table_group_material'
 
 /* MASTER MATERIAL */
 Route::resource('mastermaterial', 'MasterMaterialController');
-Route::get('get-mastermaterial_grid', ['as' => 'get.mastermaterial_grid', 'uses' => 'MasterMaterialController@get_material_user_grid']);
+/* Route::post('mastermaterial/post', 'MasterMaterialController@store');
+Route::get('mastermaterial/edit', 'MasterMaterialController@show'); */
+//Route::get('get-mastermaterial_grid', ['as' => 'get.mastermaterial_grid', 'uses' => 'MasterMaterialController@get_material_user_grid']);
+Route::match(['get', 'post'], 'mastermaterial_grid', [
+    'as' => 'mastermaterial.grid',
+    'uses' => 'MasterMaterialController@get_material_user_grid'
+]);
+/* Route::post('/mastermaterial/grid', 'MasterMaterialController@get_material_user_grid'); */
 Route::get('get-mastermaterial_grid_search', ['as' => 'get.mastermaterial_grid_search', 'uses' => 'MasterMaterialController@get_material_user_grid_search']);
 
 

@@ -15,6 +15,7 @@
 
 @section('body')
     <div class="loading-event"></div>
+        <button onclick="topFunction()" id="scrToTop" title="Go to top"><i class="fa fa-chevron-up"></i></button>
     <div class="wrapper">
         <!-- Main Header -->
         <header class="main-header">

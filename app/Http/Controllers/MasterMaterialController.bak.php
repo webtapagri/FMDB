@@ -27,19 +27,46 @@ class MasterMaterialController extends Controller
         return view('mastermaterial/index')->with(compact('access'));
     }
 
-    public function getMaterial() {
-        $data = DB::table("tm_material")->get();
-        return $data;
-    }
+    public function get_material_user_grid() {
 
-    public function get_material_user_grid(Request $request) {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials_union/" . $request->length . '/' . $request->start .'/'. $request->draw .'/' .($request->search_material ? $request->search_material:'null')
+            'method' => "tr_materials_union/"
         ));
         $data = $service;
 
-        return response()->json( $data);
+        $iTotalRecords = count($data->data);
+        //$iDisplayLength = intval($_REQUEST['length']);
+        $iDisplayLength = intval(10);
+        $iDisplayLength = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength;
+        //$iDisplayStart = intval($_REQUEST['start']);
+        $iDisplayStart = intval(0);
+        //$sEcho = intval($_REQUEST['draw']);
+        $sEcho = intval(2);
+        $records = array();
+        $records["data"] = array();
+
+        $end = $iDisplayStart + $iDisplayLength;
+        $end = $end > $iTotalRecords ? $iTotalRecords : $end;
+        $data = $data->data;
+        for($i = $iDisplayStart; $i < $end; $i++) {
+            $records["data"][] = array(
+               $data[$i]
+            );
+        }
+
+
+        if (isset($_REQUEST["customActionType"]) && $_REQUEST["customActionType"] == "group_action") {
+            $records["customActionStatus"] = "OK"; // pass custom message(useful for getting status of group actions)
+            $records["customActionMessage"] = "Group action successfully has been completed. Well done!"; // pass custom message(useful for getting status of group actions)
+        }
+
+        $records["draw"] = $sEcho;
+        $records["recordsTotal"] = $iTotalRecords;
+        $records["recordsFiltered"] = $iTotalRecords;
+/*         $records["data"] = $data->data; */
+
+        return response()->json($records);
     }
     
     public function get_material_user_grid_search() {
