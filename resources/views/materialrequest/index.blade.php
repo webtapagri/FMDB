@@ -234,7 +234,7 @@
                 content += '<a href="' + val.file_image + '"><img src="' + val.file_image + '" alt=""></a>';
             });
             content +='</div></div>';
-           var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.editmaterialrequest') !!}?search=' + no_document)));
+           var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material') !!}?search=' + no_document)));
 
             content +='<div class="col-md-6">';
             content += '<table class="table table-condensed">';
@@ -263,7 +263,7 @@
             content += '    <td>' + (detail[0].remarks ? detail[0].remarks:'') + '</td>';
             content += '</tr>';
             content += '<tr>';
-            content += '    <td colspan="2"><button OnClick="edit(this)" data-no_document="' + detail[0].no_document + '" class="btn btn-flat btn-success btn-flat btn-block"><i class="fa fa-pencil"></i> Edit</button></td>';
+            content += '    <td colspan="2"><button OnClick="edit(this)" data-no_document="' + no_document + '" class="btn btn-flat btn-success btn-flat btn-block"><i class="fa fa-pencil"></i> Edit</button></td>';
             content += '</tr>';
             content += '</table>';
             content +='</div>';
