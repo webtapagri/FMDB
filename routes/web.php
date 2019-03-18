@@ -56,6 +56,8 @@ Route::match(['get', 'post'], 'mastermaterial_grid', [
     'as' => 'mastermaterial.grid',
     'uses' => 'MasterMaterialController@get_material_user_grid'
 ]);
+
+
 /* Route::post('/mastermaterial/grid', 'MasterMaterialController@get_material_user_grid'); */
 Route::get('get-mastermaterial_grid_search', ['as' => 'get.mastermaterial_grid_search', 'uses' => 'MasterMaterialController@get_material_user_grid_search']);
 
@@ -66,6 +68,8 @@ Route::resource( 'materialrequest', 'MaterialRequestController');
 Route::get('/material_extend/{id}', 'MaterialRequestController@extend')->name('extend');
 Route::get('/materialrequest/show', 'MaterialController@show');
 Route::get( 'get-editmaterialrequest', ['as' => 'get.editmaterialrequest', 'uses' => 'EditMaterialRequestController@get_editmaterial']);
+Route::get( 'get-editmaterialrequestfiles', ['as' => 'get.editmaterialrequestfiles', 'uses' => 'EditMaterialRequestController@get_files']);
+
 
 //Route::get('/materialrequest/search', 'MaterialController@search');
 Route::post('/materialrequest/post', 'MaterialRequestController@store');
@@ -113,6 +117,7 @@ Route::post('/editmaterial/post', 'EditMaterialController@store');
 Route::get('/editmaterial/edit/', 'EditMaterialController@show');
 Route::get('/editmaterial_grid/{id}', 'EditMaterialController@grid')->name('search');
 Route::get('editmaterial_auto_sugest', 'EditMaterialController@auto_sugest');
+Route::get( 'get-editmaterialfiles', ['as' => 'get.editmaterialfiles', 'uses' => 'EditMaterialController@get_files']);
 
 
 

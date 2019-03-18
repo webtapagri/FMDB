@@ -169,48 +169,57 @@ class EditMaterialRequestController extends Controller
 
         $service = API::exec(array(
             'request' => 'PUT',
-            'method' => 'tr_materials/' . $request->no_document,
+            'method' => 'tr_materials/' . str_replace("/","_", $request->no_document),
             'data' => $param
         ));
 
         $res = $service;
-        if ($res->code == '201') {
+
+        if ($res->code == '200') {
+
             $no = 1;
-            foreach ($_FILES as $row) {
-                if ($row["name"]) {
-                    $name = $row["name"];
-                    $size = $row["size"];
-                    $path = $row["tmp_name"];
-                    $type = pathinfo($row["tmp_name"], PATHINFO_EXTENSION);
+            foreach($request->data_files as $row) {
+                $file_id = "file_id_" . $row;
+                $file_deleted = "file_deleted_" . $row;
+                $file = $_FILES['files_' . $row];
+                if($file['name']) {
+                    $name = $file["name"];
+                    $size = $file["size"];
+                    $path = $file["tmp_name"];
+                    $type = pathinfo($file["tmp_name"], PATHINFO_EXTENSION);
                     $data = file_get_contents($path);
                     $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-                   
-                  
-                    if($no == 1) {
-                        $id = $request->files_id_1;
-                    } else if($no == 2) {
-                        $id = $request->files_id_2;
-                    } else if ($no == 3) {
-                        $id = $request->files_id_3;
-                    }
+                }
 
-                    if($id) {
-                        $files = array(
-                            "file_name" => $name,
-                            "doc_size" => $size,
-                            "file_category" => $type,
-                            "file_image" => $base64
-                        );
-                        $service = API::exec(array(
-                            'request' => 'PUT',
-                            'method' => 'tr_files/'.$id,
-                            'data' => $files
+
+                if($request->$file_id) {
+                    if( $request->$file_deleted) {
+                          $service = API::exec(array(
+                            'request' => 'DELETE',
+                            'method' => 'tr_files/' .$request->$file_id ,
                         ));
-                    } else{
+                    } else {
+                        if($file["name"]) {
+                            $files = array(
+                                "file_name" => $name,
+                                "doc_size" => $size,
+                                "file_category" => $type,
+                                "file_image" => $base64
+                            );
+                            $service = API::exec(array(
+                                'request' => 'PUT',
+                                'method' => 'tr_files/'. $request->$file_id,
+                                'data' => $files
+                            ));
+                        }
+                        
+                    }
+                } else {
+                    if($file["name"]) { 
                         $files = array(
                             "no_document" => $request->no_document,
                             "file_name" => $name,
-                            'material_no' => '-',
+                            'material_no' => $request->no_material,
                             "doc_size" => $size,
                             "file_category" => $type,
                             "file_image" => $base64
@@ -222,31 +231,11 @@ class EditMaterialRequestController extends Controller
                             'data' => $files
                         ));
                     }
-
-                   
-                    $res = $service;
-                    if ($res->code == '201') {
-                        $status = true;
-                    } else {
-                        $status = false;
-                        echo json_encode(array(
-                            "code" => 201,
-                            "status" => "gagal upload",
-                            "message" => $files
-                        ));
-                        break;
-                    }
                 }
-                $no++;
             }
-        } else{
-
         }
 
-        echo json_encode(array(
-            'code' => 201,
-            "message" => "berhasil"
-        ));
+        return response()->json(array('code' =>201, "message"=> "data has been updated successfully"));
     }  
 
     public function show($id)
@@ -257,6 +246,7 @@ class EditMaterialRequestController extends Controller
         $material = $this->material($id);
         $param = (object) array(
             "no_document" => $material[0]->no_document,
+            "no_material" => $material[0]->no_material,
             "industri_sector" => $material[0]->industri_sector,
             "plant" => $material[0]->plant,
             "store_loc" => $material[0]->store_loc,
@@ -321,7 +311,6 @@ class EditMaterialRequestController extends Controller
         $data['mat_group_name'] = ($param->mat_group ? $this->material_group($param->mat_group):'');
         $data['store_loc_name'] = ($param->store_loc ? $this->store_loc($param->store_loc, $param->plant):'');
         $data['material'] = $param;
-        $data["files"] = ($material[0]->no_document ? $this->files($material[0]->no_document) : '');
 
         return view('materialrequest/edit', $data);
     }
@@ -352,37 +341,41 @@ class EditMaterialRequestController extends Controller
         return $mat_group;
     }
 
-    public function files($no_document)
+    public function get_files()
     {
+        $no_document = $_REQUEST['doc_no'];
         $service = API::exec(array(
             'request' => 'GET',
             'method' => 'tr_files/' . str_replace('/','_', $no_document)
         ));
         $data = $service;
         if ($data->status === "failed") {
-            return '';
+            $arr = array();
         } else {
-            return $data->data;
+            $arr = $data->data;
         }
+
+        return response()->json(array('data' =>$arr));
     }
 
     function store_loc($id, $plant) {
         $service = API::exec(array(
             'request' => 'GET',
             'host' => 'ldap',
-            'method' => "store_loc/" . $plant
+            'method' => "store_loc/" . $plant . '/' .$plant
         ));
         $data = $service;
+
         $store_loc = '';
-        /* var_dump( count($data->data));
-        if(count($data->data) > 0) {
-            foreach ($data->data as $row) {
-                if( $row->LGOR === $id) {
-                    $store_loc = $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE);
+        if($data) {
+            if(count($data->data) > 0) {
+                foreach ($data->data as $row) {
+                    if( $row->LGOR === $id) {
+                        $store_loc = $row->LGOR . " - " . str_replace("_", " ", $row->LGOBE);
+                    }
                 }
             }
-        } */
-
+        }   
         return $store_loc;
     }
 

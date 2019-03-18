@@ -194,9 +194,10 @@ label {
                                 <div class="form-group">
                                         <label for="group_material" class="col-md-3">Group Material</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control input-sm" name="group_material" id="group_material" readonly>
+                                        <input type="text" class="form-control input-sm" name="group_material" id="group_material" value="{{ $mat_group_name }}" readonly>
                                         <input type="hidden" name="group_material_id" id="group_material_id" readonly>
                                          <input type="hidden" name="no_document" value="{{ $material->no_document }}">
+                                         <input type="hidden" name="no_material" value="{{ $material->no_material }}">
                                         <span class="input-group-btn hide">
                                             <button type="button" class="btn btn-default btn-flat btn-group-material"><i class="fa fa-search"></i></button>
                                         </span>
@@ -283,31 +284,13 @@ label {
                                         <textarea type="text" class="form-control input-sm" name="remarks" id="remarks">{{ $material->remarks }}</textarea>
                                     </div>
                                 </div> 
-                                <div class="form-group">
+                                 <div class="form-group">
                                     <label for="volume_unit" class="col-md-3">Image</label>
-                                     <div class="col-md-3">
-                                            <div class="form-group hide">
-                                        <input type="file" id="files_1" name="files_1" accept='image/*'  OnChange="showImage(1)">
-                                        <input type="hidden" id="files_id_1" name="files_id_1" value="{{ (isset($files[0]) ? $files[0]->id:'') }}">
-                                        <p class="help-block">*jpg, png</p>
+                                    <div  class="col-md-9">
+                                         <div id="filesContainer">
+                                               
                                         </div>
-                                        <img id="material-images-1" style="cursor:pointer" OnClick="openFile(1)" class="img-responsive select-img" src="{{  (isset($files[0]) ? $files[0]->file_image:URL::asset('img/default-img.png'))}}">
-                                    </div> 
-                                    <div class="col-md-3">
-                                            <div class="form-group hide">
-                                        <input type="file" id="files_2" name="files_2" accept='image/*'  OnChange="showImage(2)">
-                                        <input type="hidden" id="files_id_2" name="files_id_2" value="{{ (isset($files[1]) ? $files[1]->id:'') }}">
-                                        <p class="help-block">*jpg, png</p>
-                                        </div>
-                                        <img id="material-images-2" style="cursor:pointer" OnClick="openFile(2)" class="img-responsive select-img" src="{{  (isset($files[1]) ? $files[1]->file_image:URL::asset('img/default-img.png'))}}">
-                                    </div> 
-                                    <div class="col-md-3">
-                                            <div class="form-group hide">
-                                        <input type="file" id="files_3" name="files_3"  accept='image/*'  OnChange="showImage(3)">
-                                         <input type="hidden" id="files_id_3" name="files_id_3" value="{{ (isset($files[2]) ? $files[2]->id:'') }}">    
                                     </div>
-                                        <img id="material-images-3" style="cursor:pointer" OnClick="openFile(3)" class="img-responsive select-img" src="{{  (isset($files[2]) ? $files[2]->file_image:URL::asset('img/default-img.png'))}}">
-                                    </div> 
                                 </div> 
                             </div>
                               <div class="box-footer clearfix">
@@ -334,12 +317,15 @@ label {
 @section('js')
 <script>
     var imgFiles = [];    
+    var doc_no = '{{ $material->no_document }}';
+    var addFile = 1;
     jQuery(document).ready(function() {
         jQuery(".btn-cancel").on('click', function() {
             window.location.href = "{{ url('editmaterialrequest') }}";
         });
 
         SelectGroup('{{ $material->mat_group }}');
+        initFiles();
          jQuery('#form-basic-data').on('submit', function(e) {
             e.preventDefault();
            jQuery.ajaxSetup({
@@ -348,7 +334,6 @@ label {
                 }
             });
 
-            //var form = jQuery('#form-initial').find('input, select, textarea').appendTo('#form-basic-data');
             var param = new FormData(this);
             jQuery.ajax({
 				url:"{{ url('editmaterialrequest/post') }}",
@@ -359,17 +344,17 @@ label {
 				cache:false,
 				beforeSend:function(){jQuery('.loading-event').fadeIn();},
 				success:function(result){
-                    var data = jQuery.parseJSON(result);
-                    if(data.code == '201'){
+
+                    if(result.code == '201'){
                         notify({
                             type:'success',
-                            message:data.message
+                            message:result.message
                         });
                         window.location.href = "{{ url('editmaterialrequest') }}";
                     }else{
                         notify({
                             type:'warning',
-                            message:data.message
+                            message:result.message
                         });
                     } 
 				},
@@ -400,7 +385,7 @@ label {
         
         jQuery('#form-basic-data').on('submit', function(e){
             e.preventDefault();
-            imagePanel();
+
         });
 
         $(window).keydown(function(event){
@@ -417,14 +402,12 @@ label {
     }
 
     function closeGroupMaterialModal() {
-        // jQuery('#group-material-modal').modal('hide');
          $('#group-material-modal').on('hidden.bs.modal', function(event) {
 
             $('#add-data-modal').off('hidden.bs.modal');
             jQuery('#add-data-modal').modal({backdrop: 'static', keyboard: false});
             jQuery('#add-data-modal').modal('show');
         }).modal('hide');
-        //jQuery("#add-data-modal").modal("show");
     }
 
      function SelectGroup(mat_no) {
@@ -496,69 +479,94 @@ label {
     }
 
     function initialPanel() {
-        jQuery('.panel-initial').attr("data-toggle","tab");
         jQuery('.panel-initial').click();
-        jQuery('.panel-basic-data').removeAttr("data-toggle");
-        jQuery('.panel-image').removeAttr("data-toggle");
+        topFunction();
     }
   
     function basicDataPanel() {
-        jQuery('.panel-basic-data').attr("data-toggle","tab");
         jQuery('.panel-basic-data').click();
-
-        jQuery('.panel-initial').removeAttr("data-toggle");
-        jQuery('.panel-image').removeAttr("data-toggle");
+        topFunction();
     }
   
-    function imagePanel() {
-        jQuery('.panel-image').attr("data-toggle","tab");
-        jQuery('.panel-image').click();
-
-        jQuery('.panel-initial').removeAttr("data-toggle");
-        jQuery('.panel-basic-data').removeAttr("data-toggle");
+    function initFiles() {
+        var files = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.editmaterialrequestfiles') !!}?doc_no=' + doc_no))); 
+        var content = ''; 
+        jQuery.each(files, function(key, val) {
+            content +='<div class="col-md-4" id="panel-image-' + addFile + '">';
+            content +='<div class="form-group hide">';
+            content +='<input type="file" id="files_' + addFile + '" name="files_' + addFile + '" accept="image/*"  OnChange="showImage(' + addFile + ')">';
+            content +='<input type="hidden" name="file_id_' + addFile + '" id="file_id_' + addFile + '" value="' + val.id + '">';
+            content +='<input type="hidden" name="file_deleted_' + addFile + '" id="file_deleted_' + addFile + '">';
+            content +='<input type="hidden" name="data_files[]" value="' + addFile + '">';
+            content +='<p class="help-block">*jpg, png</p>';
+            content +='</div>';
+            content +='<div class="image-group">';
+            content +='<button type="button" class="btn btn-danger btn-xs btn-flat btn-add-file-image btn-remove-image' + addFile + ' " OnClick="removeImage(' + addFile + ')"><i class="fa fa-trash"></i></button>';
+            content +='<img id="material-images-' + addFile + '" title="click to change image"  data-status="0" style="cursor:pointer" OnClick="openFile(' + addFile + ')" class="img-responsive select-img" src="' + val.file_image + '">';
+            content +='</div>'; 
+            content +='</div>'; 
+            addFile++;
+        });
+        jQuery('#filesContainer').append(content);
+        genAddFile();
     }
 
     function showImage(id) {
          var src = document.getElementById("files_" + id);
         var target = document.getElementById("material-images-" + id);
         var fr=new FileReader();
-        // when image is loaded, set the src of the image where you want to display it
         fr.onload = function(e) { target.src = this.result; };
         fr.readAsDataURL(src.files[0]);
         imgFiles.push(src.files[0]);
+        jQuery('.btn-remove-image' + id).removeClass('hide');
+        var status = jQuery('#material-images-' + id).data('status');
+
+        if(status === 0) {
+            genAddFile();
+            jQuery('#material-images-' + id).data('status', 1);
+        }
     }
 
-    function binEncode(data) {
-        var binArray = []
-        var datEncode = "";
+    function removeImage(id) {
+        var input = jQuery( "input:file");
+        var file_id = jQuery("#file_id_" + id).val();
 
-        for (i=0; i < data.length; i++) {
-            binArray.push(data[i].charCodeAt(0).toString(2)); 
-        } 
-        for (j=0; j < binArray.length; j++) {
-            var pad = padding_left(binArray[j], '0', 8);
-            datEncode += pad + ' '; 
+        if(file_id) {
+            jQuery('#panel-image-' + id).addClass('hide');
+            jQuery('#file_deleted_' + id).val(1);
+        } else {
+            jQuery('#panel-image-' + id).remove();
         }
-
-        function padding_left(s, c, n) { if (! s || ! c || s.length >= n) {
-            return s;
-        }
-
-        var max = (n - s.length)/c.length;
-        for (var i = 0; i < max; i++) {
-            s = c + s; } return s;
-        }
-        return binArray;
     }
 
-    function isNumber(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
+    function genAddFile() {
+         var input = jQuery( "input:file");
+        if (input.length == 10) {
+            notify({
+                type: 'warning',
+                message: "max file image is 10"
+            });
+        } else {
+            var content = '';
+            content +='<div class="col-md-4" id="panel-image-' + addFile + '">';
+            content +='<div class="form-group hide">';
+            content +='<input type="file" id="files_' + addFile + '" name="files_' + addFile + '" accept="image/*"  OnChange="showImage(' + addFile + ')">';
+            content +='<input type="hidden" name="file_id_' + addFile + '" id="file_id_' + addFile + '" value="">';
+            content +='<input type="hidden" name="file_deleted_' + addFile + '" id="file_deleted_' + addFile + '">';
+            content +='<input type="hidden" name="data_files[]" value="' + addFile + '">';
+            content +='<p class="help-block">*jpg, png</p>';
+            content +='</div>';
+            content +='<div class="image-group">';
+            content +='<button type="button" class="btn btn-danger btn-xs btn-flat btn-add-file-image btn-remove-image' + addFile + ' hide" OnClick="removeImage(' + addFile + ')"><i class="fa fa-trash"></i></button>';
+            content +='<img id="material-images-' + addFile + '" title="click to change image"  data-status="0" style="cursor:pointer" OnClick="openFile(' + addFile + ')" class="img-responsive select-img" src="{{URL::asset('img/add-img.png')}}">';
+            content +='</div>'; 
+            content +='</div>'; 
+
+            jQuery('#filesContainer').append(content);
+            addFile++;
         }
-        return true;
     }
+
 
 </script>            
 @stop
