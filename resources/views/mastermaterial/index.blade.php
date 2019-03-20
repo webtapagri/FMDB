@@ -182,10 +182,16 @@
         var content = '<div class="col-md-6">';
             content += '<div class="sp-wrap text-center">';
 
-            var img_list = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_image_detail') !!}?no_document=' + no_document)));    
-            jQuery.each(img_list, function(key, val){
-                content += '<a href="' + val.file_image + '"><img src="' + val.file_image + '" alt=""></a>';
-            });
+            var img_list = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_image_detail') !!}?no_document=' + no_document)));
+
+            if(img_list.length>0) {
+                 jQuery.each(img_list, function(key, val){
+                    content += '<a href="' + val.file_image + '"><img src="' + val.file_image + '" alt=""></a>';
+                });
+            } else {
+                content += '<a href="{{URL::asset('img/default-img.png')}}"><img src="{{URL::asset('img/default-img.png')}}" alt=""></a>';
+            }   
+           
             content +='</div></div>';
             if(status === '0') {
                 var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tm_material') !!}?search=' + no_document)));
@@ -196,28 +202,31 @@
             content +='<div class="col-md-6">';
             content += '<table class="table table-condensed">';
             content += '<tr>';
-            content += '    <td widh="180px"><b>' + (status === '0' ? 'Material No': 'Document No') + '</b></td>';
-            content += '    <td>' + detail.no_material + '</td>'
+            content += '    <td widh="200px"><b>' + (status === '0' ? 'Material No': 'Document No') + '</b></td>';
+            content += '    <td>' + no_document + '</td>'
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Nama Material</b></td>';
-            content += '    <td>' + detail.material_name + '</td>';
+            content += '    <td>' + (status === '0' ? (detail.material_name ? detail.material_name:''):(detail[0].material_name ? detail[0].material_name:''))  + '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Merk</b></td>';
-            content += '    <td>' + (detail.merk ? detail.merk :'')+ '</td>';
+            content += '    <td>' + (status === '0' ? (detail.merk ? detail.merk:''):(detail[0].merk ? detail[0].merk:'')) + '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Part number</b></td>';
-            content += '    <td>' + (detail.part_number ? detail.part_number :'')+ '</td>';
+            content += '    <td>' + (status === '0' ? (detail.part_number ? detail.part_number:''):(detail[0].part_number ? detail[0].part_number:'')) + '</td>';
             content += '</tr>';
             content += '<tr>';
             content += '    <td><b>Satuan</b></td>';
-            content += '    <td>' + detail.weight_unit + '</td>';
+            content += '    <td>' + (status === '0' ? (detail.weight_unit ? detail.weight_unit:''):(detail[0].weight_unit ? detail[0].weight_unit:'')) + '</td>';
             content += '</td>';
             content += '<tr>';
             content += '    <td><b>Keterangan:</b></td>';
-            content += '    <td>' + (detail.remarks ? detail.remarks:'') + '</td>';
+            content += '    <td></td>';
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td colspan="2">' + (status === '0' ? (detail.remarks ? detail.remarks:''):(detail[0].remarks ? detail[0].remarks:'')) + '</td>';
             content += '</tr>';
             content += '<tr>';
           /*   if(status === '1') {
@@ -238,7 +247,7 @@
         
         jQuery('#show-aterial-detail').html(content);
         jQuery('.sp-wrap').smoothproducts();
-        jQuery("#detail-modal .modal-title").html(no_document + " - " + detail.material_name );	
+        jQuery("#detail-modal .modal-title").html(no_document + " - " +  (status === '0' ? detail.material_name:detail[0].material_name) );	
         jQuery("#detail-modal").modal({backdrop:'static', keyboard:false});			
         jQuery("#detail-modal").modal("show");	
         jQuery('.loading-event').fadeOut()	

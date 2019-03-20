@@ -40,7 +40,7 @@ class MaterialRequestController extends Controller
         if (empty(Session::get('authenticated')))
             return redirect('/login');
             
-        return view('materialrequest/extend')->with('document_no', $document_no);
+        return view('mastermaterial/extend')->with('document_no', $document_no);
     }
 
     public function detail() {

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'FMDB - Dashboard')
+@section('title', 'FMDB - Verifikasi')
 
 @section('content_header')
-<h1>Dashboard</h1>
+<!-- <h1>Outstanding</h1> -->
 @stop
 
 @section('content')
@@ -11,8 +11,8 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Outstanding</h3>
-                <div class="box-tools">
+                <h3 class="box-title">Verifikasi</h3>
+                <div class="box-tools hide">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
 
@@ -23,93 +23,17 @@
                 </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                    <tr>
-                        <th>No Document</th>
-                        <th>Requester</th>
-                        <th>Date</th>
-                        <th>Material Name</th>
-                        <th>Ket</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td><a href="javascript:;" OnClick="detail()" class="text-green">2019/03/TAP/0001</a></td>
-                        <td>SITI AMINAH</td>
-                        <td>8 maret 2019</td>
-                        <td>ROUNDUP 486L @ 20LTR</td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        <td>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail()"><i class="fa fa-search"></i></button>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="edit"><i class="fa fa-check"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="javascript:;" OnClick="detail()" class="text-green">2019/03/TAP/0001</a></td>
-                        <td>SITI AMINAH</td>
-                        <td>8 maret 2019</td>
-                        <td>ROUNDUP 486L @ 20LTR</td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        <td>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail()"><i class="fa fa-search"></i></button>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="edit)"><i class="fa fa-check"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="javascript:;" OnClick="detail()" class="text-green">2019/03/TAP/0001</a></td>
-                        <td>SITI AMINAH</td>
-                        <td>8 maret 2019</td>
-                        <td>ROUNDUP 486L @ 20LTR</td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        <td>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail()"><i class="fa fa-search"></i></button>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="edit)"><i class="fa fa-check"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="javascript:;" OnClick="detail()" class="text-green">2019/03/TAP/0001</a></td>
-                        <td>SITI AMINAH</td>
-                        <td>8 maret 2019</td>
-                        <td>ROUNDUP 486L @ 20LTR</td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        <td>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail()"><i class="fa fa-search"></i></button>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="edit)"><i class="fa fa-check"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="javascript:;" OnClick="detail()" class="text-green">2019/03/TAP/0001</a></td>
-                        <td>SITI AMINAH</td>
-                        <td>8 maret 2019</td>
-                        <td>ROUNDUP 486L @ 20LTR</td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        <td>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail()"><i class="fa fa-search"></i></button>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="edit)"><i class="fa fa-check"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="javascript:;" OnClick="detail()" class="text-green">2019/03/TAP/0001</a></td>
-                        <td>SITI AMINAH</td>
-                        <td>8 maret 2019</td>
-                        <td>ROUNDUP 486L @ 20LTR</td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        <td>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail()"><i class="fa fa-search"></i></button>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="edit)"><i class="fa fa-check"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="javascript:;" OnClick="detail()" class="text-green">2019/03/TAP/0001</a></td>
-                        <td>SITI AMINAH</td>
-                        <td>8 maret 2019</td>
-                        <td>ROUNDUP 486L @ 20LTR</td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        <td>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail()"><i class="fa fa-search"></i></button>
-                            <button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="edit)"><i class="fa fa-check"></i></button>
-                        </td>
-                    </tr>
+            <div class="box-body">
+                <table class="table table-hover table-condensed table-responsive" id="data-table">
+                    <thead>
+                       <tr>
+                            <th width="20%">No Document</th>
+                            <th width="8%">Date</th>
+                            <th width="20%">Material Name</th>
+                            <th width="40%">Description</th>
+                            <th width="8%"></th>
+                       </tr>
+                    </thead>
                 </table>
             </div>
             <!-- /.box-body -->
@@ -117,56 +41,17 @@
         <!-- /.box -->
     </div>
 </div>
-</section>
 <!-- /.content -->
 </div>
 <div id="detail-modal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">2019/03/TAP/0001 - ROUNDUP 486L @ 20LTR</h4>
+                <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div id="show-aterial-detail">
-                        <div class="col-md-6">
-                            <div class="sp-wrap text-center sp-non-touch" style="display: inline-block;">
-                                <div class="sp-large"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <table class="table table-condensed">
-                                <tbody>
-                                    <tr>
-                                        <td widh="180px"><b>Material No</b></td>
-                                        <td>101010001</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Nama Material</b></td>
-                                        <td>TREADIMENOL</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Merk</b></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Part number</b></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Satuan</b></td>
-                                        <td>KG</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Keterangan:</b></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -182,11 +67,94 @@
 @section('js')
 <script>
     jQuery(document).ready(function() {
-
+        jQuery('#data-table').DataTable({
+            ajax: '{!! route('get.verifikasi_grid') !!}',
+            columns: [
+                {
+                    "render": function (data, type, row) {
+                        var content = '<a href="javascript:;" onClick="detail(\'' + row.no_document + '\')"><b>' + row.no_document + '</b></a>';
+                        return content;
+                    }
+                }, 
+                { 
+                    "render": function (data, type, row) {
+                       var date = new Date(row.created_on);
+                        
+                        return date.getDate() + '/' + date.getMonth() + '/' +date.getFullYear();
+                    }
+                },
+                { data: 'material_name', name: 'material_name' },
+                {
+                     "render": function (data, type, row) {
+                        return (row.description.length > 120 ? row.description.substring(0,120) + '...':row.description );
+                    }
+                },
+                {
+                    "render": function (data, type, row) {
+                        var content = '<button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail(\'' + row.no_document + '\')"><i class="fa fa-search"></i></button>';
+                            content += '<button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="verif(\'' + row.no_document + '\',\'' + row.seq + '\', ,\'' + row.role_id + '\')"><i class="fa fa-check"></i></button>';
+                        
+                        return content;
+                    }
+                } 
+            ],
+             columnDefs: [
+                { targets: [4], className: 'text-center', orderable: false},
+                { targets: [3], orderable: false},
+            ]
+        }); 
     });
 
-    function detail() {
+    function detail(no_document) {
+        var content = '<div class="col-md-6">';
+            content += '<div class="sp-wrap text-center">';
 
+            var img_list = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.get_image_detail') !!}?no_document=' + no_document)));
+
+            if(img_list.length>0) {
+                 jQuery.each(img_list, function(key, val){
+                    content += '<a href="' + val.file_image + '"><img src="' + val.file_image + '" alt="" class="img-responsive" style="width:100%"></a>';
+                });
+            } else {
+                content += '<a href="{{URL::asset('img/default-img.png')}}"><img src="{{URL::asset('img/default-img.png')}}" alt="" class="img-responsive"></a>';
+            }   
+            content +='</div></div>';
+            var detail= jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tr_material') !!}?search=' + no_document)));
+
+            content +='<div class="col-md-6">';
+            content += '<table class="table table-condensed">';
+            content += '<tr>';
+            content += '    <td widh="180px"><b>Number</b></td>';
+            content += '    <td>' + detail[0].no_material + '</td>'
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td><b>Name</b></td>';
+            content += '    <td>' + detail[0].material_name + '</td>';
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td><b>Merk</b></td>';
+            content += '    <td>' + (detail[0].merk ? detail[0].merk :'')+ '</td>';
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td><b>Part number</b></td>';
+            content += '    <td>' + (detail[0].part_number ? detail[0].part_number :'')+ '</td>';
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td><b>Satuan</b></td>';
+            content += '    <td>' + detail[0].weight_unit + '</td>';
+            content += '</td>';
+            content += '<tr>';
+            content += '    <td><b>Keterangan:</b></td>';
+            content += '</tr>';
+            content += '<tr>';
+            content += '    <td colspan="2">' + (detail[0].remarks ? detail[0].remarks:'') + '</td>';
+            content += '</tr>';
+            content += '</table>';
+            content +='</div>';
+        
+        jQuery('#show-aterial-detail').html(content);
+        jQuery('.sp-wrap').smoothproducts();
+        jQuery("#detail-modal .modal-title").html("Detail " + detail[0].material_name );	
         jQuery("#detail-modal").modal({
             backdrop: 'static',
             keyboard: false
