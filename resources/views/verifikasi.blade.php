@@ -23,8 +23,8 @@
                 </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover table-condensed table-responsive" id="data-table">
+            <div class="box-body">
+                <table class="table table-hover table-condensed table-responsive table-responsive no-padding" id="data-table">
                     <thead>
                        <tr>
                             <th width="20%">No Document</th>
