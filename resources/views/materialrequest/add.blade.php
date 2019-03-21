@@ -318,7 +318,7 @@ label {
                                 <div class="form-group">
                                     <label for="volume_unit" class="col-md-3">Estimate price</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="price_estimate" id="price_estimate" maxlength="13" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="price_estimate" id="price_estimate" maxlength="13" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false" required>
                                     </div>
                                 </div> 
                                 <div class="form-group">

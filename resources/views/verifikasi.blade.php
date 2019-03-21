@@ -23,7 +23,7 @@
                 </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive no-padding">
                 <table class="table table-hover table-condensed table-responsive" id="data-table">
                     <thead>
                        <tr>
@@ -56,8 +56,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-flat btn-success">Approve</button>
-                <button type="button" class="btn btn-flat btn-danger">Reject</button>
+                <button type="button" class="btn btn-flat btn-approve btn-success">Approve</button>
+                <button type="button" class="btn btn-flat btn-reject btn-danger">Reject</button>
                 <button type="button" class="btn btn-flat btn-default btn-close-group-material-modal" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -66,13 +66,15 @@
 @stop
 @section('js')
 <script>
+    var appr_id;
+    var doc_no;
     jQuery(document).ready(function() {
         jQuery('#data-table').DataTable({
             ajax: '{!! route('get.verifikasi_grid') !!}',
             columns: [
                 {
                     "render": function (data, type, row) {
-                        var content = '<a href="javascript:;" onClick="detail(\'' + row.no_document + '\')"><b>' + row.no_document + '</b></a>';
+                        var content = '<a href="javascript:;" onClick="detail(\'' + row.no_document + '\',\'' + row.approval_id + '\',)"><b>' + row.no_document + '</b></a>';
                         return content;
                     }
                 }, 
@@ -91,8 +93,8 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail(\'' + row.no_document + '\')"><i class="fa fa-search"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="verif(\'' + row.no_document + '\',\'' + row.seq + '\', ,\'' + row.role_id + '\')"><i class="fa fa-check"></i></button>';
+                        var content = '<button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail(\'' + row.no_document + '\',\'' + row.approval_id + '\',)"><i class="fa fa-search"></i></button>';
+                            content += '<button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="verif(\'' + row.approval_id + '\',\'' + row.no_document + '\',1)"><i class="fa fa-check"></i></button>';
                         
                         return content;
                     }
@@ -103,9 +105,56 @@
                 { targets: [3], orderable: false},
             ]
         }); 
+
+        jQuery('.btn-approve').on('click', function() {
+            verif(appr_id, doc_no, 1);
+        });
+
+        jQuery('.btn-reject').on('click', function() {
+            verif(appr_id, doc_no, 2);
+        });
     });
 
-    function detail(no_document) {
+    function verif(approval_id, no_document, status) {
+         var param = {
+             approval_id: approval_id,
+             no_document: no_document,
+             status: status
+         };
+
+        jQuery.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        jQuery.ajax({
+            url:"{{ url('verifikasi/post') }}",
+            method:"POST",
+            data: param,
+            beforeSend:function(){ jQuery('.loading-event').fadeIn();},
+            success:function(result){
+                if(result.status){
+                    jQuery("#detail-modal").modal("hide");
+                    jQuery("#data-table").DataTable().ajax.reload();
+                    notify({
+                        type:'success',
+                        message:result.message
+                    });
+                }else{
+                    notify({
+                        type:'warning',
+                        message:result.message
+                    });
+                } 
+            },
+            complete:function(){ jQuery('.loading-event').fadeOut();}
+        }); 
+    }
+
+    function detail(no_document, approval_id) {
+        appr_id = approval_id;
+        doc_no = no_document;
         var content = '<div class="col-md-6">';
             content += '<div class="sp-wrap text-center">';
 
