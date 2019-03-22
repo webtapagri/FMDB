@@ -233,17 +233,21 @@
     function edit(id) {
         document.getElementById("data-form").reset();
         jQuery("#edit_id").val(id);
-
+        attribute = [];
         var result = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('setmaterial/edit/?id=') }}" + id)));
-        var descritpion = result[0].description;
-        var attribute = descritpion.split(',');
-
-        jQuery("#edit_id").val(result[0].id);
-        jQuery("#name").val(result[0].name);
-        jQuery("#code").val(result[0].code);
-        jQuery("#code").trigger('change');
+       
+        jQuery("#edit_id").val(result[0].mat_group.trim());
+        jQuery("#material_group").val(result[0].mat_group.trim());
+        jQuery("#material_group").trigger('change');
         jQuery("#latest_code").val(result[0].latest_code);
-        jQuery("#description").val(attribute).trigger('change');
+
+        var descritpion = result[0].description;
+        jQuery.each(descritpion.split(','), function(key, val) {
+            if(val.length > 0) {
+                attribute.push(val);
+                createTableAttribute();
+            }
+        });
 
         jQuery("#add-data-modal .modal-title").html("<i class='fa fa-edit'></i> Update data");
         jQuery("#add-data-modal").modal("show");

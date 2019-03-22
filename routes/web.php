@@ -201,3 +201,5 @@ Route::resource('/roleaccess', 'RoleAccessController');
 
 //Route::get('select2list', ['as' => 'get.select2', 'uses' => 'Select2Controller@select2']);
 Route::get('/select2', 'Select2Controller@get')->name('data');
+Route::resource('/sap', 'SAPController');
+Route::get('syncsap', ['as' => 'sap.sync', 'uses' => 'SAPController@sync']);

@@ -282,43 +282,43 @@ label {
                                 <div class="form-group">
                                     <label for="gross_weight" class="col-md-3">Gross Weight</label>
                                     <div class="col-md-4">   
-                                        <input type="text" class="form-control input-sm" name="gross_weight" id="gross_weight" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="gross_weight" id="gross_weight" value="0" autocomplete="off" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div>    
                                 <div class="form-group">
                                     <label for="net_weight" class="col-md-3">Net Weight</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="net_weight" id="net_weight" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="net_weight" id="net_weight" value="0" autocomplete="off" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="volume" class="col-md-3">Volume</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="volume" id="volume" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="volume" id="volume" value="0" autocomplete="off" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="size" class="col-md-3">Size/Dimension</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="size" id="size" maxlength="30" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="size" id="size" maxlength="30" value="0" autocomplete="off" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="weight_unit" class="col-md-3">Weight Unit</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="weight_unit" id="weight_unit" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="weight_unit" id="weight_unit" maxlength="10" value="0" autocomplete="off" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="volume_unit" class="col-md-3">Volume Unit</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="volume_unit" id="volume_unit" maxlength="10" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
+                                        <input type="text" class="form-control input-sm" name="volume_unit" id="volume_unit" maxlength="10" value="0" autocomplete="off" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false">
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label for="volume_unit" class="col-md-3">Estimate price</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control input-sm" name="price_estimate" id="price_estimate" maxlength="13" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false" required>
+                                        <input type="text" class="form-control input-sm" name="price_estimate" id="price_estimate" maxlength="13" value="0" autocomplete="off" onkeypress="return isNumber(event)" onpaste="return false" ondrop="return false" required>
                                     </div>
                                 </div> 
                                 <div class="form-group">
@@ -640,10 +640,11 @@ label {
     }
 
     function SelectGroup(mat_no) {
+        console.log(mat_no)
         jQuery(".material-group-input").removeClass('has-success');
         jQuery(".attr-material-group").prop("required", false);
-        var material_attr = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.group_material_list') !!}?code='+mat_no)));
-        
+        var material_attr = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('setmaterial/edit/?id=') }}" + mat_no)));
+        console.log(material_attr);    
         if(material_attr.length > 0) {
             var attr = material_attr[0].description;
             var data = attr.split(',');
@@ -705,7 +706,8 @@ label {
             no++;
         });
 
-        jQuery("#material_sap").val(material_no.substring(0,39));
+        var mat_sap = material_no.substring(0,39);
+        jQuery("#material_sap").val(mat_sap.toUpperCase());
     }
 
     function initialPanel() {

@@ -55,7 +55,6 @@ class MasterMaterialController extends Controller
             );
         }
 
-
         if (isset($_REQUEST["customActionType"]) && $_REQUEST["customActionType"] == "group_action") {
             $records["customActionStatus"] = "OK"; // pass custom message(useful for getting status of group actions)
             $records["customActionMessage"] = "Group action successfully has been completed. Well done!"; // pass custom message(useful for getting status of group actions)
@@ -72,7 +71,7 @@ class MasterMaterialController extends Controller
     public function get_material_user_grid_search() {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? $_REQUEST['search'] : '')
+            'method' => "tr_materials_union_limit/".(!empty($_REQUEST['search']) ? \str_replace('/', '_', $_REQUEST['search']) : '')
         ));
 
         $data = $service;

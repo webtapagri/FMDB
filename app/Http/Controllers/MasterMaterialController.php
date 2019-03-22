@@ -35,8 +35,9 @@ class MasterMaterialController extends Controller
     public function get_material_user_grid(Request $request) {
         $service = API::exec(array(
             'request' => 'GET',
-            'method' => "tr_materials_union/" . $request->length . '/' . $request->start .'/'. $request->draw .'/' .($request->search_material ? $request->search_material:'null')
+            'method' => "tr_materials_union/" . $request->length . '/' . $request->start .'/'. $request->draw .'/' .($request->search_material ? \str_replace('/','_', $request->search_material):'null')
         ));
+        //var_dump("tr_materials_union/" . $request->length . '/' . $request->start .'/'. $request->draw .'/' .($request->search_material ? \str_replace('/','_', $request->search_material):'null'));
         $data = $service;
 
         return response()->json( $data);
