@@ -10,6 +10,9 @@ label {
 .select-img:hover {
     opacity: 0.5
 }
+.select2-selection .select2-selection--single > .select2-default { 
+    background-color: #00f !important; 
+}
 </style>
 <section class="content">
       <div class="row">
@@ -110,7 +113,7 @@ label {
                             <div class="form-group">
                                 <label for="dist_channel" class="col-md-3">Distribution Channel</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm" name="dist_channel" id="dist_channel"  maxlength="4" required>
+                                    <select type="text" class="form-control input-sm select2-default" name="dist_channel" id="dist_channel"  maxlength="4" required>
                                         
                                     </select>
                                 </div>
@@ -205,7 +208,7 @@ label {
                             <div class="form-group">
                                 <label for="period_ind_for_sle" class="col-md-3">Period Ind. for SLE</label>
                                 <div class="col-md-9">
-                                    <select type="text" class="form-control input-sm" name="period_ind_for_sle" maxlength="10" id="period_ind_for_sle" required>
+                                    <select type="text" class="form-control input-sm" name="period_ind_for_sle" maxlength="10" id="period_ind_for_sle" style="background-color: #e8e8e8;" required>
                                     </select>
                                 </div>
                             </div>  
@@ -401,7 +404,7 @@ label {
                             type:'success',
                             message:result.message
                         });
-                        window.location.href = "{{ url('materialrequest') }}";
+                        window.location.href = "{{ url('mastermaterial') }}";
                     }else{
                         notify({
                             type:'warning',
@@ -439,6 +442,9 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+
+        jQuery('#uom').val('UN');
+        jQuery('#uom').trigger('change');
       
         var plant = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.plant') !!}')));
         jQuery('#plant').select2({
@@ -488,6 +494,8 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+         jQuery("#industry_sector").val('B');
+        jQuery("#industry_sector").trigger('change');
      
         var material_type = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.material_type') !!}')));
         jQuery('#material_type').select2({
@@ -496,6 +504,8 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+        jQuery("#material_type").val('63SE');
+        jQuery("#material_type").trigger('change');
 
         var division = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.div') !!}')));
         jQuery('#division').select2({
@@ -504,6 +514,8 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+        jQuery("#division").val('20');
+        jQuery("#division").trigger('change');
        
         var sales_org = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.sales_org') !!}')));
         jQuery('#sales_org').select2({
@@ -512,6 +524,9 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+
+        jQuery("#sales_org").val('63SE');
+        jQuery("#sales_org").trigger('change');
        
         var dist_channel = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.dist_channel') !!}')));
         jQuery('#dist_channel').select2({
@@ -520,6 +535,10 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+
+        jQuery("#dist_channel").val('20');
+        jQuery("#dist_channel").trigger('change');
+        
         
         var item_cat = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.item_cat') !!}')));
         jQuery('#general_item_category_group, #item_category_group').select2({
@@ -529,6 +548,8 @@ label {
             allowClear: true
         });
       
+        jQuery("#general_item_category_group, #item_category_group").val('NORM');
+        jQuery("#general_item_category_group, #item_category_group").trigger('change');
       
         var tax_classification = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.tax_classification') !!}')));
         jQuery('#tax_classification').select2({
@@ -537,6 +558,9 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+
+        jQuery("#tax_classification").val(1);
+        jQuery("#tax_classification").trigger('change');
       
 
         var account_assign = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.account_assign') !!}')));
@@ -546,6 +570,9 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+        jQuery("#account_assign").val(10);
+        jQuery("#account_assign").trigger('change');
+        
        
         var availability_check = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.availability_check') !!}')));
         jQuery('#availability_check').select2({
@@ -554,6 +581,8 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+        jQuery("#availability_check").val('KP');
+        jQuery("#availability_check").trigger('change');
        
         var transportation_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.transportation_group') !!}')));
         jQuery('#transportation_group').select2({
@@ -562,7 +591,9 @@ label {
             placeholder: ' ',
             allowClear: true
         });
-    
+        jQuery("#transportation_group").val(3000);
+        jQuery("#transportation_group").trigger('change');
+        
         var loading_group = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.loading_group') !!}')));
         jQuery('#loading_group').select2({
             data: loading_group,
@@ -570,6 +601,8 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+        jQuery("#loading_group").val(1000);
+        jQuery("#loading_group").trigger('change');
       
         var profit_center = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.profit_center') !!}')));
         jQuery('#profit_center').select2({
@@ -578,6 +611,8 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+        jQuery("#profit_center").val('Z');
+        jQuery("#profit_center").trigger('change');
        
         var mrp_type = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.mrp_type') !!}')));
         jQuery('#mrp_type').select2({
@@ -586,6 +621,8 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+        jQuery("#mrp_type").val('ND');
+        jQuery("#mrp_type").trigger('change');
        
         var sle = jQuery.parseJSON(JSON.stringify(dataJson('{!! route('get.sle') !!}')));
         jQuery('#period_ind_for_sle').select2({
@@ -594,6 +631,8 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+        jQuery("#period_ind_for_sle").val('D');
+        jQuery("#period_ind_for_sle").trigger('change');
       
         jQuery('#cash_discount').select2({
             data: [
@@ -604,6 +643,9 @@ label {
             placeholder: ' ',
             allowClear: true
         });
+        jQuery("#cash_discount").val(1);
+        jQuery("#cash_discount").trigger('change');
+        jQuery("#cash_discount").css('background-color','#d2d6de');
 
         jQuery("#plant").trigger('change');
 
