@@ -94,16 +94,18 @@
             columns: [
                 {
                   "render": function(data, type, row) {
-                      return (row.mrp == "ALL" ? "ALL":row.mrp_controller_name);
+                      return (row.mrp == "ALL" ? "ALL":row.mrp + (row.mrp_controller_name ? ' - ' + row.mrp_controller_name:''));
                   }
                 },
                 {
-                    data: 'material_group_name',
-                    name: 'material_group_name'
+                     "render": function(data, type, row) {
+                         return row.mat_group + (row.material_group_name ? ' - ' + row.material_group_name:'') ;
+                     }
                 },
                 {
-                    data: 'role_name',
-                    name: 'role_name'
+                    "render": function(data, type, row) {
+                         return row.role_id + (row.role_name ? ' - ' + row.role_name:'') ;
+                     }
                 },
                 {
                     data: 'seq',

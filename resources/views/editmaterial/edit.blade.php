@@ -378,7 +378,7 @@ label {
             basicDataPanel();
         });
 
-        jQuery('.attr-material-group').on('change', function(){
+        jQuery('.attr-material-group').on('keyup', function(){
             genMaterialNo();
         })
 

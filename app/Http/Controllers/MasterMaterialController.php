@@ -37,7 +37,7 @@ class MasterMaterialController extends Controller
             'request' => 'GET',
             'method' => "tr_materials_union/" . $request->length . '/' . $request->start .'/'. $request->draw .'/' .($request->search_material ? \str_replace('/','_', $request->search_material):'null')
         ));
-        //var_dump("tr_materials_union/" . $request->length . '/' . $request->start .'/'. $request->draw .'/' .($request->search_material ? \str_replace('/','_', $request->search_material):'null'));
+       
         $data = $service;
 
         return response()->json( $data);

@@ -614,8 +614,7 @@ label {
 
         jQuery('.attr-material-group').on('keyup', function(){
             genMaterialNo();
-        })
-
+        });
         
         jQuery('#form-basic-data').on('submit', function(e){
             e.preventDefault();
@@ -640,11 +639,9 @@ label {
     }
 
     function SelectGroup(mat_no) {
-        console.log(mat_no)
         jQuery(".material-group-input").removeClass('has-success');
         jQuery(".attr-material-group").prop("required", false);
         var material_attr = jQuery.parseJSON(JSON.stringify(dataJson("{{ url('setmaterial/edit/?id=') }}" + mat_no)));
-        console.log(material_attr);    
         if(material_attr.length > 0) {
             var attr = material_attr[0].description;
             var data = attr.split(',');

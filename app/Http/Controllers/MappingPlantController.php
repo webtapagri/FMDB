@@ -35,9 +35,11 @@ class MappingPlantController extends Controller
             $arr[] = array(
                 'plant'=> $row->plant,
                 'plant_name'=> $row->plant_name,
+                'locat'=> $row->locat,
                 'locat_name'=> $row->locat_name,
                 'sales_org_name'=> $row->sales_org_name,
                 'profit_center_name'=> $row->profit_center_name,
+                'store_loc'=> $row->store_loc,
                 'store_loc_name'=> $this->store_loc($row->plant, $row->store_loc),
             );    
         }

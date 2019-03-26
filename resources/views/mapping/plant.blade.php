@@ -94,8 +94,9 @@
         jQuery('#data-table').DataTable({
             ajax: '{!! route("get.mappingplant_grid") !!}',
             columns: [{
-                    data: 'plant_name',
-                    name: 'plant_name'
+                   "render": function(data, type, row) {
+                         return row.plant + (row.plant_name ? ' - ' + row.plant_name:'') ;
+                     }
                 },
                 {
                     data: 'locat_name',

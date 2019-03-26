@@ -330,14 +330,30 @@ class MaterialRequestController extends Controller
     }
     
     public function get_plant() {
-        $data = DB::table('tm_general_data')->where("general_code","plant")->get();
-        $arr = array();    
+        $profile = AccessRight::profile();
+        if($profile[0]->area_code) {
+            $area_code = $profile[0]->area_code;
+            $data = DB::table('tm_general_data')
+            ->where("general_code","plant")
+            ->whereIn('description_code', explode(',',$area_code))
+            ->get ();
+        } else {
+            $data = DB::table('tm_general_data')->where("general_code","plant")->get ();
+        }
+
+        if(count($data) < 1) {
+            $data = DB::table('tm_general_data')->where("general_code"," plant")->get();
+        }
+
+        $arr = array();
         foreach ($data as $row) {
             $arr[] = array(
-                "id"=> $row->description_code,
-                "text"=> $row->description_code ." - ". $row->description
+                "id" => $row->description_code,
+                "text" => $row->description_code ."  - ".   $row-> description
             );
         }
+        
+      
         return response()->json(array('data' => $arr));
     }
    

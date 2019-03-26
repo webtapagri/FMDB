@@ -19,8 +19,8 @@
                             <tr>
                                 <th>Material Group</th>
                                 <th>Description</th>
-                                <th>Latest</th>
-                                <th width="10%">Status</th>
+                                <th width="12%">Latest</th>
+                                <th width="5%">Active</th>
                                 <th width="8%">Action</th>
                             </tr>
                         </thead>
@@ -80,8 +80,9 @@
         jQuery('#data-table').DataTable({
             ajax: '{!! route("get.setmaterial_grid") !!}',
             columns: [{
-                    data: 'mat_group_name',
-                    name: 'mat_group_name'
+                    "render": function(data, type, row) {
+                        return row.mat_group + ' - ' + row.mat_group_name;
+                    }
                 },
                 {
                     data: 'description',
@@ -166,7 +167,10 @@
             placeholder: ' ',
             allowClear: true
         }).on('change', function() {
-            selectedAttribute(jQuery(this).val());
+            var desc = jQuery(this).val();
+            if(desc) {
+                selectedAttribute(desc);
+            }
         });
 
         var mat_group = makeSelectFromgeneralData({
@@ -240,6 +244,10 @@
         jQuery("#material_group").val(result[0].mat_group.trim());
         jQuery("#material_group").trigger('change');
         jQuery("#latest_code").val(result[0].latest_code);
+        
+        jQuery("#description").val('');
+        jQuery("#description").trigger('change');
+
 
         var descritpion = result[0].description;
         jQuery.each(descritpion.split(','), function(key, val) {

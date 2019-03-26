@@ -109,7 +109,7 @@
                         var content  = '<div class="row" style="padding-left:30px;padding-right:30px;padding-bottom:30px">';
                             content += '<div class="row">';
                             content += '    <div class="col-md-4"><b>' + (row.src === '0' ? 'Material No': 'Document No') + '</b></div>';
-                            content += '    <div class="col-md-8">' + row.no_material + '</div>'
+                            content += '    <div class="col-md-8">' + (row.src === '0' ? row.no_material: row.no_document) + '</div>'
                             content += '</div>';
                             content += '<div class="row">';
                             content += '    <div class="col-md-4"><b>Nama Material</b></div>';
