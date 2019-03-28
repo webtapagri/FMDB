@@ -93,8 +93,8 @@
                 },
                 {
                     "render": function (data, type, row) {
-                        var content = '<button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="detail(\'' + row.no_document + '\',\'' + row.approval_id + '\',)"><i class="fa fa-search"></i></button>';
-                            content += '<button class="btn btn-flat btn-xs btn-default btn-action" title="edit data" onClick="verif(\'' + row.approval_id + '\',\'' + row.no_document + '\',1)"><i class="fa fa-check"></i></button>';
+                        var content = '<button class="btn btn-flat btn-xs btn-default btn-action" title="Show Detail" onClick="detail(\'' + row.no_document + '\',\'' + row.approval_id + '\',)"><i class="fa fa-search"></i></button>';
+                            content += '<button class="btn btn-flat btn-xs btn-default btn-action" title="Approve" onClick="verif(\'' + row.approval_id + '\',\'' + row.no_document + '\',1)"><i class="fa fa-check"></i></button>';
                         
                         return content;
                     }

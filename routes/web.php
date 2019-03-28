@@ -47,7 +47,7 @@ Route::get('data-table-material', ['as' => 'get.material', 'uses' => 'MaterialCo
 Route::get('sap_group_material', ['as' => 'get.sap_group_material', 'uses' => 'MaterialController@sap_group_material']);
 Route::get('data-table-group-material', ['as' => 'get.data_table_group_material', 'uses' => 'MaterialController@groupMaterialGroup']);
 
-/* MASTER MATERIAL */
+/* MASTER MATERIAL */ 
 Route::resource('mastermaterial', 'MasterMaterialController');
 /* Route::post('mastermaterial/post', 'MasterMaterialController@store');
 Route::get('mastermaterial/edit', 'MasterMaterialController@show'); */
@@ -57,10 +57,8 @@ Route::match(['get', 'post'], 'mastermaterial_grid', [
     'uses' => 'MasterMaterialController@get_material_user_grid'
 ]);
 
-
 /* Route::post('/mastermaterial/grid', 'MasterMaterialController@get_material_user_grid'); */
 Route::get('get-mastermaterial_grid_search', ['as' => 'get.mastermaterial_grid_search', 'uses' => 'MasterMaterialController@get_material_user_grid_search']);
-
 
 /* MATERIAL REQUEST */
 Route::resource( 'materialrequest', 'MaterialRequestController');
@@ -69,7 +67,6 @@ Route::get('/material_extend/{id}', 'MaterialRequestController@extend')->name('e
 Route::get('/materialrequest/show', 'MaterialController@show');
 Route::get( 'get-editmaterialrequest', ['as' => 'get.editmaterialrequest', 'uses' => 'EditMaterialRequestController@get_editmaterial']);
 Route::get( 'get-editmaterialrequestfiles', ['as' => 'get.editmaterialrequestfiles', 'uses' => 'EditMaterialRequestController@get_files']);
-
 
 //Route::get('/materialrequest/search', 'MaterialController@search');
 Route::post('/materialrequest/post', 'MaterialRequestController@store');
@@ -118,8 +115,6 @@ Route::get('/editmaterial/edit/', 'EditMaterialController@show');
 Route::get('/editmaterial_grid/{id}', 'EditMaterialController@grid')->name('search');
 Route::get('editmaterial_auto_sugest', 'EditMaterialController@auto_sugest');
 Route::get( 'get-editmaterialfiles', ['as' => 'get.editmaterialfiles', 'uses' => 'EditMaterialController@get_files']);
-
-
 
 /* USER SETTINGS */
 Route::resource('/users', 'UsersController');
@@ -176,6 +171,10 @@ Route::post('/outstanding/post', 'OutstandingController@store');
 Route::get('/outstanding/edit/', 'OutstandingController@show');
 Route::post('/outstanding/inactive', 'OutstandingController@inactive');
 Route::get('grid-outstanding', ['as' => 'get.outstanding_grid', 'uses' => 'OutstandingController@dataGrid']);
+Route::get('outstandingxls/{document_no}', 'OutstandingController@downloadExcel')->name('document_no');
+Route::post('outstanding/sync', 'OutstandingController@sync');
+/* Route::post('/menu/inactive', 'MenuController@inactive'); */
+Route::get('get-sync_sap', ['as' => 'get.sync_sap', 'uses' => 'OutstandingController@sync']);
 
 Route::resource('/verifikasi', 'VerifikasiController');
 Route::post('/verifikasi/post', 'VerifikasiController@store');
@@ -202,4 +201,5 @@ Route::resource('/roleaccess', 'RoleAccessController');
 //Route::get('select2list', ['as' => 'get.select2', 'uses' => 'Select2Controller@select2']);
 Route::get('/select2', 'Select2Controller@get')->name('data');
 Route::resource('/sap', 'SAPController');
+Route::get('SapDownloadExcel', 'SAPController@downloadExcel');
 Route::get('syncsap', ['as' => 'sap.sync', 'uses' => 'SAPController@sync']);

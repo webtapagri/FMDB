@@ -66,7 +66,8 @@
 
     @if(config('adminlte.plugins.select2'))
     <!-- Select2 -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     @endif
 
     @if(config('adminlte.plugins.datatables'))
@@ -114,7 +115,7 @@
             body.stop().animate({
                 scrollTop: 0
             }, 500, 'swing', function() {
- 
+
             });
         }
     </script>

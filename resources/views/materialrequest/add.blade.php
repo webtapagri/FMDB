@@ -10,9 +10,10 @@ label {
 .select-img:hover {
     opacity: 0.5
 }
-.select2-selection .select2-selection--single > .select2-default { 
-    background-color: #00f !important; 
+.fmdb-input-default { 
+    background-color: #eee !important; 
 }
+
 </style>
 <section class="content">
       <div class="row">
@@ -113,7 +114,7 @@ label {
                             <div class="form-group">
                                 <label for="dist_channel" class="col-md-3">Distribution Channel</label>
                                 <div class="col-md-9"> 
-                                    <select type="text" class="form-control input-sm select2-default" name="dist_channel" id="dist_channel"  maxlength="4" required>
+                                    <select type="text" class="form-control input-sm" name="dist_channel" id="dist_channel"  maxlength="4" required>
                                         
                                     </select>
                                 </div>
@@ -215,7 +216,7 @@ label {
                             <div class="form-group">
                                     <label for="price_unit" class="col-md-3">Price Unit</label>
                                     <div class="col-md-4"> 
-                                    <input type="number" class="form-control input-sm" name="price_unit" id="price_unit" value="1" required>
+                                    <input type="number" class="form-control input-sm fmdb-input-default" name="price_unit" id="price_unit" value="1" required>
                                 </div>
                             </div>   
                         </div>
@@ -440,7 +441,8 @@ label {
             data: uom,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
 
         jQuery('#uom').val('UN');
@@ -492,7 +494,8 @@ label {
             data:industry_sector,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
          jQuery("#industry_sector").val('B');
         jQuery("#industry_sector").trigger('change');
@@ -502,7 +505,8 @@ label {
             data:material_type,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#material_type").val('63SE');
         jQuery("#material_type").trigger('change');
@@ -512,7 +516,8 @@ label {
             data: division,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#division").val('20');
         jQuery("#division").trigger('change');
@@ -522,7 +527,8 @@ label {
             data: sales_org,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
 
         jQuery("#sales_org").val('63SE');
@@ -533,7 +539,8 @@ label {
             data: dist_channel,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
 
         jQuery("#dist_channel").val('20');
@@ -545,7 +552,8 @@ label {
             data: item_cat,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
       
         jQuery("#general_item_category_group, #item_category_group").val('NORM');
@@ -556,7 +564,8 @@ label {
             data: tax_classification,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
 
         jQuery("#tax_classification").val(1);
@@ -568,7 +577,8 @@ label {
             data: account_assign,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#account_assign").val(10);
         jQuery("#account_assign").trigger('change');
@@ -579,7 +589,8 @@ label {
             data: availability_check,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#availability_check").val('KP');
         jQuery("#availability_check").trigger('change');
@@ -589,7 +600,8 @@ label {
             data: transportation_group,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#transportation_group").val(3000);
         jQuery("#transportation_group").trigger('change');
@@ -599,7 +611,8 @@ label {
             data: loading_group,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#loading_group").val(1000);
         jQuery("#loading_group").trigger('change');
@@ -609,7 +622,8 @@ label {
             data: profit_center,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#profit_center").val('Z');
         jQuery("#profit_center").trigger('change');
@@ -619,7 +633,8 @@ label {
             data: mrp_type,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#mrp_type").val('ND');
         jQuery("#mrp_type").trigger('change');
@@ -629,7 +644,8 @@ label {
             data: sle,
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#period_ind_for_sle").val('D');
         jQuery("#period_ind_for_sle").trigger('change');
@@ -641,11 +657,12 @@ label {
             ],
             width:'100%',
             placeholder: ' ',
-            allowClear: true
+            allowClear: true,
+            containerCssClass: "fmdb-input-default ",
         });
         jQuery("#cash_discount").val(1);
         jQuery("#cash_discount").trigger('change');
-        jQuery("#cash_discount").css('background-color','#d2d6de');
+        (jQuery("#cash_discount").find('span')).css('background-color','#d2d6de');
 
         jQuery("#plant").trigger('change');
 

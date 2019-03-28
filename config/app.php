@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -233,7 +234,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'SoapWrapper' => Artisaninweb\SoapWrapper\Facade\SoapWrapper::class,  
         'AccessRight' => App\Providers\AccessRightHelper::class,  
-        'API' => App\Providers\ApiHelper::class,  
+        'API' => App\Providers\ApiHelper::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 ];

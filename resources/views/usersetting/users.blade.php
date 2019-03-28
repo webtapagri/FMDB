@@ -23,8 +23,8 @@
                             <th>Job Code</th>
                             <th>NIK</th>
                             <th>Area Code</th>
-                            <th width="10%">Active</th>
-                            <th width="8%">Action</th>
+                            <th>Active</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -95,7 +95,17 @@
                 { data: 'email', name: 'email' },
                 { data: 'job_code', name: 'job_code' },
                 { data: 'nik', name: 'nik' },
-                { data: 'area_code', name: 'area_code' },
+                {  
+                    "render": function (data, type, row) {
+                        var area_code = row.area_code;
+                        /* if(area_code.length > 30) {
+                            var content = area_code.substr(0,29) + '...';
+                        } else{
+                            var content = area_code;
+                        }     */
+                        return area_code.replace(/,/g,', ') ;
+                    } 
+                },
                 {  
                     "render": function (data, type, row) {
                         if(row.fl_active == 1) {
@@ -111,14 +121,15 @@
                         var content = '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-edit {{ (isset($access['UPDATE']) ? '':'hide') }}" title="edit data ' + row.mat_group + '" onClick="edit(' + row.id + ')"><i class="fa fa-pencil"></i></button>';
                             content += '<button class="btn btn-flat btn-flat btn-xs btn-danger btn-action btn-activated {{ (isset($access['DELETE']) ? '':'hide') }} ' + (row.fl_active == 1 ? '' : 'hide') + '" style="margin-left:5px" onClick="inactive(' + row.id + ')"><i class="fa fa-trash"></i></button>';
                             content += '<button class="btn btn-flat btn-flat btn-xs btn-success btn-action btn-inactivated {{ (isset($access['DELETE']) ? '':'hide') }} ' + (row.fl_active == 0 ? '': 'hide') + '" style="margin-left:5px"  onClick="active(' + row.id + ')"><i class="fa fa-check"></i></button>';
-                        
                         return content;
                     }
                 } 
             ],
              columnDefs: [
-                { targets: [7], className: 'text-center', orderable: false},
-                { targets: [6], className: 'text-center'}
+                { targets: 0, width: '12%'},
+                { targets: 1, width: '15%'},
+                { targets: [7], className: 'text-center', orderable: false, width: '8%'},
+                { targets: [6], className: 'text-center', width: '6%'},
             ]
         }); 
 
@@ -181,8 +192,6 @@
 				},
 				complete:function(){ jQuery('.loading-event').fadeOut();}
 			 }); 
-            
-            
         })
     });
 
